@@ -1,0 +1,4 @@
+[submodule "Siege-Rando-Images"]
+	path = Siege-Rando-Images
+	url = https://github.com/SpiritParadigm/Siege-Rando-Images
+	branch = main
