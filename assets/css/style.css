@@ -5,6 +5,8 @@ html, body {
 }
 
 body {
+    background-image: url(..//Siege-Rando-Images/Background/Gay.png);
+    background-color: #555555;
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -78,8 +80,3 @@ body {
 #title {
     color: white;
 }
-
-/* #attack-op:hover {
-    position: relative;
-    top: 10px;
-} */
