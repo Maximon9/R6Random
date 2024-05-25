@@ -1,0 +1,12 @@
+{
+  "name": "r6random",
+  "version": "1.0.0",
+  "description": "It doesn't work on Safari for some reason, but it does work on Chrome. If any one sees this and wants to try it on other browsers for me you are welcome to.\r This is an unofficial site and not sponsored by Ubisoft. All images are property of Ubisoft.",
+  "main": "./assets/dist/index.js",
+  "scripts": {
+    "build": "tsc"
+  },
+  "keywords": [],
+  "author": "Maximon9 & SpiritParadigm",
+  "license": "ISC"
+}
