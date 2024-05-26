@@ -1,10 +1,13 @@
 abstract class Attachment {
     name: string;
-    type: AttachmentType;
     image: HTMLImageElement;
-    constructor(name: string, type: AttachmentType, image: HTMLImageElement) {
+    constructor(name: string, image: HTMLImageElement) {
         this.name = name;
-        this.type = type;
         this.image = image;
     }
 }
+
+class SightAttachment extends Attachment {}
+class BarrelAttachment extends Attachment {}
+class UnderBarrelAttachment extends Attachment {}
+class GripAttachment extends Attachment {}

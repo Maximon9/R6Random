@@ -1,7 +1,12 @@
-type AttachmentType = "Sight" | "Barrel" | "UnderBarrel" | "Grip";
 type WeaponAttatchments = {
-    1?: Attachment;
-    2?: Attachment;
-    3?: Attachment;
-    4?: Attachment;
+    sight?: SightAttachment;
+    barrel?: BarrelAttachment;
+    underBarrel?: UnderBarrelAttachment;
+    grip?: GripAttachment;
+};
+type WeaponAttatchmentsInfo = {
+    sights?: SightAttachment[];
+    barrels?: BarrelAttachment[];
+    underBarrels?: UnderBarrelAttachment[];
+    grips?: GripAttachment[];
 };
