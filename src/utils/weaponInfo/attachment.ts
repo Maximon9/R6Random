@@ -1,8 +1,8 @@
 abstract class Attachment {
     name: string;
     type: AttachmentType;
-    image: File;
-    constructor(name: string, type: AttachmentType, image: File) {
+    image: HTMLImageElement;
+    constructor(name: string, type: AttachmentType, image: HTMLImageElement) {
         this.name = name;
         this.type = type;
         this.image = image;

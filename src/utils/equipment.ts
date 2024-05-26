@@ -1,8 +1,8 @@
 class Equipment {
     name: string;
-    image: File;
+    image: HTMLImageElement;
 
-    constructor(name: string, image: File) {
+    constructor(name: string, image: HTMLImageElement) {
         this.name = name;
         this.image = image;
     }
