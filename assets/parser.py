@@ -60,13 +60,13 @@ def parse(main_path: str, name: str, siege_type: SiegeType, group: str, isLastDi
                 return ops_data
             last_index = fetch_ending_sq_bracket(ops_data, group_index)
             print(group_index, last_index)
-            if group_index + 1 == last_index:
-                ops_data = insert_at_index(f"\n\tnew OPInfo(\"{name}\", image(\"\"), image(\"\"), [], [], [])", ops_data, last_index)
-            elif isLastDir:
-                ops_data = insert_at_index(f",\n\tnew OPInfo(\"{name}\", image(\"\"), image(\"\"), [], [], [])\n", ops_data, last_index)
-            else:
-                ops_data = insert_at_index(f",\n\tnew OPInfo(\"{name}\", image(\"\"), image(\"\"), [], [], [])", ops_data, last_index)
-            pass
+            if not "new OPInfo(\"{name}\"" in ops_data:
+                if group_index + 1 == last_index:
+                    ops_data = insert_at_index(f"\n\tnew OPInfo(\"{name}\", image(\"\"), image(\"\"), [], [], [])", ops_data, last_index)
+                elif isLastDir:
+                    ops_data = insert_at_index(f",\n\tnew OPInfo(\"{name}\", image(\"\"), image(\"\"), [], [], [])\n", ops_data, last_index)
+                else:
+                    ops_data = insert_at_index(f",\n\tnew OPInfo(\"{name}\", image(\"\"), image(\"\"), [], [], [])", ops_data, last_index)
         case SiegeType.EQUIPMENT:
             pass
         case SiegeType.PRIMARY_WEAPON:
