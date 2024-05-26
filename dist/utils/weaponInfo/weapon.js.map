@@ -1,0 +1,1 @@
+{"version":3,"file":"weapon.js","sourceRoot":"","sources":["../../../src/utils/weaponInfo/weapon.ts"],"names":[],"mappings":";AAAA,MAAe,MAAM;IAKjB,YAAY,IAAY,EAAE,KAAW,EAAE,WAA+B;QAClE,IAAI,CAAC,IAAI,GAAG,IAAI,CAAC;QACjB,IAAI,CAAC,KAAK,GAAG,KAAK,CAAC;QACnB,IAAI,CAAC,WAAW,GAAG,WAAW,CAAC;IACnC,CAAC;CACJ"}
