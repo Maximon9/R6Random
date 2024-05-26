@@ -6,8 +6,7 @@ async function main() {
 }
 
 async function SetAllOPS() {
-    const testing = await document.hasStorageAccess();
-    console.log(testing);
+    console.log(document.plugins);
 }
 
 function randomize(type: RandomizerType) {}
