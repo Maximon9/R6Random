@@ -1,10 +1,9 @@
 import sys
-from os import getcwd
 compress_path = "Siege-Rando-Images"
 if not compress_path in sys.path:
     sys.path.append(compress_path)
-from compress import Compression
-from compress import Compressionator
+
+from compress import Compression, Compressionator
 
 def parse():
     match Compressionator.mode:
