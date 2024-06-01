@@ -8,11 +8,11 @@ from compress import Compression, Compressionator
 def parse():
     match Compressionator.mode:
         case Compression.DECOMPRESS:
-            parse_decompression()            
+            parse_decompression()
         case Compression.COMPRESS_NEEDED:
-            parse_needed_compression()            
+            parse_needed_compression()
         case Compression.COMPRESS:
-            parse_compression()            
+            parse_compression()
 
 def parse_decompression():
     print("Parsing decompression")
