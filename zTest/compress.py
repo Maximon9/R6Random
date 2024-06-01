@@ -1,17 +1,8 @@
 """ #region Main
 from enum import Enum
-from os import listdir
-from os import remove
-from os.path import samefile
-from os.path import isdir
-from os.path import exists
-from os.path import basename
-from os.path import dirname
-from os.path import splitext
-from os import getcwd
-from os import mkdir
-from os import rmdir
-from os import walk
+from genericpath import isfile, isdir, exists, samefile
+from os.path import basename, dirname, splitext, relpath
+from os import listdir, remove, getcwd, mkdir, rmdir
 from shutil import copyfile
 from pathlib import Path
 import json
@@ -250,7 +241,7 @@ class __Compressionator:
         tools_json_path = f"{base_path}/tools.json"
         tools_json = open(tools_json_path, "w")
 
-        number_of_parents: int = 2
+        number_of_parents: int = fetch_dir_count(base_path) - fetch_dir_count(json_base_path)
         parent_string = ""
         for _ in range(number_of_parents):
             parent_string += "../"
@@ -355,10 +346,16 @@ class __Compressionator:
     #endregion
 
 def fetch_dir_count(path: str) -> int:
-    folders: int = 0
-    for _, dirnames, _ in walk(path):
-        folders += len(dirnames)
-    return folders
+    dir_count = 0
+    relative_path: str = relpath(path).replace("\\", "/")
+    if isfile(relative_path):
+        relative_path = dirname(relative_path)
+    while relative_path != "" and relative_path != "."  and relative_path != ".." and isdir(relative_path):
+        if not exists(relative_path):
+            raise ValueError(f"{relative_path} does not exist.\nThis is most likely an Azul problem\nSO GO TELL AZUL!!!")
+        dir_count += 1
+        relative_path = dirname(relative_path);
+    return dir_count
 Compressionator = __Compressionator()
 
 Compressionator.mode = Compression.COMPRESS_NEEDED
