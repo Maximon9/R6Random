@@ -2,5 +2,5 @@
     "python.analysis.extraPaths": [
         "./assets/Siege-Rando-Images"
     ],
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
 }

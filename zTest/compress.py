@@ -1,8 +1,10 @@
 #region Main
+from vscode import log
+from vscode.workspace import WorkspaceFolder
 from enum import Enum
 from genericpath import isfile, isdir, exists, samefile
+from os import getcwd, listdir, mkdir, remove, rmdir
 from os.path import basename, dirname, splitext, relpath
-from os import getcwd, listdir, remove, getcwd, mkdir, rmdir
 from shutil import copyfile
 from pathlib import Path
 import json
@@ -22,20 +24,53 @@ class __Compressionator:
     __paths_to_remove: list[str] = []
     __check_remove_path: list[str] = []
     __error_string: str = ""
+    __siege_path: str = ""
+    workspace_folders: list[WorkspaceFolder] = []
     @property
     def siege_path(self):
-        if getcwd().endswith("assets"):
-            return "./Siege-Rando-Images"
+        if self.__siege_path == "":
+            self.__search_for_siege_path()
+        elif not exists(self.__siege_path):
+            self.__search_for_siege_path()
+        return self.__siege_path
+    def __search_for_siege_path(self):
+        cwd = getcwd()
+        fetch_siege_path = self.__fix_path(cwd, ["siege-rando-images"], "-")
+        if fetch_siege_path != None:
+            self.__siege_path = relpath(fetch_siege_path).replace("\\", "/")
         else:
-            return "."
-    
-    @property
-    def ops_path(self):
-        if getcwd().endswith("assets"):
-            return "../src/ops.ts"
+            if len(self.workspace_folders) > 0:
+                for wf in  self.workspace_folders:
+                    path = relpath(str(wf.uri)).replace("\\", "/")
+                    fetch_siege_path = self.__search_for_dir_recursively(path, "siege-rando-images", "-", [".git", ".vscode"])
+                    if fetch_siege_path != None:
+                        break
+            else:
+                fetch_siege_path = self.__search_for_dir_recursively(".", "siege-rando-images", "-", [".git", ".vscode"])
+            if fetch_siege_path != None:
+                self.__siege_path = fetch_siege_path
+            else:
+                raise ValueError("Cannot Find \"Siege-Rando-Images\" Folder")
+    def __remove_files_from_list(self, main_path: str, name: str, ignore: list[str]):
+        path = f"{main_path}/{name}"
+        if isdir(path) and not self.__string_contains(name, ignore):
+            return True
+        return False
+    def __search_for_dir_recursively(self, main_path: str, dir_name: str, split_word_by: str, ignore: list[str]):
+        names: list = list(filter(lambda name: self.__remove_files_from_list(main_path, name, ignore), listdir(main_path)))
+        if len(names) == 0:
+            return None
         else:
-            return "../../src/ops.ts"
-
+            for name in names:
+                path = f"{main_path}/{name}"
+                if self.__all_words_are_similar(name, dir_name, split_word_by):
+                    return path
+            for name in names:
+                path = f"{main_path}/{name}"
+                fetch = self.__search_for_dir_recursively(path, dir_name, split_word_by, ignore)
+                if fetch != None:
+                    return fetch
+                
     __mode: Compression = Compression.DECOMPRESS
     @property
     def mode(self):
@@ -58,25 +93,31 @@ class __Compressionator:
     def __fix_string_name(self, string: str, string_list: list[str], keep_spaces = False) -> str:
         new_string: str = string
         for check in string_list:
-            if self.__is_similar(string, check):
-                new_string = check
-        if keep_spaces:
-            return new_string.replace("_", " ")
-        else:
-            return new_string.replace(" ", "").replace("_", "")
+            if self.__all_words_are_similar(string.replace("_", " "), check.replace("_", " "), " "):
+                new_string = self.__capitalize_all_words(check)
+        if not keep_spaces:
+            return new_string.replace(" ", "")
     def __string_contains(self, string: str, string_list: list[str]) -> bool:
         for check in string_list:
-            if self.__is_similar(string, check):
+            if self.__all_words_are_similar(string, check, " "):
                 return True
         return False
-    def __path_contains(self, string: str, string_list: list[str]) -> bool:
-        while string != "" and string != "." and string != "..":
-            name = basename(string)
+    def __path_contains(self, path: str, string_list: list[str], split_words_by: str) -> bool:
+        while path != "" and path != "." and path != ".." and path != "C:\\":
+            name = basename(path)
             for check in string_list:
-                if self.__is_similar(name, check):
+                if self.__all_words_are_similar(name, check, split_words_by):
                     return True
-            string = dirname(string)
+            path = dirname(path)
         return False
+    def __fix_path(self, path: str, string_list: list[str], split_words_by: str) -> bool:
+        while path != "" and path != "." and path != ".." and path != "C:\\":
+            name = basename(path)
+            for check in string_list:
+                if self.__all_words_are_similar(name, check, split_words_by):
+                    return path
+            path = dirname(path)
+        return None
 
     def __is_similar(self, string1: str, string2: str) -> bool:
         real_string_1 = string1.lower().replace(" ", "").replace("_", "")
@@ -88,14 +129,14 @@ class __Compressionator:
     def __similar_name_exists(self, base_path: str, name_to_check: str):
         names = listdir(base_path)
         for name in names:
-            if self.__is_similar(name_to_check, name):
+            if self.__all_words_are_similar(name_to_check, name, " "):
                 return name
         return name_to_check
     
     #region Change Compression
     #region Decompressing
     def __try_decompress(self, names: list[str]):
-        print("Trying to decompress")
+        log("Trying to decompress")
         self.__search_for_json_ops(names, self.__decompress_compression)
         self.__search_for_groups(names, self.__decompress_needed_compression, True)
 
@@ -123,7 +164,7 @@ class __Compressionator:
 
     #region Compress Needed
     def __try_compress_needed(self, names: list[str]):
-        print("Trying to compress what is needed")
+        log("Trying to compress what is needed")
         self.__search_for_json_ops(names, self.__compress_needed_from_compression)
         self.__search_for_groups(names, self.__turn_all_tool_json_files_into_one, True)
         self.__search_for_groups(names, self.__compress_needed_from_decompression)
@@ -210,7 +251,7 @@ class __Compressionator:
 
     #region Full Compressioon
     def __try_compress(self, names: list[str]):
-        print("Trying to compress everything")
+        log("Trying to compress everything")
         self.__search_for_json_ops(names, self.__turn_all_ops_json_files_into_one)
         for name in names:
             if self.__string_contains(name, self.__group_names):
@@ -424,13 +465,13 @@ class __Compressionator:
 
         for name in all_similar_names:
             if self.__all_words_capitalized(prefered) and self.__all_words_capitalized(name):
-                if self.__all_words_are_similar(prefered, name):
+                if self.__all_words_are_similar(prefered, name, " "):
                     p_len = len(prefered)
                     n_len = len(name)
                     if n_len > p_len:
                         prefered = name
             elif not self.__all_words_capitalized(prefered) and self.__all_words_capitalized(name):
-                if self.__all_words_are_similar(prefered, name):
+                if self.__all_words_are_similar(prefered, name, " "):
                     p_len = len(prefered)
                     n_len = len(name)
                     if n_len > p_len:
@@ -456,12 +497,15 @@ class __Compressionator:
                 words[i] = word
             string = " ".join(words)
         return string
-    def __all_words_are_similar(self, string_1: str, string_2):
-        words_1 = string_1.split(" ")
-        words_2 = string_2.split(" ")
+    def __all_words_are_similar(self, string_1: str, string_2: str, split_by: str):
+        words_1 = string_1.split(split_by)
+        words_2 = string_2.split(split_by)
         length = len(words_1)
         if length != len(words_2):
             return False
+        if length == 0:
+            words_1.append(string_1)
+            words_2.append(string_2)
         for i in range(length):
             if not self.__is_similar(words_1[i], words_2[i]):
                 return False
@@ -549,14 +593,14 @@ class __Compressionator:
     def __create_file(self, base_path: str, json_base_path: str, value: dict):
         real_value_path = relpath(f"{json_base_path}/{value}").replace("\\", "/")
         dist_path = relpath(f"{base_path}/{basename(value)}").replace("\\", "/")
-        # print(f"Fake: {value}   {f"{json_base_path}/{value}"}")
+        # log(f"Fake: {value}   {f"{json_base_path}/{value}"}")
         if not self.__same_path(real_value_path, dist_path):
-            # print(f"Real:\n\tCurrent: {real_value_path}\n\tDist: {dist_path}\n")
+            # log(f"Real:\n\tCurrent: {real_value_path}\n\tDist: {dist_path}\n")
             copyfile(real_value_path, dist_path)
             value_path = dirname(real_value_path)
-            if not self.__path_contains(value_path, self.__group_names) and not value_path in self.__check_remove_path:
+            if not self.__path_contains(value_path, self.__group_names, " ") and not value_path in self.__check_remove_path:
                 self.__check_remove_path.append(value_path) 
-            if not self.__path_contains(real_value_path, self.__group_names) and not real_value_path in self.__paths_to_remove:
+            if not self.__path_contains(real_value_path, self.__group_names, " ") and not real_value_path in self.__paths_to_remove:
                 self.__paths_to_remove.append(real_value_path)
     def __create_dir(self, base_path: str, item: str) -> str:
         path = f"{base_path}/{self.__similar_name_exists(base_path, item)}"
@@ -602,6 +646,4 @@ def fetch_dir_count(path: str) -> int:
         relative_path = dirname(relative_path);
     return dir_count
 Compressionator = __Compressionator()
-
-Compressionator.mode = Compression.COMPRESS
 #endregion

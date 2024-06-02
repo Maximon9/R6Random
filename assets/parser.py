@@ -3,16 +3,16 @@ compress_path = "Siege-Rando-Images"
 if not compress_path in sys.path:
     sys.path.append(compress_path)
 
-from compress import Compression, Compressionator
+# from compress import Compression, Compressionator
 
-def parse():
-    match Compressionator.mode:
-        case Compression.DECOMPRESS:
-            parse_decompression()
-        case Compression.COMPRESS_NEEDED:
-            parse_needed_compression()
-        case Compression.COMPRESS:
-            parse_compression()
+# def parse():
+#     match Compressionator.mode:
+#         case Compression.DECOMPRESS:
+#             parse_decompression()
+#         case Compression.COMPRESS_NEEDED:
+#             parse_needed_compression()
+#         case Compression.COMPRESS:
+#             parse_compression()
 
 def parse_decompression():
     print("Parsing decompression")
@@ -49,4 +49,4 @@ def split_at_indices(string: str, indices: list[int]) -> list[str]:
 
     return output
 
-parse()
+# parse()
