@@ -5,7 +5,7 @@ if not compress_path in sys.path:
 
 # from compress import Compression, Compressionator
 
-# def parse():
+def parse():
 #     match Compressionator.mode:
 #         case Compression.DECOMPRESS:
 #             parse_decompression()
@@ -13,6 +13,7 @@ if not compress_path in sys.path:
 #             parse_needed_compression()
 #         case Compression.COMPRESS:
 #             parse_compression()
+    pass
 
 def parse_decompression():
     print("Parsing decompression")
@@ -49,4 +50,4 @@ def split_at_indices(string: str, indices: list[int]) -> list[str]:
 
     return output
 
-# parse()
+parse()
