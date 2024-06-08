@@ -1,10 +1,17 @@
-type WeaponAttatchments = {
+import {
+    BarrelAttachment,
+    GripAttachment,
+    SightAttachment,
+    UnderBarrelAttachment,
+} from "../utils/weaponInfo/attachment.js";
+
+export type WeaponAttatchments = {
     sight?: SightAttachment;
     barrel?: BarrelAttachment;
     underBarrel?: UnderBarrelAttachment;
     grip?: GripAttachment;
 };
-type WeaponAttatchmentsInfo = {
+export type WeaponAttatchmentsInfo = {
     sights?: SightAttachment[];
     barrels?: BarrelAttachment[];
     underBarrels?: UnderBarrelAttachment[];

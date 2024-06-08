@@ -1,4 +1,4 @@
-abstract class Attachment {
+export abstract class Attachment {
     name: string;
     image: HTMLImageElement;
     constructor(name: string, image: HTMLImageElement) {
@@ -7,7 +7,7 @@ abstract class Attachment {
     }
 }
 
-class SightAttachment extends Attachment {}
-class BarrelAttachment extends Attachment {}
-class UnderBarrelAttachment extends Attachment {}
-class GripAttachment extends Attachment {}
+export class SightAttachment extends Attachment {}
+export class BarrelAttachment extends Attachment {}
+export class UnderBarrelAttachment extends Attachment {}
+export class GripAttachment extends Attachment {}

@@ -1,1 +1,1 @@
-type RandomizerType = "Attacker" | "Defender";
+export type RandomizerType = "Attacker" | "Defender";

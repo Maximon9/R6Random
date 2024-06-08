@@ -1,4 +1,4 @@
-class Equipment {
+export class Equipment {
     name: string;
     image: HTMLImageElement;
 

@@ -1,4 +1,6 @@
-class WeaponInfo {
+import {WeaponAttatchments, WeaponAttatchmentsInfo} from "../../types/attachment.js";
+
+export class WeaponInfo {
     name: string;
     image: HTMLImageElement;
     attachments: WeaponAttatchmentsInfo;
@@ -9,7 +11,7 @@ class WeaponInfo {
         this.attachments = attachments;
     }
 }
-class Weapon {
+export class Weapon {
     name: string;
     image: HTMLImageElement;
     attachments: WeaponAttatchments;
