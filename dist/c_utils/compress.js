@@ -1,5 +1,5 @@
 // region Main
-import { copyFileSync, realpath } from "fs";
+import { copyFileSync } from "fs";
 import { existsSync, readdirSync, rmSync, mkdirSync, writeFileSync, readFileSync } from "fs";
 import { relative, basename, dirname, join, parse } from "path";
 import { log } from "console";
@@ -23,7 +23,7 @@ const writeFile = (file, data) => {
     }
 };
 const readFile = (file) => readFileSync(file, { encoding: "utf-8" });
-const relPath = (path, start = process.cwd()) => relative(start, path).replace("\\", "/");
+const relPath = (path, start = process.cwd()) => relative(start, path).replaceAll("\\", "/");
 const isAlpha = (char) => {
     return typeof char === "string" && char.length === 1 && /[A-Za-z]/.test(char);
 };
@@ -149,33 +149,34 @@ export class Compressionator {
         }
     }
     static #fetchMatchingName(name, names, returnUndefined = false, keepSpaces = false) {
-        let nString = undefined;
+        let newString = undefined;
         for (let i = 0; i < names.length; i++) {
             const check = names[i];
             if (this.#allWordsAreSimilar(name, check)) {
-                nString = this.#capitalizeAllWords(check);
+                newString = this.#capitalizeAllWords(check);
+                break;
             }
         }
-        if (nString !== undefined) {
+        if (newString !== undefined) {
             if (!keepSpaces) {
                 for (let i = 0; i < this.#spaces.length; i++) {
                     const space = this.#spaces[i];
-                    nString = nString.replaceAll(space, "");
+                    newString = newString.replaceAll(space, "");
                 }
             }
-            else {
-                if (!returnUndefined) {
-                    if (!keepSpaces) {
-                        nString = name;
-                        for (let i = 0; i < this.#spaces.length; i++) {
-                            const space = this.#spaces[i];
-                            nString = nString.replaceAll(space, "");
-                        }
+        }
+        else {
+            if (!returnUndefined) {
+                newString = name;
+                if (!keepSpaces) {
+                    for (let i = 0; i < this.#spaces.length; i++) {
+                        const space = this.#spaces[i];
+                        newString = newString.replaceAll(space, "");
                     }
                 }
             }
         }
-        return nString;
+        return newString;
     }
     static #stringContains(string, stringList) {
         for (let i = 0; i < stringList.length; i++) {
@@ -187,7 +188,7 @@ export class Compressionator {
         return false;
     }
     static #pathContains(path, stringList) {
-        while (this.#endOfPaths.includes(path)) {
+        while (!this.#endOfPaths.includes(path)) {
             const name = basename(path);
             for (let i = 0; i < stringList.length; i++) {
                 const check = stringList[i];
@@ -201,7 +202,7 @@ export class Compressionator {
     }
     static #fetchPathsFromPath(path, stringList, ignorePaths) {
         const allPaths = [];
-        while (this.#endOfPaths.includes(path)) {
+        while (!this.#endOfPaths.includes(path)) {
             const name = basename(path);
             let cont = false;
             for (let i = 0; i < ignorePaths.length; i++) {
@@ -225,7 +226,7 @@ export class Compressionator {
     }
     static #fetchFirstMatchingParent(path, names) {
         let parentLevel = 1;
-        while (this.#endOfPaths.includes(path)) {
+        while (!this.#endOfPaths.includes(path)) {
             const name = basename(path), fetch = this.#fetchMatchingName(name, names, true, true);
             if (fetch !== undefined) {
                 return [fetch, parentLevel];
@@ -236,7 +237,7 @@ export class Compressionator {
         return undefined;
     }
     static #isSimilar(string1, string2) {
-        const realString1 = string1.toLowerCase().replaceAll(" ", "").replaceAll("_", "").replace("-", ""), realString2 = string2.toLowerCase().replaceAll(" ", "").replaceAll("_", "").replace("-", "");
+        const realString1 = string1.toLowerCase().replaceAll(" ", "").replaceAll("_", "").replaceAll("-", ""), realString2 = string2.toLowerCase().replaceAll(" ", "").replaceAll("_", "").replaceAll("-", "");
         if (realString1.includes(realString2) || realString2.includes(realString1)) {
             return true;
         }
@@ -297,12 +298,15 @@ export class Compressionator {
     }
     static #mergeAllToolJsons = (allTools) => {
         for (const basePath in allTools) {
-            const jsonToolsPath = join(basePath, "tools.json"), toolInfo = allTools[basePath];
+            const toolInfo = allTools[basePath], jsonToolsPath = join(basePath, "tools.json");
+            if (toolInfo["paths"].length <= 0) {
+                return;
+            }
+            this.#organizeFiles(basePath, toolInfo["data"]);
             for (let i = 0; i < toolInfo["paths"].length; i++) {
                 const path = toolInfo["paths"][i];
                 rmSync(path);
             }
-            this.#organizeFiles(basePath, toolInfo["data"]);
             writeFile(jsonToolsPath, JSON.stringify(toolInfo["data"], null, 4));
         }
     };
@@ -388,15 +392,13 @@ export class Compressionator {
         this.requestManager.finishRequest();
     }
     static #mergeAllOpJsons = (basePath, allJsonPaths, data) => {
-        if (allJsonPaths.length > 1) {
-            const jsonOpsPath = join(basePath, "ops.json");
-            for (let i = 0; i < allJsonPaths.length; i++) {
-                const path = allJsonPaths[i];
-                rmSync(path);
-            }
-            this.#organizeFiles(basePath, data);
-            writeFile(jsonOpsPath, data);
+        const jsonOpsPath = join(basePath, "ops.json");
+        this.#organizeFiles(basePath, data);
+        for (let i = 0; i < allJsonPaths.length; i++) {
+            const path = allJsonPaths[i];
+            rmSync(path);
         }
+        writeFile(jsonOpsPath, data);
         this.#jsonData = data;
     };
     //#endregion
@@ -840,7 +842,7 @@ export class Compressionator {
         const names = readdirSync(basePath), allTools = {};
         for (const name of names) {
             const realPath = join(basePath, name);
-            if (fileManager.isDirectory(realpath)) {
+            if (fileManager.isDirectory(realPath)) {
                 if (searchForJsons) {
                     const tools = this.#searchForToolsJson(realPath), allToolData = [];
                     for (const path of tools) {
@@ -887,26 +889,29 @@ export class Compressionator {
         }
     }
     static #RemovePathsAndCheck() {
-        for (let i = this.#pathsToRemove.length - 1; i >= 0; i++) {
+        for (let i = this.#pathsToRemove.length - 1; i >= 0; i--) {
             const path = this.#pathsToRemove[i];
             if (existsSync(path)) {
-                rmSync(path);
+                rmSync(path, { recursive: true });
             }
-            delete this.#pathsToRemove[i];
+            this.#pathsToRemove.splice(i, 1);
         }
         for (let i = this.#checkRemovePath.length - 1; i >= 0; i--) {
             const path = this.#checkRemovePath[i];
             if (existsSync(path)) {
-                const names = readdirSync(path), base = dirname(path);
-                if (!this.#samePath(base, this.#siegePath) && !this.#checkRemovePath.includes(base)) {
-                    this.#checkRemovePath.push(base);
-                }
-                i += 1;
+                const names = readdirSync(path);
                 if (names.length <= 0) {
-                    rmSync(path);
+                    rmSync(path, { recursive: true });
                 }
             }
-            delete this.#checkRemovePath[i];
+            this.#checkRemovePath.splice(i, 1);
+            const base = dirname(path);
+            if (existsSync(base)) {
+                if (!this.#samePath(base, this.#siegePath) && !this.#checkRemovePath.includes(base)) {
+                    this.#checkRemovePath.push(base);
+                    i++;
+                }
+            }
         }
     }
     static #createFilesFromJson = (basePath, jsonBasePath, data, callback, repeatCallback = true) => {
@@ -917,7 +922,6 @@ export class Compressionator {
             }
             else {
                 if (repeatCallback) {
-                    log(callback);
                     callback(this.#createDir(basePath, key), jsonBasePath, value, callback);
                 }
                 else {
@@ -927,7 +931,7 @@ export class Compressionator {
         }
     };
     static #createFile(basePath, jsonBasePath, value) {
-        const realValuePath = relPath(join(jsonBasePath, value)), distPath = relPath(join(basePath, value));
+        const realValuePath = relPath(join(jsonBasePath, value)), distPath = relPath(join(basePath, basename(value)));
         if (!this.#samePath(realValuePath, distPath)) {
             copyFileSync(realValuePath, distPath);
             const valuePath = dirname(realValuePath);
