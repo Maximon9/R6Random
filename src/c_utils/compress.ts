@@ -384,14 +384,14 @@ export class Compressionator {
         }
         this.#RemovePathsAndCheck();
     };
-    static #createOpDirs(basePath: string, jsonBasePath: string, data: JSONObject) {
+    static #createOpDirs = (basePath: string, jsonBasePath: string, data: JSONObject) => {
         for (const key in data) {
             const value = data[key];
             if (typeof value !== "string") {
                 this.#createJsonToolsAndFiles(this.#createDir(basePath, value), jsonBasePath, value);
             }
         }
-    }
+    };
     static #createJsonToolsAndFiles(basePath: string, jsonBasePath: string, data: JSONObject) {
         const itemsToRemove: string[] = [];
         for (const key in data) {
@@ -1013,26 +1013,27 @@ export class Compressionator {
         }
     }
 
-    static #createFilesFromJson(
+    static #createFilesFromJson = (
         basePath: string,
         jsonBasePath: string,
         data: JSONObject,
         callback: any,
-        repeat_callback: boolean = true
-    ) {
+        repeatCallback: boolean = true
+    ) => {
         for (const key in data) {
             const value = data[key];
             if (typeof value === "string") {
                 this.#createFile(basePath, jsonBasePath, value);
             } else {
-                if (repeat_callback) {
+                if (repeatCallback) {
+                    log(callback);
                     callback(this.#createDir(basePath, key), jsonBasePath, value, callback);
                 } else {
                     callback(this.#createDir(basePath, key), jsonBasePath, value);
                 }
             }
         }
-    }
+    };
     static #createFile(basePath: string, jsonBasePath: string, value: string) {
         const realValuePath = relPath(join(jsonBasePath, value)),
             distPath = relPath(join(basePath, value));

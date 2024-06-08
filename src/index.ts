@@ -15,7 +15,7 @@ function main() {
         attachmentNames: ["SightAttachments", "BarrelAttachments", "UnderBarrelAttatchments", "GripAttatchments"],
         imageExtensions: [".png", ".jpg", ".webp", ".svg", ".gif", ".tiff", ".tif"],
     };
-    Compressionator.requestManager.request(Compression.COMPRESS);
+    Compressionator.requestManager.request(Compression.DECOMPRESS);
 }
 
 // async function SetAllOPS() {}

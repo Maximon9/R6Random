@@ -332,14 +332,14 @@ export class Compressionator {
         }
         this.#RemovePathsAndCheck();
     };
-    static #createOpDirs(basePath, jsonBasePath, data) {
+    static #createOpDirs = (basePath, jsonBasePath, data) => {
         for (const key in data) {
             const value = data[key];
             if (typeof value !== "string") {
                 this.#createJsonToolsAndFiles(this.#createDir(basePath, value), jsonBasePath, value);
             }
         }
-    }
+    };
     static #createJsonToolsAndFiles(basePath, jsonBasePath, data) {
         const itemsToRemove = [];
         for (const key in data) {
@@ -909,14 +909,15 @@ export class Compressionator {
             delete this.#checkRemovePath[i];
         }
     }
-    static #createFilesFromJson(basePath, jsonBasePath, data, callback, repeat_callback = true) {
+    static #createFilesFromJson = (basePath, jsonBasePath, data, callback, repeatCallback = true) => {
         for (const key in data) {
             const value = data[key];
             if (typeof value === "string") {
                 this.#createFile(basePath, jsonBasePath, value);
             }
             else {
-                if (repeat_callback) {
+                if (repeatCallback) {
+                    log(callback);
                     callback(this.#createDir(basePath, key), jsonBasePath, value, callback);
                 }
                 else {
@@ -924,7 +925,7 @@ export class Compressionator {
                 }
             }
         }
-    }
+    };
     static #createFile(basePath, jsonBasePath, value) {
         const realValuePath = relPath(join(jsonBasePath, value)), distPath = relPath(join(basePath, value));
         if (!this.#samePath(realValuePath, distPath)) {
