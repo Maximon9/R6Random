@@ -1,6 +1,4 @@
-// region Main
-import { copyFileSync } from "fs";
-import { existsSync, readdirSync, rmSync, mkdirSync, writeFileSync, readFileSync } from "fs";
+import { existsSync, readdirSync, rmSync, rmdir, mkdirSync, writeFileSync, readFileSync, copyFileSync } from "fs";
 import { relative, basename, dirname, join, parse } from "path";
 import { log } from "console";
 import { RequestManager } from "../c_utils/requestManager.js";
@@ -31,8 +29,8 @@ export class Compressionator {
     static #jsonData = {};
     static #jsonOpNames = ["ops"];
     static #jsonToolsNames = ["tools"];
-    static #pathsToRemove = [];
-    static #checkRemovePath = [];
+    static #filePathsToRemove = [];
+    static #dirPathsToTryRemove = [];
     static #pathErrorString = "";
     static #jsonErrorString = "";
     static #siegePaths = [];
@@ -340,7 +338,7 @@ export class Compressionator {
         for (const key in data) {
             const value = data[key];
             if (typeof value !== "string") {
-                this.#createJsonToolsAndFiles(this.#createDir(basePath, value), jsonBasePath, value);
+                this.#createJsonToolsAndFiles(this.#createDir(basePath, key), jsonBasePath, value);
             }
         }
     };
@@ -413,7 +411,7 @@ export class Compressionator {
         }
         data[realDirName] = {};
         const names = readdirSync(mainPath);
-        this.#checkRemovePath.push(mainPath);
+        this.#dirPathsToTryRemove.push(mainPath);
         for (let i = 0; i < names.length; i++) {
             const name = names[i], path = join(mainPath, name);
             if (fileManager.isDirectory(path)) {
@@ -466,7 +464,11 @@ export class Compressionator {
                     if (pathToFile !== undefined) {
                         mkdirSync(dirname(pathToFile), { recursive: true });
                         copyFileSync(path, pathToFile);
-                        this.#pathsToRemove.push(path);
+                        this.#filePathsToRemove.push(path);
+                        const pathBase = dirname(path);
+                        if (!this.#dirPathsToTryRemove.includes(pathBase)) {
+                            this.#dirPathsToTryRemove.push(pathBase);
+                        }
                         data[realDirName][realName] = relPath(pathToFile, startPath);
                     }
                 }
@@ -476,7 +478,11 @@ export class Compressionator {
                 this.#fixJsonKeyNames(data[realDirName], newJsonData);
                 this.#fixJsonItems(startPath, dirname(path), newJsonData);
                 merge(data[realDirName], newJsonData);
-                this.#pathsToRemove.push(path);
+                this.#filePathsToRemove.push(path);
+                const pathBase = dirname(path);
+                if (!this.#dirPathsToTryRemove.includes(pathBase)) {
+                    this.#dirPathsToTryRemove.push(pathBase);
+                }
             }
         }
     }
@@ -527,7 +533,11 @@ export class Compressionator {
                     if (revampedPath !== undefined && !this.#samePath(realPath, revampedPath)) {
                         mkdirSync(dirname(revampedPath), { recursive: true });
                         copyFileSync(realPath, revampedPath);
-                        this.#pathsToRemove.push(realPath);
+                        this.#filePathsToRemove.push(realPath);
+                        const pathBase = dirname(realPath);
+                        if (!this.#dirPathsToTryRemove.includes(pathBase)) {
+                            this.#dirPathsToTryRemove.push(pathBase);
+                        }
                         data[key] = relPath(revampedPath, startPath);
                     }
                 }
@@ -865,7 +875,9 @@ export class Compressionator {
         if (searchForJsons) {
             for (const key in allTools) {
                 const value = allTools[key];
-                if (value.length === 0 && !itemsToRemove.includes(key)) {
+                if (value["paths"].length === 0 &&
+                    Object.keys(value["data"]).length === 0 &&
+                    !itemsToRemove.includes(key)) {
                     itemsToRemove.push(key);
                 }
             }
@@ -873,9 +885,7 @@ export class Compressionator {
         else {
             for (const key in allTools) {
                 const value = allTools[key];
-                if (value["paths"].length === 0 &&
-                    Object.keys(value["data"]).length === 0 &&
-                    !itemsToRemove.includes(key)) {
+                if (value.length === 0 && !itemsToRemove.includes(key)) {
                     itemsToRemove.push(key);
                 }
             }
@@ -889,30 +899,61 @@ export class Compressionator {
         }
     }
     static #RemovePathsAndCheck() {
-        for (let i = this.#pathsToRemove.length - 1; i >= 0; i--) {
-            const path = this.#pathsToRemove[i];
+        for (let i = this.#filePathsToRemove.length - 1; i >= 0; i--) {
+            const path = this.#filePathsToRemove[i];
             if (existsSync(path)) {
-                rmSync(path, { recursive: true });
+                rmSync(path);
             }
-            this.#pathsToRemove.splice(i, 1);
+            this.#filePathsToRemove.splice(i, 1);
         }
-        for (let i = this.#checkRemovePath.length - 1; i >= 0; i--) {
-            const path = this.#checkRemovePath[i];
+        for (let i = this.#dirPathsToTryRemove.length - 1; i >= 0; i--) {
+            const path = this.#dirPathsToTryRemove[i];
             if (existsSync(path)) {
-                const names = readdirSync(path);
-                if (names.length <= 0) {
-                    rmSync(path, { recursive: true });
+                try {
+                    rmdir(path, (err) => {
+                        log(err);
+                    });
                 }
+                catch { }
             }
-            this.#checkRemovePath.splice(i, 1);
+            this.#dirPathsToTryRemove.splice(i, 1);
             const base = dirname(path);
             if (existsSync(base)) {
-                if (!this.#samePath(base, this.#siegePath) && !this.#checkRemovePath.includes(base)) {
-                    this.#checkRemovePath.push(base);
+                if (!this.#samePath(base, this.#siegePath) && !this.#dirPathsToTryRemove.includes(base)) {
+                    this.#dirPathsToTryRemove.push(base);
                     i++;
                 }
             }
         }
+        /* for (let i = this.#dirPathsToTryRemove.length - 1; i >= 0; i--) {
+            const path = this.#dirPathsToTryRemove[i];
+            if (existsSync(path)) {
+                const names = readdirSync(path);
+                if (
+                    names.every((name) => {
+                        const thisPath = join(path, name);
+                        return this.#filePathsToRemove.some((path) => this.#samePath(path, thisPath));
+                    })
+                ) {
+                    rmSync(path, {recursive: true});
+                }
+            }
+            this.#dirPathsToTryRemove.splice(i, 1);
+            const base = dirname(path);
+            if (existsSync(base)) {
+                if (!this.#samePath(base, this.#siegePath) && !this.#dirPathsToTryRemove.includes(base)) {
+                    this.#dirPathsToTryRemove.push(base);
+                    i++;
+                }
+            }
+        }
+        for (let i = this.#filePathsToRemove.length - 1; i >= 0; i--) {
+            const path = this.#filePathsToRemove[i];
+            if (existsSync(path)) {
+                rmSync(path, {recursive: true});
+            }
+            this.#filePathsToRemove.splice(i, 1);
+        } */
     }
     static #createFilesFromJson = (basePath, jsonBasePath, data, callback, repeatCallback = true) => {
         for (const key in data) {
@@ -934,14 +975,14 @@ export class Compressionator {
         const realValuePath = relPath(join(jsonBasePath, value)), distPath = relPath(join(basePath, basename(value)));
         if (!this.#samePath(realValuePath, distPath)) {
             copyFileSync(realValuePath, distPath);
+            if (!this.#pathContains(realValuePath, this.configs["groupNames"]) &&
+                !this.#filePathsToRemove.includes(realValuePath)) {
+                this.#filePathsToRemove.push(realValuePath);
+            }
             const valuePath = dirname(realValuePath);
             if (!this.#pathContains(valuePath, this.configs["groupNames"]) &&
-                !this.#checkRemovePath.includes(valuePath)) {
-                this.#checkRemovePath.push(valuePath);
-            }
-            if (!this.#pathContains(realValuePath, this.configs["groupNames"]) &&
-                !this.#pathsToRemove.includes(realValuePath)) {
-                this.#pathsToRemove.push(realValuePath);
+                !this.#dirPathsToTryRemove.includes(valuePath)) {
+                this.#dirPathsToTryRemove.push(valuePath);
             }
         }
     }

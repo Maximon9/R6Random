@@ -13,7 +13,7 @@ function main() {
         attachmentNames: ["SightAttachments", "BarrelAttachments", "UnderBarrelAttatchments", "GripAttatchments"],
         imageExtensions: [".png", ".jpg", ".webp", ".svg", ".gif", ".tiff", ".tif"],
     };
-    Compressionator.requestManager.request(Compression.DECOMPRESS);
+    Compressionator.requestManager.request(Compression.COMPRESS_NEEDED);
 }
 // async function SetAllOPS() {}
 function randomize(type) { }

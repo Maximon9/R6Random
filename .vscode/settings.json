@@ -1,6 +1,10 @@
 {
-    "python.analysis.extraPaths": [
-        "./assets/Siege-Rando-Images"
-    ],
     "editor.formatOnSave": true,
+    "compressionator.siegeNames": [
+        // "Siege-Rando-Images"
+    ],
+    "compressionator.siegePaths": [
+        "C:/Users/aamax/Desktop/Programming/Projects/R6Random/assets/Siege-Rando-Images"
+    ],
+    "compressionator.searchForFolderNames": false
 }
