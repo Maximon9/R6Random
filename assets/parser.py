@@ -1,3 +1,4 @@
+#region Main
 from genericpath import exists
 import json
 from os import listdir
@@ -163,7 +164,21 @@ class __Parser():
                     parse_string = this.__parse_tools(value, parse_string)
         parse_string += "\n\t\t]"
         return parse_string
-    def __parse_tools(this, name: str, data: dict[str, Union[dict, str]], parse_string: str) -> str:    
+    def __parse_tools(this, name: str, data: dict[str, Union[dict, str]], parse_string: str) -> str:
+        """ if len(data) > 0:
+            possible_images: list[list[str, str]] = []
+            for key in data:
+                value = data[key]
+                if isinstance(value, str):
+                    possible_images.append(key, value)
+            parse_string = this.__parse_op_images(name, parse_string, possible_images)
+            for key in data:
+                value = data[key]
+                if isinstance(value, dict):
+                    parse_string = this.__parse_tools(value, parse_string)
+        parse_string += "\n\t\t]"
+        return parse_string """
+        pass
     def __parse_op_images(this, name: str, parse_string: str, possible_images: list[list[str, str]]) -> str:
         if len(possible_images) > 0 and this.__there_are_op_images(name, possible_images):
             parse_string += ",\n\t\t\t\t{"
@@ -272,3 +287,4 @@ class __Parser():
 Parser = __Parser()
 
 Parser.start()
+#endregion
