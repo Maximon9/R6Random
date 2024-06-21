@@ -1,4 +1,4 @@
-const GROUPS: Groups = {
+export const GROUPS: Groups = {
     Attackers: {
         icon: img(),
         ops: [],
