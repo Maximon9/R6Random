@@ -1,10 +1,9 @@
-import { img } from "../img.js";
 export class Attachment {
     name;
     image;
-    constructor(info = {}) {
-        this.name = info["name"] ?? "";
-        this.image = img(info["image"]);
+    constructor(name, image) {
+        this.name = name;
+        this.image = image;
     }
 }
 export class SightAttachment extends Attachment {
@@ -15,5 +14,4 @@ export class UnderBarrelAttachment extends Attachment {
 }
 export class GripAttachment extends Attachment {
 }
-//# sourceMappingURL=attachment.js.map
 //# sourceMappingURL=attachment.js.map
