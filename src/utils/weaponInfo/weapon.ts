@@ -1,9 +1,10 @@
+//#region Main
 import type {
-    WeaponAttackmentsInfo,
     WeaponAttackments,
+    WeaponAttackmentsInfo,
     WeaponInfoParameters,
     WeaponParameters,
-} from "../../types/parameters.js";
+} from "../../types/weapon.js";
 import {img} from "../img.js";
 
 export class WeaponInfo {
@@ -26,4 +27,4 @@ export class Weapon {
         this.attachments = info["attachments"] ?? {};
     }
 }
-//# sourceMappingURL=weapon.js.map
+//#endregion

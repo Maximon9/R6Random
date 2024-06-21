@@ -1,4 +1,5 @@
-import type {AttachmentParameters} from "../../types/parameters.js";
+//#region Main
+import type {AttachmentParameters} from "../../types/attachment.js";
 import {img} from "../img.js";
 
 export class Attachment {
@@ -13,4 +14,4 @@ export class SightAttachment extends Attachment {}
 export class BarrelAttachment extends Attachment {}
 export class UnderBarrelAttachment extends Attachment {}
 export class GripAttachment extends Attachment {}
-//# sourceMappingURL=attachment.js.map
+//#endregion

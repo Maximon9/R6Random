@@ -1,5 +1,6 @@
-import type {EquipmentParameters} from "../types/parameters.js";
-import {img, whiteBackground} from "./img.js";
+//#region Main
+import type {EquipmentParameters} from "../types/equipment.js";
+import {img} from "./img.js";
 
 export class Equipment {
     name: string;
@@ -11,3 +12,4 @@ export class Equipment {
     }
 }
 //# sourceMappingURL=equipment.js.map
+//#endregion

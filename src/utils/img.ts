@@ -1,3 +1,4 @@
+//#region Main
 export const whiteBackground = () => "";
 
 export function img(src: string = whiteBackground()) {
@@ -5,3 +6,4 @@ export function img(src: string = whiteBackground()) {
     image.src = src;
     return image;
 }
+//#endregion

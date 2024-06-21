@@ -1,6 +1,8 @@
-import {Equipment} from "./equipment.js";
-import {Weapon, WeaponInfo} from "./weaponInfo/weapon.js";
-import type {OPInfoParameters, OPParameters} from "../types/parameters.js";
+//#region Main
+import type {OPInfoParameters, OPParameters} from "../types/op.js";
+import type {Equipment} from "./equipment.js";
+import type {WeaponInfo} from "./weaponInfo/weapon.js";
+import {Weapon} from "./weaponInfo/weapon.js";
 import {img} from "./img.js";
 
 export class OPInfo {
@@ -36,3 +38,4 @@ export class OP {
     }
 }
 //# sourceMappingURL=op.js.map
+//#endregion
