@@ -1,106 +1,83 @@
 //#region Main
 
-import {Groups} from "./types/groups.js";
-import {Equipment} from "./utils/equipment.js";
+import type {Groups} from "./types/groups.js";
 import {Group} from "./utils/group.js";
 import {OPInfo} from "./utils/op.js";
-import {
-    BarrelAttachment,
-    GripAttachment,
-    SightAttachment,
-    UnderBarrelAttachment,
-} from "./utils/weaponInfo/attachment.js";
-import {WeaponInfo} from "./utils/weaponInfo/weapon.js";
 
 export const GROUPS: Groups = {
-    Attackers: new Group({
-        icon: "",
-        ops: [
-            new OPInfo({
-                name: "Ash",
-                image: "",
-                icon: "",
-                equipment: [
-                    new Equipment({
-                        name: "Equipment",
-                        image: "",
-                    }),
-                    new Equipment({
-                        name: "Equipment",
-                        image: "",
-                    }),
-                    new Equipment({
-                        name: "Equipment",
-                        image: "",
-                    }),
-                ],
-                primaryWeapons: [
-                    new WeaponInfo({
-                        name: "Scar",
-                        image: "",
-                        attachments: {
-                            sights: [
-                                new SightAttachment({
-                                    name: "Sight",
-                                    image: "./image/image/image/image/image/image/image",
-                                }),
-                            ],
-                            barrels: [
-                                new BarrelAttachment({
-                                    name: "Barrel",
-                                    image: "./image/image/image/image/image/image/image",
-                                }),
-                            ],
-                            grips: [
-                                new GripAttachment({
-                                    name: "Grip",
-                                    image: "./image/image/image/image/image/image/image",
-                                }),
-                            ],
-                            underBarrels: [
-                                new UnderBarrelAttachment({
-                                    name: "UnderBarrel",
-                                    image: "./image/image/image/image/image/image/image",
-                                }),
-                            ],
-                        },
-                    }),
-                ],
-                secondaryWeapons: [
-                    new WeaponInfo({
-                        name: "Pistol",
-                        image: "",
-                        attachments: {
-                            sights: [
-                                new SightAttachment({
-                                    name: "Sight",
-                                    image: "./image/image/image/image/image/image/image",
-                                }),
-                            ],
-                            barrels: [
-                                new BarrelAttachment({
-                                    name: "Barrel",
-                                    image: "./image/image/image/image/image/image/image",
-                                }),
-                            ],
-                            grips: [
-                                new GripAttachment({
-                                    name: "Grip",
-                                    image: "./image/image/image/image/image/image/image",
-                                }),
-                            ],
-                            underBarrels: [
-                                new UnderBarrelAttachment({
-                                    name: "UnderBarrel",
-                                    image: "./image/image/image/image/image/image/image",
-                                }),
-                            ],
-                        },
-                    }),
-                ],
-            }),
-        ],
-    }),
+	Attackers: new Group({
+		ops: [
+			new OPInfo({
+				name: "Ash",
+				image: "OpsImages/Ash.png",
+				icon: "OpsIcons/Ash_Icon.png",
+			}),
+			new OPInfo({
+				name: "Blitz",
+				image: "OpsImages/Blitz.png",
+				icon: "OpsIcons/Blitz_Icon.png",
+			}),
+			new OPInfo({
+				name: "Buck",
+				image: "OpsImages/Buck.png",
+				icon: "OpsIcons/Buck_Icon.png",
+			}),
+			new OPInfo({
+				name: "Fuze",
+				image: "OpsImages/Fuze.png",
+				icon: "OpsIcons/Fuze_Icon.png",
+			}),
+			new OPInfo({
+				name: "Glaz",
+				image: "OpsImages/Glaz.png",
+				icon: "OpsIcons/Glaz_Icon.png",
+			}),
+			new OPInfo({
+				name: "IQ",
+				image: "OpsImages/IQ.png",
+				icon: "OpsIcons/IQ_Icon.png",
+			}),
+			new OPInfo({
+				name: "Montagne",
+				image: "OpsImages/Montagne.png",
+				icon: "OpsIcons/Montagne_Icon.png",
+			}),
+			new OPInfo({
+				name: "Sledge",
+				image: "OpsImages/Sledge.png",
+				icon: "OpsIcons/Sledge_Icon.png",
+			}),
+			new OPInfo({
+				name: "Thatcher",
+				image: "OpsImages/Thatcher.png",
+				icon: "OpsIcons/Thatcher_Icon.png",
+			}),
+			new OPInfo({
+				name: "Thermite",
+				image: "OpsImages/Thermite.png",
+				icon: "OpsIcons/Thermite_Icon.png",
+			}),
+			new OPInfo({
+				name: "Twitch",
+				image: "OpsImages/Twitch.png",
+				icon: "OpsIcons/Twitch_Icon.png",
+			}),
+			new OPInfo({
+				name: "Zofia",
+				image: "OpsImages/Zofia.png",
+				icon: "OpsIcons/zofia_icon.png",
+			}),
+		]
+	}),
+	Defenders: new Group({
+		ops: [
+			new OPInfo({
+				name: "Alibi",
+				image: "OpsImages/Alibi.webp",
+				icon: "OpsIcons/Alibi_Icon.webp",
+			}),
+		]
+	}),
 };
 
 //#endregion
