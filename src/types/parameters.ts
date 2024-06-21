@@ -1,3 +1,4 @@
+//#region Main
 import type {Equipment} from "../utils/equipment.js";
 import type {
     BarrelAttachment,
@@ -40,3 +41,8 @@ export type OPParameters = {
     primaryWeapon?: Weapon;
     secondaryWeapon?: Weapon;
 };
+export type GroupParameters = {
+    name?: string;
+    icon?: string;
+};
+//#region
