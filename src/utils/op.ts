@@ -12,7 +12,7 @@ export class OPInfo {
     equipment: Equipment[];
     primaryWeapons: WeaponInfo[];
     secondaryWeapons: WeaponInfo[];
-    constructor(info: OPInfoParameters) {
+    constructor(info: OPInfoParameters = {}) {
         this.name = info["name"] ?? "";
         this.image = img(info["image"]);
         this.icon = img(info["icon"]);

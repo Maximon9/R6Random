@@ -1,6 +1,54 @@
 export const GROUPS: Groups = {
-    Attackers: {
-        icon: img(),
-        ops: [],
-    },
+    Attackers: new Group({
+        icon: "",
+        ops: [
+            new OPInfo({
+                name: "Ash",
+                image: "",
+                icon: "",
+                equipment: [
+                    new Equipment({
+                        name: "Equipment",
+                        image: "",
+                    }),
+                    new Equipment({
+                        name: "Equipment",
+                        image: "",
+                    }),
+                    new Equipment({
+                        name: "Equipment",
+                        image: "",
+                    }),
+                ],
+                primaryWeapons: [
+                    new WeaponInfo({
+                        name: "Scar",
+                        image: "",
+                    }),
+                    new WeaponInfo({
+                        name: "Scar",
+                        image: "",
+                    }),
+                    new WeaponInfo({
+                        name: "Scar",
+                        image: "",
+                    }),
+                ],
+                secondaryWeapons: [
+                    new WeaponInfo({
+                        name: "Scar",
+                        image: "",
+                    }),
+                    new WeaponInfo({
+                        name: "Scar",
+                        image: "",
+                    }),
+                    new WeaponInfo({
+                        name: "Scar",
+                        image: "",
+                    }),
+                ],
+            }),
+        ],
+    }),
 };

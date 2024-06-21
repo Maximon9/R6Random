@@ -34,7 +34,7 @@ class __Parser():
     def __init__(this) -> None:
         this.imports: Imports = {
             "Groups": {
-                "import_": "import type {Groups} from \"./types/groups.js\";\nimport {Group} from \"./utils/groups.js\";",
+                "import_": "import type {Groups} from \"./types/groups.js\";\nimport {Group} from \"./utils/group.js\";",
                 "active": False
             },
             "OPs": {
@@ -51,10 +51,6 @@ class __Parser():
             },
             "Attachments": {
                 "import_": this.__fetch_attachments,
-                "active": False
-            },
-            "Img": {
-                "import_": "import {img} from \"./utils/htmlImageHanlder.js\";",
                 "active": False
             },
         }
@@ -118,12 +114,12 @@ class __Parser():
         if not exists(this.ops_ts_path):
             Path(dirname(this.ops_ts_path)).mkdir(parents=True, exist_ok=True)
         with open(this.ops_ts_path, "w") as ts_file:
-            parse_string = this.__parse(parsed_data)
+            parse_string = ""
+            parse_string = this.__parse(parsed_data, parse_string)
             ts_file.write(f"{this.__fetch_imports}{parse_string}")
             ts_file.close()
 
-    def __parse(this, data: dict) -> str:
-        parse_string = ""
+    def __parse(this, data: dict, parse_string: str, json_tree_path: str, name: str) -> str:
         if len(data) > 0:
             parse_string += "const GROUPS: Groups = {"
             this.imports["Groups"]["active"] = True
@@ -137,58 +133,6 @@ class __Parser():
             parsed_string += "\n};"
         else:
             parsed_string += "};"
-        return parse_string
-    def __parse_group_info(this, data: dict, parse_string: str) -> str:
-        if len(data) > 0:
-            for key in data:
-                value = data[key]
-                if isinstance(value, dict):
-                    parse_string += ",\n\t\t["
-                    parse_string += f"\n\t\t\tnew OPInfo(\n\t\t\t\t\"{key}\""
-                    parse_string = this.__parse_op_info(key, value, parse_string)
-                elif isinstance(value, str):
-                    parse_string += f",\n\t\timg(\n\t\t\t\"{value}\"\n\t\t\t)"
-        parse_string += "\n\t),"
-        return parse_string    
-    def __parse_op_info(this, name: str, data: dict[str, Union[dict, str]], parse_string: str) -> str:
-        if len(data) > 0:
-            possible_images: list[list[str, str]] = []
-            for key in data:
-                value = data[key]
-                if isinstance(value, str):
-                    possible_images.append(key, value)
-            parse_string = this.__parse_op_images(name, parse_string, possible_images)
-            for key in data:
-                value = data[key]
-                if isinstance(value, dict):
-                    parse_string = this.__parse_tools(value, parse_string)
-        parse_string += "\n\t\t]"
-        return parse_string
-    def __parse_tools(this, name: str, data: dict[str, Union[dict, str]], parse_string: str) -> str:
-        """ if len(data) > 0:
-            possible_images: list[list[str, str]] = []
-            for key in data:
-                value = data[key]
-                if isinstance(value, str):
-                    possible_images.append(key, value)
-            parse_string = this.__parse_op_images(name, parse_string, possible_images)
-            for key in data:
-                value = data[key]
-                if isinstance(value, dict):
-                    parse_string = this.__parse_tools(value, parse_string)
-        parse_string += "\n\t\t]"
-        return parse_string """
-        pass
-    def __parse_op_images(this, name: str, parse_string: str, possible_images: list[list[str, str]]) -> str:
-        if len(possible_images) > 0 and this.__there_are_op_images(name, possible_images):
-            parse_string += ",\n\t\t\t\t{"
-            for [key, value] in possible_images:
-                if "icon" in key.lower():
-                    parse_string += f"\n\t\t\t\t\timage: img(\n\t\t\t\t\t\t\"{value}\"\n\t\t\t\t\t),"
-                else:
-                    if this.__is_similar(name, key):
-                        parse_string += f"\n\t\t\t\t\icon: img(\n\t\t\t\t\t\t\"{value}\"\n\t\t\t\t\t),"
-            parse_string += "\n\t\t\t\t}"
         return parse_string
 
     def __is_op_image(this, name:str, key: str):
