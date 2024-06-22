@@ -1,11 +1,12 @@
 #region Main
+from enum import Enum
 from genericpath import exists
 import json
 from ntpath import join
 from os import listdir
 from os.path import dirname, basename, relpath as rel_path
 from pathlib import Path
-from typing import Any, Callable, LiteralString, Optional, TypedDict, Union
+from typing import Any, Callable, LiteralString, Optional, Type, TypedDict, Union, TypeVar
 class Import(TypedDict):
     import_: str | Callable[[], str]
     active: bool
@@ -36,6 +37,14 @@ class AttachmentImports(TypedDict):
     GripAttachment: bool
     SightAttachment: bool
     UnderBarrelAttachment: bool
+
+class SimilarityMode(Enum):
+    NONE = 0
+    ONE_WORD_SIMILAR = 1
+    ALL_WORDS_SIMILAR = 2
+
+Dict = dict[str, Union[str, dict]]
+T = TypeVar("T")
 
 def relpath(path: Union[LiteralString, bytes, str], start: Union[LiteralString, bytes, str, None] = None) -> Union[LiteralString, bytes, str]:
     if isinstance(path, str) and isinstance(start, str):
@@ -131,6 +140,7 @@ class __Parser():
         this.parsed_json_path: str = "./Siege-Rando-Images/parsed.json"
         this.parsed_json_base_path: str = "./Siege-Rando-Images"
         this.ops_ts_path: str = "../src/ops.ts"
+        this.ops_ts_base_path: str = "../src"
         this.export_groups_regardless = True
         this.__image_infos: dict[str, ImageInfo] = {}
 
@@ -184,7 +194,7 @@ class __Parser():
 
         return import_string
 
-    def start(this):
+    def parse(this):
         parsed_data = {}
         if exists(this.parsed_json_path):
             with open(this.parsed_json_path, "r") as json_file:
@@ -194,11 +204,11 @@ class __Parser():
             Path(dirname(this.ops_ts_path)).mkdir(parents=True, exist_ok=True)
         with open(this.ops_ts_path, "w") as ts_file:
             parse_string: str = ""
-            parse_string = this.__parse(parsed_data, parse_string)
+            parse_string = this.__start(parsed_data, parse_string)
             ts_file.write(f"//#region Main\n\n{this.__fetch_imports}{parse_string}\n\n//#endregion")
             ts_file.close()
 
-    def __parse(this, data: dict, parse_string: str, json_tree_path: str = ".", name: str = "") -> str:
+    def __start(this, data: Dict, parse_string: str, json_tree_path: str = ".", name: str = "") -> str:
         first_matching_parent = this.__fetch_first_matching_parent(json_tree_path, this.__check_names)
         if first_matching_parent == None:
             parse_string = this.__parse_group(data, parse_string, json_tree_path)
@@ -209,25 +219,23 @@ class __Parser():
             
             if first_matching_parent_level == 1:
                 if this.__string_contains(first_matching_parent_string, this.configs["equipmentNames"]):
-                    pass
-                elif this.__string_contains(first_matching_parent_string, this.configs["weaponNames"]) or this.__string_contains(first_matching_parent_string, this.configs["attachmentNames"]):
-                    pass
+                    parse_string = this.__parse_equipment(data, parse_string)
+                elif this.__string_contains(first_matching_parent_string, this.configs["weaponNames"]):
+                    parse_string = this.__parse_weapon_group(data, parse_string, json_tree_path, name)
+                elif this.__string_contains(first_matching_parent_string, this.configs["attachmentNames"]):
+                    parse_string = this.__parse_attachments(data, parse_string, json_tree_path, name)
                 elif this.__string_contains(first_matching_parent_string, this.configs["groupNames"]):
                     parse_string = this.__parse_group_info(data, parse_string, json_tree_path)
-                else:
-                    pass
             elif first_matching_parent_level > 1:
                 pass
                 if this.__string_contains(first_matching_parent_string, this.configs["equipmentNames"]):
                     pass
                 elif this.__string_contains(first_matching_parent_string, this.configs["weaponNames"]) or this.__string_contains(first_matching_parent_string, this.configs["attachmentNames"]):
-                    pass
+                    parse_string = this.__parse_weapon(data, parse_string, json_tree_path)
                 elif this.__string_contains(first_matching_parent_string, this.configs["groupNames"]):
-                    parse_string = this.__parse_op_info(data, parse_string, json_tree_path, name)
-                else:
-                    pass
+                    parse_string = this.__parse_op_info(data, parse_string, json_tree_path)
         return parse_string
-    def __parse_group(this, data: dict, parse_string: str, json_tree_path: str) -> str:
+    def __parse_group(this, data: Dict, parse_string: str, json_tree_path: str) -> str:
         if this.export_groups_regardless:
             if not this.imports["Groups"]["active"]:
                 this.imports["Groups"]["active"] = True
@@ -243,9 +251,9 @@ class __Parser():
                     this.imports["Group"]["active"] = True
                 parse_string += f"\n\t{key}: new Group(" + "{"
                 if isinstance(value, dict):
-                    parse_string = this.__parse(value, parse_string, join(json_tree_path, key), key)
+                    parse_string = this.__start(value, parse_string, join(json_tree_path, key))
                 elif isinstance(value, str):
-                    this.__add_image_info("icon", parse_string, value, "\t\t", lambda parse_string: f"{parse_string}\n\t" + "});")
+                    parse_string = this.__add_image_info("icon", parse_string, value, "\t\t", lambda parse_string: parse_string + "\n\t});")
                 else:
                     parse_string += "}),"
             this.__image_infos.clear()
@@ -253,13 +261,13 @@ class __Parser():
         elif this.export_groups_regardless:
             parse_string += "};"
         return parse_string
-    def __parse_group_info(this, data: dict, parse_string: str, json_tree_path: str) -> str:
+    def __parse_group_info(this, data: Dict, parse_string: str, json_tree_path: str) -> str:
         found_an_op = False
         if len(data) > 0:
             for key in data:
                 value = data[key]
                 if isinstance(value, str):
-                    this.__add_image_info("icon", parse_string, value, "\t\t")
+                    parse_string = this.__add_image_info("icon", parse_string, value, "\t\t")
             this.__image_infos.clear()
             for key in data:
                 value = data[key]
@@ -270,7 +278,7 @@ class __Parser():
                     if not this.imports["OPs"]["active"]:
                         this.imports["OPs"]["active"] = True
                     parse_string += "\n\t\t\tnew OPInfo({" + f"\n\t\t\t\tname: \"{key}\","
-                    parse_string = this.__parse(value, parse_string, join(json_tree_path, key), key)
+                    parse_string = this.__start(value, parse_string, join(json_tree_path, key))
                     parse_string += "\n\t\t\t}),"
             if found_an_op:
                 parse_string += "\n\t\t]"
@@ -278,25 +286,101 @@ class __Parser():
         else:
             parse_string += "});"
         return parse_string
-    def __parse_op_info(this, data: dict[str, Union[str, dict]], parse_string: str, json_tree_path: str, name: str) -> str:
+    def __parse_op_info(this, data: Dict, parse_string: str, json_tree_path: str) -> str:
         if len(data) > 0:
             for key in data:
                 value = data[key]
                 if isinstance(value, str):
                     if "icon" in key.lower():
-                        this.__add_image_info("icon", parse_string, value, "\t\t\t\t")
+                        parse_string = this.__add_image_info("icon", parse_string, value, "\t\t\t\t")
                     else:
-                        this.__add_image_info("image", parse_string, value, "\t\t\t\t")
+                        parse_string = this.__add_image_info("image", parse_string, value, "\t\t\t\t")
             this.__image_infos.clear()
+            for key in data:
+                value = data[key]
+                if isinstance(value, dict):
+                    parse_string = this.__start(value, parse_string, join(json_tree_path, key), key)
+        return parse_string
+    def __parse_equipment(this, data: Dict, parse_string: str) -> str:
+        if len(data) > 0:
+            parse_string += "\n\t\t\t\tequipment: ["
+            for key in data:
+                value = data[key]
+                if not this.imports["Equipment"]["active"]:
+                    this.imports["Equipment"]["active"] = True
+                parse_string += "\n\t\t\t\t\tnew Equipment({" + f"\n\t\t\t\t\t\tname: \"{key}\","
+                if isinstance(value, str):
+                    parse_string = this.__add_image_info("image", parse_string, value, "\t\t\t\t\t\t", lambda parse_string: parse_string + "\n\t\t\t\t\t}),")
+                    this.__image_infos.clear()
+                else:
+                    parse_string += "}),"
+            parse_string += "\n\t\t\t\t],"
+        return parse_string
+    def __parse_weapon_group(this, data: Dict, parse_string: str, json_tree_path: str, name: str) -> str:
+        if len(data) > 0:
+            parse_string += f"\n\t\t\t\t{this.__fetch_match(name, ["primaryWeapons", "secondaryWeapons"])}: ["
+            for key in data:
+                value = data[key]
+                if not this.imports["Weapons"]["active"]:
+                    this.imports["Weapons"]["active"] = True
+                parse_string += "\n\t\t\t\t\tnew WeaponInfo({" + f"\n\t\t\t\t\t\tname: \"{key}\","
+                if isinstance(value, dict):
+                    parse_string = this.__start(value, parse_string, join(json_tree_path, key), key)
+                elif isinstance(value, str):
+                    parse_string = this.__add_image_info("image", parse_string, value, "\t\t\t\t\t\t", lambda parse_string: parse_string + "\n\t\t\t\t\t}),")
+                    this.__image_infos.clear()
+                else:
+                    parse_string += "}),"
+            parse_string += "\n\t\t\t\t],"
+        return parse_string
+    def __parse_weapon(this, data: Dict, parse_string: str, json_tree_path: str) -> str:
+        if len(data) > 0:
+            found_an_attachment = False
+            for key in data:
+                value = data[key]
+                if isinstance(value, str):
+                    parse_string = this.__add_image_info("image", parse_string, value, "\t\t\t\t\t\t")
+            this.__image_infos.clear()
+            for key in data:
+                value = data[key]
+                if isinstance(value, dict):
+                    if not found_an_attachment:
+                        found_an_attachment = True
+                        parse_string += "\n\t\t\t\t\t\tattachments: {"
+                    if not this.imports["Attachments"]["active"]:
+                        this.imports["Attachments"]["active"] = True
+                    parse_string = this.__start(value, parse_string, join(json_tree_path, key), key)
+            if found_an_attachment:
+                parse_string += "\n\t\t\t\t\t\t},"
+            parse_string += "\n\t\t\t\t\t}),"
+        else:
+            parse_string += "}),"
+        return parse_string
+    def __parse_attachments(this, data: Dict, parse_string: str, json_tree_path: str, name: str) -> str:
+        id = this.__fetch_match(name, list(this.attachment_imports.keys()), SimilarityMode.ALL_WORDS_SIMILAR)
+        if len(data) > 0:
+            parse_string += f"\n\t\t\t\t\t\t\t{this.__fetch_match(name, ["sights", "barrels", "grips", "underBarrels"], SimilarityMode.ONE_WORD_SIMILAR)}: ["
+            for key in data:
+                value = data[key]
+                if not this.attachment_imports[id]:
+                    this.attachment_imports[id] = True
+                parse_string += f"\n\t\t\t\t\t\t\t\tnew {id}" + "({" + f"\n\t\t\t\t\t\t\t\t\tname: \"{key}\","
+                if isinstance(value, str):
+                    parse_string = this.__add_image_info("image", parse_string, value, "\t\t\t\t\t\t\t\t\t", lambda parse_string: parse_string + "\n\t\t\t\t\t\t\t\t}),")
+                    this.__image_infos.clear()
+                else:
+                    parse_string += "}),"
+            parse_string += "\n\t\t\t\t\t\t\t],"
         return parse_string
 
-    def __add_image_info(this, id: str, parse_string: str, value: str, tabs: str, callback: Optional[Callable[[str], str]] = None):
+    def __add_image_info(this, id: str, parse_string: str, value: str, tabs: str, callback: Optional[Callable[[str], str]] = None) -> str:
         if not id in this.__image_infos:
             this.__image_infos[id] = {"found": False, "info": {"start": None, "end": None}}
-        real_value_path = join(this.parsed_json_base_path, value)
+        real_value_path = relpath(join(this.parsed_json_base_path, value))
+        rel_path_to_ts_file = relpath(real_value_path, this.ops_ts_base_path)
         if exists(real_value_path):
             if not this.__image_infos[id]["found"]:
-                icon_string = f"\n{tabs}{id}: \"{relpath(value)}\","
+                icon_string = f"\n{tabs}{id}: \"{rel_path_to_ts_file}\","
 
                 this.__image_infos[id]["found"] = True
                 this.__image_infos[id]["info"]["start"] = len(parse_string)
@@ -306,7 +390,8 @@ class __Parser():
                 if callback != None:
                     parse_string = callback(parse_string)
             else:
-                parse_string = replace_between(parse_string, f"\n{tabs}{id}: {value},", this.__image_infos[id]["info"]["start"], this.__image_infos[id]["info"]["end"])
+                parse_string = replace_between(parse_string, f"\n{tabs}{id}: {rel_path_to_ts_file},", this.__image_infos[id]["info"]["start"], this.__image_infos[id]["info"]["end"])
+        return parse_string
 
     def __fetch_matching_name(this, name: str, names: list[str], return_none: bool = False, keep_spaces: bool = False) -> Optional[str]:
         new_string: Optional[str] = None
@@ -324,38 +409,24 @@ class __Parser():
                     for space in this.__spaces:
                         new_string = new_string.replace(space, "")
         return new_string
+    def __fetch_match(this, string: str, substrings: list[str], mode: SimilarityMode = SimilarityMode.NONE) -> str:
+        for check in substrings:
+            match mode:
+                case SimilarityMode.NONE:
+                    if this.__is_similar(string, check):
+                        return check
+                case SimilarityMode.ALL_WORDS_SIMILAR:
+                    if this.__all_words_are_similar(string, check):
+                        return check
+                case _:
+                    if this.__one_word_is_similar(string, check):
+                        return check
+        return string
     def __string_contains(this, string: str, substrings: list[str]) -> bool:
         for check in substrings:
             if this.__all_words_are_similar(string, check):
                 return True
         return False
-    def __path_contains(this, path: str, substrings: list[str]) -> bool:
-        pre_path = None
-        while path != pre_path:
-            name = basename(path)
-            for check in substrings:
-                if this.__all_words_are_similar(name, check):
-                    return True
-            pre_path = path
-            path = dirname(path)
-        return False
-    def __fetch_paths_from_path(this, path: str, substrings: list[str], ignore_paths: list[str]) -> Optional[list[str]]:
-        all_paths: list[str] = []
-        pre_path = None
-        while path != pre_path:
-            name = basename(path)
-            skip = False
-            for i_path in ignore_paths:
-                if this.__same_path(path, i_path):
-                    skip = True
-            if not skip:
-                for check in substrings:
-                    # log(f"Name: {name}\nCheck: {check}\n")
-                    if this.__all_words_are_similar(name, check):
-                        all_paths.append(relpath(path))
-            pre_path = path
-            path = dirname(path)
-        return all_paths
     def __fetch_first_matching_parent(this, path: str, names: list[str]) -> Optional[list[str, int]]:
         parent_level = 1
         pre_path = None
@@ -379,20 +450,12 @@ class __Parser():
         elif real_string_1 in real_string_2 or real_string_2 in real_string_1:
             return True
         return False
-    def __similar_name_exists(this, base_path: str, name_to_check: str):
-        names = listdir(base_path)
-        for name in names:
-            if this.__all_words_are_similar(name_to_check, name):
-                return name
-        return name_to_check
     def __all_words_are_capitalized(this, string: str):
         all_words = this.__get_all_words(string)
         for word in all_words:
             if word[0] != word[0].upper():
                 return False
         return True
-    def __word_count(this, string: str):
-        return len(this.__get_all_words(string))
     def __capitalize_all_words(this, string: str) -> str:
         if not this.__all_words_are_capitalized(string):
             words = this.__get_all_words(string, True)
@@ -454,8 +517,16 @@ class __Parser():
             if not this.__is_similar(words_1[i], words_2[i]):
                 return False
         return True
+    def __one_word_is_similar(this, string_1: str, string_2: str):
+        words_1 = this.__get_all_words(string_1)
+        words_2 = this.__get_all_words(string_2)
+        length = min(len(words_1), len(words_2))
+        for i in range(length):
+            if this.__is_similar(words_1[i], words_2[i]):
+                return True
+        return False
 
 Parser = __Parser()
 
-Parser.start()
+Parser.parse()
 #endregion
