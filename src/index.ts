@@ -9,10 +9,10 @@ function main() {
     DEFENDER_BUTTON.addEventListener("click", onDefenderButton);
 }
 
-function onAttackerButton(event: any) {
+function onAttackerButton(event: MouseEvent) {
     console.log(event);
 }
-function onDefenderButton(event: any) {
+function onDefenderButton(event: MouseEvent) {
     console.log(event);
 }
 
