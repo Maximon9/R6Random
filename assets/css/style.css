@@ -1,4 +1,5 @@
-html, body {
+html,
+body {
     text-align: center;
     height: 100%;
     margin: 0;
@@ -11,8 +12,34 @@ body {
     background-size: cover;
 }
 
-button:hover {
-    box-shadow: 0 1px 8px black;  
+#attack-op {
+    background-image: url(../Siege-Rando-Images/GroupIcons/Attackers_Icon.svg);
+}
+#attack-op:hover {
+    background-image: url(../images/Attackers_Icon_hover.svg);
+}
+
+#defend-op {
+    background-image: url(../Siege-Rando-Images/GroupIcons/Defenders_Icon.svg);
+}
+#defend-op:hover {
+    background-image: url(../images/Defenders_Icon_hover.svg);
+}
+
+.op-group-button {
+    background-repeat: no-repeat;
+    background-color: transparent;
+    background-size: contain;
+    border-color: transparent;
+    padding: 10% 10%;
+    transition: transform 0.05s ease-in-out;
+}
+.op-group-button:hover {
+    transition: transform 0.05s ease-in-out;
+    transform: scale(110%);
+    background-color: transparent;
+    background-size: contain;
+    border-color: transparent;
 }
 
 h1 {
@@ -41,40 +68,6 @@ footer {
     bottom: 0;
     left: 0;
     overflow: hidden;
-}
-
-section {
-    width: 100%;
-    max-width: 650px;
-    padding: 30px;
-    margin: auto;
-}
-
-.operator {
-    /* background-color: white; */
-    padding: 10px;
-    color: white;
-}
-
-.guns {
-    /* background-color: white; */
-    padding: 10px;
-    color: white;
-}
-
-.equipment {
-    /* background-color: white; */
-    padding: 10px;
-    color: white;
-}
-
-body {
-    background-size: 100% 265%;
-}
-
-#gadgetName {
-    font-size: 14px;
-    color: white;
 }
 
 #title {

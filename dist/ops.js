@@ -664,7 +664,7 @@ export const GROUPS = {
                     }),
                 ],
             }),
-        ]
+        ],
     }),
     Defenders: new Group({
         icon: "assets/Siege-Rando-Images/GroupIcons/Defenders_Icon.svg",
@@ -864,7 +864,7 @@ export const GROUPS = {
                     }),
                 ],
             }),
-        ]
+        ],
     }),
 };
 //#endregion
