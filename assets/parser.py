@@ -140,7 +140,7 @@ class __Parser():
         this.parsed_json_path: str = "./Siege-Rando-Images/parsed.json"
         this.parsed_json_base_path: str = "./Siege-Rando-Images"
         this.ops_ts_path: str = "../src/ops.ts"
-        this.ops_ts_base_path: str = "../src"
+        this.rel_path_from: str = ".."
         this.export_groups_regardless = True
         this.__image_infos: dict[str, ImageInfo] = {}
 
@@ -377,7 +377,7 @@ class __Parser():
         if not id in this.__image_infos:
             this.__image_infos[id] = {"found": False, "info": {"start": None, "end": None}}
         real_value_path = relpath(join(this.parsed_json_base_path, value))
-        rel_path_to_ts_file = relpath(real_value_path, this.ops_ts_base_path)
+        rel_path_to_ts_file = relpath(real_value_path, this.rel_path_from)
         if exists(real_value_path):
             if not this.__image_infos[id]["found"]:
                 icon_string = f"\n{tabs}{id}: \"{rel_path_to_ts_file}\","
