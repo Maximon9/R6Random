@@ -2,11 +2,20 @@
 
 import {whiteBackground} from "./utils/img.js";
 
-// const ATTACKER_BUTTON = document.getElementById("attack-op");
-// const DEFENDER_BUTTON = document.getElementById("defend-op");
+const ATTACKER_BUTTON = document.getElementById("attack-op")!;
+const DEFENDER_BUTTON = document.getElementById("defend-op")!;
 function main() {
-    console.log(whiteBackground);
+    ATTACKER_BUTTON.addEventListener("click", onAttackerButton);
+    DEFENDER_BUTTON.addEventListener("click", onDefenderButton);
 }
+
+function onAttackerButton(event: any) {
+    console.log(event);
+}
+function onDefenderButton(event: any) {
+    console.log(event);
+}
+
 // async function SetAllOPS() {}
 function randomize(type: string) {}
 main();

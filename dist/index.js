@@ -1,12 +1,19 @@
 //#region Main
-import { whiteBackground } from "./utils/img.js";
-// const ATTACKER_BUTTON = document.getElementById("attack-op");
-// const DEFENDER_BUTTON = document.getElementById("defend-op");
+const ATTACKER_BUTTON = document.getElementById("attack-op");
+const DEFENDER_BUTTON = document.getElementById("defend-op");
 function main() {
-    console.log(whiteBackground);
+    ATTACKER_BUTTON.addEventListener("click", onAttackerButton);
+    DEFENDER_BUTTON.addEventListener("click", onDefenderButton);
+}
+function onAttackerButton(event) {
+    console.log(event);
+}
+function onDefenderButton(event) {
+    console.log(event);
 }
 // async function SetAllOPS() {}
 function randomize(type) { }
 main();
+export {};
 //#endregion
 //# sourceMappingURL=index.js.map
