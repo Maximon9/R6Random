@@ -1,6 +1,6 @@
 //#region Main
-import type {AttachmentParameters} from "../../types/attachment.js";
-import {img} from "../img.js";
+import type { AttachmentParameters } from "../../types/attachment.js";
+import { img } from "../img.js";
 
 export class Attachment {
     name: string;

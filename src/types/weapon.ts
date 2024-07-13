@@ -19,6 +19,14 @@ export type WeaponAttackments = {
     underBarrel?: UnderBarrelAttachment;
 };
 
-export type WeaponInfoParameters = {name?: string; image?: string; attachments?: WeaponAttackmentsInfo};
-export type WeaponParameters = {name?: string; image?: string; attachments?: WeaponAttackments};
+export type WeaponInfoParameters = {
+    name?: string;
+    image?: string;
+    attachments?: WeaponAttackmentsInfo;
+};
+export type WeaponParameters = {
+    name?: string;
+    image?: string;
+    attachments?: WeaponAttackments;
+};
 //#endregion

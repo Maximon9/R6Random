@@ -5,7 +5,7 @@ import type {
     WeaponInfoParameters,
     WeaponParameters,
 } from "../../types/weapon.js";
-import {img} from "../img.js";
+import { img } from "../img.js";
 
 export class WeaponInfo {
     name: string;

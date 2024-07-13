@@ -1,6 +1,6 @@
 //#region Main
-import type {EquipmentParameters} from "../types/equipment.js";
-import {img} from "./img.js";
+import type { EquipmentParameters } from "../types/equipment.js";
+import { img } from "./img.js";
 
 export class Equipment {
     name: string;

@@ -3,10 +3,9 @@ from enum import Enum
 from genericpath import exists
 import json
 from ntpath import join
-from os import listdir
 from os.path import dirname, basename, relpath as rel_path
 from pathlib import Path
-from typing import Any, Callable, LiteralString, Optional, Type, TypedDict, Union, TypeVar
+from typing import Callable, LiteralString, Optional, TypedDict, Union, TypeVar, Generic
 class Import(TypedDict):
     import_: str | Callable[[], str]
     active: bool
@@ -17,6 +16,10 @@ class Imports(TypedDict):
     Weapons: Import
     Attachments: Import
     Img: Import
+
+T = TypeVar("T")
+class StrDict(Generic[T], dict[str, T]):
+    pass
 
 class SubstringInfo(TypedDict):
     start: Optional[int]
@@ -45,6 +48,14 @@ class SimilarityMode(Enum):
 
 Dict = dict[str, Union[str, dict]]
 T = TypeVar("T")
+
+def merge(d: dict, *dict_list: dict):
+    for d1 in dict_list:
+        for k in d1:
+            if k in d and isinstance(d[k], dict) and isinstance(d1[k], dict):
+                merge(d[k], d1[k])
+            else:
+                d[k] = d1[k]
 
 def relpath(path: Union[LiteralString, bytes, str], start: Union[LiteralString, bytes, str, None] = None) -> Union[LiteralString, bytes, str]:
     if isinstance(path, str) and isinstance(start, str):
@@ -525,6 +536,44 @@ class __Parser():
             if this.__is_similar(words_1[i], words_2[i]):
                 return True
         return False
+
+    def __try_fetch_ref_info(
+        this, value: str, references: Optional[StrDict[str]] = None
+    ) -> tuple[str, Optional[str]]:
+        if references != None and value in references:
+            return (references[value], value)
+        else:
+            return (value, None)
+
+    def __try_fetch_references(
+        this,
+        data: StrDict[Union[str, list[str], StrDict]],
+        remove_from_ref: bool = False,
+    ) -> StrDict[str]:
+        all_refs: list[StrDict[str]] = []
+        refs_to_remove: list[str] = []
+        for key in data:
+            value = data[key]
+            if isinstance(value, dict) and "reference" in key.lower():
+                is_ref = True
+                for ref_key in value:
+                    ref_value = value[ref_key]
+                    if not isinstance(ref_value, str):
+                        is_ref = False
+                        break
+                if is_ref:
+                    if remove_from_ref and not key in refs_to_remove:
+                        refs_to_remove.append(key)
+                    all_refs.append(data[key])
+        if remove_from_ref:
+            for key in refs_to_remove:
+                del data[key]
+        references: StrDict[str] = {}
+        if len(all_refs) > 1:
+            merge(references, *all_refs)
+        if len(all_refs) == 1:
+            references: StrDict[str] = all_refs[0]
+        return references
 
 Parser = __Parser()
 
