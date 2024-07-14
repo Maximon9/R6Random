@@ -29,17 +29,16 @@ class ImageInfo(TypedDict):
     info: SubstringInfo
 class Imports(TypedDict):
     Groups: Import
-    Group: Import
-    OPs: Import
-    Equipment: Import
-    Weapons: Import
-    Attachments: Import
-    Img: Import
+    GroupInfo: Import
+    OPInfo: Import
+    EquipmentInfo: Import
+    WeaponInfo: Import
+    AttachmentInfo: Import
 class AttachmentImports(TypedDict):
-    BarrelAttachment: bool
-    GripAttachment: bool
-    SightAttachment: bool
-    UnderBarrelAttachment: bool
+    BarrelAttachmentInfo: bool
+    GripAttachmentInfo: bool
+    SightAttachmentInfo: bool
+    UnderBarrelAttachmentInfo: bool
 
 class SimilarityMode(Enum):
     NONE = 0
@@ -85,23 +84,23 @@ class __Parser():
                 "import_": "import type {Groups} from \"./types/groups.js\";",
                 "active": False
             },
-            "Group": {
-                "import_": "import {Group} from \"./utils/group.js\";",
+            "GroupInfo": {
+                "import_": "import {GroupInfo} from \"./utils/group.js\";",
                 "active": False
             },
-            "OPs": {
+            "OPInfo": {
                 "import_": "import {OPInfo} from \"./utils/op.js\";",
                 "active": False
             },
-            "Equipment": {
-                "import_": "import {Equipment} from \"./utils/equipment.js\";",
+            "EquipmentInfo": {
+                "import_": "import {EquipmentInfo} from \"./utils/equipment.js\";",
                 "active": False
             },
-            "Weapons": {
+            "WeaponInfo": {
                 "import_": "import {WeaponInfo} from \"./utils/weaponInfo/weapon.js\";",
                 "active": False
             },
-            "Attachments": {
+            "AttachmentInfo": {
                 "import_": this.__fetch_attachments,
                 "active": False
             },
@@ -153,13 +152,12 @@ class __Parser():
         this.ops_ts_path: str = "../src/ops.ts"
         this.rel_path_from: str = ".."
         this.export_groups_regardless = True
-        this.__image_infos: dict[str, ImageInfo] = {}
 
         this.attachment_imports: AttachmentImports = {
-            "BarrelAttachment": False,
-            "GripAttachment": False,
-            "SightAttachment": False,
-            "UnderBarrelAttachment": False
+            "BarrelAttachmentInfo": False,
+            "GripAttachmentInfo": False,
+            "SightAttachmentInfo": False,
+            "UnderBarrelAttachmentInfo": False
         }
     @property
     def __check_names(this) -> list[str]:
@@ -216,7 +214,7 @@ class __Parser():
         with open(this.ops_ts_path, "w") as ts_file:
             parse_string: str = ""
             parse_string = this.__start(parsed_data, parse_string)
-            ts_file.write(f"//#region Main\n\n{this.__fetch_imports}{parse_string}\n\n//#endregion")
+            ts_file.write(f"//#region Main\n\n{this.__fetch_imports}{parse_string}\n\n//#endregion\n")
             ts_file.close()
 
     def __start(this, data: Dict, parse_string: str, json_tree_path: str = ".", name: str = "") -> str:

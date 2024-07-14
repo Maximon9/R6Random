@@ -1,11 +1,11 @@
-import { url } from "../img.js";
+import { whiteBackground } from "../img.js";
 export class WeaponInfo {
     name;
-    image;
+    images;
     attachments;
     constructor(info = {}) {
         this.name = info["name"] ?? "";
-        this.image = url(info["image"]);
+        this.images = info["images"] ?? [whiteBackground];
         this.attachments = info["attachments"] ?? {};
     }
 }
@@ -15,7 +15,7 @@ export class Weapon {
     attachments;
     constructor(info = {}) {
         this.name = info["name"] ?? "";
-        this.image = url(info["image"]);
+        this.image = info["image"] ?? whiteBackground;
         this.attachments = info["attachments"] ?? {};
     }
 }

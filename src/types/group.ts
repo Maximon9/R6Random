@@ -2,7 +2,7 @@
 import type { OPInfo } from "../utils/op.js";
 
 export type GroupParameters = {
-    icon?: string;
+    icons?: string[];
     ops?: OPInfo[];
 };
 //#endregion

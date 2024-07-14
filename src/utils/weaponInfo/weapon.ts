@@ -5,25 +5,25 @@ import type {
     WeaponInfoParameters,
     WeaponParameters,
 } from "../../types/weapon.js";
-import { url } from "../img.js";
+import { whiteBackground } from "../img.js";
 
 export class WeaponInfo {
     name: string;
-    image: HTMLImageElement;
+    images: string[];
     attachments: WeaponAttackmentsInfo;
     constructor(info: WeaponInfoParameters = {}) {
         this.name = info["name"] ?? "";
-        this.image = url(info["image"]);
+        this.images = info["images"] ?? [whiteBackground];
         this.attachments = info["attachments"] ?? {};
     }
 }
 export class Weapon {
     name: string;
-    image: HTMLImageElement;
+    image: string;
     attachments: WeaponAttackments;
     constructor(info: WeaponParameters = {}) {
         this.name = info["name"] ?? "";
-        this.image = url(info["image"]);
+        this.image = info["image"] ?? whiteBackground;
         this.attachments = info["attachments"] ?? {};
     }
 }

@@ -1,13 +1,29 @@
 //#region Main
-import type { AttachmentParameters } from "../../types/attachment.js";
-import { url } from "../img.js";
+import type {
+    AttachmentInfoParameters,
+    AttachmentParameters,
+} from "../../types/attachment.js";
+import { whiteBackground } from "../img.js";
+
+export class AttachmentInfo {
+    name: string;
+    images: string[];
+    constructor(info: AttachmentInfoParameters = {}) {
+        this.name = info["name"] ?? "";
+        this.images = info["images"] ?? [whiteBackground];
+    }
+}
+export class SightAttachmentInfo extends AttachmentInfo {}
+export class BarrelAttachmentInfo extends AttachmentInfo {}
+export class UnderBarrelAttachmentInfo extends AttachmentInfo {}
+export class GripAttachmentInfo extends AttachmentInfo {}
 
 export class Attachment {
     name: string;
-    image: HTMLImageElement;
+    image: string;
     constructor(info: AttachmentParameters = {}) {
         this.name = info["name"] ?? "";
-        this.image = url(info["image"]);
+        this.image = info["image"] ?? whiteBackground;
     }
 }
 export class SightAttachment extends Attachment {}

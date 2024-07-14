@@ -4,8 +4,8 @@ import type { Weapon, WeaponInfo } from "../utils/weaponInfo/weapon.js";
 
 export type OPInfoParameters = {
     name?: string;
-    image?: string;
-    icon?: string;
+    images?: string[];
+    icons?: string[];
     equipment?: Equipment[];
     primaryWeapons?: WeaponInfo[];
     secondaryWeapons?: WeaponInfo[];

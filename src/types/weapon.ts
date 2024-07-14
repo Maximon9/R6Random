@@ -21,7 +21,7 @@ export type WeaponAttackments = {
 
 export type WeaponInfoParameters = {
     name?: string;
-    image?: string;
+    images?: string[];
     attachments?: WeaponAttackmentsInfo;
 };
 export type WeaponParameters = {

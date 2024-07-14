@@ -1,16 +1,16 @@
 import { Weapon } from "./weaponInfo/weapon.js";
-import { url } from "./img.js";
+import { whiteBackground } from "./img.js";
 export class OPInfo {
     name;
-    image;
-    icon;
+    images;
+    icons;
     equipment;
     primaryWeapons;
     secondaryWeapons;
     constructor(info = {}) {
         this.name = info["name"] ?? "";
-        this.image = [url(info["image"])];
-        this.icon = [url(info["icon"])];
+        this.images = info["images"] ?? [whiteBackground];
+        this.icons = info["icons"] ?? [whiteBackground];
         this.equipment = info["equipment"] ?? [];
         this.primaryWeapons = info["primaryWeapons"] ?? [];
         this.secondaryWeapons = info["secondaryWeapons"] ?? [];
@@ -25,8 +25,8 @@ export class OP {
     secondaryWeapon;
     constructor(info) {
         this.name = info["name"] ?? "";
-        this.image = url(info["image"]);
-        this.icon = url(info["icon"]);
+        this.image = info["image"] ?? whiteBackground;
+        this.icon = info["icon"] ?? whiteBackground;
         this.equipment = [];
         this.primaryWeapon = new Weapon();
         this.secondaryWeapon = new Weapon();

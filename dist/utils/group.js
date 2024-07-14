@@ -1,8 +1,8 @@
-import { url } from "./img.js";
-export class Group {
-    icon;
+import { whiteBackground } from "./img.js";
+export class GroupInfo {
+    icons;
     constructor(info = {}) {
-        this.icon = url(info["icon"]);
+        this.icons = info["icons"] ?? [whiteBackground];
     }
 }
 //#endregion

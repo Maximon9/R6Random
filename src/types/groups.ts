@@ -1,7 +1,7 @@
 //#region Main
-import type { Group } from "../utils/group.js";
+import type { GroupInfo } from "../utils/group.js";
 
 export type Groups = {
-    [k: string]: Group;
+    [k: string]: GroupInfo;
 };
 //#endregion
