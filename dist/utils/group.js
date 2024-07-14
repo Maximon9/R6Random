@@ -1,8 +1,8 @@
-import { img } from "./img.js";
+import { url } from "./img.js";
 export class Group {
     icon;
     constructor(info = {}) {
-        this.icon = img(info["icon"]);
+        this.icon = url(info["icon"]);
     }
 }
 //#endregion

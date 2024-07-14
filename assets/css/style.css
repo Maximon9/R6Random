@@ -15,16 +15,16 @@ body {
 #attack-op {
     background-image: url(../Siege-Rando-Images/GroupIcons/Attackers_Icon.svg);
 }
-#attack-op:hover {
+/* #attack-op:hover {
     background-image: url(../images/Attackers_Icon_hover.svg);
-}
+} */
 
 #defend-op {
     background-image: url(../Siege-Rando-Images/GroupIcons/Defenders_Icon.svg);
 }
-#defend-op:hover {
+/* #defend-op:hover {
     background-image: url(../images/Defenders_Icon_hover.svg);
-}
+} */
 
 .op-group-button {
     background-repeat: no-repeat;

@@ -3,7 +3,7 @@ import type { OPInfoParameters, OPParameters } from "../types/op.js";
 import type { Equipment } from "./equipment.js";
 import type { WeaponInfo } from "./weaponInfo/weapon.js";
 import { Weapon } from "./weaponInfo/weapon.js";
-import { img } from "./img.js";
+import { url } from "./img.js";
 
 export class OPInfo {
     name: string;
@@ -14,8 +14,8 @@ export class OPInfo {
     secondaryWeapons: WeaponInfo[];
     constructor(info: OPInfoParameters = {}) {
         this.name = info["name"] ?? "";
-        this.image = [img(info["image"])];
-        this.icon = [img(info["icon"])];
+        this.image = [url(info["image"])];
+        this.icon = [url(info["icon"])];
         this.equipment = info["equipment"] ?? [];
         this.primaryWeapons = info["primaryWeapons"] ?? [];
         this.secondaryWeapons = info["secondaryWeapons"] ?? [];
@@ -30,8 +30,8 @@ export class OP {
     secondaryWeapon: Weapon;
     constructor(info: OPParameters) {
         this.name = info["name"] ?? "";
-        this.image = img(info["image"]);
-        this.icon = img(info["icon"]);
+        this.image = url(info["image"]);
+        this.icon = url(info["icon"]);
         this.equipment = [];
         this.primaryWeapon = new Weapon();
         this.secondaryWeapon = new Weapon();

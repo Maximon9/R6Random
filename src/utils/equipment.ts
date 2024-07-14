@@ -1,6 +1,6 @@
 //#region Main
 import type { EquipmentParameters } from "../types/equipment.js";
-import { img } from "./img.js";
+import { url } from "./img.js";
 
 export class Equipment {
     name: string;
@@ -8,7 +8,7 @@ export class Equipment {
 
     constructor(info: EquipmentParameters = {}) {
         this.name = info["name"] ?? "";
-        this.image = img(info["image"]);
+        this.image = url(info["image"]);
     }
 }
 //# sourceMappingURL=equipment.js.map

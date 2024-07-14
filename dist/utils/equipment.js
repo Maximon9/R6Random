@@ -1,10 +1,10 @@
-import { img } from "./img.js";
+import { url } from "./img.js";
 export class Equipment {
     name;
     image;
     constructor(info = {}) {
         this.name = info["name"] ?? "";
-        this.image = img(info["image"]);
+        this.image = url(info["image"]);
     }
 }
 //# sourceMappingURL=equipment.js.map

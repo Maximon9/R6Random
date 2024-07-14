@@ -1,12 +1,12 @@
 //#region Main
 import type { GroupParameters } from "../types/group.js";
-import { img } from "./img.js";
+import { url } from "./img.js";
 
 export class Group {
     icon: HTMLImageElement;
 
     constructor(info: GroupParameters = {}) {
-        this.icon = img(info["icon"]);
+        this.icon = url(info["icon"]);
     }
 }
 //#endregion

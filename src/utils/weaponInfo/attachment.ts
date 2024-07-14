@@ -1,13 +1,13 @@
 //#region Main
 import type { AttachmentParameters } from "../../types/attachment.js";
-import { img } from "../img.js";
+import { url } from "../img.js";
 
 export class Attachment {
     name: string;
     image: HTMLImageElement;
     constructor(info: AttachmentParameters = {}) {
         this.name = info["name"] ?? "";
-        this.image = img(info["image"]);
+        this.image = url(info["image"]);
     }
 }
 export class SightAttachment extends Attachment {}
