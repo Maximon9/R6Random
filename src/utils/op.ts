@@ -1,6 +1,6 @@
 //#region Main
 import type { OPInfoParameters, OPParameters } from "../types/op.js";
-import type { Equipment } from "./equipment.js";
+import type { Equipment, EquipmentInfo } from "./equipment.js";
 import type { WeaponInfo } from "./weaponInfo/weapon.js";
 import { Weapon } from "./weaponInfo/weapon.js";
 import { whiteBackground } from "./img.js";
@@ -9,7 +9,7 @@ export class OPInfo {
     name: string;
     images: string[];
     icons: string[];
-    equipment: Equipment[];
+    equipment: EquipmentInfo[];
     primaryWeapons: WeaponInfo[];
     secondaryWeapons: WeaponInfo[];
     constructor(info: OPInfoParameters = {}) {

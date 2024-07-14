@@ -1,12 +1,12 @@
 //#region Main
-import type { Equipment } from "../utils/equipment.js";
+import type { Equipment, EquipmentInfo } from "../utils/equipment.js";
 import type { Weapon, WeaponInfo } from "../utils/weaponInfo/weapon.js";
 
 export type OPInfoParameters = {
     name?: string;
     images?: string[];
     icons?: string[];
-    equipment?: Equipment[];
+    equipment?: EquipmentInfo[];
     primaryWeapons?: WeaponInfo[];
     secondaryWeapons?: WeaponInfo[];
 };

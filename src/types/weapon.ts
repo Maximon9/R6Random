@@ -1,16 +1,20 @@
 //#region Main
 import type {
     BarrelAttachment,
+    BarrelAttachmentInfo,
     GripAttachment,
+    GripAttachmentInfo,
     SightAttachment,
+    SightAttachmentInfo,
     UnderBarrelAttachment,
+    UnderBarrelAttachmentInfo,
 } from "../utils/weaponInfo/attachment.js";
 
 export type WeaponAttackmentsInfo = {
-    sights?: SightAttachment[];
-    barrels?: BarrelAttachment[];
-    grips?: GripAttachment[];
-    underBarrels?: UnderBarrelAttachment[];
+    sights?: SightAttachmentInfo[];
+    barrels?: BarrelAttachmentInfo[];
+    grips?: GripAttachmentInfo[];
+    underBarrels?: UnderBarrelAttachmentInfo[];
 };
 export type WeaponAttackments = {
     sight?: SightAttachment;
