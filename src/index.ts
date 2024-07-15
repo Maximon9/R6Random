@@ -1,3 +1,5 @@
+import { GROUPS } from "./ops.js";
+
 //#region Main
 declare global {
     interface String {
@@ -10,7 +12,11 @@ Object.defineProperty(String.prototype, "domURL", {
     },
 });
 
-function main() {}
+function main() {
+    for (const key in GROUPS) {
+        const group = GROUPS[key];
+    }
+}
 
 // async function SetAllOPS() {}
 function randomize(type: string) {}

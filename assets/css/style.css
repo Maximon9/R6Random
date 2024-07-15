@@ -11,35 +11,43 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
 }
-
 #attack-op {
-    background-image: url(../Siege-Rando-Images/GroupIcons/Attackers_Icon.svg);
+    float: left;
 }
-/* #attack-op:hover {
-    background-image: url(../images/Attackers_Icon_hover.svg);
-} */
-
 #defend-op {
-    background-image: url(../Siege-Rando-Images/GroupIcons/Defenders_Icon.svg);
+    float: right;
 }
-/* #defend-op:hover {
-    background-image: url(../images/Defenders_Icon_hover.svg);
-} */
+
+.main-container {
+    display: flex;
+    border: 3px solid #eeff00;
+    padding: 20px;
+}
+
+.container {
+    flex: 1;
+    border: 2px solid red;
+    color: white;
+    height: 300px;
+}
+.container:first-child {
+    margin-right: 20px;
+}
 
 .op-group-button {
+    height: 100%;
+    width: 100%;
+    background-size: contain;
     background-repeat: no-repeat;
     background-color: transparent;
-    background-size: contain;
     border-color: transparent;
-    padding: 10% 10%;
     transition: transform 0.05s ease-in-out;
+    object-fit: contain;
 }
 .op-group-button:hover {
     transition: transform 0.05s ease-in-out;
     transform: scale(110%);
-    background-color: transparent;
     background-size: contain;
-    border-color: transparent;
 }
 
 h1 {
