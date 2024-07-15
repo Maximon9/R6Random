@@ -11,23 +11,25 @@ body {
     background-size: cover;
 }
 
-.group-container {
+#group-container {
     display: flex;
-    margin: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: auto;
+    margin-right: auto;
     width: 70%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 10px;
 }
 .container {
     flex: 1;
     color: white;
+    font-size: 2em;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    transition: transform 0.13s ease-in-out;
 }
-
-.container:nth-child(1) {
-    margin-right: 10%;
+.container:hover {
+    transition: transform 0.13s ease-in-out;
+    transform: scale(110%);
+    background-size: contain;
 }
 
 .group-button {
@@ -37,17 +39,18 @@ body {
     background-repeat: no-repeat;
     background-color: transparent;
     border-color: transparent;
-    transition: transform 0.05s ease-in-out;
+    /* transition: transform 0.1s ease-in-out; */
     object-fit: contain;
 }
-.group-button:hover {
-    transition: transform 0.05s ease-in-out;
+/* .group-button:hover {
+    transition: transform 0.1s ease-in-out;
     transform: scale(110%);
     background-size: contain;
-}
+} */
 
 h1 {
-    font-size: 50px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 3em;
     color: white;
 }
 
@@ -67,6 +70,7 @@ footer {
     text-align: center;
     color: white;
     padding: 20px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 10px;
     position: fixed;
     bottom: 0;

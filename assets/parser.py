@@ -3,7 +3,7 @@ from enum import Enum
 from genericpath import exists
 import json
 from ntpath import join
-from os.path import dirname, basename, relpath as rel_path
+from os.path import dirname, relpath as __relpath
 from pathlib import Path
 from typing import Callable, LiteralString, Optional, TypedDict, Union, TypeVar, Generic
 from math import ceil
@@ -76,8 +76,8 @@ def relpath(
     start: Union[LiteralString, bytes, str, None] = None,
 ) -> Union[LiteralString, bytes, str]:
     if isinstance(path, str) and isinstance(start, str):
-        return rel_path(path=path, start=start).replace("\\", "/")
-    return rel_path(path=path, start=start)
+        return __relpath(path, start).replace("\\", "/")
+    return __relpath(path, start)
 
 
 def replace_between(string: str, replace: str, start: int, end: int) -> str:
@@ -154,6 +154,7 @@ class __Parser:
 
         this.parsed_json_path: str = "./Siege-Rando-Images/parsed.json"
         this.parsed_json_base_path: str = "./Siege-Rando-Images"
+        this.base_path: str = ".."
         this.ops_ts_path: str = "../src/ops.ts"
         this.rel_path_from: str = ".."
         this.export_groups_regardless = True
@@ -547,7 +548,7 @@ class __Parser:
         if len(images) > 0:
             parse_string += f"\n{tabs}{id}: ["
             for icon in images:
-                parse_string += f'\n{tabs}\t"{icon}",'
+                parse_string += f'\n{tabs}\t"{relpath(join(this.parsed_json_base_path, icon), this.base_path)}",'
             parse_string += f"\n{tabs}],"
         return parse_string
 
