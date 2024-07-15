@@ -85,7 +85,7 @@ function groupButtonClicked(
     group: GroupInfo,
     html_group: HTMLImageElement
 ) {
-    // console.log(key);
+    console.log(key);
 }
 
 // async function SetAllOPS() {}

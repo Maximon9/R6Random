@@ -42,7 +42,7 @@ function main() {
     }
 }
 function groupButtonClicked(key, group, html_group) {
-    // console.log(key);
+    console.log(key);
 }
 // async function SetAllOPS() {}
 function randomize(type) { }
