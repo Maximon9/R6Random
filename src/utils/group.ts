@@ -1,12 +1,14 @@
 //#region Main
 import type { GroupParameters } from "../types/group.js";
 import { whiteBackground } from "./img.js";
+import { OPInfo } from "./op.js";
 
 export class GroupInfo {
     icons: string[];
-
+    ops: OPInfo[];
     constructor(info: GroupParameters = {}) {
         this.icons = info["icons"] ?? [whiteBackground];
+        this.ops = info["ops"] ?? [];
     }
 
     fetch_html_images(): { normalIcon?: string; hoverIcon?: string } {

@@ -1,8 +1,10 @@
 import { whiteBackground } from "./img.js";
 export class GroupInfo {
     icons;
+    ops;
     constructor(info = {}) {
         this.icons = info["icons"] ?? [whiteBackground];
+        this.ops = info["ops"] ?? [];
     }
     fetch_html_images() {
         const hoverIcons = [];

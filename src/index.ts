@@ -33,7 +33,6 @@ Object.defineProperty(String.prototype, "domURL", {
         return `url(${this})`;
     },
 });
-
 const GROUP_CONTAINER = document.getElementById(
     "group-container"
 ) as HTMLDivElement;
@@ -42,9 +41,14 @@ function main() {
     for (let i = 0; i < group_keys.length; i++) {
         const key = group_keys[i];
         const group = GROUPS[key];
+
         const html_countainer = document.createElement<"div">("div");
         html_countainer.className = "container";
         html_countainer.innerHTML += key;
+
+        const html_options = document.createElement<"a">("a");
+        html_options.href = "options.html";
+
         const html_group = document.createElement<"img">("img");
         html_group.className = "group-button";
         html_group.draggable = false;
@@ -60,8 +64,8 @@ function main() {
                 html_group.src = html_images.normalIcon!;
             });
         }
-        html_group.addEventListener("click", () => {
-            groupButtonClicked(key, group, html_group);
+        html_options.addEventListener("click", () => {
+            groupButtonClicked(key);
         });
         if (!(i >= group_keys.length - 1)) {
             html_countainer.style.marginRight = "10%";
@@ -71,20 +75,14 @@ function main() {
             html_group.src = first_icon;
         }
         html_group.alt = key + " Icon";
-        const html_options = document.createElement<"a">("a");
-        html_options.href = "options.html";
         html_options.appendChild(html_group);
         html_countainer.appendChild(html_options);
         GROUP_CONTAINER.appendChild(html_countainer);
     }
 }
 
-function groupButtonClicked(
-    key: string,
-    group: GroupInfo,
-    html_group: HTMLImageElement
-) {
-    console.log(key);
+function groupButtonClicked(key: string) {
+    localStorage.setItem("group", key);
 }
 
 // async function SetAllOPS() {}
