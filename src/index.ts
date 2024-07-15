@@ -42,14 +42,10 @@ function main() {
     for (let i = 0; i < group_keys.length; i++) {
         const key = group_keys[i];
         const group = GROUPS[key];
-        const html_countainer = document.createElement<"div">(
-            "div"
-        ) as HTMLDivElement;
+        const html_countainer = document.createElement<"div">("div");
         html_countainer.className = "container";
         html_countainer.innerHTML += key;
-        const html_group = document.createElement<"img">(
-            "img"
-        ) as HTMLImageElement;
+        const html_group = document.createElement<"img">("img");
         html_group.className = "group-button";
         html_group.draggable = false;
         const html_images = group.fetch_html_images();
@@ -75,7 +71,10 @@ function main() {
             html_group.src = first_icon;
         }
         html_group.alt = key + " Icon";
-        html_countainer.appendChild(html_group);
+        const html_options = document.createElement<"a">("a");
+        html_options.href = "options.html";
+        html_options.appendChild(html_group);
+        html_countainer.appendChild(html_options);
         GROUP_CONTAINER.appendChild(html_countainer);
     }
 }

@@ -37,7 +37,10 @@ function main() {
             html_group.src = first_icon;
         }
         html_group.alt = key + " Icon";
-        html_countainer.appendChild(html_group);
+        const html_options = document.createElement("a");
+        html_options.href = "options.html";
+        html_options.appendChild(html_group);
+        html_countainer.appendChild(html_options);
         GROUP_CONTAINER.appendChild(html_countainer);
     }
 }
