@@ -12,9 +12,12 @@ Object.defineProperty(String.prototype, "domURL", {
     },
 });
 
+const GROUP_HTML_BUTTONS: { [k: string]: HTMLImageElement } = {};
+
 function main() {
     for (const key in GROUPS) {
         const group = GROUPS[key];
+        // GROUP_HTML_BUTTONS[key] = group
     }
 }
 
