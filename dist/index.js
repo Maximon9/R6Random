@@ -47,8 +47,6 @@ function main() {
 function groupButtonClicked(key) {
     localStorage.setItem("group", key);
 }
-// async function SetAllOPS() {}
-function randomize(type) { }
 main();
 //#endregion
 //# sourceMappingURL=index.js.map

@@ -1,26 +1,4 @@
 import { GROUPS } from "./ops.js";
-import { GroupInfo } from "./utils/group.js";
-
-/*
-<div class="container">
-    Attackers
-    <img
-        class="group-button"
-        draggable="false"
-        src="assets/Siege-Rando-Images/GroupIcons/Attackers_Icon.svg"
-        alt="Attacker Icon"
-    ></img>
-</div>
-<div class="container">
-    Defenders
-    <img
-        class="group-button"
-        draggable="false"
-        src="assets/Siege-Rando-Images/GroupIcons/Defenders_Icon.svg"
-        alt="Defenders Icon"
-    ></img>
-</div>
-*/
 
 //#region Main
 declare global {
@@ -85,7 +63,5 @@ function groupButtonClicked(key: string) {
     localStorage.setItem("group", key);
 }
 
-// async function SetAllOPS() {}
-function randomize(type: string) {}
 main();
 //#endregion
