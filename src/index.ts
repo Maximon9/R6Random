@@ -46,8 +46,8 @@ function createGroupButtons() {
         html_countainer.className = "container";
         html_countainer.innerHTML += key;
 
-        const html_options = document.createElement("a");
-        html_options.href = "op.html";
+        const html_op = document.createElement("a");
+        html_op.href = "op.html";
 
         const html_group = document.createElement("img");
         html_group.className = "group-button";
@@ -64,7 +64,7 @@ function createGroupButtons() {
                 html_group.src = html_images.normalIcon!;
             });
         }
-        html_options.addEventListener("click", () => {
+        html_op.addEventListener("click", () => {
             groupButtonClicked(key);
         });
         if (!(i >= group_keys.length - 1)) {
@@ -75,8 +75,8 @@ function createGroupButtons() {
             html_group.src = first_icon;
         }
         html_group.alt = key + " Icon";
-        html_options.appendChild(html_group);
-        html_countainer.appendChild(html_options);
+        html_op.appendChild(html_group);
+        html_countainer.appendChild(html_op);
         GROUP_MODAL_CONTENT.appendChild(html_countainer);
     }
     GROUP_MODAL.appendChild(GROUP_MODAL_CONTENT);
