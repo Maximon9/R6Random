@@ -18,6 +18,7 @@ function isScrollable(element, dir) {
 function main() {
     createGroupButtons();
     createFilter();
+    createOptions();
 }
 function createGroupButtons() {
     const GROUP_MODAL = document.createElement("section");
@@ -304,7 +305,10 @@ function createFilter() {
         }
     });
 }
-function createOptions() { }
+function createOptions() {
+    const OPTIONS_SECTION = document.createElement("section");
+    document.body.insertBefore(OPTIONS_SECTION, document.body.childNodes[1]);
+}
 function giveHoverAnimation(element, click = false, scale = 90) {
     if (click) {
         element.style.transform = `scale(${scale + 10}%)`;

@@ -30,6 +30,7 @@ function isScrollable(
 function main() {
     createGroupButtons();
     createFilter();
+    createOptions();
 }
 
 function createGroupButtons() {
@@ -333,7 +334,10 @@ function createFilter() {
     });
 }
 
-function createOptions() {}
+function createOptions() {
+    const OPTIONS_SECTION = document.createElement("section");
+    document.body.insertBefore(OPTIONS_SECTION, document.body.childNodes[1]);
+}
 
 function giveHoverAnimation(
     element: HTMLElement,
