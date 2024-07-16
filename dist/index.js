@@ -4,7 +4,9 @@ Object.defineProperty(String.prototype, "domURL", {
         return `url(${this})`;
     },
 });
-const GROUP_CONTAINER = document.getElementById("group-container");
+const GROUP_CONTAINER = document
+    .getElementsByClassName("group-modal-content")
+    .item(0);
 function main() {
     const group_keys = Object.keys(GROUPS);
     for (let i = 0; i < group_keys.length; i++) {
@@ -41,6 +43,7 @@ function main() {
         html_group.alt = key + " Icon";
         html_options.appendChild(html_group);
         html_countainer.appendChild(html_options);
+        console.log(html_countainer);
         GROUP_CONTAINER.appendChild(html_countainer);
     }
 }

@@ -13,8 +13,12 @@ export const GROUPS = {
         ops: [
             new OPInfo({
                 name: "Ash",
-                icons: ["assets/Siege-Rando-Images/OPIcons/Ash_Icon.png"],
-                images: ["assets/Siege-Rando-Images/OPImages/Ash.png"],
+                icons: [
+                    "assets/Siege-Rando-Images/OPIcons/Ash_Icon.png",
+                ],
+                images: [
+                    "assets/Siege-Rando-Images/OPImages/Ash.png",
+                ],
                 equipment: [
                     new EquipmentInfo({
                         name: "Breach Charge",
@@ -182,7 +186,7 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        },
+                        }
                     }),
                     new WeaponInfo({
                         name: "R4-C",
@@ -336,7 +340,7 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        },
+                        }
                     }),
                 ],
                 secondaryWeapons: [
@@ -360,7 +364,7 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        },
+                        }
                     }),
                     new WeaponInfo({
                         name: "M45 MEUSOC",
@@ -382,14 +386,18 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        },
+                        }
                     }),
                 ],
             }),
             new OPInfo({
                 name: "Blitz",
-                icons: ["assets/Siege-Rando-Images/OPIcons/Blitz_Icon.png"],
-                images: ["assets/Siege-Rando-Images/OPImages/Blitz.png"],
+                icons: [
+                    "assets/Siege-Rando-Images/OPIcons/Blitz_Icon.png",
+                ],
+                images: [
+                    "assets/Siege-Rando-Images/OPImages/Blitz.png",
+                ],
                 equipment: [
                     new EquipmentInfo({
                         name: "Breach Charge",
@@ -441,14 +449,18 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        },
+                        }
                     }),
                 ],
             }),
             new OPInfo({
                 name: "Buck",
-                icons: ["assets/Siege-Rando-Images/OPIcons/Buck_Icon.png"],
-                images: ["assets/Siege-Rando-Images/OPImages/Buck.png"],
+                icons: [
+                    "assets/Siege-Rando-Images/OPIcons/Buck_Icon.png",
+                ],
+                images: [
+                    "assets/Siege-Rando-Images/OPImages/Buck.png",
+                ],
                 equipment: [
                     new EquipmentInfo({
                         name: "Hard Breach Charge",
@@ -596,7 +608,7 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        },
+                        }
                     }),
                     new WeaponInfo({
                         name: "CAMRS",
@@ -724,7 +736,7 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        },
+                        }
                     }),
                 ],
                 secondaryWeapons: [
@@ -733,7 +745,7 @@ export const GROUPS = {
                         images: [
                             "assets/Siege-Rando-Images/Weapons/SecondaryWeapons/Gonne_6.png",
                         ],
-                        attachments: {},
+                        attachments: {}
                     }),
                     new WeaponInfo({
                         name: "MK1 9mm",
@@ -763,14 +775,18 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        },
+                        }
                     }),
                 ],
             }),
             new OPInfo({
                 name: "Fuze",
-                icons: ["assets/Siege-Rando-Images/OPIcons/Fuze_Icon.png"],
-                images: ["assets/Siege-Rando-Images/OPImages/Fuze.png"],
+                icons: [
+                    "assets/Siege-Rando-Images/OPIcons/Fuze_Icon.png",
+                ],
+                images: [
+                    "assets/Siege-Rando-Images/OPImages/Fuze.png",
+                ],
                 equipment: [
                     new EquipmentInfo({
                         name: "Breach Charge",
@@ -938,7 +954,7 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        },
+                        }
                     }),
                     new WeaponInfo({
                         name: "AK-12",
@@ -1086,14 +1102,14 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        },
+                        }
                     }),
                     new WeaponInfo({
                         name: "Ballistic Shield",
                         images: [
                             "assets/Siege-Rando-Images/Weapons/PrimaryWeapons/Ballistic Shield.png",
                         ],
-                        attachments: {},
+                        attachments: {}
                     }),
                 ],
                 secondaryWeapons: [
@@ -1125,7 +1141,7 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        },
+                        }
                     }),
                     new WeaponInfo({
                         name: "PMM",
@@ -1155,14 +1171,18 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        },
+                        }
                     }),
                 ],
             }),
             new OPInfo({
                 name: "Glaz",
-                icons: ["assets/Siege-Rando-Images/OPIcons/Glaz_Icon.png"],
-                images: ["assets/Siege-Rando-Images/OPImages/Glaz.png"],
+                icons: [
+                    "assets/Siege-Rando-Images/OPIcons/Glaz_Icon.png",
+                ],
+                images: [
+                    "assets/Siege-Rando-Images/OPImages/Glaz.png",
+                ],
                 equipment: [
                     new EquipmentInfo({
                         name: "Claymore",
@@ -1300,7 +1320,7 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        },
+                        }
                     }),
                 ],
                 secondaryWeapons: [
@@ -1418,14 +1438,14 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        },
+                        }
                     }),
                     new WeaponInfo({
                         name: "Gonne 6",
                         images: [
                             "assets/Siege-Rando-Images/Weapons/SecondaryWeapons/Gonne_6.png",
                         ],
-                        attachments: {},
+                        attachments: {}
                     }),
                     new WeaponInfo({
                         name: "PMM",
@@ -1455,14 +1475,18 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        },
+                        }
                     }),
                 ],
             }),
             new OPInfo({
                 name: "IQ",
-                icons: ["assets/Siege-Rando-Images/OPIcons/IQ_Icon.png"],
-                images: ["assets/Siege-Rando-Images/OPImages/IQ.png"],
+                icons: [
+                    "assets/Siege-Rando-Images/OPIcons/IQ_Icon.png",
+                ],
+                images: [
+                    "assets/Siege-Rando-Images/OPImages/IQ.png",
+                ],
                 equipment: [
                     new EquipmentInfo({
                         name: "Breach Charge",
@@ -1636,7 +1660,7 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        },
+                        }
                     }),
                     new WeaponInfo({
                         name: "AUG A2",
@@ -1764,7 +1788,7 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        },
+                        }
                     }),
                     new WeaponInfo({
                         name: "G8A1",
@@ -1912,7 +1936,7 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        },
+                        }
                     }),
                 ],
                 secondaryWeapons: [
@@ -1944,14 +1968,18 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        },
+                        }
                     }),
                 ],
             }),
             new OPInfo({
                 name: "Montagne",
-                icons: ["assets/Siege-Rando-Images/OPIcons/Montagne_Icon.png"],
-                images: ["assets/Siege-Rando-Images/OPImages/Montagne.png"],
+                icons: [
+                    "assets/Siege-Rando-Images/OPIcons/Montagne_Icon.png",
+                ],
+                images: [
+                    "assets/Siege-Rando-Images/OPImages/Montagne.png",
+                ],
                 equipment: [
                     new EquipmentInfo({
                         name: "Hard Breach Charge",
@@ -1995,7 +2023,7 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        },
+                        }
                     }),
                     new WeaponInfo({
                         name: "P9",
@@ -2025,14 +2053,18 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        },
+                        }
                     }),
                 ],
             }),
             new OPInfo({
                 name: "Sledge",
-                icons: ["assets/Siege-Rando-Images/OPIcons/Sledge_Icon.png"],
-                images: ["assets/Siege-Rando-Images/OPImages/Sledge.png"],
+                icons: [
+                    "assets/Siege-Rando-Images/OPIcons/Sledge_Icon.png",
+                ],
+                images: [
+                    "assets/Siege-Rando-Images/OPImages/Sledge.png",
+                ],
                 equipment: [
                     new EquipmentInfo({
                         name: "Frag",
@@ -2200,7 +2232,7 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        },
+                        }
                     }),
                     new WeaponInfo({
                         name: "M590A1",
@@ -2284,7 +2316,7 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        },
+                        }
                     }),
                 ],
                 secondaryWeapons: [
@@ -2316,14 +2348,18 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        },
+                        }
                     }),
                 ],
             }),
             new OPInfo({
                 name: "Thatcher",
-                icons: ["assets/Siege-Rando-Images/OPIcons/Thatcher_Icon.png"],
-                images: ["assets/Siege-Rando-Images/OPImages/Thatcher.png"],
+                icons: [
+                    "assets/Siege-Rando-Images/OPIcons/Thatcher_Icon.png",
+                ],
+                images: [
+                    "assets/Siege-Rando-Images/OPImages/Thatcher.png",
+                ],
                 equipment: [
                     new EquipmentInfo({
                         name: "Breach Charge",
@@ -2485,7 +2521,7 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        },
+                        }
                     }),
                     new WeaponInfo({
                         name: "L85A2",
@@ -2633,7 +2669,7 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        },
+                        }
                     }),
                     new WeaponInfo({
                         name: "M590A1",
@@ -2717,7 +2753,7 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        },
+                        }
                     }),
                 ],
                 secondaryWeapons: [
@@ -2749,14 +2785,18 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        },
+                        }
                     }),
                 ],
             }),
             new OPInfo({
                 name: "Thermite",
-                icons: ["assets/Siege-Rando-Images/OPIcons/Thermite_Icon.png"],
-                images: ["assets/Siege-Rando-Images/OPImages/Thermite.png"],
+                icons: [
+                    "assets/Siege-Rando-Images/OPIcons/Thermite_Icon.png",
+                ],
+                images: [
+                    "assets/Siege-Rando-Images/OPImages/Thermite.png",
+                ],
                 equipment: [
                     new EquipmentInfo({
                         name: "Smoke Grenade",
@@ -2777,12 +2817,232 @@ export const GROUPS = {
                         images: [
                             "assets/Siege-Rando-Images/Weapons/PrimaryWeapons/556XI.png",
                         ],
+                        attachments: {
+                            sights: [
+                                new SightAttachmentInfo({
+                                    name: "HOLO A",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/HOLO_A.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "HOLO B",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/HOLO_B.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "HOLO C",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/HOLO_C.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "HOLO D",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/HOLO_D.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "IRON SIGHT",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/IRON SIGHT.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "MAGNIFIED A",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/MAGNIFIED_A.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "MAGNIFIED B",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/MAGNIFIED_B.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "MAGNIFIED C",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/MAGNIFIED_C.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "RED DOT A",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/RED_DOT_A.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "RED DOT B",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/RED_DOT_B.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "RED DOT C",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/RED_DOT_C.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "REFLEX A",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/REFLEX_A.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "REFLEX B",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/REFLEX_B.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "REFLEX C",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/REFLEX_C.png",
+                                    ],
+                                }),
+                            ],
+                            barrels: [
+                                new BarrelAttachmentInfo({
+                                    name: "COMPENSATOR",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/BarrelAttachments/COMPENSATOR.png",
+                                    ],
+                                }),
+                                new BarrelAttachmentInfo({
+                                    name: "FLASH HIDER",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/BarrelAttachments/FLASH_HIDER.png",
+                                    ],
+                                }),
+                                new BarrelAttachmentInfo({
+                                    name: "MUZZLE BRAKE",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
+                                    ],
+                                }),
+                                new BarrelAttachmentInfo({
+                                    name: "SUPPRESSOR",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
+                                    ],
+                                }),
+                            ],
+                            grips: [
+                                new GripAttachmentInfo({
+                                    name: "ANGLED GRIP",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/GripAttachments/ANGLED_GRIP.png",
+                                    ],
+                                }),
+                                new GripAttachmentInfo({
+                                    name: "HORIZONTAL GRIP",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/GripAttachments/HORIZONTAL_GRIP.png",
+                                    ],
+                                }),
+                                new GripAttachmentInfo({
+                                    name: "VERTICAL GRIP",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/GripAttachments/VERTICAL_GRIP.png",
+                                    ],
+                                }),
+                            ],
+                            underBarrels: [
+                                new UnderBarrelAttachmentInfo({
+                                    name: "LASER",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/UnderBarrelAttachments/LASER.png",
+                                    ],
+                                }),
+                            ],
+                        }
                     }),
                     new WeaponInfo({
                         name: "M1014",
                         images: [
                             "assets/Siege-Rando-Images/Weapons/PrimaryWeapons/M1014.png",
                         ],
+                        attachments: {
+                            sights: [
+                                new SightAttachmentInfo({
+                                    name: "HOLO A",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/HOLO_A.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "HOLO B",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/HOLO_B.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "HOLO C",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/HOLO_C.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "HOLO D",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/HOLO_D.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "IRON SIGHT",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/IRON SIGHT.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "RED DOT A",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/RED_DOT_A.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "RED DOT B",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/RED_DOT_B.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "RED DOT C",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/RED_DOT_C.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "REFLEX A",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/REFLEX_A.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "REFLEX B",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/REFLEX_B.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "REFLEX C",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/REFLEX_C.png",
+                                    ],
+                                }),
+                            ],
+                            underBarrels: [
+                                new UnderBarrelAttachmentInfo({
+                                    name: "LASER",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/UnderBarrelAttachments/LASER.png",
+                                    ],
+                                }),
+                            ],
+                        }
                     }),
                 ],
                 secondaryWeapons: [
@@ -2791,19 +3051,71 @@ export const GROUPS = {
                         images: [
                             "assets/Siege-Rando-Images/Weapons/SecondaryWeapons/5.7 USG.png",
                         ],
+                        attachments: {
+                            barrels: [
+                                new BarrelAttachmentInfo({
+                                    name: "MUZZLE BRAKE",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
+                                    ],
+                                }),
+                                new BarrelAttachmentInfo({
+                                    name: "SUPPRESSOR",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
+                                    ],
+                                }),
+                            ],
+                            underBarrels: [
+                                new UnderBarrelAttachmentInfo({
+                                    name: "LASER",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/UnderBarrelAttachments/LASER.png",
+                                    ],
+                                }),
+                            ],
+                        }
                     }),
                     new WeaponInfo({
                         name: "M54 MEUSOC",
                         images: [
                             "assets/Siege-Rando-Images/Weapons/SecondaryWeapons/M54_MEUSOC.png",
                         ],
+                        attachments: {
+                            barrels: [
+                                new BarrelAttachmentInfo({
+                                    name: "MUZZLE BRAKE",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
+                                    ],
+                                }),
+                                new BarrelAttachmentInfo({
+                                    name: "SUPPRESSOR",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
+                                    ],
+                                }),
+                            ],
+                            underBarrels: [
+                                new UnderBarrelAttachmentInfo({
+                                    name: "LASER",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/UnderBarrelAttachments/LASER.png",
+                                    ],
+                                }),
+                            ],
+                        }
                     }),
                 ],
             }),
             new OPInfo({
                 name: "Twitch",
-                icons: ["assets/Siege-Rando-Images/OPIcons/Twitch_Icon.png"],
-                images: ["assets/Siege-Rando-Images/OPImages/Twitch.png"],
+                icons: [
+                    "assets/Siege-Rando-Images/OPIcons/Twitch_Icon.png",
+                ],
+                images: [
+                    "assets/Siege-Rando-Images/OPImages/Twitch.png",
+                ],
                 equipment: [
                     new EquipmentInfo({
                         name: "Claymore",
@@ -2824,18 +3136,380 @@ export const GROUPS = {
                         images: [
                             "assets/Siege-Rando-Images/Weapons/PrimaryWeapons/417.png",
                         ],
+                        attachments: {
+                            sights: [
+                                new SightAttachmentInfo({
+                                    name: "HOLO A",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/HOLO_A.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "HOLO B",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/HOLO_B.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "HOLO C",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/HOLO_C.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "HOLO D",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/HOLO_D.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "IRON SIGHT",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/IRON SIGHT.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "MAGNIFIED A",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/MAGNIFIED_A.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "MAGNIFIED B",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/MAGNIFIED_B.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "MAGNIFIED C",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/MAGNIFIED_C.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "RED DOT A",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/RED_DOT_A.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "RED DOT B",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/RED_DOT_B.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "RED DOT C",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/RED_DOT_C.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "REFLEX A",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/REFLEX_A.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "REFLEX B",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/REFLEX_B.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "REFLEX C",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/REFLEX_C.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "TELESCOPIC A",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/TELESCOPIC_A.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "TELESCOPIC B",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/TELESCOPIC_B.png",
+                                    ],
+                                }),
+                            ],
+                            barrels: [
+                                new BarrelAttachmentInfo({
+                                    name: "MUZZLE BRAKE",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
+                                    ],
+                                }),
+                                new BarrelAttachmentInfo({
+                                    name: "SUPPRESSOR",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
+                                    ],
+                                }),
+                            ],
+                            grips: [
+                                new GripAttachmentInfo({
+                                    name: "ANGLED GRIP",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/GripAttachments/ANGLED_GRIP.png",
+                                    ],
+                                }),
+                                new GripAttachmentInfo({
+                                    name: "HORIZONTAL GRIP",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/GripAttachments/HORIZONTAL_GRIP.png",
+                                    ],
+                                }),
+                                new GripAttachmentInfo({
+                                    name: "VERTICAL GRIP",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/GripAttachments/VERTICAL_GRIP.png",
+                                    ],
+                                }),
+                            ],
+                            underBarrels: [
+                                new UnderBarrelAttachmentInfo({
+                                    name: "LASER",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/UnderBarrelAttachments/LASER.png",
+                                    ],
+                                }),
+                            ],
+                        }
                     }),
                     new WeaponInfo({
                         name: "F2",
                         images: [
                             "assets/Siege-Rando-Images/Weapons/PrimaryWeapons/F2.png",
                         ],
+                        attachments: {
+                            sights: [
+                                new SightAttachmentInfo({
+                                    name: "HOLO A",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/HOLO_A.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "HOLO B",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/HOLO_B.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "HOLO C",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/HOLO_C.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "HOLO D",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/HOLO_D.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "IRON SIGHT",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/IRON SIGHT.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "MAGNIFIED A",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/MAGNIFIED_A.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "MAGNIFIED B",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/MAGNIFIED_B.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "MAGNIFIED C",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/MAGNIFIED_C.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "RED DOT A",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/RED_DOT_A.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "RED DOT B",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/RED_DOT_B.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "RED DOT C",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/RED_DOT_C.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "REFLEX A",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/REFLEX_A.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "REFLEX B",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/REFLEX_B.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "REFLEX C",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/REFLEX_C.png",
+                                    ],
+                                }),
+                            ],
+                            barrels: [
+                                new BarrelAttachmentInfo({
+                                    name: "COMPENSATOR",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/BarrelAttachments/COMPENSATOR.png",
+                                    ],
+                                }),
+                                new BarrelAttachmentInfo({
+                                    name: "EXTENDED BARREL",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/BarrelAttachments/EXTENDED_BARREL.png",
+                                    ],
+                                }),
+                                new BarrelAttachmentInfo({
+                                    name: "FLASH HIDER",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/BarrelAttachments/FLASH_HIDER.png",
+                                    ],
+                                }),
+                                new BarrelAttachmentInfo({
+                                    name: "MUZZLE BRAKE",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
+                                    ],
+                                }),
+                                new BarrelAttachmentInfo({
+                                    name: "SUPPRESSOR",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
+                                    ],
+                                }),
+                            ],
+                            underBarrels: [
+                                new UnderBarrelAttachmentInfo({
+                                    name: "LASER",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/UnderBarrelAttachments/LASER.png",
+                                    ],
+                                }),
+                            ],
+                        }
                     }),
                     new WeaponInfo({
                         name: "SG-CQB",
                         images: [
                             "assets/Siege-Rando-Images/Weapons/PrimaryWeapons/SG-CQB.png",
                         ],
+                        attachments: {
+                            sights: [
+                                new SightAttachmentInfo({
+                                    name: "HOLO A",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/HOLO_A.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "HOLO B",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/HOLO_B.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "HOLO C",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/HOLO_C.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "HOLO D",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/HOLO_D.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "IRON SIGHT",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/IRON SIGHT.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "RED DOT A",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/RED_DOT_A.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "RED DOT B",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/RED_DOT_B.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "RED DOT C",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/RED_DOT_C.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "REFLEX A",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/REFLEX_A.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "REFLEX B",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/REFLEX_B.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "REFLEX C",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/REFLEX_C.png",
+                                    ],
+                                }),
+                            ],
+                            grips: [
+                                new GripAttachmentInfo({
+                                    name: "HORIZONTAL GRIP",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/GripAttachments/HORIZONTAL_GRIP.png",
+                                    ],
+                                }),
+                                new GripAttachmentInfo({
+                                    name: "VERTICAL GRIP",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/GripAttachments/VERTICAL_GRIP.png",
+                                    ],
+                                }),
+                            ],
+                            underBarrels: [
+                                new UnderBarrelAttachmentInfo({
+                                    name: "LASER",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/UnderBarrelAttachments/LASER.png",
+                                    ],
+                                }),
+                            ],
+                        }
                     }),
                 ],
                 secondaryWeapons: [
@@ -2844,19 +3518,57 @@ export const GROUPS = {
                         images: [
                             "assets/Siege-Rando-Images/Weapons/SecondaryWeapons/LFP589.png",
                         ],
+                        attachments: {
+                            underBarrels: [
+                                new UnderBarrelAttachmentInfo({
+                                    name: "LASER",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/UnderBarrelAttachments/LASER.png",
+                                    ],
+                                }),
+                            ],
+                        }
                     }),
                     new WeaponInfo({
                         name: "P9",
                         images: [
                             "assets/Siege-Rando-Images/Weapons/SecondaryWeapons/P9.png",
                         ],
+                        attachments: {
+                            barrels: [
+                                new BarrelAttachmentInfo({
+                                    name: "MUZZLE BRAKE",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
+                                    ],
+                                }),
+                                new BarrelAttachmentInfo({
+                                    name: "SUPPRESSOR",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
+                                    ],
+                                }),
+                            ],
+                            underBarrels: [
+                                new UnderBarrelAttachmentInfo({
+                                    name: "LASER",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/UnderBarrelAttachments/LASER.png",
+                                    ],
+                                }),
+                            ],
+                        }
                     }),
                 ],
             }),
             new OPInfo({
                 name: "Zofia",
-                icons: ["assets/Siege-Rando-Images/OPIcons/zofia_icon.png"],
-                images: ["assets/Siege-Rando-Images/OPImages/Zofia.png"],
+                icons: [
+                    "assets/Siege-Rando-Images/OPIcons/zofia_icon.png",
+                ],
+                images: [
+                    "assets/Siege-Rando-Images/OPImages/Zofia.png",
+                ],
                 equipment: [
                     new EquipmentInfo({
                         name: "Breach Charge",
@@ -2877,12 +3589,296 @@ export const GROUPS = {
                         images: [
                             "assets/Siege-Rando-Images/Weapons/PrimaryWeapons/LMG_E.png",
                         ],
+                        attachments: {
+                            sights: [
+                                new SightAttachmentInfo({
+                                    name: "HOLO A",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/HOLO_A.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "HOLO B",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/HOLO_B.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "HOLO C",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/HOLO_C.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "HOLO D",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/HOLO_D.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "IRON SIGHT",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/IRON SIGHT.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "MAGNIFIED A",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/MAGNIFIED_A.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "MAGNIFIED B",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/MAGNIFIED_B.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "MAGNIFIED C",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/MAGNIFIED_C.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "RED DOT A",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/RED_DOT_A.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "RED DOT B",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/RED_DOT_B.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "RED DOT C",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/RED_DOT_C.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "REFLEX A",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/REFLEX_A.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "REFLEX B",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/REFLEX_B.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "REFLEX C",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/REFLEX_C.png",
+                                    ],
+                                }),
+                            ],
+                            barrels: [
+                                new BarrelAttachmentInfo({
+                                    name: "COMPENSATOR",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/BarrelAttachments/COMPENSATOR.png",
+                                    ],
+                                }),
+                                new BarrelAttachmentInfo({
+                                    name: "FLASH HIDER",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/BarrelAttachments/FLASH_HIDER.png",
+                                    ],
+                                }),
+                                new BarrelAttachmentInfo({
+                                    name: "MUZZLE BRAKE",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
+                                    ],
+                                }),
+                                new BarrelAttachmentInfo({
+                                    name: "SUPPRESSOR",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
+                                    ],
+                                }),
+                            ],
+                            grips: [
+                                new GripAttachmentInfo({
+                                    name: "ANGLED GRIP",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/GripAttachments/ANGLED_GRIP.png",
+                                    ],
+                                }),
+                                new GripAttachmentInfo({
+                                    name: "HORIZONTAL GRIP",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/GripAttachments/HORIZONTAL_GRIP.png",
+                                    ],
+                                }),
+                                new GripAttachmentInfo({
+                                    name: "VERTICAL GRIP",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/GripAttachments/VERTICAL_GRIP.png",
+                                    ],
+                                }),
+                            ],
+                            underBarrels: [
+                                new UnderBarrelAttachmentInfo({
+                                    name: "LASER",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/UnderBarrelAttachments/LASER.png",
+                                    ],
+                                }),
+                            ],
+                        }
                     }),
                     new WeaponInfo({
                         name: "M762",
                         images: [
                             "assets/Siege-Rando-Images/Weapons/PrimaryWeapons/M762.png",
                         ],
+                        attachments: {
+                            sights: [
+                                new SightAttachmentInfo({
+                                    name: "HOLO A",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/HOLO_A.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "HOLO B",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/HOLO_B.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "HOLO C",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/HOLO_C.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "HOLO D",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/HOLO_D.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "IRON SIGHT",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/IRON SIGHT.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "MAGNIFIED A",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/MAGNIFIED_A.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "MAGNIFIED B",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/MAGNIFIED_B.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "MAGNIFIED C",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/MAGNIFIED_C.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "RED DOT A",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/RED_DOT_A.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "RED DOT B",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/RED_DOT_B.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "RED DOT C",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/RED_DOT_C.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "REFLEX A",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/REFLEX_A.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "REFLEX B",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/REFLEX_B.png",
+                                    ],
+                                }),
+                                new SightAttachmentInfo({
+                                    name: "REFLEX C",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/REFLEX_C.png",
+                                    ],
+                                }),
+                            ],
+                            barrels: [
+                                new BarrelAttachmentInfo({
+                                    name: "COMPENSATOR",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/BarrelAttachments/COMPENSATOR.png",
+                                    ],
+                                }),
+                                new BarrelAttachmentInfo({
+                                    name: "FLASH HIDER",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/BarrelAttachments/FLASH_HIDER.png",
+                                    ],
+                                }),
+                                new BarrelAttachmentInfo({
+                                    name: "MUZZLE BRAKE",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
+                                    ],
+                                }),
+                                new BarrelAttachmentInfo({
+                                    name: "SUPPRESSOR",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
+                                    ],
+                                }),
+                            ],
+                            grips: [
+                                new GripAttachmentInfo({
+                                    name: "ANGLED GRIP",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/GripAttachments/ANGLED_GRIP.png",
+                                    ],
+                                }),
+                                new GripAttachmentInfo({
+                                    name: "HORIZONTAL GRIP",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/GripAttachments/HORIZONTAL_GRIP.png",
+                                    ],
+                                }),
+                                new GripAttachmentInfo({
+                                    name: "VERTICAL GRIP",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/GripAttachments/VERTICAL_GRIP.png",
+                                    ],
+                                }),
+                            ],
+                            underBarrels: [
+                                new UnderBarrelAttachmentInfo({
+                                    name: "LASER",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/UnderBarrelAttachments/LASER.png",
+                                    ],
+                                }),
+                            ],
+                        }
                     }),
                 ],
                 secondaryWeapons: [
@@ -2891,6 +3887,30 @@ export const GROUPS = {
                         images: [
                             "assets/Siege-Rando-Images/Weapons/SecondaryWeapons/RG15.png",
                         ],
+                        attachments: {
+                            barrels: [
+                                new BarrelAttachmentInfo({
+                                    name: "MUZZLE BRAKE",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
+                                    ],
+                                }),
+                                new BarrelAttachmentInfo({
+                                    name: "SUPPRESSOR",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
+                                    ],
+                                }),
+                            ],
+                            underBarrels: [
+                                new UnderBarrelAttachmentInfo({
+                                    name: "LASER",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/UnderBarrelAttachments/LASER.png",
+                                    ],
+                                }),
+                            ],
+                        }
                     }),
                 ],
             }),
@@ -2904,8 +3924,12 @@ export const GROUPS = {
         ops: [
             new OPInfo({
                 name: "Alibi",
-                icons: ["assets/Siege-Rando-Images/OPIcons/Alibi_Icon.webp"],
-                images: ["assets/Siege-Rando-Images/OPImages/Alibi.webp"],
+                icons: [
+                    "assets/Siege-Rando-Images/OPIcons/Alibi_Icon.webp",
+                ],
+                images: [
+                    "assets/Siege-Rando-Images/OPImages/Alibi.webp",
+                ],
                 equipment: [
                     new EquipmentInfo({
                         name: "Observation Blocker",
@@ -3035,7 +4059,7 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        },
+                        }
                     }),
                     new WeaponInfo({
                         name: "Mx4 Storm",
@@ -3165,7 +4189,7 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        },
+                        }
                     }),
                 ],
                 secondaryWeapons: [
@@ -3174,12 +4198,46 @@ export const GROUPS = {
                         images: [
                             "assets/Siege-Rando-Images/Weapons/SecondaryWeapons/Bailiff_410.webp",
                         ],
+                        attachments: {
+                            underBarrels: [
+                                new UnderBarrelAttachmentInfo({
+                                    name: "LASER",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/UnderBarrelAttachments/LASER.png",
+                                    ],
+                                }),
+                            ],
+                        }
                     }),
                     new WeaponInfo({
                         name: "Keratos .357",
                         images: [
                             "assets/Siege-Rando-Images/Weapons/SecondaryWeapons/Keratos_.357.webp",
                         ],
+                        attachments: {
+                            barrels: [
+                                new BarrelAttachmentInfo({
+                                    name: "MUZZLE BRAKE",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
+                                    ],
+                                }),
+                                new BarrelAttachmentInfo({
+                                    name: "SUPPRESSOR",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
+                                    ],
+                                }),
+                            ],
+                            underBarrels: [
+                                new UnderBarrelAttachmentInfo({
+                                    name: "LASER",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/UnderBarrelAttachments/LASER.png",
+                                    ],
+                                }),
+                            ],
+                        }
                     }),
                 ],
             }),

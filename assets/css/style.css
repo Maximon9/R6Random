@@ -11,25 +11,92 @@ body {
     background-size: cover;
 }
 
-#group-container {
+@font-face {
+    font-family: bebasBold;
+    src: url(../fonts/BebasNeue-Bold.otf);
+}
+
+h1,
+.container,
+#title,
+.filter-modal-content p {
+    font-family: bebasBold, Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.group-modal,
+.filter-modal {
+    height: 100%;
     display: flex;
-    margin-top: auto;
-    margin-bottom: auto;
-    margin-left: auto;
-    margin-right: auto;
-    width: 70%;
+    align-items: flex-start;
+    justify-content: center;
+}
+.group-modal-content {
+    display: flex;
+    width: 80%;
+}
+
+.filter-modal-content {
+    width: 455px;
+    max-height: 80%;
+    background: #333333;
+    padding: 25px;
+    color: #ffffff;
+    overflow-y: auto;
+    position: relative;
+}
+.filter-modal-content h1 {
+    margin: 0 0 10px;
+    font-size: 2.2em;
+}
+.filter-modal-content p {
+    margin: 10px 0;
+    font-size: 1.3em;
+}
+
+.filter-modal .filter-modal-content table {
+    font-size: 1.6em;
+    width: 100%;
+}
+
+.filter-modal .filter-modal-content table tr td {
+    padding: 0 10px;
+    text-align: right;
+    cursor: pointer;
+    transform: scale(1);
+    transition: all 0.12s ease-in-out;
+}
+.filter-modal .filter-modal-content table img {
+    width: 75px;
+    height: 75px;
+    margin: 0 auto;
+    display: block;
+}
+
+.filter-modal-content::-webkit-scrollbar,
+body::-webkit-scrollbar {
+    width: 12px;
+    background-color: #444;
+}
+.filter-modal-content::-webkit-scrollbar-thumb,
+body::-webkit-scrollbar-thumb {
+    background-color: #2b2b2b;
+}
+.filter-modal-content::-webkit-scrollbar-track,
+body::-webkit-scrollbar-track {
+    background-color: #444;
+}
+
+.container,
+.container:hover {
+    transition: transform 0.13s ease-in-out;
 }
 .container {
     flex: 1;
     color: white;
     font-size: 2em;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    transition: transform 0.13s ease-in-out;
 }
 .container:hover {
-    transition: transform 0.13s ease-in-out;
     transform: scale(110%);
-    background-size: contain;
 }
 
 .group-button {
@@ -39,17 +106,21 @@ body {
     background-repeat: no-repeat;
     background-color: transparent;
     border-color: transparent;
-    /* transition: transform 0.1s ease-in-out; */
     object-fit: contain;
 }
-/* .group-button:hover {
-    transition: transform 0.1s ease-in-out;
-    transform: scale(110%);
-    background-size: contain;
-} */
+
+table {
+    border-collapse: separate;
+    text-indent: initial;
+    border-spacing: 2px;
+}
+
+img {
+    overflow-clip-margin: content-box;
+    overflow: clip;
+}
 
 h1 {
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 3em;
     color: white;
 }
