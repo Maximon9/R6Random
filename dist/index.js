@@ -1,5 +1,5 @@
 import { GROUPS } from "./ops.js";
-import Filter from "./utils/filter.js";
+import Options from "./utils/options.js";
 Object.defineProperty(String.prototype, "domURL", {
     get() {
         return `url(${this})`;
@@ -72,13 +72,13 @@ function createFilter() {
     FILTER_MODAL_CONTENT.className = "filter-modal-content";
     FILTER_MODAL.appendChild(FILTER_MODAL_CONTENT);
     const FILTER_HEADER = document.createElement("h1");
-    FILTER_HEADER.innerHTML = "Filter";
+    FILTER_HEADER.innerHTML = "Options.Filter";
     FILTER_MODAL_CONTENT.appendChild(FILTER_HEADER);
     const FILTER_P = document.createElement("p");
     FILTER_P.innerHTML = "Filters will be saved in a cookie";
     FILTER_MODAL_CONTENT.appendChild(FILTER_P);
     const FILTER_SELECT_ALL = document.createElement("button");
-    if (Filter.AllTrue) {
+    if (Options.Filter.AllTrue) {
         FILTER_SELECT_ALL.innerHTML = "Deselect All";
     }
     else {
@@ -99,7 +99,7 @@ function createFilter() {
         const group = GROUPS[key];
         const GROUP_SELECT = document.createElement("td");
         const GROUP_SELECT_BUTTON = document.createElement("button");
-        if (Filter.GroupTrue(key)) {
+        if (Options.Filter.GroupTrue(key)) {
             GROUP_SELECT_BUTTON.innerHTML = "Deselect All " + key;
         }
         else {
@@ -129,7 +129,7 @@ function createFilter() {
                 OP_IMAGE.alt = op.name;
                 OP_BUTTON.appendChild(OP_IMAGE);
                 OP_BUTTON.innerHTML += op.name;
-                if (Filter.OPTrue(key, op.name)) {
+                if (Options.Filter.OPTrue(key, op.name)) {
                     OP_BUTTON.children.item(0).style.filter = "";
                     giveHoverAnimation(OP_BUTTON);
                 }
@@ -138,26 +138,26 @@ function createFilter() {
                     giveHoverAnimation(OP_BUTTON, false, 70);
                 }
                 OP_BUTTON.addEventListener("click", () => {
-                    if (Filter.OPTrue(key, op.name)) {
-                        Filter.deselectOP(key, op.name);
+                    if (Options.Filter.OPTrue(key, op.name)) {
+                        Options.Filter.deselectOP(key, op.name);
                         OP_BUTTON.children.item(0).style.filter = "grayscale(100%)";
                         giveHoverAnimation(OP_BUTTON, true, 70);
                     }
                     else {
-                        Filter.selectOP(key, op.name);
+                        Options.Filter.selectOP(key, op.name);
                         OP_BUTTON.children.item(0).style.filter = "";
                         giveHoverAnimation(OP_BUTTON, true);
                     }
                     for (let i = 0; i < htmlSelectGroupButtons.length; i++) {
                         const [key, element] = htmlSelectGroupButtons[i];
-                        if (Filter.GroupTrue(key)) {
+                        if (Options.Filter.GroupTrue(key)) {
                             element.innerHTML = "Deselect All " + key;
                         }
                         else {
                             element.innerHTML = "Select All " + key;
                         }
                     }
-                    if (Filter.AllTrue) {
+                    if (Options.Filter.AllTrue) {
                         FILTER_SELECT_ALL.innerHTML = "Deselect All";
                     }
                     else {
@@ -185,15 +185,15 @@ function createFilter() {
         if (makeGroupSelectButton) {
             giveHoverAnimation(GROUP_SELECT_BUTTON);
             GROUP_SELECT_BUTTON.addEventListener("click", () => {
-                if (Filter.GroupTrue(key)) {
-                    Filter.delectGroup(key);
+                if (Options.Filter.GroupTrue(key)) {
+                    Options.Filter.delectGroup(key);
                     GROUP_SELECT_BUTTON.innerHTML = "Select All " + key;
                 }
                 else {
-                    Filter.selectGroup(key);
+                    Options.Filter.selectGroup(key);
                     GROUP_SELECT_BUTTON.innerHTML = "Deselect All " + key;
                 }
-                if (Filter.AllTrue) {
+                if (Options.Filter.AllTrue) {
                     FILTER_SELECT_ALL.innerHTML = "Deselect All";
                 }
                 else {
@@ -202,7 +202,7 @@ function createFilter() {
                 if (htmlSelectOpButtons[key] !== undefined) {
                     for (let i = 0; i < htmlSelectOpButtons[key].length; i++) {
                         const [name, button] = htmlSelectOpButtons[key][i];
-                        if (Filter.OPTrue(key, name)) {
+                        if (Options.Filter.OPTrue(key, name)) {
                             button.children.item(0).style.filter = "";
                             giveHoverAnimation(button);
                         }
@@ -220,18 +220,18 @@ function createFilter() {
     }
     if (htmlSelectGroupButtons.length > 0) {
         FILTER_SELECT_ALL.addEventListener("click", () => {
-            if (Filter.AllTrue) {
-                Filter.deselectAll();
+            if (Options.Filter.AllTrue) {
+                Options.Filter.deselectAll();
                 FILTER_SELECT_ALL.innerHTML = "Select All";
             }
             else {
-                Filter.selectAll();
+                Options.Filter.selectAll();
                 FILTER_SELECT_ALL.innerHTML = "Deselect All";
             }
-            console.log(Filter.filter);
+            console.log(Options.Filter.filter);
             for (let i = 0; i < htmlSelectGroupButtons.length; i++) {
                 const [key, element] = htmlSelectGroupButtons[i];
-                if (Filter.GroupTrue(key)) {
+                if (Options.Filter.GroupTrue(key)) {
                     element.innerHTML = "Deselect All " + key;
                 }
                 else {
@@ -241,7 +241,7 @@ function createFilter() {
             for (const key in htmlSelectOpButtons) {
                 for (let i = 0; i < htmlSelectOpButtons[key].length; i++) {
                     const [name, button] = htmlSelectOpButtons[key][i];
-                    if (Filter.OPTrue(key, name)) {
+                    if (Options.Filter.OPTrue(key, name)) {
                         button.children.item(0).style.filter = "";
                         giveHoverAnimation(button);
                     }
@@ -304,6 +304,7 @@ function createFilter() {
         }
     });
 }
+function createOptions() { }
 function giveHoverAnimation(element, click = false, scale = 90) {
     if (click) {
         element.style.transform = `scale(${scale + 10}%)`;
