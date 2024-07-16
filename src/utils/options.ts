@@ -158,6 +158,12 @@ export default class Options {
         this.options[key] = value;
         this.#setCookie();
     }
+    static removeOption(key: string) {
+        if (this.options[key] !== undefined) {
+            delete this.options[key];
+        }
+        this.#setCookie();
+    }
     static parseCookie() {
         const cookies = document.cookie.split("$");
         if (cookies.length > 0) {

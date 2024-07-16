@@ -306,8 +306,29 @@ function createFilter() {
     });
 }
 function createOptions() {
-    const OPTIONS_SECTION = document.createElement("section");
-    document.body.insertBefore(OPTIONS_SECTION, document.body.childNodes[1]);
+    /*
+    <section class="options-modal">
+        <table>
+            <tbody>
+                <tr>
+                    <td>Avoid Dupes</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+    */
+    const OPTIONS_MODAL = document.createElement("section");
+    OPTIONS_MODAL.className = "options-modal";
+    const TABLE = document.createElement("table");
+    const TABLE_BODY = document.createElement("tbody");
+    const TABLE_ROW_1 = document.createElement("tr");
+    const TABLE_DATA_1 = document.createElement("td");
+    TABLE_DATA_1.innerHTML = "Avoid Dupes";
+    TABLE_ROW_1.appendChild(TABLE_DATA_1);
+    TABLE_BODY.appendChild(TABLE_ROW_1);
+    TABLE.appendChild(TABLE_BODY);
+    OPTIONS_MODAL.appendChild(TABLE);
+    document.body.insertBefore(OPTIONS_MODAL, document.body.childNodes[2]);
 }
 function giveHoverAnimation(element, click = false, scale = 90) {
     if (click) {
