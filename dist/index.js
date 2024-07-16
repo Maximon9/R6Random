@@ -4,10 +4,21 @@ Object.defineProperty(String.prototype, "domURL", {
         return `url(${this})`;
     },
 });
+function isScrollable(element, dir) {
+    const new_dir = dir === "vertical" ? "scrollTop" : "scrollLeft";
+    let res = !!element[new_dir];
+    if (!res) {
+        element[new_dir] = 1;
+        res = !!element[new_dir];
+        element[new_dir] = 0;
+    }
+    return res;
+}
 const GROUP_CONTAINER = document
     .getElementsByClassName("group-modal-content")
     .item(0);
 function main() {
+    createFilter();
     const group_keys = Object.keys(GROUPS);
     for (let i = 0; i < group_keys.length; i++) {
         const key = group_keys[i];
@@ -43,9 +54,59 @@ function main() {
         html_group.alt = key + " Icon";
         html_options.appendChild(html_group);
         html_countainer.appendChild(html_options);
-        console.log(html_countainer);
         GROUP_CONTAINER.appendChild(html_countainer);
     }
+}
+function createFilter() {
+    const FILTER_MODAL_CONTENT = document
+        .getElementsByClassName("filter-modal-content")
+        .item(0);
+    if (isScrollable(FILTER_MODAL_CONTENT, "horizontal")) {
+        let pre_left = null;
+        while (FILTER_MODAL_CONTENT.scrollLeft !== pre_left) {
+            FILTER_MODAL_CONTENT.scrollTo({
+                left: FILTER_MODAL_CONTENT.scrollLeft + 10000,
+            });
+            pre_left = FILTER_MODAL_CONTENT.scrollLeft;
+        }
+        FILTER_MODAL_CONTENT.scrollTo({
+            left: FILTER_MODAL_CONTENT.scrollLeft / 2,
+        });
+        FILTER_MODAL_CONTENT.style.overflowX = "scroll";
+    }
+    else {
+        FILTER_MODAL_CONTENT.style.overflowX = "hidden";
+    }
+    if (isScrollable(FILTER_MODAL_CONTENT, "vertical")) {
+        FILTER_MODAL_CONTENT.style.overflowY = "scroll";
+    }
+    else {
+        FILTER_MODAL_CONTENT.style.overflowY = "hidden";
+    }
+    window.addEventListener("resize", () => {
+        if (isScrollable(FILTER_MODAL_CONTENT, "horizontal")) {
+            let pre_left = null;
+            while (FILTER_MODAL_CONTENT.scrollLeft !== pre_left) {
+                FILTER_MODAL_CONTENT.scrollTo({
+                    left: FILTER_MODAL_CONTENT.scrollLeft + 10000,
+                });
+                pre_left = FILTER_MODAL_CONTENT.scrollLeft;
+            }
+            FILTER_MODAL_CONTENT.scrollTo({
+                left: FILTER_MODAL_CONTENT.scrollLeft / 2,
+            });
+            FILTER_MODAL_CONTENT.style.overflowX = "scroll";
+        }
+        else {
+            FILTER_MODAL_CONTENT.style.overflowX = "hidden";
+        }
+        if (isScrollable(FILTER_MODAL_CONTENT, "vertical")) {
+            FILTER_MODAL_CONTENT.style.overflowY = "scroll";
+        }
+        else {
+            FILTER_MODAL_CONTENT.style.overflowY = "hidden";
+        }
+    });
 }
 function groupButtonClicked(key) {
     localStorage.setItem("group", key);

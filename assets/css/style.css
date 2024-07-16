@@ -19,13 +19,20 @@ body {
 h1,
 .container,
 #title,
-.filter-modal-content p {
+.filter-modal-content p,
+.filter-modal-content button,
+.filter-modal-content table tr td div {
     font-family: bebasBold, Verdana, Geneva, Tahoma, sans-serif;
+}
+.filter-modal-content button,
+.filter-modal-content table tr td div,
+.group-modal-content div {
+    cursor: pointer;
 }
 
 .group-modal,
 .filter-modal {
-    height: 100%;
+    height: 60%;
     display: flex;
     align-items: flex-start;
     justify-content: center;
@@ -36,42 +43,14 @@ h1,
 }
 
 .filter-modal-content {
-    width: 455px;
+    width: fit-content;
     max-height: 80%;
     background: #333333;
     padding: 25px;
     color: #ffffff;
-    overflow-y: auto;
+    overflow: auto;
     position: relative;
 }
-.filter-modal-content h1 {
-    margin: 0 0 10px;
-    font-size: 2.2em;
-}
-.filter-modal-content p {
-    margin: 10px 0;
-    font-size: 1.3em;
-}
-
-.filter-modal .filter-modal-content table {
-    font-size: 1.6em;
-    width: 100%;
-}
-
-.filter-modal .filter-modal-content table tr td {
-    padding: 0 10px;
-    text-align: right;
-    cursor: pointer;
-    transform: scale(1);
-    transition: all 0.12s ease-in-out;
-}
-.filter-modal .filter-modal-content table img {
-    width: 75px;
-    height: 75px;
-    margin: 0 auto;
-    display: block;
-}
-
 .filter-modal-content::-webkit-scrollbar,
 body::-webkit-scrollbar {
     width: 12px;
@@ -84,6 +63,56 @@ body::-webkit-scrollbar-thumb {
 .filter-modal-content::-webkit-scrollbar-track,
 body::-webkit-scrollbar-track {
     background-color: #444;
+}
+
+.filter-modal-content h1 {
+    position: sticky;
+    left: 0;
+    margin: 0 0 10px;
+    font-size: 2.2em;
+}
+.filter-modal-content p {
+    position: sticky;
+    left: 0;
+    margin: 10px 0;
+    font-size: 1.3em;
+}
+.filter-modal-content button {
+    position: sticky;
+    left: 0;
+    margin: 20px 0;
+    margin-bottom: 0;
+    background-color: transparent;
+    border-color: transparent;
+    color: white;
+    font-size: 24px;
+    width: 100%;
+    text-align: center;
+}
+.filter-modal-content div button {
+    width: 100%;
+}
+.filter-modal-content div button {
+    width: 49.5%;
+}
+
+.filter-modal-content table {
+    font-size: 1.6em;
+    width: 100%;
+}
+
+.filter-modal-content table tr td {
+    padding: 0 10px;
+    text-align: right;
+}
+.filter-modal-content table tr td div {
+    text-align: center;
+}
+.filter-modal-content table img {
+    width: 75px;
+    height: 75px;
+    margin: 0 auto;
+    display: block;
 }
 
 .container,
