@@ -85,13 +85,13 @@ export default class Filter {
     static OPTrue(groupKey: string, key: string): boolean {
         const value = this.filter[groupKey];
         if (value === undefined) {
+            throw Error(`${groupKey} isn't a real Group`);
+        } else {
             if (value[key] === undefined) {
                 throw Error(`${key} isn't a real OP`);
             } else {
                 return value[key];
             }
-        } else {
-            throw Error(`${groupKey} isn't a real Group`);
         }
     }
 
@@ -106,12 +106,34 @@ export default class Filter {
     }
     static #changeAGroup(key: string, v: boolean) {
         const value = this.filter[key];
-        if (value !== undefined) {
+        if (value === undefined) {
+            throw Error(`${key} isn't a real group`);
+        } else {
             for (const op_key in value) {
                 value[op_key] = v;
             }
             this.#setCookie();
         }
+    }
+    static #changeOP(groupKey: string, key: string, v: boolean) {
+        const value = this.filter[groupKey];
+        if (value === undefined) {
+            throw Error(`${groupKey} isn't a real Group`);
+        } else {
+            if (value[key] === undefined) {
+                throw Error(`${key} isn't a real OP`);
+            } else {
+                value[key] = v;
+                this.#setCookie();
+            }
+        }
+    }
+
+    static selectOP(groupKey: string, key: string) {
+        this.#changeOP(groupKey, key, true);
+    }
+    static deselectOP(groupKey: string, key: string) {
+        this.#changeOP(groupKey, key, false);
     }
 
     static selectAll() {

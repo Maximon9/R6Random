@@ -84,7 +84,6 @@ function createFilter() {
     else {
         FILTER_SELECT_ALL.innerHTML = "Select All";
     }
-    giveHoverAnimation(FILTER_SELECT_ALL);
     FILTER_MODAL_CONTENT.appendChild(FILTER_SELECT_ALL);
     const FILTER_TABLE = document.createElement("table");
     FILTER_MODAL_CONTENT.appendChild(FILTER_TABLE);
@@ -95,71 +94,169 @@ function createFilter() {
     const FILTER_SELECT_OPS = document.createElement("tr");
     FILTER_TABLE_BODY.appendChild(FILTER_SELECT_OPS);
     const htmlSelectGroupButtons = [];
-    for (const g_key in GROUPS) {
-        const group = GROUPS[g_key];
+    const htmlSelectOpButtons = {};
+    for (const key in GROUPS) {
+        const group = GROUPS[key];
         const GROUP_SELECT = document.createElement("td");
-        GROUP_SELECT.colSpan = 2;
-        FILTER_SELECT_GROUP.appendChild(GROUP_SELECT);
         const GROUP_SELECT_BUTTON = document.createElement("button");
-        if (Filter.GroupTrue(g_key)) {
-            GROUP_SELECT_BUTTON.innerHTML = "Deselect All " + g_key;
+        if (Filter.GroupTrue(key)) {
+            GROUP_SELECT_BUTTON.innerHTML = "Deselect All " + key;
         }
         else {
-            GROUP_SELECT_BUTTON.innerHTML = "Select All " + g_key;
+            GROUP_SELECT_BUTTON.innerHTML = "Select All " + key;
         }
-        giveHoverAnimation(GROUP_SELECT_BUTTON);
-        GROUP_SELECT_BUTTON.addEventListener("click", () => {
-            if (Filter.GroupTrue(g_key)) {
-                Filter.delectGroup(g_key);
+        let makeGroupSelectButton = true;
+        if (group.ops.length > 0) {
+            htmlSelectOpButtons[key] = [];
+            const column1 = document.createElement("td");
+            let column2 = null;
+            if (group.ops.length > 1) {
+                column2 = document.createElement("td");
+                GROUP_SELECT.colSpan = 2;
+            }
+            else if (group.ops.length === 1) {
+                GROUP_SELECT.colSpan = 1;
             }
             else {
-                Filter.selectGroup(g_key);
+                makeGroupSelectButton = false;
             }
-            if (Filter.GroupTrue(g_key)) {
-                GROUP_SELECT_BUTTON.innerHTML = "Deselect All " + g_key;
+            const halfLength = Math.ceil(group.ops.length / 2);
+            for (let i = 0; i < group.ops.length; i++) {
+                const op = group.ops[i];
+                const OP_BUTTON = document.createElement("div");
+                const OP_IMAGE = document.createElement("img");
+                OP_IMAGE.src = op.icons[0];
+                OP_IMAGE.alt = op.name;
+                OP_BUTTON.appendChild(OP_IMAGE);
+                OP_BUTTON.innerHTML += op.name;
+                if (Filter.OPTrue(key, op.name)) {
+                    OP_BUTTON.children.item(0).style.filter = "";
+                    giveHoverAnimation(OP_BUTTON);
+                }
+                else {
+                    OP_BUTTON.children.item(0).style.filter = "grayscale(100%)";
+                    giveHoverAnimation(OP_BUTTON, false, 70);
+                }
+                OP_BUTTON.addEventListener("click", () => {
+                    if (Filter.OPTrue(key, op.name)) {
+                        Filter.deselectOP(key, op.name);
+                        OP_BUTTON.children.item(0).style.filter = "grayscale(100%)";
+                        giveHoverAnimation(OP_BUTTON, true, 70);
+                    }
+                    else {
+                        Filter.selectOP(key, op.name);
+                        OP_BUTTON.children.item(0).style.filter = "";
+                        giveHoverAnimation(OP_BUTTON, true);
+                    }
+                    for (let i = 0; i < htmlSelectGroupButtons.length; i++) {
+                        const [key, element] = htmlSelectGroupButtons[i];
+                        if (Filter.GroupTrue(key)) {
+                            element.innerHTML = "Deselect All " + key;
+                        }
+                        else {
+                            element.innerHTML = "Select All " + key;
+                        }
+                    }
+                    if (Filter.AllTrue) {
+                        FILTER_SELECT_ALL.innerHTML = "Deselect All";
+                    }
+                    else {
+                        FILTER_SELECT_ALL.innerHTML = "Select All";
+                    }
+                });
+                htmlSelectOpButtons[key].push([op.name, OP_BUTTON]);
+                if (column2 == null) {
+                    column1.appendChild(OP_BUTTON);
+                }
+                else {
+                    if (i < halfLength) {
+                        column1.appendChild(OP_BUTTON);
+                    }
+                    else {
+                        column2.appendChild(OP_BUTTON);
+                    }
+                }
             }
-            else {
-                GROUP_SELECT_BUTTON.innerHTML = "Select All " + g_key;
+            FILTER_SELECT_OPS.appendChild(column1);
+            if (column2 !== null) {
+                FILTER_SELECT_OPS.appendChild(column2);
             }
-            if (Filter.AllTrue) {
-                FILTER_SELECT_ALL.innerHTML = "Deselect All";
-            }
-            else {
-                FILTER_SELECT_ALL.innerHTML = "Select All";
-            }
-        });
-        htmlSelectGroupButtons.push([g_key, GROUP_SELECT_BUTTON]);
-        GROUP_SELECT.appendChild(GROUP_SELECT_BUTTON);
-        const halfLength = Math.ceil(group.ops.length / 2);
-        for (let i = 0; i < group.ops.length; i++) {
-            const op = group.ops[i];
-            if (i < halfLength) {
-            }
+        }
+        if (makeGroupSelectButton) {
+            giveHoverAnimation(GROUP_SELECT_BUTTON);
+            GROUP_SELECT_BUTTON.addEventListener("click", () => {
+                if (Filter.GroupTrue(key)) {
+                    Filter.delectGroup(key);
+                    GROUP_SELECT_BUTTON.innerHTML = "Select All " + key;
+                }
+                else {
+                    Filter.selectGroup(key);
+                    GROUP_SELECT_BUTTON.innerHTML = "Deselect All " + key;
+                }
+                if (Filter.AllTrue) {
+                    FILTER_SELECT_ALL.innerHTML = "Deselect All";
+                }
+                else {
+                    FILTER_SELECT_ALL.innerHTML = "Select All";
+                }
+                if (htmlSelectOpButtons[key] !== undefined) {
+                    for (let i = 0; i < htmlSelectOpButtons[key].length; i++) {
+                        const [name, button] = htmlSelectOpButtons[key][i];
+                        if (Filter.OPTrue(key, name)) {
+                            button.children.item(0).style.filter = "";
+                            giveHoverAnimation(button);
+                        }
+                        else {
+                            button.children.item(0).style.filter = "grayscale(100%)";
+                            giveHoverAnimation(button, false, 70);
+                        }
+                    }
+                }
+            });
+            GROUP_SELECT.appendChild(GROUP_SELECT_BUTTON);
+            htmlSelectGroupButtons.push([key, GROUP_SELECT_BUTTON]);
+            FILTER_SELECT_GROUP.appendChild(GROUP_SELECT);
         }
     }
-    FILTER_SELECT_ALL.addEventListener("click", () => {
-        if (Filter.AllTrue) {
-            Filter.deselectAll();
-        }
-        else {
-            Filter.selectAll();
-        }
-        if (Filter.AllTrue) {
-            FILTER_SELECT_ALL.innerHTML = "Deselect All";
-        }
-        else {
-            FILTER_SELECT_ALL.innerHTML = "Select All";
-        }
-        for (let i = 0; i < htmlSelectGroupButtons.length; i++) {
-            const [key, element] = htmlSelectGroupButtons[i];
-            if (Filter.GroupTrue(key)) {
-                element.innerHTML = "Deselect All " + key;
+    if (htmlSelectGroupButtons.length > 0) {
+        FILTER_SELECT_ALL.addEventListener("click", () => {
+            if (Filter.AllTrue) {
+                Filter.deselectAll();
+                FILTER_SELECT_ALL.innerHTML = "Select All";
             }
             else {
-                element.innerHTML = "Select All " + key;
+                Filter.selectAll();
+                FILTER_SELECT_ALL.innerHTML = "Deselect All";
             }
-        }
-    });
+            console.log(Filter.filter);
+            for (let i = 0; i < htmlSelectGroupButtons.length; i++) {
+                const [key, element] = htmlSelectGroupButtons[i];
+                if (Filter.GroupTrue(key)) {
+                    element.innerHTML = "Deselect All " + key;
+                }
+                else {
+                    element.innerHTML = "Select All " + key;
+                }
+            }
+            for (const key in htmlSelectOpButtons) {
+                for (let i = 0; i < htmlSelectOpButtons[key].length; i++) {
+                    const [name, button] = htmlSelectOpButtons[key][i];
+                    if (Filter.OPTrue(key, name)) {
+                        button.children.item(0).style.filter = "";
+                        giveHoverAnimation(button);
+                    }
+                    else {
+                        button.children.item(0).style.filter = "grayscale(100%)";
+                        giveHoverAnimation(button, false, 70);
+                    }
+                }
+            }
+        });
+        giveHoverAnimation(FILTER_SELECT_ALL);
+    }
+    else {
+        FILTER_MODAL_CONTENT.removeChild(FILTER_MODAL_CONTENT.childNodes[2]);
+    }
     if (isScrollable(FILTER_MODAL_CONTENT, "horizontal")) {
         let pre_left = null;
         while (FILTER_MODAL_CONTENT.scrollLeft !== pre_left) {
@@ -207,14 +304,20 @@ function createFilter() {
         }
     });
 }
-function giveHoverAnimation(element) {
+function giveHoverAnimation(element, click = false, scale = 90) {
+    if (click) {
+        element.style.transform = `scale(${scale + 10}%)`;
+    }
+    else {
+        element.style.transform = `scale(${scale}%)`;
+    }
     element.addEventListener("mouseenter", () => {
         element.style.transition = "transform 0.13s ease-in-out";
-        element.style.transform = "scale(110%)";
+        element.style.transform = `scale(${scale + 10}%)`;
     });
     element.addEventListener("mouseleave", () => {
         element.style.transition = "transform 0.13s ease-in-out";
-        element.style.transform = "scale(100%)";
+        element.style.transform = `scale(${scale}%)`;
     });
 }
 function groupButtonClicked(key) {

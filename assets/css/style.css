@@ -104,9 +104,14 @@ body::-webkit-scrollbar-track {
 .filter-modal-content table tr td {
     padding: 0 10px;
     text-align: right;
+    vertical-align: top;
 }
 .filter-modal-content table tr td div {
     text-align: center;
+    width: 100px;
+    border-width: 100%;
+    border-style: outset;
+    border-color: #333333;
 }
 .filter-modal-content table img {
     width: 75px;
