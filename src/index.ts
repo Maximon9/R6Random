@@ -1,93 +1,6 @@
 import { GROUPS } from "./ops.js";
 import Filter from "./utils/filter.js";
-/*
-<section class="filter-modal">
-    <div class="filter-modal-content">
-        <h1>Filter</h1>
-        <p>Filters will be saved in a cookie</p>
-        <button>Select All</button>
-        <table>
-            <tbody>
-                <tr>
-                    <td colspan="2">
-                        <button>Select Attackers</button>
-                    </td>
-                    <td colspan="2">
-                        <button>Select Defenders</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td id="attackers-column-1">
-                        <div id="ash">
-                            <img
-                                src="assets/Siege-Rando-Images/OPIcons/Ash_Icon.png"
-                                alt="Ash"
-                            />
-                            Ash
-                        </div>
-                        <div id="ash">
-                            <img
-                                src="assets/Siege-Rando-Images/OPIcons/Ash_Icon.png"
-                                alt="Ash"
-                            />
-                            Ash
-                        </div>
-                    </td>
-                    <td id="attackers-column-2">
-                        <div id="ash">
-                            <img
-                                src="assets/Siege-Rando-Images/OPIcons/Ash_Icon.png"
-                                alt="Ash"
-                            />
-                            Ash
-                        </div>
-                        <div id="ash">
-                            <img
-                                src="assets/Siege-Rando-Images/OPIcons/Ash_Icon.png"
-                                alt="Ash"
-                            />
-                            Ash
-                        </div>
-                    </td>
-                    <td id="defenders-column-1">
-                        <div id="ash">
-                            <img
-                                src="assets/Siege-Rando-Images/OPIcons/Alibi_Icon.webp"
-                                alt="Ash"
-                            />
-                            Alibi
-                        </div>
-                        <div id="ash">
-                            <img
-                                src="assets/Siege-Rando-Images/OPIcons/Alibi_Icon.webp"
-                                alt="Ash"
-                            />
-                            Alibi
-                        </div>
-                    </td>
-                    <td id="defenders-column-2">
-                        <div id="ash">
-                            <img
-                                src="assets/Siege-Rando-Images/OPIcons/Alibi_Icon.webp"
-                                alt="Ash"
-                            />
-                            Alibi
-                        </div>
-                        <div id="ash">
-                            <img
-                                src="assets/Siege-Rando-Images/OPIcons/Alibi_Icon.webp"
-                                alt="Ash"
-                            />
-                            Alibi
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</section>
-*/
-//#region Main
+
 declare global {
     interface String {
         get domURL(): string;
@@ -134,7 +47,7 @@ function createGroupButtons() {
         html_countainer.innerHTML += key;
 
         const html_options = document.createElement("a");
-        html_options.href = "options.html";
+        html_options.href = "op.html";
 
         const html_group = document.createElement("img");
         html_group.className = "group-button";
