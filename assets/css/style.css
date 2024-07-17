@@ -169,6 +169,7 @@ body::-webkit-scrollbar-track {
 .container:hover {
     padding-top: 5%;
     transition: transform 0.13s ease-in-out;
+    height: fit-content;
 }
 .container {
     flex: 1;

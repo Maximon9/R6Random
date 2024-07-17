@@ -1,9 +1,11 @@
-import { GROUPS } from "../ops.js";
+import { GROUPS, GroupParseKeys, OpParseKeys } from "../ops.js";
+export const OptionsParse = {};
+OptionsParse[(OptionsParse["Avoid Dupes"] = "0")] = "Avoid Dupes";
 export default class Options {
     static options = {};
     static Filter = class {
         static filter = {};
-        static startFilter(cookie) {
+        static parseFilterCookie(cookie) {
             const group_vars = cookie.split("%");
             for (let i = 0; i < group_vars.length; i++) {
                 const g_v = group_vars[i];
@@ -22,18 +24,6 @@ export default class Options {
                     }
                 }
             }
-            for (const key in GROUPS) {
-                const group = GROUPS[key];
-                if (this.filter[key] === undefined) {
-                    this.filter[key] = {};
-                }
-                for (let i = 0; i < group.ops.length; i++) {
-                    const op = group.ops[i];
-                    if (this.filter[key][op.name] === undefined) {
-                        this.filter[key][op.name] = true;
-                    }
-                }
-            }
         }
         static toString() {
             let str = "";
@@ -46,14 +36,14 @@ export default class Options {
                 for (let i1 = 0; i1 < op_keys.length; i1++) {
                     const op_key = op_keys[i1];
                     const op_value = value[op_key];
-                    if (i < op_keys.length - 1) {
+                    if (i1 < op_keys.length - 1) {
                         str += `${op_key}:${op_value ? 1 : 0}|`;
                     }
                     else {
                         str += `${op_key}:${op_value ? 1 : 0}`;
                     }
                 }
-                if (i < op_keys.length - 1)
+                if (i < keys.length - 1)
                     str += `%`;
             }
             return str;
@@ -70,9 +60,9 @@ export default class Options {
             return true;
         }
         static GroupTrue(key) {
-            const value = this.filter[key];
+            const value = this.filter[GroupParseKeys[key]];
             if (value === undefined) {
-                throw Error(`${key} isn't a real group`);
+                return true;
             }
             else {
                 for (const op_key in value) {
@@ -84,60 +74,91 @@ export default class Options {
             return true;
         }
         static OPTrue(groupKey, key) {
-            const value = this.filter[groupKey];
+            const value = this.filter[GroupParseKeys[groupKey]];
             if (value === undefined) {
-                throw Error(`${groupKey} isn't a real Group`);
+                return true;
             }
             else {
-                if (value[key] === undefined) {
-                    throw Error(`${key} isn't a real OP`);
+                const real_key = OpParseKeys[GroupParseKeys[groupKey]][key];
+                if (value[real_key] === undefined) {
+                    return true;
                 }
                 else {
-                    return value[key];
+                    return value[real_key];
                 }
             }
         }
-        static #changeAllFilterValues(v) {
-            for (const key in this.filter) {
-                const value = this.filter[key];
-                for (const op_key in value) {
-                    value[op_key] = v;
+        static #changeAllFilterValues(select) {
+            if (select) {
+                for (const key in this.filter) {
+                    this.#changeAGroup(key, select, false);
+                }
+            }
+            else {
+                for (const key in GROUPS) {
+                    this.#changeAGroup(GroupParseKeys[key], select, false);
                 }
             }
             Options.#setCookie();
         }
-        static #changeAGroup(key, v) {
-            const value = this.filter[key];
-            if (value === undefined) {
-                throw Error(`${key} isn't a real group`);
+        static #changeAGroup(key, select, setCookie = true) {
+            let value = this.filter[key];
+            let changeOPs = true;
+            if (select) {
+                if (value === undefined) {
+                    changeOPs = false;
+                }
             }
             else {
-                for (const op_key in value) {
-                    value[op_key] = v;
+                if (value === undefined) {
+                    value = this.filter[key] = {};
                 }
+            }
+            if (changeOPs) {
+                if (select) {
+                    for (const op_key in value) {
+                        this.#changeOP(key, op_key, select, false);
+                    }
+                }
+                else {
+                    const group = GROUPS[key];
+                    for (let i = 0; i < group.ops.length; i++) {
+                        const op = group.ops[i];
+                        this.#changeOP(key, OpParseKeys[GroupParseKeys[key]][op.name], select, false);
+                    }
+                }
+            }
+            if (setCookie) {
                 Options.#setCookie();
             }
         }
-        static #changeOP(groupKey, key, v) {
-            const value = this.filter[groupKey];
-            if (value === undefined) {
-                throw Error(`${groupKey} isn't a real Group`);
+        static #changeOP(groupKey, key, select, setCookie = true) {
+            let value = this.filter[groupKey];
+            if (select) {
+                if (value !== undefined) {
+                    if (value[key] !== undefined) {
+                        delete value[key];
+                        if (Object.keys(value).length <= 0) {
+                            delete this.filter[groupKey];
+                        }
+                    }
+                }
             }
             else {
-                if (value[key] === undefined) {
-                    throw Error(`${key} isn't a real OP`);
+                if (value === undefined) {
+                    value = this.filter[groupKey] = {};
                 }
-                else {
-                    value[key] = v;
-                    Options.#setCookie();
-                }
+                value[key] = select;
+            }
+            if (setCookie) {
+                Options.#setCookie();
             }
         }
         static selectOP(groupKey, key) {
-            this.#changeOP(groupKey, key, true);
+            this.#changeOP(groupKey, OpParseKeys[GroupParseKeys[groupKey]][key], true);
         }
         static deselectOP(groupKey, key) {
-            this.#changeOP(groupKey, key, false);
+            this.#changeOP(groupKey, OpParseKeys[GroupParseKeys[groupKey]][key], false);
         }
         static selectAll() {
             this.#changeAllFilterValues(true);
@@ -146,19 +167,32 @@ export default class Options {
             this.#changeAllFilterValues(false);
         }
         static selectGroup(key) {
-            this.#changeAGroup(key, true);
+            this.#changeAGroup(GroupParseKeys[key], true);
         }
         static delectGroup(key) {
-            this.#changeAGroup(key, false);
+            this.#changeAGroup(GroupParseKeys[key], false);
         }
     };
     static #setCookie() {
-        document.cookie = this.Filter.toString() + "$" + this.toString();
+        const filter = this.Filter.toString();
+        const options = this.toString();
+        if (options === "" && filter !== "") {
+            document.cookie = filter;
+        }
+        else if (options !== "" && filter === "") {
+            document.cookie = options;
+        }
+        else if (options !== "" && filter !== "") {
+            document.cookie = filter + "$" + options;
+        }
+        else {
+            document.cookie = "Null";
+        }
+        console.log(document.cookie);
     }
     static setOption(key, value) {
         this.options[key] = value;
         this.#setCookie();
-        console.log("SETTING: ", document.cookie);
     }
     static removeOption(key) {
         if (this.options[key] !== undefined) {
@@ -169,9 +203,9 @@ export default class Options {
     static parseCookie() {
         const cookies = document.cookie.split("$");
         if (cookies.length > 0) {
-            this.Filter.startFilter(cookies[0]);
+            this.Filter.parseFilterCookie(cookies[0]);
             if (cookies.length > 1) {
-                this.Filter.startFilter(cookies[0]);
+                this.Filter.parseFilterCookie(cookies[0]);
                 const vars = cookies[1].split("|");
                 for (let i = 0; i < vars.length; i++) {
                     const v = vars[i];

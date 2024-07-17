@@ -1,5 +1,5 @@
 import { GROUPS } from "./ops.js";
-import Options from "./utils/options.js";
+import Options, { OptionsParse } from "./utils/options.js";
 
 declare global {
     interface String {
@@ -264,7 +264,6 @@ function createFilter() {
                 Options.Filter.selectAll();
                 FILTER_SELECT_ALL.innerHTML = "Deselect All";
             }
-            console.log(Options.Filter.filter);
             for (let i = 0; i < htmlSelectGroupButtons.length; i++) {
                 const [key, element] = htmlSelectGroupButtons[i];
                 if (Options.Filter.GroupTrue(key)) {
@@ -357,7 +356,7 @@ function createOptions() {
     const TABLE_DATA_2 = document.createElement("td");
     const key = "Avoid Dupes";
     TABLE_DATA_2.innerHTML = key;
-    if (Options.options[key] === undefined) {
+    if (Options.options[OptionsParse[key]] === undefined) {
         TABLE_DATA_2.style.color = "#ffffff";
         giveHoverAnimation(TABLE_DATA_2);
     } else {
@@ -365,12 +364,12 @@ function createOptions() {
         giveHoverAnimation(TABLE_DATA_2, false, 70);
     }
     TABLE_DATA_2.addEventListener("click", () => {
-        if (Options.options[key] === undefined) {
-            Options.setOption(key, false);
+        if (Options.options[OptionsParse[key]] === undefined) {
+            Options.setOption(OptionsParse[key], false);
             TABLE_DATA_2.style.color = "#999999";
             giveHoverAnimation(TABLE_DATA_2, true, 70);
         } else {
-            Options.removeOption(key);
+            Options.removeOption(OptionsParse[key]);
             TABLE_DATA_2.style.color = "#ffffff";
             giveHoverAnimation(TABLE_DATA_2, true);
         }

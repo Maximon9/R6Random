@@ -166,10 +166,6 @@ class __Parser:
             "UnderBarrelAttachmentInfo": False,
         }
 
-    # @property
-    # def __check_names(this) -> list[str]:
-    #     return [*this.configs["groupNames"], *this.configs["equipmentNames"], *this.configs["weaponNames"], *this.configs["attachmentNames"]]
-
     @property
     def __has_many_attachments(this) -> bool:
         count = 0
@@ -219,20 +215,62 @@ class __Parser:
         if not exists(this.ops_ts_path):
             Path(dirname(this.ops_ts_path)).mkdir(parents=True, exist_ok=True)
         with open(this.ops_ts_path, "w") as ts_file:
-            parse_string: str = ""
             parse_string = this.__parse_group(
-                parsed_data, this.__try_fetch_references(parsed_data), parse_string
+                parsed_data, this.__try_fetch_references(parsed_data)
             )
+            parse_keys = this.__make_parse_keys(parsed_data)
             ts_file.write(
-                f"//#region Main\n\n{this.__fetch_imports}{parse_string}\n\n//#endregion\n"
+                f"//#region Main\n\n{this.__fetch_imports}{parse_string}{parse_keys}\n\n//#endregion\n"
             )
             ts_file.close()
+
+    """ 
+    export const GroupParseKeys: { [k: string]: string } = {};
+    GroupParseKeys[(GroupParseKeys["Attackers"] = "0")] = "Attackers";
+
+    export const OpParseKeys: { [k: string]: string } = {};
+    OpParseKeys[(OpParseKeys["Ash"] = "0")] = "Ash";
+    """
+
+    def __make_parse_keys(
+        this, data: StrDict[Union[list[str], str, StrDict]], parse_keys: str = ""
+    ) -> str:
+        parse_keys += "\n\nexport const GroupParseKeys: { [k: string]: string } = {};"
+        i = 0
+        for key in data:
+            value = data[key]
+            if not "reference" in key.lower() and isinstance(value, dict):
+                parse_keys += f'\nGroupParseKeys[(GroupParseKeys["{key}"] = "{str(i)}")] = "{key}";'
+                i += 1
+        parse_keys += "\n\nexport const OpParseKeys: { [k: string]: { [k: string]: string } } = {};"
+        for key in data:
+            value = data[key]
+            if not "reference" in key.lower() and isinstance(value, dict):
+                parse_keys = this.__make_op_parse_keys(key, value, parse_keys)
+                parse_keys += "\n"
+        return parse_keys
+
+    def __make_op_parse_keys(
+        this,
+        group_name: str,
+        data: StrDict[Union[list[str], str, StrDict]],
+        parse_keys: str,
+    ) -> str:
+        parse_key_const = f'OpParseKeys[GroupParseKeys["{group_name}"]]'
+        parse_keys += f"\n{parse_key_const} = " + "{};"
+        i = 0
+        for key in data:
+            value = data[key]
+            if isinstance(value, dict):
+                parse_keys += f'\n{parse_key_const}[({parse_key_const}["{key}"] = "{str(i)}")] = "{key}"'
+                i += 1
+        return parse_keys
 
     def __parse_group(
         this,
         data: StrDict[Union[str, list[str], StrDict]],
         references: StrDict[str],
-        parse_string: str,
+        parse_string: str = "",
     ) -> str:
         if this.export_groups_regardless:
             if not this.imports["Groups"]["active"]:

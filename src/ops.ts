@@ -4256,4 +4256,27 @@ export const GROUPS: Groups = {
 	}),
 };
 
+export const GroupParseKeys: { [k: string]: string } = {};
+GroupParseKeys[(GroupParseKeys["Attackers"] = "0")] = "Attackers";
+GroupParseKeys[(GroupParseKeys["Defenders"] = "1")] = "Defenders";
+
+export const OpParseKeys: { [k: string]: { [k: string]: string } } = {};
+OpParseKeys[GroupParseKeys["Attackers"]] = {};
+OpParseKeys[GroupParseKeys["Attackers"]][(OpParseKeys[GroupParseKeys["Attackers"]]["Ash"] = "0")] = "Ash"
+OpParseKeys[GroupParseKeys["Attackers"]][(OpParseKeys[GroupParseKeys["Attackers"]]["Blitz"] = "1")] = "Blitz"
+OpParseKeys[GroupParseKeys["Attackers"]][(OpParseKeys[GroupParseKeys["Attackers"]]["Buck"] = "2")] = "Buck"
+OpParseKeys[GroupParseKeys["Attackers"]][(OpParseKeys[GroupParseKeys["Attackers"]]["Fuze"] = "3")] = "Fuze"
+OpParseKeys[GroupParseKeys["Attackers"]][(OpParseKeys[GroupParseKeys["Attackers"]]["Glaz"] = "4")] = "Glaz"
+OpParseKeys[GroupParseKeys["Attackers"]][(OpParseKeys[GroupParseKeys["Attackers"]]["IQ"] = "5")] = "IQ"
+OpParseKeys[GroupParseKeys["Attackers"]][(OpParseKeys[GroupParseKeys["Attackers"]]["Montagne"] = "6")] = "Montagne"
+OpParseKeys[GroupParseKeys["Attackers"]][(OpParseKeys[GroupParseKeys["Attackers"]]["Sledge"] = "7")] = "Sledge"
+OpParseKeys[GroupParseKeys["Attackers"]][(OpParseKeys[GroupParseKeys["Attackers"]]["Thatcher"] = "8")] = "Thatcher"
+OpParseKeys[GroupParseKeys["Attackers"]][(OpParseKeys[GroupParseKeys["Attackers"]]["Thermite"] = "9")] = "Thermite"
+OpParseKeys[GroupParseKeys["Attackers"]][(OpParseKeys[GroupParseKeys["Attackers"]]["Twitch"] = "10")] = "Twitch"
+OpParseKeys[GroupParseKeys["Attackers"]][(OpParseKeys[GroupParseKeys["Attackers"]]["Zofia"] = "11")] = "Zofia"
+
+OpParseKeys[GroupParseKeys["Defenders"]] = {};
+OpParseKeys[GroupParseKeys["Defenders"]][(OpParseKeys[GroupParseKeys["Defenders"]]["Alibi"] = "0")] = "Alibi"
+
+
 //#endregion
