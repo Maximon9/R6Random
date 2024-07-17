@@ -165,7 +165,6 @@ export default class Options {
             delete this.options[key];
         }
         this.#setCookie();
-        console.log(document.cookie);
     }
     static parseCookie() {
         const cookies = document.cookie.split("$");
