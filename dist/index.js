@@ -33,6 +33,7 @@ function createGroupButtons() {
         html_countainer.className = "container";
         html_countainer.innerHTML += key;
         const html_op = document.createElement("a");
+        html_op.draggable = false;
         html_op.href = "op.html";
         const html_group = document.createElement("img");
         html_group.className = "group-button";
@@ -66,18 +67,20 @@ function createGroupButtons() {
     document.body.insertBefore(GROUP_MODAL, document.body.childNodes[2]);
 }
 function createFilter() {
+    const MAIN = document.createElement("section");
+    MAIN.style.background = "#444444";
+    document.body.insertBefore(MAIN, document.body.childNodes[2]);
     const FILTER_MODAL = document.createElement("section");
     FILTER_MODAL.className = "filter-modal";
-    document.body.insertBefore(FILTER_MODAL, document.body.childNodes[2]);
+    MAIN.appendChild(FILTER_MODAL);
     const FILTER_MODAL_CONTENT = document.createElement("div");
     FILTER_MODAL_CONTENT.className = "filter-modal-content";
     FILTER_MODAL.appendChild(FILTER_MODAL_CONTENT);
     const FILTER_HEADER = document.createElement("h1");
-    FILTER_HEADER.innerHTML = "Options.Filter";
+    FILTER_HEADER.innerHTML = "Filter";
     FILTER_MODAL_CONTENT.appendChild(FILTER_HEADER);
-    const FILTER_P = document.createElement("p");
-    FILTER_P.innerHTML = "Filters will be saved in a cookie";
-    FILTER_MODAL_CONTENT.appendChild(FILTER_P);
+    const FILTER_SELECT_ALL_CONTAINER = document.createElement("div");
+    FILTER_MODAL_CONTENT.appendChild(FILTER_SELECT_ALL_CONTAINER);
     const FILTER_SELECT_ALL = document.createElement("button");
     if (Options.Filter.AllTrue) {
         FILTER_SELECT_ALL.innerHTML = "Deselect All";
@@ -85,7 +88,7 @@ function createFilter() {
     else {
         FILTER_SELECT_ALL.innerHTML = "Select All";
     }
-    FILTER_MODAL_CONTENT.appendChild(FILTER_SELECT_ALL);
+    FILTER_SELECT_ALL_CONTAINER.appendChild(FILTER_SELECT_ALL);
     const FILTER_TABLE = document.createElement("table");
     FILTER_MODAL_CONTENT.appendChild(FILTER_TABLE);
     const FILTER_TABLE_BODY = document.createElement("tbody");
@@ -98,8 +101,8 @@ function createFilter() {
     const htmlSelectOpButtons = {};
     for (const key in GROUPS) {
         const group = GROUPS[key];
-        const GROUP_SELECT = document.createElement("td");
-        const GROUP_SELECT_BUTTON = document.createElement("button");
+        const GROUP_SELECT_BUTTON = document.createElement("td");
+        GROUP_SELECT_BUTTON.className = "group-select";
         if (Options.Filter.GroupTrue(key)) {
             GROUP_SELECT_BUTTON.innerHTML = "Deselect All " + key;
         }
@@ -113,10 +116,10 @@ function createFilter() {
             let column2 = null;
             if (group.ops.length > 1) {
                 column2 = document.createElement("td");
-                GROUP_SELECT.colSpan = 2;
+                GROUP_SELECT_BUTTON.colSpan = 2;
             }
             else if (group.ops.length === 1) {
-                GROUP_SELECT.colSpan = 1;
+                GROUP_SELECT_BUTTON.colSpan = 1;
             }
             else {
                 makeGroupSelectButton = false;
@@ -126,6 +129,7 @@ function createFilter() {
                 const op = group.ops[i];
                 const OP_BUTTON = document.createElement("div");
                 const OP_IMAGE = document.createElement("img");
+                OP_IMAGE.draggable = false;
                 OP_IMAGE.src = op.icons[0];
                 OP_IMAGE.alt = op.name;
                 OP_BUTTON.appendChild(OP_IMAGE);
@@ -214,9 +218,8 @@ function createFilter() {
                     }
                 }
             });
-            GROUP_SELECT.appendChild(GROUP_SELECT_BUTTON);
             htmlSelectGroupButtons.push([key, GROUP_SELECT_BUTTON]);
-            FILTER_SELECT_GROUP.appendChild(GROUP_SELECT);
+            FILTER_SELECT_GROUP.appendChild(GROUP_SELECT_BUTTON);
         }
     }
     if (htmlSelectGroupButtons.length > 0) {
@@ -306,26 +309,42 @@ function createFilter() {
     });
 }
 function createOptions() {
-    /*
-    <section class="options-modal">
-        <table>
-            <tbody>
-                <tr>
-                    <td>Avoid Dupes</td>
-                </tr>
-            </tbody>
-        </table>
-    </section>
-    */
     const OPTIONS_MODAL = document.createElement("section");
     OPTIONS_MODAL.className = "options-modal";
     const TABLE = document.createElement("table");
     const TABLE_BODY = document.createElement("tbody");
     const TABLE_ROW_1 = document.createElement("tr");
-    const TABLE_DATA_1 = document.createElement("td");
-    TABLE_DATA_1.innerHTML = "Avoid Dupes";
+    const TABLE_DATA_1 = document.createElement("h1");
+    TABLE_DATA_1.innerHTML = "Options";
+    const TABLE_ROW_2 = document.createElement("tr");
+    const TABLE_DATA_2 = document.createElement("td");
+    const key = "Avoid Dupes";
+    TABLE_BODY;
+    TABLE_DATA_2.innerHTML = key;
+    if (Options.options[key] === undefined) {
+        TABLE_DATA_2.style.color = "#999999";
+        giveHoverAnimation(TABLE_DATA_2, false, 70);
+    }
+    else {
+        TABLE_DATA_2.style.color = "#ffffff";
+        giveHoverAnimation(TABLE_DATA_2);
+    }
+    TABLE_DATA_2.addEventListener("click", () => {
+        if (Options.options[key] === undefined) {
+            Options.setOption(key, false);
+            TABLE_DATA_2.style.color = "#ffffff";
+            giveHoverAnimation(TABLE_DATA_2, true);
+        }
+        else {
+            Options.removeOption(key);
+            TABLE_DATA_2.style.color = "#999999";
+            giveHoverAnimation(TABLE_DATA_2, true, 70);
+        }
+    });
     TABLE_ROW_1.appendChild(TABLE_DATA_1);
+    TABLE_ROW_2.appendChild(TABLE_DATA_2);
     TABLE_BODY.appendChild(TABLE_ROW_1);
+    TABLE_BODY.appendChild(TABLE_ROW_2);
     TABLE.appendChild(TABLE_BODY);
     OPTIONS_MODAL.appendChild(TABLE);
     document.body.insertBefore(OPTIONS_MODAL, document.body.childNodes[2]);
