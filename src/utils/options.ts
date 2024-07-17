@@ -77,15 +77,15 @@ export default class Options {
         static GroupFalse(key: string): boolean {
             const value = this.filter[GroupParseKeys[key]];
             if (value === undefined) {
-                return true;
+                return false;
             } else {
                 for (const op_key in value) {
                     if (value[op_key] === undefined) {
-                        return true;
+                        return false;
                     }
                 }
             }
-            return false;
+            return true;
         }
         static OPTrue(groupKey: string, key: string): boolean {
             groupKey = GroupParseKeys[groupKey];
