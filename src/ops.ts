@@ -3949,9 +3949,9 @@ export const GROUPS: Groups = {
 						],
 					}),
 					new EquipmentInfo({
-						name: "Proximity Alarm 3",
+						name: "Proximity Alarm",
 						images: [
-							"assets/Siege-Rando-Images/Equipment/Proximity_Alarm_3.webp",
+							"assets/Siege-Rando-Images/Equipment/Proximity Alarm.png",
 						],
 					}),
 				],
