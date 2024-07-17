@@ -157,12 +157,14 @@ export default class Options {
     static setOption(key: string, value: boolean) {
         this.options[key] = value;
         this.#setCookie();
+        console.log("SETTING: ", document.cookie);
     }
     static removeOption(key: string) {
         if (this.options[key] !== undefined) {
             delete this.options[key];
         }
         this.#setCookie();
+        console.log(document.cookie);
     }
     static parseCookie() {
         const cookies = document.cookie.split("$");

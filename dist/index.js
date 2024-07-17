@@ -319,26 +319,25 @@ function createOptions() {
     const TABLE_ROW_2 = document.createElement("tr");
     const TABLE_DATA_2 = document.createElement("td");
     const key = "Avoid Dupes";
-    TABLE_BODY;
     TABLE_DATA_2.innerHTML = key;
     if (Options.options[key] === undefined) {
-        TABLE_DATA_2.style.color = "#999999";
-        giveHoverAnimation(TABLE_DATA_2, false, 70);
-    }
-    else {
         TABLE_DATA_2.style.color = "#ffffff";
         giveHoverAnimation(TABLE_DATA_2);
+    }
+    else {
+        TABLE_DATA_2.style.color = "#999999";
+        giveHoverAnimation(TABLE_DATA_2, false, 70);
     }
     TABLE_DATA_2.addEventListener("click", () => {
         if (Options.options[key] === undefined) {
             Options.setOption(key, false);
-            TABLE_DATA_2.style.color = "#ffffff";
-            giveHoverAnimation(TABLE_DATA_2, true);
+            TABLE_DATA_2.style.color = "#999999";
+            giveHoverAnimation(TABLE_DATA_2, true, 70);
         }
         else {
             Options.removeOption(key);
-            TABLE_DATA_2.style.color = "#999999";
-            giveHoverAnimation(TABLE_DATA_2, true, 70);
+            TABLE_DATA_2.style.color = "#ffffff";
+            giveHoverAnimation(TABLE_DATA_2, true);
         }
     });
     TABLE_ROW_1.appendChild(TABLE_DATA_1);

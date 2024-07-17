@@ -61,6 +61,15 @@ h1,
     color: #ffffff;
     cursor: pointer;
 }
+.options-modal table tbody tr h1 {
+    margin: 10px 0;
+    font-size: 50px;
+    color: #ffffff;
+    cursor: pointer;
+}
+.options-modal table {
+    padding-bottom: 30px;
+}
 
 .group-modal,
 .filter-modal {
