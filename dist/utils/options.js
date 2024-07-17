@@ -121,10 +121,10 @@ export default class Options {
                     }
                 }
                 else {
-                    const group = GROUPS[key];
+                    const group = GROUPS[GroupParseKeys[key]];
                     for (let i = 0; i < group.ops.length; i++) {
                         const op = group.ops[i];
-                        this.#changeOP(key, OpParseKeys[GroupParseKeys[key]][op.name], select, false);
+                        this.#changeOP(key, OpParseKeys[key][op.name], select, false);
                     }
                 }
             }
@@ -155,10 +155,12 @@ export default class Options {
             }
         }
         static selectOP(groupKey, key) {
-            this.#changeOP(groupKey, OpParseKeys[GroupParseKeys[groupKey]][key], true);
+            groupKey = GroupParseKeys[groupKey];
+            this.#changeOP(groupKey, OpParseKeys[groupKey][key], true);
         }
         static deselectOP(groupKey, key) {
-            this.#changeOP(groupKey, OpParseKeys[GroupParseKeys[groupKey]][key], false);
+            groupKey = GroupParseKeys[groupKey];
+            this.#changeOP(groupKey, OpParseKeys[groupKey][key], false);
         }
         static selectAll() {
             this.#changeAllFilterValues(true);
