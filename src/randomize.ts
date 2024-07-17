@@ -34,7 +34,6 @@ function equipmentMatchesList(
 
 function randomizeOP(key: string, group: GroupInfo): OP | undefined {
     let op = getRandomItemFromArray(group.ops);
-    console.log(Options.Filter.GroupFalse(key));
     if (Options.Filter.GroupFalse(key)) {
         return undefined;
     } else {

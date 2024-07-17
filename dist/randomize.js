@@ -21,7 +21,6 @@ function equipmentMatchesList(equipment, equipments) {
 }
 function randomizeOP(key, group) {
     let op = getRandomItemFromArray(group.ops);
-    console.log(Options.Filter.GroupFalse(key));
     if (Options.Filter.GroupFalse(key)) {
         return undefined;
     }

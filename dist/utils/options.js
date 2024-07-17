@@ -74,15 +74,17 @@ export default class Options {
             return true;
         }
         static GroupFalse(key) {
+            const og_key = key;
             key = GroupParseKeys[key];
             const value = this.filter[key];
             if (value === undefined) {
                 return false;
             }
             else {
-                for (let op_key in GROUPS) {
-                    op_key = OpParseKeys[key][op_key];
-                    if (value[op_key] === undefined) {
+                const group = GROUPS[og_key];
+                for (let i = 0; i < group.ops.length; i++) {
+                    const op = group.ops[i];
+                    if (value[OpParseKeys[key][op.name]] === undefined) {
                         return false;
                     }
                 }
