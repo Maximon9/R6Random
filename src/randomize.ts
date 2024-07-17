@@ -32,10 +32,14 @@ function equipmentMatchesList(
     return false;
 }
 
-function randomizeOP(key: string, group: GroupInfo) {
+function randomizeOP(key: string, group: GroupInfo): OP | undefined {
     let op = getRandomItemFromArray(group.ops);
-    while (Options.Filter.OPTrue(key, op.name) === false) {
-        op = getRandomItemFromArray(group.ops);
+    if (Options.Filter.GroupFalse(key)) {
+        return undefined;
+    } else {
+        while (Options.Filter.OPTrue(key, op.name) === false) {
+            op = getRandomItemFromArray(group.ops);
+        }
     }
     const equipmentInfos = [];
     for (let i = 0; i < op.equipmentNum; i++) {
