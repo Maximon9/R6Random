@@ -256,7 +256,9 @@ class __Parser:
         data: StrDict[Union[list[str], str, StrDict]],
         parse_keys: str,
     ) -> str:
-        parse_key_const = f'OpParseKeys[GroupParseKeys["{group_name}"]]'
+        parse_keys += f'\nconst {group_name}Key = GroupParseKeys["{group_name}"];'
+        group_key = f"{group_name}Key"
+        parse_key_const = f"OpParseKeys[{group_key}]"
         parse_keys += f"\n{parse_key_const} = " + "{};"
         i = 0
         for key in data:
