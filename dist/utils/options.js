@@ -74,17 +74,18 @@ export default class Options {
             return true;
         }
         static OPTrue(groupKey, key) {
-            const value = this.filter[GroupParseKeys[groupKey]];
+            groupKey = GroupParseKeys[groupKey];
+            const value = this.filter[groupKey];
             if (value === undefined) {
                 return true;
             }
             else {
-                const real_key = OpParseKeys[GroupParseKeys[groupKey]][key];
-                if (value[real_key] === undefined) {
+                key = OpParseKeys[groupKey][key];
+                if (value[key] === undefined) {
                     return true;
                 }
                 else {
-                    return value[real_key];
+                    return value[key];
                 }
             }
         }

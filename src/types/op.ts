@@ -6,6 +6,7 @@ export type OPInfoParameters = {
     name?: string;
     images?: string[];
     icons?: string[];
+    equipmentNum?: number;
     equipment?: EquipmentInfo[];
     primaryWeapons?: WeaponInfo[];
     secondaryWeapons?: WeaponInfo[];
