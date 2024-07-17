@@ -391,6 +391,12 @@ export const GROUPS = {
                 ],
             }),
             new OPInfo({
+                name: "Blackbeard",
+                icons: [
+                    "assets/Siege-Rando-Images/OPIcons/Blackbeard_Icon.png",
+                ],
+            }),
+            new OPInfo({
                 name: "Blitz",
                 icons: [
                     "assets/Siege-Rando-Images/OPIcons/Blitz_Icon.png",
@@ -3938,9 +3944,9 @@ export const GROUPS = {
                         ],
                     }),
                     new EquipmentInfo({
-                        name: "Proximity Alarm 3",
+                        name: "Proximity Alarm",
                         images: [
-                            "assets/Siege-Rando-Images/Equipment/Proximity_Alarm_3.webp",
+                            "assets/Siege-Rando-Images/Equipment/Proximity Alarm.png",
                         ],
                     }),
                 ],
@@ -4248,20 +4254,23 @@ export const GroupParseKeys = {};
 GroupParseKeys[(GroupParseKeys["Attackers"] = "0")] = "Attackers";
 GroupParseKeys[(GroupParseKeys["Defenders"] = "1")] = "Defenders";
 export const OpParseKeys = {};
-OpParseKeys[GroupParseKeys["Attackers"]] = {};
-OpParseKeys[GroupParseKeys["Attackers"]][(OpParseKeys[GroupParseKeys["Attackers"]]["Ash"] = "0")] = "Ash";
-OpParseKeys[GroupParseKeys["Attackers"]][(OpParseKeys[GroupParseKeys["Attackers"]]["Blitz"] = "1")] = "Blitz";
-OpParseKeys[GroupParseKeys["Attackers"]][(OpParseKeys[GroupParseKeys["Attackers"]]["Buck"] = "2")] = "Buck";
-OpParseKeys[GroupParseKeys["Attackers"]][(OpParseKeys[GroupParseKeys["Attackers"]]["Fuze"] = "3")] = "Fuze";
-OpParseKeys[GroupParseKeys["Attackers"]][(OpParseKeys[GroupParseKeys["Attackers"]]["Glaz"] = "4")] = "Glaz";
-OpParseKeys[GroupParseKeys["Attackers"]][(OpParseKeys[GroupParseKeys["Attackers"]]["IQ"] = "5")] = "IQ";
-OpParseKeys[GroupParseKeys["Attackers"]][(OpParseKeys[GroupParseKeys["Attackers"]]["Montagne"] = "6")] = "Montagne";
-OpParseKeys[GroupParseKeys["Attackers"]][(OpParseKeys[GroupParseKeys["Attackers"]]["Sledge"] = "7")] = "Sledge";
-OpParseKeys[GroupParseKeys["Attackers"]][(OpParseKeys[GroupParseKeys["Attackers"]]["Thatcher"] = "8")] = "Thatcher";
-OpParseKeys[GroupParseKeys["Attackers"]][(OpParseKeys[GroupParseKeys["Attackers"]]["Thermite"] = "9")] = "Thermite";
-OpParseKeys[GroupParseKeys["Attackers"]][(OpParseKeys[GroupParseKeys["Attackers"]]["Twitch"] = "10")] = "Twitch";
-OpParseKeys[GroupParseKeys["Attackers"]][(OpParseKeys[GroupParseKeys["Attackers"]]["Zofia"] = "11")] = "Zofia";
-OpParseKeys[GroupParseKeys["Defenders"]] = {};
-OpParseKeys[GroupParseKeys["Defenders"]][(OpParseKeys[GroupParseKeys["Defenders"]]["Alibi"] = "0")] = "Alibi";
+const AttackersKey = GroupParseKeys["Attackers"];
+OpParseKeys[AttackersKey] = {};
+OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Ash"] = "0")] = "Ash";
+OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Blackbeard"] = "1")] = "Blackbeard";
+OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Blitz"] = "2")] = "Blitz";
+OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Buck"] = "3")] = "Buck";
+OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Fuze"] = "4")] = "Fuze";
+OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Glaz"] = "5")] = "Glaz";
+OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["IQ"] = "6")] = "IQ";
+OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Montagne"] = "7")] = "Montagne";
+OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Sledge"] = "8")] = "Sledge";
+OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Thatcher"] = "9")] = "Thatcher";
+OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Thermite"] = "10")] = "Thermite";
+OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Twitch"] = "11")] = "Twitch";
+OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Zofia"] = "12")] = "Zofia";
+const DefendersKey = GroupParseKeys["Defenders"];
+OpParseKeys[DefendersKey] = {};
+OpParseKeys[DefendersKey][(OpParseKeys[DefendersKey]["Alibi"] = "0")] = "Alibi";
 //#endregion
 //# sourceMappingURL=ops.js.map
