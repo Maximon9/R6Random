@@ -5,22 +5,28 @@ import type {
 } from "../types/equipment.js";
 import { whiteBackground } from "./img.js";
 
-export class EquipmentInfo {
-    name: string;
+export class EquipmentInfo<Name extends string = string> {
+    name: Name;
     images: string[];
 
-    constructor(info: EquipmentInfoParameters = {}) {
-        this.name = info["name"] ?? "";
+    constructor(info: EquipmentInfoParameters<Name> = {}) {
+        this.name = info["name"] ?? ("" as Name);
         this.images = info["images"] ?? [whiteBackground];
     }
 }
-export class Equipment {
-    name: string;
-    image: string;
+export class Equipment<Name extends string = string> {
+    name?: Name;
+    image?: string;
 
-    constructor(info: EquipmentParameters = {}) {
-        this.name = info["name"] ?? "";
-        this.image = info["image"] ?? whiteBackground;
+    constructor(info: EquipmentParameters<Name> = {}) {
+        let item: any = info["name"];
+        if (item !== undefined) {
+            this.name = item;
+        }
+        item = info["image"];
+        if (item !== undefined) {
+            this.image = item;
+        }
     }
 }
 //# sourceMappingURL=equipment.js.map

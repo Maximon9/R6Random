@@ -1,4 +1,10 @@
 //#region Main
-export type AttachmentInfoParameters = { name?: string; images?: string[] };
-export type AttachmentParameters = { name?: string; image?: string };
+export type AttachmentInfoParameters<Name extends string> = {
+    name?: Name;
+    images?: string[];
+};
+export type AttachmentParameters<Name extends string> = {
+    name?: Name;
+    image?: string;
+};
 //#endregion

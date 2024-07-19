@@ -4826,45 +4826,89 @@ export const GROUPS = {
         ],
     }),
 };
-export const GroupParseKeys = {};
-GroupParseKeys[(GroupParseKeys["Attackers"] = "0")] = "Attackers";
-GroupParseKeys[(GroupParseKeys["Defenders"] = "1")] = "Defenders";
-export const OpParseKeys = {};
-const AttackersKey = GroupParseKeys["Attackers"];
-OpParseKeys[AttackersKey] = {};
-OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Ace"] = "0")] = "Ace";
-OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Amaru"] = "1")] = "Amaru";
-OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Ash"] = "2")] = "Ash";
-OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Blackbeard"] = "3")] = "Blackbeard";
-OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Blitz"] = "4")] = "Blitz";
-OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Brava"] = "5")] = "Brava";
-OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Buck"] = "6")] = "Buck";
-OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Capitao"] = "7")] = "Capitao";
-OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Deimos"] = "8")] = "Deimos";
-OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Dokkaebi"] = "9")] = "Dokkaebi";
-OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Finka"] = "10")] = "Finka";
-OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Flores"] = "11")] = "Flores";
-OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Fuze"] = "12")] = "Fuze";
-OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Glaz"] = "13")] = "Glaz";
-OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Gridlock"] = "14")] = "Gridlock";
-OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Grim"] = "15")] = "Grim";
-OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Hibana"] = "16")] = "Hibana";
-OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Iana"] = "17")] = "Iana";
-OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["IQ"] = "18")] = "IQ";
-OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Jackal"] = "19")] = "Jackal";
-OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Kali"] = "20")] = "Kali";
-OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Lion"] = "21")] = "Lion";
-OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Maverick"] = "22")] = "Maverick";
-OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Montagne"] = "23")] = "Montagne";
-OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Nokk"] = "24")] = "Nokk";
-OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Sledge"] = "25")] = "Sledge";
-OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Thatcher"] = "26")] = "Thatcher";
-OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Thermite"] = "27")] = "Thermite";
-OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Twitch"] = "28")] = "Twitch";
-OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Zofia"] = "29")] = "Zofia";
-const DefendersKey = GroupParseKeys["Defenders"];
-OpParseKeys[DefendersKey] = {};
-OpParseKeys[DefendersKey][(OpParseKeys[DefendersKey]["Alibi"] = "0")] = "Alibi";
-OpParseKeys[DefendersKey][(OpParseKeys[DefendersKey]["Clash"] = "1")] = "Clash";
+export const GroupParseKeys = {
+    Attackers: "0",
+    Defenders: "1",
+};
+export const GroupParseKeysRev = {
+    "0": "Attackers",
+    "1": "Defenders",
+};
+export const OPParseKeys = {
+    "0": {
+        Ace: "0",
+        Amaru: "1",
+        Ash: "2",
+        Blackbeard: "3",
+        Blitz: "4",
+        Brava: "5",
+        Buck: "6",
+        Capitao: "7",
+        Deimos: "8",
+        Dokkaebi: "9",
+        Finka: "10",
+        Flores: "11",
+        Fuze: "12",
+        Glaz: "13",
+        Gridlock: "14",
+        Grim: "15",
+        Hibana: "16",
+        Iana: "17",
+        IQ: "18",
+        Jackal: "19",
+        Kali: "20",
+        Lion: "21",
+        Maverick: "22",
+        Montagne: "23",
+        Nokk: "24",
+        Sledge: "25",
+        Thatcher: "26",
+        Thermite: "27",
+        Twitch: "28",
+        Zofia: "29",
+    },
+    "1": {
+        Alibi: "0",
+        Clash: "1",
+    },
+};
+export const OPParseKeysRev = {
+    "0": {
+        "0": "Ace",
+        "1": "Amaru",
+        "2": "Ash",
+        "3": "Blackbeard",
+        "4": "Blitz",
+        "5": "Brava",
+        "6": "Buck",
+        "7": "Capitao",
+        "8": "Deimos",
+        "9": "Dokkaebi",
+        "10": "Finka",
+        "11": "Flores",
+        "12": "Fuze",
+        "13": "Glaz",
+        "14": "Gridlock",
+        "15": "Grim",
+        "16": "Hibana",
+        "17": "Iana",
+        "18": "IQ",
+        "19": "Jackal",
+        "20": "Kali",
+        "21": "Lion",
+        "22": "Maverick",
+        "23": "Montagne",
+        "24": "Nokk",
+        "25": "Sledge",
+        "26": "Thatcher",
+        "27": "Thermite",
+        "28": "Twitch",
+        "29": "Zofia",
+    },
+    "1": {
+        "0": "Alibi",
+        "1": "Clash",
+    },
+};
 //#endregion
 //# sourceMappingURL=ops.js.map

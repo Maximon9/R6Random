@@ -1,4 +1,17 @@
-import { GROUPS, GroupParseKeys, OpParseKeys } from "../ops.js";
+//#region Main
+import type {
+    AllOPNames,
+    ALLOPParsedValues,
+    CombinedOPParseKeys,
+    ParsedGroupKeys,
+    ParsedGroupKeysRev,
+} from "../ops.js";
+import {
+    GROUPS,
+    GroupParseKeys,
+    GroupParseKeysRev,
+    OPParseKeys,
+} from "../ops.js";
 
 export const OptionsParse: { [k: string]: string } = {};
 OptionsParse[(OptionsParse["Avoid Dupes"] = "0")] = "Avoid Dupes";
@@ -61,7 +74,7 @@ export default class Options {
             }
             return true;
         }
-        static GroupTrue(key: string): boolean {
+        static GroupTrue(key: ParsedGroupKeys): boolean {
             const value = this.filter[GroupParseKeys[key]];
             if (value === undefined) {
                 return true;
@@ -74,34 +87,40 @@ export default class Options {
             }
             return true;
         }
-        static GroupFalse(key: string): boolean {
+        static GroupFalse(key: ParsedGroupKeys): boolean {
             const og_key = key;
-            key = GroupParseKeys[key];
-            const value = this.filter[key];
+            const nKey = GroupParseKeys[key];
+            const value = this.filter[nKey];
             if (value === undefined) {
                 return false;
             } else {
                 const group = GROUPS[og_key];
                 for (let i = 0; i < group.ops.length; i++) {
                     const op = group.ops[i];
-                    if (value[OpParseKeys[key][op.name]] === undefined) {
+                    if (
+                        value[
+                            (OPParseKeys[nKey] as CombinedOPParseKeys)[op.name]
+                        ] === undefined
+                    ) {
                         return false;
                     }
                 }
             }
             return true;
         }
-        static OPTrue(groupKey: string, key: string): boolean {
-            groupKey = GroupParseKeys[groupKey];
-            const value = this.filter[groupKey];
+        static OPTrue(groupKey: ParsedGroupKeys, key: AllOPNames): boolean {
+            const nGroupKey = GroupParseKeys[groupKey];
+            const value = this.filter[nGroupKey];
             if (value === undefined) {
                 return true;
             } else {
-                key = OpParseKeys[groupKey][key];
-                if (value[key] === undefined) {
+                const nKey = (OPParseKeys[nGroupKey] as CombinedOPParseKeys)[
+                    key
+                ];
+                if (value[nKey] === undefined) {
                     return true;
                 } else {
-                    return value[key];
+                    return value[nKey];
                 }
             }
         }
@@ -109,16 +128,25 @@ export default class Options {
         static #changeAllFilterValues(select: boolean) {
             if (select) {
                 for (const key in this.filter) {
-                    this.#changeAGroup(key, select, false);
+                    this.#changeAGroup(
+                        key as ParsedGroupKeysRev,
+                        select,
+                        false
+                    );
                 }
             } else {
-                for (const key in GROUPS) {
+                let key: ParsedGroupKeys;
+                for (key in GROUPS) {
                     this.#changeAGroup(GroupParseKeys[key], select, false);
                 }
             }
             Options.#setCookie();
         }
-        static #changeAGroup(key: string, select: boolean, setCookie = true) {
+        static #changeAGroup(
+            key: ParsedGroupKeysRev,
+            select: boolean,
+            setCookie = true
+        ) {
             let value = this.filter[key];
             let changeOPs = true;
             if (select) {
@@ -133,15 +161,20 @@ export default class Options {
             if (changeOPs) {
                 if (select) {
                     for (const op_key in value) {
-                        this.#changeOP(key, op_key, select, false);
+                        this.#changeOP(
+                            key,
+                            op_key as ALLOPParsedValues,
+                            select,
+                            false
+                        );
                     }
                 } else {
-                    const group = GROUPS[GroupParseKeys[key]];
+                    const group = GROUPS[GroupParseKeysRev[key]];
                     for (let i = 0; i < group.ops.length; i++) {
                         const op = group.ops[i];
                         this.#changeOP(
                             key,
-                            OpParseKeys[key][op.name],
+                            (OPParseKeys[key] as CombinedOPParseKeys)[op.name],
                             select,
                             false
                         );
@@ -153,8 +186,8 @@ export default class Options {
             }
         }
         static #changeOP(
-            groupKey: string,
-            key: string,
+            groupKey: ParsedGroupKeysRev,
+            key: ALLOPParsedValues,
             select: boolean,
             setCookie = true
         ) {
@@ -179,13 +212,21 @@ export default class Options {
             }
         }
 
-        static selectOP(groupKey: string, key: string) {
-            groupKey = GroupParseKeys[groupKey];
-            this.#changeOP(groupKey, OpParseKeys[groupKey][key], true);
+        static selectOP(groupKey: ParsedGroupKeys, key: AllOPNames) {
+            const nGroupKey = GroupParseKeys[groupKey];
+            this.#changeOP(
+                nGroupKey,
+                (OPParseKeys[nGroupKey] as CombinedOPParseKeys)[key],
+                true
+            );
         }
-        static deselectOP(groupKey: string, key: string) {
-            groupKey = GroupParseKeys[groupKey];
-            this.#changeOP(groupKey, OpParseKeys[groupKey][key], false);
+        static deselectOP(groupKey: ParsedGroupKeys, key: AllOPNames) {
+            const nGroupKey = GroupParseKeys[groupKey];
+            this.#changeOP(
+                nGroupKey,
+                (OPParseKeys[nGroupKey] as CombinedOPParseKeys)[key],
+                false
+            );
         }
 
         static selectAll() {
@@ -195,10 +236,10 @@ export default class Options {
             this.#changeAllFilterValues(false);
         }
 
-        static selectGroup(key: string) {
+        static selectGroup(key: ParsedGroupKeys) {
             this.#changeAGroup(GroupParseKeys[key], true);
         }
-        static delectGroup(key: string) {
+        static delectGroup(key: ParsedGroupKeys) {
             this.#changeAGroup(GroupParseKeys[key], false);
         }
     };
@@ -260,3 +301,4 @@ export default class Options {
 }
 
 Options.parseCookie();
+//#endregion

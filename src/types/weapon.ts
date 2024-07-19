@@ -23,13 +23,13 @@ export type WeaponAttackments = {
     underBarrel?: UnderBarrelAttachment;
 };
 
-export type WeaponInfoParameters = {
-    name?: string;
+export type WeaponInfoParameters<Name extends string> = {
+    name?: Name;
     images?: string[];
     attachments?: WeaponAttackmentsInfo;
 };
-export type WeaponParameters = {
-    name?: string;
+export type WeaponParameters<Name extends string> = {
+    name?: Name;
     image?: string;
     attachments?: WeaponAttackments;
 };

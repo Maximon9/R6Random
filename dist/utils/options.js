@@ -1,4 +1,4 @@
-import { GROUPS, GroupParseKeys, OpParseKeys } from "../ops.js";
+import { GROUPS, GroupParseKeys, GroupParseKeysRev, OPParseKeys, } from "../ops.js";
 export const OptionsParse = {};
 OptionsParse[(OptionsParse["Avoid Dupes"] = "0")] = "Avoid Dupes";
 export default class Options {
@@ -75,8 +75,8 @@ export default class Options {
         }
         static GroupFalse(key) {
             const og_key = key;
-            key = GroupParseKeys[key];
-            const value = this.filter[key];
+            const nKey = GroupParseKeys[key];
+            const value = this.filter[nKey];
             if (value === undefined) {
                 return false;
             }
@@ -84,7 +84,7 @@ export default class Options {
                 const group = GROUPS[og_key];
                 for (let i = 0; i < group.ops.length; i++) {
                     const op = group.ops[i];
-                    if (value[OpParseKeys[key][op.name]] === undefined) {
+                    if (value[OPParseKeys[nKey][op.name]] === undefined) {
                         return false;
                     }
                 }
@@ -92,18 +92,18 @@ export default class Options {
             return true;
         }
         static OPTrue(groupKey, key) {
-            groupKey = GroupParseKeys[groupKey];
-            const value = this.filter[groupKey];
+            const nGroupKey = GroupParseKeys[groupKey];
+            const value = this.filter[nGroupKey];
             if (value === undefined) {
                 return true;
             }
             else {
-                key = OpParseKeys[groupKey][key];
-                if (value[key] === undefined) {
+                const nKey = OPParseKeys[nGroupKey][key];
+                if (value[nKey] === undefined) {
                     return true;
                 }
                 else {
-                    return value[key];
+                    return value[nKey];
                 }
             }
         }
@@ -114,7 +114,8 @@ export default class Options {
                 }
             }
             else {
-                for (const key in GROUPS) {
+                let key;
+                for (key in GROUPS) {
                     this.#changeAGroup(GroupParseKeys[key], select, false);
                 }
             }
@@ -140,10 +141,10 @@ export default class Options {
                     }
                 }
                 else {
-                    const group = GROUPS[GroupParseKeys[key]];
+                    const group = GROUPS[GroupParseKeysRev[key]];
                     for (let i = 0; i < group.ops.length; i++) {
                         const op = group.ops[i];
-                        this.#changeOP(key, OpParseKeys[key][op.name], select, false);
+                        this.#changeOP(key, OPParseKeys[key][op.name], select, false);
                     }
                 }
             }
@@ -174,12 +175,12 @@ export default class Options {
             }
         }
         static selectOP(groupKey, key) {
-            groupKey = GroupParseKeys[groupKey];
-            this.#changeOP(groupKey, OpParseKeys[groupKey][key], true);
+            const nGroupKey = GroupParseKeys[groupKey];
+            this.#changeOP(nGroupKey, OPParseKeys[nGroupKey][key], true);
         }
         static deselectOP(groupKey, key) {
-            groupKey = GroupParseKeys[groupKey];
-            this.#changeOP(groupKey, OpParseKeys[groupKey][key], false);
+            const nGroupKey = GroupParseKeys[groupKey];
+            this.#changeOP(nGroupKey, OPParseKeys[nGroupKey][key], false);
         }
         static selectAll() {
             this.#changeAllFilterValues(true);
@@ -255,4 +256,5 @@ export default class Options {
     }
 }
 Options.parseCookie();
+//#endregion
 //# sourceMappingURL=options.js.map

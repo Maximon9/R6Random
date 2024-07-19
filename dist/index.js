@@ -103,7 +103,8 @@ function createFilter() {
     FILTER_TABLE_BODY.appendChild(FILTER_SELECT_OPS);
     const htmlSelectGroupButtons = [];
     const htmlSelectOpButtons = {};
-    for (const key in GROUPS) {
+    let key;
+    for (key in GROUPS) {
         const group = GROUPS[key];
         const GROUP_SELECT_BUTTON = document.createElement("td");
         GROUP_SELECT_BUTTON.className = "group-select";
@@ -116,6 +117,7 @@ function createFilter() {
         let makeGroupSelectButton = true;
         if (group.ops.length > 0) {
             htmlSelectOpButtons[key] = [];
+            const item = htmlSelectOpButtons[key];
             const column1 = document.createElement("td");
             let column2 = null;
             if (group.ops.length > 1) {
@@ -173,7 +175,7 @@ function createFilter() {
                         FILTER_SELECT_ALL.innerHTML = "Select All";
                     }
                 });
-                htmlSelectOpButtons[key].push([op.name, OP_BUTTON]);
+                item.push([op.name, OP_BUTTON]);
                 if (column2 == null) {
                     column1.appendChild(OP_BUTTON);
                 }
@@ -208,9 +210,10 @@ function createFilter() {
                 else {
                     FILTER_SELECT_ALL.innerHTML = "Select All";
                 }
-                if (htmlSelectOpButtons[key] !== undefined) {
-                    for (let i = 0; i < htmlSelectOpButtons[key].length; i++) {
-                        const [name, button] = htmlSelectOpButtons[key][i];
+                const item = htmlSelectOpButtons[key];
+                if (item !== undefined) {
+                    for (let i = 0; i < item.length; i++) {
+                        const [name, button] = item[i];
                         if (Options.Filter.OPTrue(key, name)) {
                             button.children.item(0).style.filter = "";
                             giveHoverAnimation(button);
@@ -245,16 +248,20 @@ function createFilter() {
                     element.innerHTML = "Select All " + key;
                 }
             }
-            for (const key in htmlSelectOpButtons) {
-                for (let i = 0; i < htmlSelectOpButtons[key].length; i++) {
-                    const [name, button] = htmlSelectOpButtons[key][i];
-                    if (Options.Filter.OPTrue(key, name)) {
-                        button.children.item(0).style.filter = "";
-                        giveHoverAnimation(button);
-                    }
-                    else {
-                        button.children.item(0).style.filter = "grayscale(100%)";
-                        giveHoverAnimation(button, false, 70);
+            let key;
+            for (key in htmlSelectOpButtons) {
+                const item = htmlSelectOpButtons[key];
+                if (item !== undefined) {
+                    for (let i = 0; i < item.length; i++) {
+                        const [name, button] = item[i];
+                        if (Options.Filter.OPTrue(key, name)) {
+                            button.children.item(0).style.filter = "";
+                            giveHoverAnimation(button);
+                        }
+                        else {
+                            button.children.item(0).style.filter = "grayscale(100%)";
+                            giveHoverAnimation(button, false, 70);
+                        }
                     }
                 }
             }

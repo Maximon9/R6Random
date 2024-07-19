@@ -102,10 +102,6 @@ class __Parser:
 
     def __init__(this) -> None:
         this.imports: Imports = {
-            "Groups": {
-                "import_": 'import type {Groups} from "./types/groups.js";',
-                "active": False,
-            },
             "GroupInfo": {
                 "import_": 'import {GroupInfo} from "./utils/group.js";',
                 "active": False,
@@ -237,19 +233,54 @@ class __Parser:
     def __make_parse_keys(
         this, data: StrDict[Union[list[str], str, StrDict]], parse_keys: str = ""
     ) -> str:
-        parse_keys += "\n\nexport const GroupParseKeys: { [k: string]: string } = {};"
+        groups: list[tuple[str, int, StrDict]] = []
+        parse_keys += "\n\nexport const GroupParseKeys = {"
         i = 0
         for key in data:
             value = data[key]
             if not "reference" in key.lower() and isinstance(value, dict):
-                parse_keys += f'\nGroupParseKeys[(GroupParseKeys["{key}"] = "{str(i)}")] = "{key}";'
+                parse_keys += f'\n\t{key}: "{i}" as const,'
+                groups.append((key, i, value))
                 i += 1
-        parse_keys += "\n\nexport const OpParseKeys: { [k: string]: { [k: string]: string } } = {};"
-        for key in data:
-            value = data[key]
-            if not "reference" in key.lower() and isinstance(value, dict):
-                parse_keys = this.__make_op_parse_keys(key, value, parse_keys)
-                parse_keys += "\n"
+        parse_keys += "\n};"
+
+        parse_keys += "\nexport const GroupParseKeysRev = {"
+        i = 0
+        for key, num, _ in groups:
+            parse_keys += f'\n\t"{num}": "{key}" as const,'
+            i += 1
+        parse_keys += "\n};\n"
+
+        parse_keys += "\n\nexport const OPParseKeys = {"
+        for _, num, data in groups:
+            parse_keys = this.__make_op_parse_keys(num, data, parse_keys)
+        parse_keys += "\n};"
+
+        parse_keys += "\nexport const OPParseKeysRev = {"
+        for _, num, data in groups:
+            parse_keys = this.__make_op_parse_keys(num, data, parse_keys, True)
+        parse_keys += "\n};"
+
+        parse_keys += "\n\nexport type ParsedGroupKeys = keyof typeof GroupParseKeys;"
+        parse_keys += (
+            "\nexport type ParsedGroupKeysRev = keyof typeof GroupParseKeysRev;\n"
+        )
+
+        type_string = "\nexport type CombinedOPParseKeys = "
+        rev_type_string = "\nexport type ALLOPParsedValues = "
+        for i in range(len(groups)):
+            (key, num, _) = groups[i]
+            if i >= 0 and i < len(groups) - 1:
+                type_string += f'typeof OPParseKeys["{num}"] & '
+                rev_type_string += f'keyof typeof OPParseKeysRev["{num}"] | '
+            else:
+                type_string += f'typeof OPParseKeys["{num}"]'
+                rev_type_string += f'keyof typeof OPParseKeysRev["{num}"]'
+        parse_keys += type_string + ";"
+        parse_keys += "\nexport type AllOPNames = keyof CombinedOPParseKeys;\n"
+
+        parse_keys += rev_type_string + ";"
+
         return parse_keys
 
     def __make_op_parse_keys(
@@ -257,17 +288,19 @@ class __Parser:
         group_name: str,
         data: StrDict[Union[list[str], str, StrDict]],
         parse_keys: str,
+        rev: bool = False,
     ) -> str:
-        parse_keys += f'\nconst {group_name}Key = GroupParseKeys["{group_name}"];'
-        group_key = f"{group_name}Key"
-        parse_key_const = f"OpParseKeys[{group_key}]"
-        parse_keys += f"\n{parse_key_const} = " + "{};"
+        parse_keys += f'\n\t"{group_name}":' + "{"
         i = 0
         for key in data:
             value = data[key]
             if isinstance(value, dict):
-                parse_keys += f'\n{parse_key_const}[({parse_key_const}["{key}"] = "{str(i)}")] = "{key}"'
+                if rev:
+                    parse_keys += f'\n\t\t"{i}": "{key}" as const,'
+                else:
+                    parse_keys += f'\n\t\t{key}: "{i}" as const,'
                 i += 1
+        parse_keys += "\n\t},"
         return parse_keys
 
     def __parse_group(
@@ -277,15 +310,11 @@ class __Parser:
         parse_string: str = "",
     ) -> str:
         if this.export_groups_regardless:
-            if not this.imports["Groups"]["active"]:
-                this.imports["Groups"]["active"] = True
-                parse_string += "\n\nexport const GROUPS: Groups = {"
+            parse_string += "\n\nexport const GROUPS = {"
         groups: list[tuple[str, StrDict]] = []
         if len(data) > 0:
             if not this.export_groups_regardless:
-                if not this.imports["Groups"]["active"]:
-                    this.imports["Groups"]["active"] = True
-                    parse_string += "\n\nexport const GROUPS: Groups = {"
+                parse_string += "\n\nexport const GROUPS = {"
             for key in data:
                 value = data[key]
                 if not "reference" in key.lower() and isinstance(value, dict):
@@ -296,8 +325,7 @@ class __Parser:
                     parse_string = this.__parse_group_info(
                         key, value, references, parse_string
                     )
-            if this.imports["Groups"]["active"]:
-                parse_string += "\n};"
+            parse_string += "\n};"
         elif this.export_groups_regardless:
             parse_string += "};"
         return parse_string
@@ -403,7 +431,9 @@ class __Parser:
                     this.imports["OPInfo"]["active"] = True
                 if not has_op:
                     parse_string += (
-                        "\n\t\t\tnew OPInfo({\n\t\t\t\tname: " + f'"{name}",'
+                        f'\n\t\t\tnew OPInfo<"{name}">'
+                        + "({\n\t\t\t\tname: "
+                        + f'"{name}",'
                     )
                     has_op = True
                 parse_string = this.__add_images(
@@ -414,7 +444,9 @@ class __Parser:
                     this.imports["OPInfo"]["active"] = True
                 if not has_op:
                     parse_string += (
-                        "\n\t\t\tnew OPInfo({\n\t\t\t\tname: " + f'"{name}",'
+                        f'\n\t\t\tnew OPInfo<"{name}">'
+                        + "({\n\t\t\t\tname: "
+                        + f'"{name}",'
                     )
                     has_op = True
                 parse_string = this.__add_images(
@@ -426,7 +458,9 @@ class __Parser:
                     this.imports["OPInfo"]["active"] = True
                 if not has_op:
                     parse_string += (
-                        "\n\t\t\tnew OPInfo({\n\t\t\t\tname: " + f'"{name}",'
+                        f'\n\t\t\tnew OPInfo<"{name}">'
+                        + "({\n\t\t\t\tname: "
+                        + f'"{name}",'
                     )
                     has_op = True
                 for key, value, type in tools:
@@ -483,7 +517,8 @@ class __Parser:
                         if not this.imports["EquipmentInfo"]["active"]:
                             this.imports["EquipmentInfo"]["active"] = True
                         parse_string += (
-                            "\n\t\t\t\t\tnew EquipmentInfo({"
+                            f'\n\t\t\t\t\tnew EquipmentInfo<"{key}">('
+                            + "{"
                             + f'\n\t\t\t\t\t\tname: "{key}",'
                         )
                         parse_string = this.__add_images(
@@ -494,7 +529,8 @@ class __Parser:
                         if not this.imports["WeaponInfo"]["active"]:
                             this.imports["WeaponInfo"]["active"] = True
                         parse_string += (
-                            "\n\t\t\t\t\tnew WeaponInfo({"
+                            f'\n\t\t\t\t\tnew WeaponInfo<"{key}">('
+                            + "{"
                             + f'\n\t\t\t\t\t\tname: "{key}",'
                         )
                         parse_string = this.__add_images(
@@ -531,7 +567,7 @@ class __Parser:
                         if not this.attachment_imports[new_name]:
                             this.attachment_imports[new_name] = True
                         parse_string += (
-                            f"\n\t\t\t\t\t\t\t\tnew {new_name}("
+                            f'\n\t\t\t\t\t\t\t\tnew {new_name}<"{key}">('
                             + "{"
                             + f'\n\t\t\t\t\t\t\t\t\tname: "{key}",'
                         )

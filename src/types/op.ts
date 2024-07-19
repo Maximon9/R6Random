@@ -2,8 +2,8 @@
 import type { Equipment, EquipmentInfo } from "../utils/equipment.js";
 import type { Weapon, WeaponInfo } from "../utils/weaponInfo/weapon.js";
 
-export type OPInfoParameters = {
-    name?: string;
+export type OPInfoParameters<Name extends string> = {
+    name?: Name;
     images?: string[];
     icons?: string[];
     equipmentNum?: number;
@@ -11,8 +11,8 @@ export type OPInfoParameters = {
     primaryWeapons?: WeaponInfo[];
     secondaryWeapons?: WeaponInfo[];
 };
-export type OPParameters = {
-    name?: string;
+export type OPParameters<Name extends string> = {
+    name?: Name;
     image?: string;
     icon?: string;
     equipment?: Equipment[];

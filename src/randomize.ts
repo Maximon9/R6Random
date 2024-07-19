@@ -1,4 +1,4 @@
-import { json } from "stream/consumers";
+import type { AllOPNames, ParsedGroupKeys } from "./ops.js";
 import { GROUPS } from "./ops.js";
 import { WeaponAttackments, WeaponAttackmentsInfo } from "./types/weapon.js";
 import { Equipment, EquipmentInfo } from "./utils/equipment.js";
@@ -13,11 +13,11 @@ import {
 } from "./utils/weaponInfo/attachment.js";
 import { Weapon, WeaponInfo } from "./utils/weaponInfo/weapon.js";
 
-const key = localStorage.getItem("group");
+const key = localStorage.getItem("group") as ParsedGroupKeys | null;
+let op: OP | undefined = undefined;
 if (key !== null) {
     const group = GROUPS[key];
     let opString = localStorage.getItem("op");
-    let op: OP | undefined = undefined;
     if (opString !== null) {
         const json = JSON.parse(opString);
         op = OP.createOPFromJSON(json);
@@ -32,26 +32,18 @@ if (key !== null) {
     }
 }
 
-function equipmentMatchesList(
-    equipment: EquipmentInfo,
-    equipments: EquipmentInfo[]
-) {
-    for (let i = 0; i < equipments.length; i++) {
-        const check = equipments[i];
-        if (equipment.name === check.name) {
-            return true;
-        }
-    }
-    return false;
-}
-
-function randomizeOP(key: string, group: GroupInfo): OP | undefined {
+function randomizeOP<names extends string = string>(
+    key: ParsedGroupKeys,
+    group: GroupInfo<names>
+): OP | undefined {
     let opInfo = getRandomItemFromArray(group.ops);
     if (Options.Filter.GroupFalse(key)) {
         return undefined;
     } else {
         if (group.ops.length > 0) {
-            while (Options.Filter.OPTrue(key, opInfo.name) === false) {
+            while (
+                Options.Filter.OPTrue(key, opInfo.name as AllOPNames) === false
+            ) {
                 opInfo = getRandomItemFromArray(group.ops);
             }
         } else {
@@ -179,4 +171,17 @@ function fetchMatchingAttachmentName(
 
 function getRandomItemFromArray<T>(array: T[]) {
     return array[Math.floor(Math.random() * array.length)];
+}
+
+function equipmentMatchesList(
+    equipment: EquipmentInfo,
+    equipments: EquipmentInfo[]
+) {
+    for (let i = 0; i < equipments.length; i++) {
+        const check = equipments[i];
+        if (equipment.name === check.name) {
+            return true;
+        }
+    }
+    return false;
 }

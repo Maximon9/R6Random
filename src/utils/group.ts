@@ -3,10 +3,10 @@ import type { GroupParameters } from "../types/group.js";
 import { whiteBackground } from "./img.js";
 import { OPInfo } from "./op.js";
 
-export class GroupInfo {
+export class GroupInfo<Names extends string = string> {
     icons: string[];
-    ops: OPInfo[];
-    constructor(info: GroupParameters = {}) {
+    ops: OPInfo<Names>[];
+    constructor(info: GroupParameters<Names> = {}) {
         this.icons = info["icons"] ?? [whiteBackground];
         this.ops = info["ops"] ?? [];
     }

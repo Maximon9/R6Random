@@ -13,8 +13,8 @@ import {
     UnderBarrelAttachment,
 } from "./weaponInfo/attachment.js";
 
-export class OPInfo {
-    name: string;
+export class OPInfo<Name extends string = string> {
+    name: Name;
     images: string[];
     icons: string[];
     equipmentCount: number;
@@ -22,8 +22,8 @@ export class OPInfo {
     primaryWeapons: WeaponInfo[];
     secondaryWeapons: WeaponInfo[];
 
-    constructor(info: OPInfoParameters = {}) {
-        this.name = info["name"] ?? "";
+    constructor(info: OPInfoParameters<Name> = {}) {
+        this.name = info["name"] ?? ("" as Name);
         this.images = info["images"] ?? [whiteBackground];
         this.icons = info["icons"] ?? [whiteBackground];
         this.equipmentCount = info["equipmentNum"] ?? 1;
@@ -32,14 +32,14 @@ export class OPInfo {
         this.secondaryWeapons = info["secondaryWeapons"] ?? [];
     }
 }
-export class OP {
-    name?: string;
+export class OP<Name extends string = string> {
+    name?: Name;
     image?: string;
     icon?: string;
     equipment?: Equipment[];
     primaryWeapon?: Weapon;
     secondaryWeapon?: Weapon;
-    constructor(info: OPParameters = {}) {
+    constructor(info: OPParameters<Name> = {}) {
         let item: any = info["name"];
         if (item !== undefined) {
             this.name = item;

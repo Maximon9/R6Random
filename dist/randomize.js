@@ -5,10 +5,10 @@ import Options from "./utils/options.js";
 import { BarrelAttachment, GripAttachment, SightAttachment, UnderBarrelAttachment, } from "./utils/weaponInfo/attachment.js";
 import { Weapon } from "./utils/weaponInfo/weapon.js";
 const key = localStorage.getItem("group");
+let op = undefined;
 if (key !== null) {
     const group = GROUPS[key];
     let opString = localStorage.getItem("op");
-    let op = undefined;
     if (opString !== null) {
         const json = JSON.parse(opString);
         op = OP.createOPFromJSON(json);
@@ -22,15 +22,6 @@ if (key !== null) {
     if (op !== undefined) {
         console.log(op);
     }
-}
-function equipmentMatchesList(equipment, equipments) {
-    for (let i = 0; i < equipments.length; i++) {
-        const check = equipments[i];
-        if (equipment.name === check.name) {
-            return true;
-        }
-    }
-    return false;
 }
 function randomizeOP(key, group) {
     let opInfo = getRandomItemFromArray(group.ops);
@@ -148,5 +139,14 @@ function fetchMatchingAttachmentName(key) {
 }
 function getRandomItemFromArray(array) {
     return array[Math.floor(Math.random() * array.length)];
+}
+function equipmentMatchesList(equipment, equipments) {
+    for (let i = 0; i < equipments.length; i++) {
+        const check = equipments[i];
+        if (equipment.name === check.name) {
+            return true;
+        }
+    }
+    return false;
 }
 //# sourceMappingURL=randomize.js.map

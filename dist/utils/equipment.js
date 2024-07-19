@@ -11,8 +11,14 @@ export class Equipment {
     name;
     image;
     constructor(info = {}) {
-        this.name = info["name"] ?? "";
-        this.image = info["image"] ?? whiteBackground;
+        let item = info["name"];
+        if (item !== undefined) {
+            this.name = item;
+        }
+        item = info["image"];
+        if (item !== undefined) {
+            this.image = item;
+        }
     }
 }
 //# sourceMappingURL=equipment.js.map

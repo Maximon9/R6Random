@@ -14,9 +14,18 @@ export class Weapon {
     image;
     attachments;
     constructor(info = {}) {
-        this.name = info["name"] ?? "";
-        this.image = info["image"] ?? whiteBackground;
-        this.attachments = info["attachments"] ?? {};
+        let item = info["name"];
+        if (item !== undefined) {
+            this.name = item;
+        }
+        item = info["image"];
+        if (item !== undefined) {
+            this.image = item;
+        }
+        item = info["attachments"];
+        if (item !== undefined) {
+            this.attachments = item;
+        }
     }
 }
 //#endregion
