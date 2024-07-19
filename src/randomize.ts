@@ -17,6 +17,10 @@ if (key !== null) {
     const group = GROUPS[key];
     const op = randomizeOP(key, group);
     console.log(op);
+    if (op !== undefined) {
+        console.log(JSON.stringify(op));
+        // localStorage.setItem("op", )
+    }
 }
 
 function equipmentMatchesList(
