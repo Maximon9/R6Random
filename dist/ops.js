@@ -12,6 +12,18 @@ export const GROUPS = {
         ],
         ops: [
             new OPInfo({
+                name: "Ace",
+                icons: [
+                    "assets/Siege-Rando-Images/OPIcons/Ace_Icon.png",
+                ],
+            }),
+            new OPInfo({
+                name: "Amaru",
+                icons: [
+                    "assets/Siege-Rando-Images/OPIcons/Amaru_Icon.png",
+                ],
+            }),
+            new OPInfo({
                 name: "Ash",
                 icons: [
                     "assets/Siege-Rando-Images/OPIcons/Ash_Icon.png",
@@ -71,6 +83,12 @@ export const GROUPS = {
                                         "assets/Siege-Rando-Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
                                     ],
                                 }),
+                                new BarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
+                                    ],
+                                }),
                             ],
                             grips: [
                                 new GripAttachmentInfo({
@@ -120,7 +138,7 @@ export const GROUPS = {
                                 new SightAttachmentInfo({
                                     name: "IRON SIGHT",
                                     images: [
-                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/IRON SIGHT.png",
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/IRON_SIGHT.png",
                                     ],
                                 }),
                                 new SightAttachmentInfo({
@@ -183,6 +201,12 @@ export const GROUPS = {
                                     name: "LASER",
                                     images: [
                                         "assets/Siege-Rando-Images/Attachments/UnderBarrelAttachments/LASER.png",
+                                    ],
+                                }),
+                                new UnderBarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
                                     ],
                                 }),
                             ],
@@ -225,6 +249,12 @@ export const GROUPS = {
                                         "assets/Siege-Rando-Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
                                     ],
                                 }),
+                                new BarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
+                                    ],
+                                }),
                             ],
                             grips: [
                                 new GripAttachmentInfo({
@@ -274,7 +304,7 @@ export const GROUPS = {
                                 new SightAttachmentInfo({
                                     name: "IRON SIGHT",
                                     images: [
-                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/IRON SIGHT.png",
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/IRON_SIGHT.png",
                                     ],
                                 }),
                                 new SightAttachmentInfo({
@@ -339,6 +369,12 @@ export const GROUPS = {
                                         "assets/Siege-Rando-Images/Attachments/UnderBarrelAttachments/LASER.png",
                                     ],
                                 }),
+                                new UnderBarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
+                                    ],
+                                }),
                             ],
                         }
                     }),
@@ -363,6 +399,12 @@ export const GROUPS = {
                                         "assets/Siege-Rando-Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
                                     ],
                                 }),
+                                new BarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
+                                    ],
+                                }),
                             ],
                         }
                     }),
@@ -383,6 +425,12 @@ export const GROUPS = {
                                     name: "SUPPRESSOR",
                                     images: [
                                         "assets/Siege-Rando-Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
+                                    ],
+                                }),
+                                new BarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
                                     ],
                                 }),
                             ],
@@ -446,6 +494,12 @@ export const GROUPS = {
                                         "assets/Siege-Rando-Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
                                     ],
                                 }),
+                                new BarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
+                                    ],
+                                }),
                             ],
                             underBarrels: [
                                 new UnderBarrelAttachmentInfo({
@@ -454,9 +508,21 @@ export const GROUPS = {
                                         "assets/Siege-Rando-Images/Attachments/UnderBarrelAttachments/LASER.png",
                                     ],
                                 }),
+                                new UnderBarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
+                                    ],
+                                }),
                             ],
                         }
                     }),
+                ],
+            }),
+            new OPInfo({
+                name: "Brava",
+                icons: [
+                    "assets/Siege-Rando-Images/OPIcons/Brava_Icon.png",
                 ],
             }),
             new OPInfo({
@@ -519,6 +585,12 @@ export const GROUPS = {
                                         "assets/Siege-Rando-Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
                                     ],
                                 }),
+                                new BarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
+                                    ],
+                                }),
                             ],
                             sights: [
                                 new SightAttachmentInfo({
@@ -548,7 +620,7 @@ export const GROUPS = {
                                 new SightAttachmentInfo({
                                     name: "IRON SIGHT",
                                     images: [
-                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/IRON SIGHT.png",
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/IRON_SIGHT.png",
                                     ],
                                 }),
                                 new SightAttachmentInfo({
@@ -613,6 +685,12 @@ export const GROUPS = {
                                         "assets/Siege-Rando-Images/Attachments/UnderBarrelAttachments/LASER.png",
                                     ],
                                 }),
+                                new UnderBarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
+                                    ],
+                                }),
                             ],
                         }
                     }),
@@ -650,7 +728,7 @@ export const GROUPS = {
                                 new SightAttachmentInfo({
                                     name: "IRON SIGHT",
                                     images: [
-                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/IRON SIGHT.png",
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/IRON_SIGHT.png",
                                     ],
                                 }),
                                 new SightAttachmentInfo({
@@ -733,12 +811,24 @@ export const GROUPS = {
                                         "assets/Siege-Rando-Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
                                     ],
                                 }),
+                                new BarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
+                                    ],
+                                }),
                             ],
                             underBarrels: [
                                 new UnderBarrelAttachmentInfo({
                                     name: "LASER",
                                     images: [
                                         "assets/Siege-Rando-Images/Attachments/UnderBarrelAttachments/LASER.png",
+                                    ],
+                                }),
+                                new UnderBarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
                                     ],
                                 }),
                             ],
@@ -772,6 +862,12 @@ export const GROUPS = {
                                         "assets/Siege-Rando-Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
                                     ],
                                 }),
+                                new BarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
+                                    ],
+                                }),
                             ],
                             underBarrels: [
                                 new UnderBarrelAttachmentInfo({
@@ -780,9 +876,45 @@ export const GROUPS = {
                                         "assets/Siege-Rando-Images/Attachments/UnderBarrelAttachments/LASER.png",
                                     ],
                                 }),
+                                new UnderBarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
+                                    ],
+                                }),
                             ],
                         }
                     }),
+                ],
+            }),
+            new OPInfo({
+                name: "Capitao",
+                icons: [
+                    "assets/Siege-Rando-Images/OPIcons/Capitao_Icon.png",
+                ],
+            }),
+            new OPInfo({
+                name: "Deimos",
+                icons: [
+                    "assets/Siege-Rando-Images/OPIcons/Deimos_Icon.png",
+                ],
+            }),
+            new OPInfo({
+                name: "Dokkaebi",
+                icons: [
+                    "assets/Siege-Rando-Images/OPIcons/Dokkaebi_Icon.png",
+                ],
+            }),
+            new OPInfo({
+                name: "Finka",
+                icons: [
+                    "assets/Siege-Rando-Images/OPIcons/Finka_Icon.png",
+                ],
+            }),
+            new OPInfo({
+                name: "Flores",
+                icons: [
+                    "assets/Siege-Rando-Images/OPIcons/Flores_Icon.png",
                 ],
             }),
             new OPInfo({
@@ -848,7 +980,7 @@ export const GROUPS = {
                                 new SightAttachmentInfo({
                                     name: "IRON SIGHT",
                                     images: [
-                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/IRON SIGHT.png",
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/IRON_SIGHT.png",
                                     ],
                                 }),
                                 new SightAttachmentInfo({
@@ -931,6 +1063,12 @@ export const GROUPS = {
                                         "assets/Siege-Rando-Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
                                     ],
                                 }),
+                                new BarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
+                                    ],
+                                }),
                             ],
                             grips: [
                                 new GripAttachmentInfo({
@@ -957,6 +1095,12 @@ export const GROUPS = {
                                     name: "LASER",
                                     images: [
                                         "assets/Siege-Rando-Images/Attachments/UnderBarrelAttachments/LASER.png",
+                                    ],
+                                }),
+                                new UnderBarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
                                     ],
                                 }),
                             ],
@@ -996,7 +1140,7 @@ export const GROUPS = {
                                 new SightAttachmentInfo({
                                     name: "IRON SIGHT",
                                     images: [
-                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/IRON SIGHT.png",
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/IRON_SIGHT.png",
                                     ],
                                 }),
                                 new SightAttachmentInfo({
@@ -1079,6 +1223,12 @@ export const GROUPS = {
                                         "assets/Siege-Rando-Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
                                     ],
                                 }),
+                                new BarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
+                                    ],
+                                }),
                             ],
                             grips: [
                                 new GripAttachmentInfo({
@@ -1105,6 +1255,12 @@ export const GROUPS = {
                                     name: "LASER",
                                     images: [
                                         "assets/Siege-Rando-Images/Attachments/UnderBarrelAttachments/LASER.png",
+                                    ],
+                                }),
+                                new UnderBarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
                                     ],
                                 }),
                             ],
@@ -1138,12 +1294,24 @@ export const GROUPS = {
                                         "assets/Siege-Rando-Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
                                     ],
                                 }),
+                                new BarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
+                                    ],
+                                }),
                             ],
                             underBarrels: [
                                 new UnderBarrelAttachmentInfo({
                                     name: "LASER",
                                     images: [
                                         "assets/Siege-Rando-Images/Attachments/UnderBarrelAttachments/LASER.png",
+                                    ],
+                                }),
+                                new UnderBarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
                                     ],
                                 }),
                             ],
@@ -1168,12 +1336,24 @@ export const GROUPS = {
                                         "assets/Siege-Rando-Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
                                     ],
                                 }),
+                                new BarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
+                                    ],
+                                }),
                             ],
                             underBarrels: [
                                 new UnderBarrelAttachmentInfo({
                                     name: "LASER",
                                     images: [
                                         "assets/Siege-Rando-Images/Attachments/UnderBarrelAttachments/LASER.png",
+                                    ],
+                                }),
+                                new UnderBarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
                                     ],
                                 }),
                             ],
@@ -1244,7 +1424,7 @@ export const GROUPS = {
                                 new SightAttachmentInfo({
                                     name: "IRON SIGHT",
                                     images: [
-                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/IRON SIGHT.png",
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/IRON_SIGHT.png",
                                     ],
                                 }),
                                 new SightAttachmentInfo({
@@ -1297,6 +1477,12 @@ export const GROUPS = {
                                         "assets/Siege-Rando-Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
                                     ],
                                 }),
+                                new BarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
+                                    ],
+                                }),
                             ],
                             grips: [
                                 new GripAttachmentInfo({
@@ -1323,6 +1509,12 @@ export const GROUPS = {
                                     name: "LASER",
                                     images: [
                                         "assets/Siege-Rando-Images/Attachments/UnderBarrelAttachments/LASER.png",
+                                    ],
+                                }),
+                                new UnderBarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
                                     ],
                                 }),
                             ],
@@ -1364,7 +1556,7 @@ export const GROUPS = {
                                 new SightAttachmentInfo({
                                     name: "IRON SIGHT",
                                     images: [
-                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/IRON SIGHT.png",
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/IRON_SIGHT.png",
                                     ],
                                 }),
                                 new SightAttachmentInfo({
@@ -1435,12 +1627,24 @@ export const GROUPS = {
                                         "assets/Siege-Rando-Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
                                     ],
                                 }),
+                                new BarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
+                                    ],
+                                }),
                             ],
                             underBarrels: [
                                 new UnderBarrelAttachmentInfo({
                                     name: "LASER",
                                     images: [
                                         "assets/Siege-Rando-Images/Attachments/UnderBarrelAttachments/LASER.png",
+                                    ],
+                                }),
+                                new UnderBarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
                                     ],
                                 }),
                             ],
@@ -1472,6 +1676,12 @@ export const GROUPS = {
                                         "assets/Siege-Rando-Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
                                     ],
                                 }),
+                                new BarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
+                                    ],
+                                }),
                             ],
                             underBarrels: [
                                 new UnderBarrelAttachmentInfo({
@@ -1480,9 +1690,39 @@ export const GROUPS = {
                                         "assets/Siege-Rando-Images/Attachments/UnderBarrelAttachments/LASER.png",
                                     ],
                                 }),
+                                new UnderBarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
+                                    ],
+                                }),
                             ],
                         }
                     }),
+                ],
+            }),
+            new OPInfo({
+                name: "Gridlock",
+                icons: [
+                    "assets/Siege-Rando-Images/OPIcons/Gridlock_Icon.png",
+                ],
+            }),
+            new OPInfo({
+                name: "Grim",
+                icons: [
+                    "assets/Siege-Rando-Images/OPIcons/Grim_Icon.png",
+                ],
+            }),
+            new OPInfo({
+                name: "Hibana",
+                icons: [
+                    "assets/Siege-Rando-Images/OPIcons/Hibana_Icon.png",
+                ],
+            }),
+            new OPInfo({
+                name: "Iana",
+                icons: [
+                    "assets/Siege-Rando-Images/OPIcons/Iana_Icon.png",
                 ],
             }),
             new OPInfo({
@@ -1548,7 +1788,7 @@ export const GROUPS = {
                                 new SightAttachmentInfo({
                                     name: "IRON SIGHT",
                                     images: [
-                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/IRON SIGHT.png",
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/IRON_SIGHT.png",
                                     ],
                                 }),
                                 new SightAttachmentInfo({
@@ -1637,6 +1877,12 @@ export const GROUPS = {
                                         "assets/Siege-Rando-Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
                                     ],
                                 }),
+                                new BarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
+                                    ],
+                                }),
                             ],
                             grips: [
                                 new GripAttachmentInfo({
@@ -1663,6 +1909,12 @@ export const GROUPS = {
                                     name: "LASER",
                                     images: [
                                         "assets/Siege-Rando-Images/Attachments/UnderBarrelAttachments/LASER.png",
+                                    ],
+                                }),
+                                new UnderBarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
                                     ],
                                 }),
                             ],
@@ -1702,7 +1954,7 @@ export const GROUPS = {
                                 new SightAttachmentInfo({
                                     name: "IRON SIGHT",
                                     images: [
-                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/IRON SIGHT.png",
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/IRON_SIGHT.png",
                                     ],
                                 }),
                                 new SightAttachmentInfo({
@@ -1785,12 +2037,24 @@ export const GROUPS = {
                                         "assets/Siege-Rando-Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
                                     ],
                                 }),
+                                new BarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
+                                    ],
+                                }),
                             ],
                             underBarrels: [
                                 new UnderBarrelAttachmentInfo({
                                     name: "LASER",
                                     images: [
                                         "assets/Siege-Rando-Images/Attachments/UnderBarrelAttachments/LASER.png",
+                                    ],
+                                }),
+                                new UnderBarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
                                     ],
                                 }),
                             ],
@@ -1830,7 +2094,7 @@ export const GROUPS = {
                                 new SightAttachmentInfo({
                                     name: "IRON SIGHT",
                                     images: [
-                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/IRON SIGHT.png",
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/IRON_SIGHT.png",
                                     ],
                                 }),
                                 new SightAttachmentInfo({
@@ -1913,6 +2177,12 @@ export const GROUPS = {
                                         "assets/Siege-Rando-Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
                                     ],
                                 }),
+                                new BarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
+                                    ],
+                                }),
                             ],
                             grips: [
                                 new GripAttachmentInfo({
@@ -1941,6 +2211,12 @@ export const GROUPS = {
                                         "assets/Siege-Rando-Images/Attachments/UnderBarrelAttachments/LASER.png",
                                     ],
                                 }),
+                                new UnderBarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
+                                    ],
+                                }),
                             ],
                         }
                     }),
@@ -1965,6 +2241,12 @@ export const GROUPS = {
                                         "assets/Siege-Rando-Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
                                     ],
                                 }),
+                                new BarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
+                                    ],
+                                }),
                             ],
                             underBarrels: [
                                 new UnderBarrelAttachmentInfo({
@@ -1973,9 +2255,39 @@ export const GROUPS = {
                                         "assets/Siege-Rando-Images/Attachments/UnderBarrelAttachments/LASER.png",
                                     ],
                                 }),
+                                new UnderBarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
+                                    ],
+                                }),
                             ],
                         }
                     }),
+                ],
+            }),
+            new OPInfo({
+                name: "Jackal",
+                icons: [
+                    "assets/Siege-Rando-Images/OPIcons/Jackal_Icon.png",
+                ],
+            }),
+            new OPInfo({
+                name: "Kali",
+                icons: [
+                    "assets/Siege-Rando-Images/OPIcons/Kali_Icon.png",
+                ],
+            }),
+            new OPInfo({
+                name: "Lion",
+                icons: [
+                    "assets/Siege-Rando-Images/OPIcons/Lion_Icon.png",
+                ],
+            }),
+            new OPInfo({
+                name: "Maverick",
+                icons: [
+                    "assets/Siege-Rando-Images/OPIcons/Maverick_Icon.png",
                 ],
             }),
             new OPInfo({
@@ -2028,6 +2340,12 @@ export const GROUPS = {
                                         "assets/Siege-Rando-Images/Attachments/UnderBarrelAttachments/LASER.png",
                                     ],
                                 }),
+                                new UnderBarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
+                                    ],
+                                }),
                             ],
                         }
                     }),
@@ -2050,6 +2368,12 @@ export const GROUPS = {
                                         "assets/Siege-Rando-Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
                                     ],
                                 }),
+                                new BarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
+                                    ],
+                                }),
                             ],
                             underBarrels: [
                                 new UnderBarrelAttachmentInfo({
@@ -2058,9 +2382,21 @@ export const GROUPS = {
                                         "assets/Siege-Rando-Images/Attachments/UnderBarrelAttachments/LASER.png",
                                     ],
                                 }),
+                                new UnderBarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
+                                    ],
+                                }),
                             ],
                         }
                     }),
+                ],
+            }),
+            new OPInfo({
+                name: "Nokk",
+                icons: [
+                    "assets/Siege-Rando-Images/OPIcons/Nokk_Icon.png",
                 ],
             }),
             new OPInfo({
@@ -2126,7 +2462,7 @@ export const GROUPS = {
                                 new SightAttachmentInfo({
                                     name: "IRON SIGHT",
                                     images: [
-                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/IRON SIGHT.png",
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/IRON_SIGHT.png",
                                     ],
                                 }),
                                 new SightAttachmentInfo({
@@ -2209,6 +2545,12 @@ export const GROUPS = {
                                         "assets/Siege-Rando-Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
                                     ],
                                 }),
+                                new BarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
+                                    ],
+                                }),
                             ],
                             grips: [
                                 new GripAttachmentInfo({
@@ -2235,6 +2577,12 @@ export const GROUPS = {
                                     name: "LASER",
                                     images: [
                                         "assets/Siege-Rando-Images/Attachments/UnderBarrelAttachments/LASER.png",
+                                    ],
+                                }),
+                                new UnderBarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
                                     ],
                                 }),
                             ],
@@ -2274,7 +2622,7 @@ export const GROUPS = {
                                 new SightAttachmentInfo({
                                     name: "IRON SIGHT",
                                     images: [
-                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/IRON SIGHT.png",
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/IRON_SIGHT.png",
                                     ],
                                 }),
                                 new SightAttachmentInfo({
@@ -2321,6 +2669,12 @@ export const GROUPS = {
                                         "assets/Siege-Rando-Images/Attachments/UnderBarrelAttachments/LASER.png",
                                     ],
                                 }),
+                                new UnderBarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
+                                    ],
+                                }),
                             ],
                         }
                     }),
@@ -2345,12 +2699,24 @@ export const GROUPS = {
                                         "assets/Siege-Rando-Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
                                     ],
                                 }),
+                                new BarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
+                                    ],
+                                }),
                             ],
                             underBarrels: [
                                 new UnderBarrelAttachmentInfo({
                                     name: "LASER",
                                     images: [
                                         "assets/Siege-Rando-Images/Attachments/UnderBarrelAttachments/LASER.png",
+                                    ],
+                                }),
+                                new UnderBarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
                                     ],
                                 }),
                             ],
@@ -2415,7 +2781,7 @@ export const GROUPS = {
                                 new SightAttachmentInfo({
                                     name: "IRON SIGHT",
                                     images: [
-                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/IRON SIGHT.png",
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/IRON_SIGHT.png",
                                     ],
                                 }),
                                 new SightAttachmentInfo({
@@ -2498,6 +2864,12 @@ export const GROUPS = {
                                         "assets/Siege-Rando-Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
                                     ],
                                 }),
+                                new BarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
+                                    ],
+                                }),
                             ],
                             grips: [
                                 new GripAttachmentInfo({
@@ -2524,6 +2896,12 @@ export const GROUPS = {
                                     name: "LASER",
                                     images: [
                                         "assets/Siege-Rando-Images/Attachments/UnderBarrelAttachments/LASER.png",
+                                    ],
+                                }),
+                                new UnderBarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
                                     ],
                                 }),
                             ],
@@ -2563,7 +2941,7 @@ export const GROUPS = {
                                 new SightAttachmentInfo({
                                     name: "IRON SIGHT",
                                     images: [
-                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/IRON SIGHT.png",
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/IRON_SIGHT.png",
                                     ],
                                 }),
                                 new SightAttachmentInfo({
@@ -2646,6 +3024,12 @@ export const GROUPS = {
                                         "assets/Siege-Rando-Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
                                     ],
                                 }),
+                                new BarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
+                                    ],
+                                }),
                             ],
                             grips: [
                                 new GripAttachmentInfo({
@@ -2672,6 +3056,12 @@ export const GROUPS = {
                                     name: "LASER",
                                     images: [
                                         "assets/Siege-Rando-Images/Attachments/UnderBarrelAttachments/LASER.png",
+                                    ],
+                                }),
+                                new UnderBarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
                                     ],
                                 }),
                             ],
@@ -2711,7 +3101,7 @@ export const GROUPS = {
                                 new SightAttachmentInfo({
                                     name: "IRON SIGHT",
                                     images: [
-                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/IRON SIGHT.png",
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/IRON_SIGHT.png",
                                     ],
                                 }),
                                 new SightAttachmentInfo({
@@ -2758,6 +3148,12 @@ export const GROUPS = {
                                         "assets/Siege-Rando-Images/Attachments/UnderBarrelAttachments/LASER.png",
                                     ],
                                 }),
+                                new UnderBarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
+                                    ],
+                                }),
                             ],
                         }
                     }),
@@ -2782,12 +3178,24 @@ export const GROUPS = {
                                         "assets/Siege-Rando-Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
                                     ],
                                 }),
+                                new BarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
+                                    ],
+                                }),
                             ],
                             underBarrels: [
                                 new UnderBarrelAttachmentInfo({
                                     name: "LASER",
                                     images: [
                                         "assets/Siege-Rando-Images/Attachments/UnderBarrelAttachments/LASER.png",
+                                    ],
+                                }),
+                                new UnderBarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
                                     ],
                                 }),
                             ],
@@ -2852,7 +3260,7 @@ export const GROUPS = {
                                 new SightAttachmentInfo({
                                     name: "IRON SIGHT",
                                     images: [
-                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/IRON SIGHT.png",
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/IRON_SIGHT.png",
                                     ],
                                 }),
                                 new SightAttachmentInfo({
@@ -2935,6 +3343,12 @@ export const GROUPS = {
                                         "assets/Siege-Rando-Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
                                     ],
                                 }),
+                                new BarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
+                                    ],
+                                }),
                             ],
                             grips: [
                                 new GripAttachmentInfo({
@@ -2961,6 +3375,12 @@ export const GROUPS = {
                                     name: "LASER",
                                     images: [
                                         "assets/Siege-Rando-Images/Attachments/UnderBarrelAttachments/LASER.png",
+                                    ],
+                                }),
+                                new UnderBarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
                                     ],
                                 }),
                             ],
@@ -3000,7 +3420,7 @@ export const GROUPS = {
                                 new SightAttachmentInfo({
                                     name: "IRON SIGHT",
                                     images: [
-                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/IRON SIGHT.png",
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/IRON_SIGHT.png",
                                     ],
                                 }),
                                 new SightAttachmentInfo({
@@ -3047,6 +3467,12 @@ export const GROUPS = {
                                         "assets/Siege-Rando-Images/Attachments/UnderBarrelAttachments/LASER.png",
                                     ],
                                 }),
+                                new UnderBarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
+                                    ],
+                                }),
                             ],
                         }
                     }),
@@ -3071,12 +3497,24 @@ export const GROUPS = {
                                         "assets/Siege-Rando-Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
                                     ],
                                 }),
+                                new BarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
+                                    ],
+                                }),
                             ],
                             underBarrels: [
                                 new UnderBarrelAttachmentInfo({
                                     name: "LASER",
                                     images: [
                                         "assets/Siege-Rando-Images/Attachments/UnderBarrelAttachments/LASER.png",
+                                    ],
+                                }),
+                                new UnderBarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
                                     ],
                                 }),
                             ],
@@ -3101,12 +3539,24 @@ export const GROUPS = {
                                         "assets/Siege-Rando-Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
                                     ],
                                 }),
+                                new BarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
+                                    ],
+                                }),
                             ],
                             underBarrels: [
                                 new UnderBarrelAttachmentInfo({
                                     name: "LASER",
                                     images: [
                                         "assets/Siege-Rando-Images/Attachments/UnderBarrelAttachments/LASER.png",
+                                    ],
+                                }),
+                                new UnderBarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
                                     ],
                                 }),
                             ],
@@ -3171,7 +3621,7 @@ export const GROUPS = {
                                 new SightAttachmentInfo({
                                     name: "IRON SIGHT",
                                     images: [
-                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/IRON SIGHT.png",
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/IRON_SIGHT.png",
                                     ],
                                 }),
                                 new SightAttachmentInfo({
@@ -3254,6 +3704,12 @@ export const GROUPS = {
                                         "assets/Siege-Rando-Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
                                     ],
                                 }),
+                                new BarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
+                                    ],
+                                }),
                             ],
                             grips: [
                                 new GripAttachmentInfo({
@@ -3280,6 +3736,12 @@ export const GROUPS = {
                                     name: "LASER",
                                     images: [
                                         "assets/Siege-Rando-Images/Attachments/UnderBarrelAttachments/LASER.png",
+                                    ],
+                                }),
+                                new UnderBarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
                                     ],
                                 }),
                             ],
@@ -3319,7 +3781,7 @@ export const GROUPS = {
                                 new SightAttachmentInfo({
                                     name: "IRON SIGHT",
                                     images: [
-                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/IRON SIGHT.png",
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/IRON_SIGHT.png",
                                     ],
                                 }),
                                 new SightAttachmentInfo({
@@ -3408,12 +3870,24 @@ export const GROUPS = {
                                         "assets/Siege-Rando-Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
                                     ],
                                 }),
+                                new BarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
+                                    ],
+                                }),
                             ],
                             underBarrels: [
                                 new UnderBarrelAttachmentInfo({
                                     name: "LASER",
                                     images: [
                                         "assets/Siege-Rando-Images/Attachments/UnderBarrelAttachments/LASER.png",
+                                    ],
+                                }),
+                                new UnderBarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
                                     ],
                                 }),
                             ],
@@ -3453,7 +3927,7 @@ export const GROUPS = {
                                 new SightAttachmentInfo({
                                     name: "IRON SIGHT",
                                     images: [
-                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/IRON SIGHT.png",
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/IRON_SIGHT.png",
                                     ],
                                 }),
                                 new SightAttachmentInfo({
@@ -3514,6 +3988,12 @@ export const GROUPS = {
                                         "assets/Siege-Rando-Images/Attachments/UnderBarrelAttachments/LASER.png",
                                     ],
                                 }),
+                                new UnderBarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
+                                    ],
+                                }),
                             ],
                         }
                     }),
@@ -3530,6 +4010,12 @@ export const GROUPS = {
                                     name: "LASER",
                                     images: [
                                         "assets/Siege-Rando-Images/Attachments/UnderBarrelAttachments/LASER.png",
+                                    ],
+                                }),
+                                new UnderBarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
                                     ],
                                 }),
                             ],
@@ -3554,12 +4040,24 @@ export const GROUPS = {
                                         "assets/Siege-Rando-Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
                                     ],
                                 }),
+                                new BarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
+                                    ],
+                                }),
                             ],
                             underBarrels: [
                                 new UnderBarrelAttachmentInfo({
                                     name: "LASER",
                                     images: [
                                         "assets/Siege-Rando-Images/Attachments/UnderBarrelAttachments/LASER.png",
+                                    ],
+                                }),
+                                new UnderBarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
                                     ],
                                 }),
                             ],
@@ -3570,7 +4068,7 @@ export const GROUPS = {
             new OPInfo({
                 name: "Zofia",
                 icons: [
-                    "assets/Siege-Rando-Images/OPIcons/zofia_icon.png",
+                    "assets/Siege-Rando-Images/OPIcons/Zofia_icon.png",
                 ],
                 images: [
                     "assets/Siege-Rando-Images/OPImages/Zofia.png",
@@ -3624,7 +4122,7 @@ export const GROUPS = {
                                 new SightAttachmentInfo({
                                     name: "IRON SIGHT",
                                     images: [
-                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/IRON SIGHT.png",
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/IRON_SIGHT.png",
                                     ],
                                 }),
                                 new SightAttachmentInfo({
@@ -3707,6 +4205,12 @@ export const GROUPS = {
                                         "assets/Siege-Rando-Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
                                     ],
                                 }),
+                                new BarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
+                                    ],
+                                }),
                             ],
                             grips: [
                                 new GripAttachmentInfo({
@@ -3733,6 +4237,12 @@ export const GROUPS = {
                                     name: "LASER",
                                     images: [
                                         "assets/Siege-Rando-Images/Attachments/UnderBarrelAttachments/LASER.png",
+                                    ],
+                                }),
+                                new UnderBarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
                                     ],
                                 }),
                             ],
@@ -3772,7 +4282,7 @@ export const GROUPS = {
                                 new SightAttachmentInfo({
                                     name: "IRON SIGHT",
                                     images: [
-                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/IRON SIGHT.png",
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/IRON_SIGHT.png",
                                     ],
                                 }),
                                 new SightAttachmentInfo({
@@ -3855,6 +4365,12 @@ export const GROUPS = {
                                         "assets/Siege-Rando-Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
                                     ],
                                 }),
+                                new BarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
+                                    ],
+                                }),
                             ],
                             grips: [
                                 new GripAttachmentInfo({
@@ -3883,6 +4399,12 @@ export const GROUPS = {
                                         "assets/Siege-Rando-Images/Attachments/UnderBarrelAttachments/LASER.png",
                                     ],
                                 }),
+                                new UnderBarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
+                                    ],
+                                }),
                             ],
                         }
                     }),
@@ -3907,12 +4429,24 @@ export const GROUPS = {
                                         "assets/Siege-Rando-Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
                                     ],
                                 }),
+                                new BarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
+                                    ],
+                                }),
                             ],
                             underBarrels: [
                                 new UnderBarrelAttachmentInfo({
                                     name: "LASER",
                                     images: [
                                         "assets/Siege-Rando-Images/Attachments/UnderBarrelAttachments/LASER.png",
+                                    ],
+                                }),
+                                new UnderBarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
                                     ],
                                 }),
                             ],
@@ -3931,7 +4465,7 @@ export const GROUPS = {
             new OPInfo({
                 name: "Alibi",
                 icons: [
-                    "assets/Siege-Rando-Images/OPIcons/Alibi_Icon.webp",
+                    "assets/Siege-Rando-Images/OPIcons/Alibi_Icon.png",
                 ],
                 images: [
                     "assets/Siege-Rando-Images/OPImages/Alibi.webp",
@@ -3999,7 +4533,7 @@ export const GROUPS = {
                                 new SightAttachmentInfo({
                                     name: "IRON SIGHT",
                                     images: [
-                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/IRON SIGHT.png",
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/IRON_SIGHT.png",
                                     ],
                                 }),
                                 new SightAttachmentInfo({
@@ -4064,6 +4598,12 @@ export const GROUPS = {
                                         "assets/Siege-Rando-Images/Attachments/UnderBarrelAttachments/LASER.png",
                                     ],
                                 }),
+                                new UnderBarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
+                                    ],
+                                }),
                             ],
                         }
                     }),
@@ -4102,6 +4642,12 @@ export const GROUPS = {
                                     name: "SUPPRESSOR",
                                     images: [
                                         "assets/Siege-Rando-Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
+                                    ],
+                                }),
+                                new BarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
                                     ],
                                 }),
                             ],
@@ -4147,7 +4693,7 @@ export const GROUPS = {
                                 new SightAttachmentInfo({
                                     name: "IRON SIGHT",
                                     images: [
-                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/IRON SIGHT.png",
+                                        "assets/Siege-Rando-Images/Attachments/SightAttachments/IRON_SIGHT.png",
                                     ],
                                 }),
                                 new SightAttachmentInfo({
@@ -4194,6 +4740,12 @@ export const GROUPS = {
                                         "assets/Siege-Rando-Images/Attachments/UnderBarrelAttachments/LASER.png",
                                     ],
                                 }),
+                                new UnderBarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
+                                    ],
+                                }),
                             ],
                         }
                     }),
@@ -4210,6 +4762,12 @@ export const GROUPS = {
                                     name: "LASER",
                                     images: [
                                         "assets/Siege-Rando-Images/Attachments/UnderBarrelAttachments/LASER.png",
+                                    ],
+                                }),
+                                new UnderBarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
                                     ],
                                 }),
                             ],
@@ -4234,6 +4792,12 @@ export const GROUPS = {
                                         "assets/Siege-Rando-Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
                                     ],
                                 }),
+                                new BarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
+                                    ],
+                                }),
                             ],
                             underBarrels: [
                                 new UnderBarrelAttachmentInfo({
@@ -4242,9 +4806,21 @@ export const GROUPS = {
                                         "assets/Siege-Rando-Images/Attachments/UnderBarrelAttachments/LASER.png",
                                     ],
                                 }),
+                                new UnderBarrelAttachmentInfo({
+                                    name: "None",
+                                    images: [
+                                        "assets/Siege-Rando-Images/Attachments/SharedAttachments/None.png",
+                                    ],
+                                }),
                             ],
                         }
                     }),
+                ],
+            }),
+            new OPInfo({
+                name: "Clash",
+                icons: [
+                    "assets/Siege-Rando-Images/OPIcons/KYSClash_Icon.png",
                 ],
             }),
         ],
@@ -4256,21 +4832,39 @@ GroupParseKeys[(GroupParseKeys["Defenders"] = "1")] = "Defenders";
 export const OpParseKeys = {};
 const AttackersKey = GroupParseKeys["Attackers"];
 OpParseKeys[AttackersKey] = {};
-OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Ash"] = "0")] = "Ash";
-OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Blackbeard"] = "1")] = "Blackbeard";
-OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Blitz"] = "2")] = "Blitz";
-OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Buck"] = "3")] = "Buck";
-OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Fuze"] = "4")] = "Fuze";
-OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Glaz"] = "5")] = "Glaz";
-OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["IQ"] = "6")] = "IQ";
-OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Montagne"] = "7")] = "Montagne";
-OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Sledge"] = "8")] = "Sledge";
-OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Thatcher"] = "9")] = "Thatcher";
-OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Thermite"] = "10")] = "Thermite";
-OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Twitch"] = "11")] = "Twitch";
-OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Zofia"] = "12")] = "Zofia";
+OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Ace"] = "0")] = "Ace";
+OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Amaru"] = "1")] = "Amaru";
+OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Ash"] = "2")] = "Ash";
+OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Blackbeard"] = "3")] = "Blackbeard";
+OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Blitz"] = "4")] = "Blitz";
+OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Brava"] = "5")] = "Brava";
+OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Buck"] = "6")] = "Buck";
+OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Capitao"] = "7")] = "Capitao";
+OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Deimos"] = "8")] = "Deimos";
+OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Dokkaebi"] = "9")] = "Dokkaebi";
+OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Finka"] = "10")] = "Finka";
+OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Flores"] = "11")] = "Flores";
+OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Fuze"] = "12")] = "Fuze";
+OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Glaz"] = "13")] = "Glaz";
+OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Gridlock"] = "14")] = "Gridlock";
+OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Grim"] = "15")] = "Grim";
+OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Hibana"] = "16")] = "Hibana";
+OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Iana"] = "17")] = "Iana";
+OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["IQ"] = "18")] = "IQ";
+OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Jackal"] = "19")] = "Jackal";
+OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Kali"] = "20")] = "Kali";
+OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Lion"] = "21")] = "Lion";
+OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Maverick"] = "22")] = "Maverick";
+OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Montagne"] = "23")] = "Montagne";
+OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Nokk"] = "24")] = "Nokk";
+OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Sledge"] = "25")] = "Sledge";
+OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Thatcher"] = "26")] = "Thatcher";
+OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Thermite"] = "27")] = "Thermite";
+OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Twitch"] = "28")] = "Twitch";
+OpParseKeys[AttackersKey][(OpParseKeys[AttackersKey]["Zofia"] = "29")] = "Zofia";
 const DefendersKey = GroupParseKeys["Defenders"];
 OpParseKeys[DefendersKey] = {};
 OpParseKeys[DefendersKey][(OpParseKeys[DefendersKey]["Alibi"] = "0")] = "Alibi";
+OpParseKeys[DefendersKey][(OpParseKeys[DefendersKey]["Clash"] = "1")] = "Clash";
 //#endregion
 //# sourceMappingURL=ops.js.map
