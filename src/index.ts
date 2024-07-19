@@ -1,6 +1,5 @@
 import { GROUPS } from "./ops.js";
 import Options, { OptionsParse } from "./utils/options.js";
-
 declare global {
     interface String {
         get domURL(): string;
@@ -28,6 +27,10 @@ function isScrollable(
 }
 
 function main() {
+    const op = localStorage.getItem("op");
+    if (op !== null) {
+        localStorage.removeItem("op");
+    }
     createGroupButtons();
     createFilter();
     createOptions();

@@ -15,41 +15,41 @@ import {
 export const GROUPS: Groups = {
 	Attackers: new GroupInfo({
 		icons: [
-			"assets/images/GroupIcons/Attackers_Icon_hover.svg",
-			"assets/images/GroupIcons/Attackers_Icon.svg",
+			"assets/R6Images/GroupIcons/Attackers_Icon_hover.svg",
+			"assets/R6Images/GroupIcons/Attackers_Icon.svg",
 		],
 		ops: [
 			new OPInfo({
 				name: "Ace",
 				icons: [
-					"assets/images/OPIcons/Ace_Icon.png",
+					"assets/R6Images/OPIcons/Ace_Icon.png",
 				],
 			}),
 			new OPInfo({
 				name: "Amaru",
 				icons: [
-					"assets/images/OPIcons/Amaru_Icon.png",
+					"assets/R6Images/OPIcons/Amaru_Icon.png",
 				],
 			}),
 			new OPInfo({
 				name: "Ash",
 				icons: [
-					"assets/images/OPIcons/Ash_Icon.png",
+					"assets/R6Images/OPIcons/Ash_Icon.png",
 				],
 				images: [
-					"assets/images/OPImages/Ash.png",
+					"assets/R6Images/OPImages/Ash.png",
 				],
 				equipment: [
 					new EquipmentInfo({
 						name: "Breach Charge",
 						images: [
-							"assets/images/Equipment/Breach_Charge.png",
+							"assets/R6Images/Equipment/Breach_Charge.png",
 						],
 					}),
 					new EquipmentInfo({
 						name: "Claymore",
 						images: [
-							"assets/images/Equipment/Claymore.png",
+							"assets/R6Images/Equipment/Claymore.png",
 						],
 					}),
 				],
@@ -57,44 +57,44 @@ export const GROUPS: Groups = {
 					new WeaponInfo({
 						name: "G36C",
 						images: [
-							"assets/images/Weapons/PrimaryWeapons/G36C.png",
+							"assets/R6Images/Weapons/PrimaryWeapons/G36C.png",
 						],
 						attachments: {
 							barrels: [
 								new BarrelAttachmentInfo({
 									name: "COMPENSATOR",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/COMPENSATOR.png",
+										"assets/R6Images/Attachments/BarrelAttachments/COMPENSATOR.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "EXTENDED BARREL",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/EXTENDED_BARREL.png",
+										"assets/R6Images/Attachments/BarrelAttachments/EXTENDED_BARREL.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "FLASH HIDER",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/FLASH_HIDER.png",
+										"assets/R6Images/Attachments/BarrelAttachments/FLASH_HIDER.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "MUZZLE BRAKE",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
+										"assets/R6Images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "SUPPRESSOR",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/SUPPRESSOR.png",
+										"assets/R6Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -102,19 +102,19 @@ export const GROUPS: Groups = {
 								new GripAttachmentInfo({
 									name: "ANGLED GRIP",
 									images: [
-										"assets/images/Attachments/GripAttachments/ANGLED_GRIP.png",
+										"assets/R6Images/Attachments/GripAttachments/ANGLED_GRIP.png",
 									],
 								}),
 								new GripAttachmentInfo({
 									name: "HORIZONTAL GRIP",
 									images: [
-										"assets/images/Attachments/GripAttachments/HORIZONTAL_GRIP.png",
+										"assets/R6Images/Attachments/GripAttachments/HORIZONTAL_GRIP.png",
 									],
 								}),
 								new GripAttachmentInfo({
 									name: "VERTICAL GRIP",
 									images: [
-										"assets/images/Attachments/GripAttachments/VERTICAL_GRIP.png",
+										"assets/R6Images/Attachments/GripAttachments/VERTICAL_GRIP.png",
 									],
 								}),
 							],
@@ -122,85 +122,85 @@ export const GROUPS: Groups = {
 								new SightAttachmentInfo({
 									name: "HOLO A",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_A.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO B",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_B.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO C",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_C.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_C.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO D",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_D.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_D.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "IRON SIGHT",
 									images: [
-										"assets/images/Attachments/SightAttachments/IRON_SIGHT.png",
+										"assets/R6Images/Attachments/SightAttachments/IRON_SIGHT.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "MAGNIFIED A",
 									images: [
-										"assets/images/Attachments/SightAttachments/MAGNIFIED_A.png",
+										"assets/R6Images/Attachments/SightAttachments/MAGNIFIED_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "MAGNIFIED B",
 									images: [
-										"assets/images/Attachments/SightAttachments/MAGNIFIED_B.png",
+										"assets/R6Images/Attachments/SightAttachments/MAGNIFIED_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "MAGNIFIED C",
 									images: [
-										"assets/images/Attachments/SightAttachments/MAGNIFIED_C.png",
+										"assets/R6Images/Attachments/SightAttachments/MAGNIFIED_C.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT A",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_A.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT B",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_B.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT C",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_C.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_C.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX A",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_A.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX B",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_B.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX C",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_C.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_C.png",
 									],
 								}),
 							],
@@ -208,13 +208,13 @@ export const GROUPS: Groups = {
 								new UnderBarrelAttachmentInfo({
 									name: "LASER",
 									images: [
-										"assets/images/Attachments/UnderBarrelAttachments/LASER.png",
+										"assets/R6Images/Attachments/UnderBarrelAttachments/LASER.png",
 									],
 								}),
 								new UnderBarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -223,44 +223,44 @@ export const GROUPS: Groups = {
 					new WeaponInfo({
 						name: "R4-C",
 						images: [
-							"assets/images/Weapons/PrimaryWeapons/R4-C.png",
+							"assets/R6Images/Weapons/PrimaryWeapons/R4-C.png",
 						],
 						attachments: {
 							barrels: [
 								new BarrelAttachmentInfo({
 									name: "COMPENSATOR",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/COMPENSATOR.png",
+										"assets/R6Images/Attachments/BarrelAttachments/COMPENSATOR.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "EXTENDED BARREL",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/EXTENDED_BARREL.png",
+										"assets/R6Images/Attachments/BarrelAttachments/EXTENDED_BARREL.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "FLASH HIDER",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/FLASH_HIDER.png",
+										"assets/R6Images/Attachments/BarrelAttachments/FLASH_HIDER.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "MUZZLE BRAKE",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
+										"assets/R6Images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "SUPPRESSOR",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/SUPPRESSOR.png",
+										"assets/R6Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -268,19 +268,19 @@ export const GROUPS: Groups = {
 								new GripAttachmentInfo({
 									name: "ANGLED GRIP",
 									images: [
-										"assets/images/Attachments/GripAttachments/ANGLED_GRIP.png",
+										"assets/R6Images/Attachments/GripAttachments/ANGLED_GRIP.png",
 									],
 								}),
 								new GripAttachmentInfo({
 									name: "HORIZONTAL GRIP",
 									images: [
-										"assets/images/Attachments/GripAttachments/HORIZONTAL_GRIP.png",
+										"assets/R6Images/Attachments/GripAttachments/HORIZONTAL_GRIP.png",
 									],
 								}),
 								new GripAttachmentInfo({
 									name: "VERTICAL GRIP",
 									images: [
-										"assets/images/Attachments/GripAttachments/VERTICAL_GRIP.png",
+										"assets/R6Images/Attachments/GripAttachments/VERTICAL_GRIP.png",
 									],
 								}),
 							],
@@ -288,85 +288,85 @@ export const GROUPS: Groups = {
 								new SightAttachmentInfo({
 									name: "HOLO A",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_A.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO B",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_B.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO C",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_C.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_C.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO D",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_D.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_D.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "IRON SIGHT",
 									images: [
-										"assets/images/Attachments/SightAttachments/IRON_SIGHT.png",
+										"assets/R6Images/Attachments/SightAttachments/IRON_SIGHT.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "MAGNIFIED A",
 									images: [
-										"assets/images/Attachments/SightAttachments/MAGNIFIED_A.png",
+										"assets/R6Images/Attachments/SightAttachments/MAGNIFIED_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "MAGNIFIED B",
 									images: [
-										"assets/images/Attachments/SightAttachments/MAGNIFIED_B.png",
+										"assets/R6Images/Attachments/SightAttachments/MAGNIFIED_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "MAGNIFIED C",
 									images: [
-										"assets/images/Attachments/SightAttachments/MAGNIFIED_C.png",
+										"assets/R6Images/Attachments/SightAttachments/MAGNIFIED_C.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT A",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_A.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT B",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_B.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT C",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_C.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_C.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX A",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_A.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX B",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_B.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX C",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_C.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_C.png",
 									],
 								}),
 							],
@@ -374,13 +374,13 @@ export const GROUPS: Groups = {
 								new UnderBarrelAttachmentInfo({
 									name: "LASER",
 									images: [
-										"assets/images/Attachments/UnderBarrelAttachments/LASER.png",
+										"assets/R6Images/Attachments/UnderBarrelAttachments/LASER.png",
 									],
 								}),
 								new UnderBarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -391,26 +391,26 @@ export const GROUPS: Groups = {
 					new WeaponInfo({
 						name: "5.7 USG",
 						images: [
-							"assets/images/Weapons/SecondaryWeapons/5.7 USG.png",
+							"assets/R6Images/Weapons/SecondaryWeapons/5.7 USG.png",
 						],
 						attachments: {
 							barrels: [
 								new BarrelAttachmentInfo({
 									name: "MUZZLE BRAKE",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
+										"assets/R6Images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "SUPPRESSOR",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/SUPPRESSOR.png",
+										"assets/R6Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -419,26 +419,26 @@ export const GROUPS: Groups = {
 					new WeaponInfo({
 						name: "M45 MEUSOC",
 						images: [
-							"assets/images/Weapons/SecondaryWeapons/M54_MEUSOC.png",
+							"assets/R6Images/Weapons/SecondaryWeapons/M54_MEUSOC.png",
 						],
 						attachments: {
 							barrels: [
 								new BarrelAttachmentInfo({
 									name: "MUZZLE BRAKE",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
+										"assets/R6Images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "SUPPRESSOR",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/SUPPRESSOR.png",
+										"assets/R6Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -449,28 +449,28 @@ export const GROUPS: Groups = {
 			new OPInfo({
 				name: "Blackbeard",
 				icons: [
-					"assets/images/OPIcons/Blackbeard_Icon.png",
+					"assets/R6Images/OPIcons/Blackbeard_Icon.png",
 				],
 			}),
 			new OPInfo({
 				name: "Blitz",
 				icons: [
-					"assets/images/OPIcons/Blitz_Icon.png",
+					"assets/R6Images/OPIcons/Blitz_Icon.png",
 				],
 				images: [
-					"assets/images/OPImages/Blitz.png",
+					"assets/R6Images/OPImages/Blitz.png",
 				],
 				equipment: [
 					new EquipmentInfo({
 						name: "Breach Charge",
 						images: [
-							"assets/images/Equipment/Breach_Charge.png",
+							"assets/R6Images/Equipment/Breach_Charge.png",
 						],
 					}),
 					new EquipmentInfo({
 						name: "Smoke Grenade",
 						images: [
-							"assets/images/Equipment/Smoke Grenade.png",
+							"assets/R6Images/Equipment/Smoke Grenade.png",
 						],
 					}),
 				],
@@ -478,7 +478,7 @@ export const GROUPS: Groups = {
 					new WeaponInfo({
 						name: "G52-Tactical Shield",
 						images: [
-							"assets/images/Weapons/PrimaryWeapons/G52-Tactical_Shield.png",
+							"assets/R6Images/Weapons/PrimaryWeapons/G52-Tactical_Shield.png",
 						],
 					}),
 				],
@@ -486,26 +486,26 @@ export const GROUPS: Groups = {
 					new WeaponInfo({
 						name: "P12",
 						images: [
-							"assets/images/Weapons/SecondaryWeapons/P12.png",
+							"assets/R6Images/Weapons/SecondaryWeapons/P12.png",
 						],
 						attachments: {
 							barrels: [
 								new BarrelAttachmentInfo({
 									name: "MUZZLE BRAKE",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
+										"assets/R6Images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "SUPPRESSOR",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/SUPPRESSOR.png",
+										"assets/R6Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -513,13 +513,13 @@ export const GROUPS: Groups = {
 								new UnderBarrelAttachmentInfo({
 									name: "LASER",
 									images: [
-										"assets/images/Attachments/UnderBarrelAttachments/LASER.png",
+										"assets/R6Images/Attachments/UnderBarrelAttachments/LASER.png",
 									],
 								}),
 								new UnderBarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -530,28 +530,28 @@ export const GROUPS: Groups = {
 			new OPInfo({
 				name: "Brava",
 				icons: [
-					"assets/images/OPIcons/Brava_Icon.png",
+					"assets/R6Images/OPIcons/Brava_Icon.png",
 				],
 			}),
 			new OPInfo({
 				name: "Buck",
 				icons: [
-					"assets/images/OPIcons/Buck_Icon.png",
+					"assets/R6Images/OPIcons/Buck_Icon.png",
 				],
 				images: [
-					"assets/images/OPImages/Buck.png",
+					"assets/R6Images/OPImages/Buck.png",
 				],
 				equipment: [
 					new EquipmentInfo({
 						name: "Hard Breach Charge",
 						images: [
-							"assets/images/Equipment/Hard Breach Charge.png",
+							"assets/R6Images/Equipment/Hard Breach Charge.png",
 						],
 					}),
 					new EquipmentInfo({
 						name: "Stun Grenade",
 						images: [
-							"assets/images/Equipment/Stun Grenade.png",
+							"assets/R6Images/Equipment/Stun Grenade.png",
 						],
 					}),
 				],
@@ -559,44 +559,44 @@ export const GROUPS: Groups = {
 					new WeaponInfo({
 						name: "C8-SFW",
 						images: [
-							"assets/images/Weapons/PrimaryWeapons/C8-SFW.png",
+							"assets/R6Images/Weapons/PrimaryWeapons/C8-SFW.png",
 						],
 						attachments: {
 							barrels: [
 								new BarrelAttachmentInfo({
 									name: "COMPENSATOR",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/COMPENSATOR.png",
+										"assets/R6Images/Attachments/BarrelAttachments/COMPENSATOR.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "EXTENDED BARREL",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/EXTENDED_BARREL.png",
+										"assets/R6Images/Attachments/BarrelAttachments/EXTENDED_BARREL.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "FLASH HIDER",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/FLASH_HIDER.png",
+										"assets/R6Images/Attachments/BarrelAttachments/FLASH_HIDER.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "MUZZLE BRAKE",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
+										"assets/R6Images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "SUPPRESSOR",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/SUPPRESSOR.png",
+										"assets/R6Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -604,85 +604,85 @@ export const GROUPS: Groups = {
 								new SightAttachmentInfo({
 									name: "HOLO A",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_A.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO B",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_B.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO C",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_C.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_C.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO D",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_D.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_D.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "IRON SIGHT",
 									images: [
-										"assets/images/Attachments/SightAttachments/IRON_SIGHT.png",
+										"assets/R6Images/Attachments/SightAttachments/IRON_SIGHT.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "MAGNIFIED A",
 									images: [
-										"assets/images/Attachments/SightAttachments/MAGNIFIED_A.png",
+										"assets/R6Images/Attachments/SightAttachments/MAGNIFIED_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "MAGNIFIED B",
 									images: [
-										"assets/images/Attachments/SightAttachments/MAGNIFIED_B.png",
+										"assets/R6Images/Attachments/SightAttachments/MAGNIFIED_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "MAGNIFIED C",
 									images: [
-										"assets/images/Attachments/SightAttachments/MAGNIFIED_C.png",
+										"assets/R6Images/Attachments/SightAttachments/MAGNIFIED_C.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT A",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_A.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT B",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_B.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT C",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_C.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_C.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX A",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_A.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX B",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_B.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX C",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_C.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_C.png",
 									],
 								}),
 							],
@@ -690,13 +690,13 @@ export const GROUPS: Groups = {
 								new UnderBarrelAttachmentInfo({
 									name: "LASER",
 									images: [
-										"assets/images/Attachments/UnderBarrelAttachments/LASER.png",
+										"assets/R6Images/Attachments/UnderBarrelAttachments/LASER.png",
 									],
 								}),
 								new UnderBarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -705,104 +705,104 @@ export const GROUPS: Groups = {
 					new WeaponInfo({
 						name: "CAMRS",
 						images: [
-							"assets/images/Weapons/PrimaryWeapons/CAMRS.png",
+							"assets/R6Images/Weapons/PrimaryWeapons/CAMRS.png",
 						],
 						attachments: {
 							sights: [
 								new SightAttachmentInfo({
 									name: "HOLO A",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_A.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO B",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_B.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO C",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_C.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_C.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO D",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_D.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_D.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "IRON SIGHT",
 									images: [
-										"assets/images/Attachments/SightAttachments/IRON_SIGHT.png",
+										"assets/R6Images/Attachments/SightAttachments/IRON_SIGHT.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "MAGNIFIED A",
 									images: [
-										"assets/images/Attachments/SightAttachments/MAGNIFIED_A.png",
+										"assets/R6Images/Attachments/SightAttachments/MAGNIFIED_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "MAGNIFIED B",
 									images: [
-										"assets/images/Attachments/SightAttachments/MAGNIFIED_B.png",
+										"assets/R6Images/Attachments/SightAttachments/MAGNIFIED_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "MAGNIFIED C",
 									images: [
-										"assets/images/Attachments/SightAttachments/MAGNIFIED_C.png",
+										"assets/R6Images/Attachments/SightAttachments/MAGNIFIED_C.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT A",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_A.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT B",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_B.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT C",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_C.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_C.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX A",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_A.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX B",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_B.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX C",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_C.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_C.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "TELESCOPIC A",
 									images: [
-										"assets/images/Attachments/SightAttachments/TELESCOPIC_A.png",
+										"assets/R6Images/Attachments/SightAttachments/TELESCOPIC_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "TELESCOPIC B",
 									images: [
-										"assets/images/Attachments/SightAttachments/TELESCOPIC_B.png",
+										"assets/R6Images/Attachments/SightAttachments/TELESCOPIC_B.png",
 									],
 								}),
 							],
@@ -810,19 +810,19 @@ export const GROUPS: Groups = {
 								new BarrelAttachmentInfo({
 									name: "MUZZLE BRAKE",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
+										"assets/R6Images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "SUPPRESSOR",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/SUPPRESSOR.png",
+										"assets/R6Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -830,13 +830,13 @@ export const GROUPS: Groups = {
 								new UnderBarrelAttachmentInfo({
 									name: "LASER",
 									images: [
-										"assets/images/Attachments/UnderBarrelAttachments/LASER.png",
+										"assets/R6Images/Attachments/UnderBarrelAttachments/LASER.png",
 									],
 								}),
 								new UnderBarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -847,7 +847,7 @@ export const GROUPS: Groups = {
 					new WeaponInfo({
 						name: "Gonne 6",
 						images: [
-							"assets/images/Weapons/SecondaryWeapons/Gonne_6.png",
+							"assets/R6Images/Weapons/SecondaryWeapons/Gonne_6.png",
 						],
 						attachments: {
 						}
@@ -855,26 +855,26 @@ export const GROUPS: Groups = {
 					new WeaponInfo({
 						name: "MK1 9mm",
 						images: [
-							"assets/images/Weapons/SecondaryWeapons/MK1_9mm.png",
+							"assets/R6Images/Weapons/SecondaryWeapons/MK1_9mm.png",
 						],
 						attachments: {
 							barrels: [
 								new BarrelAttachmentInfo({
 									name: "MUZZLE BRAKE",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
+										"assets/R6Images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "SUPPRESSOR",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/SUPPRESSOR.png",
+										"assets/R6Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -882,13 +882,13 @@ export const GROUPS: Groups = {
 								new UnderBarrelAttachmentInfo({
 									name: "LASER",
 									images: [
-										"assets/images/Attachments/UnderBarrelAttachments/LASER.png",
+										"assets/R6Images/Attachments/UnderBarrelAttachments/LASER.png",
 									],
 								}),
 								new UnderBarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -899,58 +899,58 @@ export const GROUPS: Groups = {
 			new OPInfo({
 				name: "Capitao",
 				icons: [
-					"assets/images/OPIcons/Capitao_Icon.png",
+					"assets/R6Images/OPIcons/Capitao_Icon.png",
 				],
 			}),
 			new OPInfo({
 				name: "Deimos",
 				icons: [
-					"assets/images/OPIcons/Deimos_Icon.png",
+					"assets/R6Images/OPIcons/Deimos_Icon.png",
 				],
 			}),
 			new OPInfo({
 				name: "Dokkaebi",
 				icons: [
-					"assets/images/OPIcons/Dokkaebi_Icon.png",
+					"assets/R6Images/OPIcons/Dokkaebi_Icon.png",
 				],
 			}),
 			new OPInfo({
 				name: "Finka",
 				icons: [
-					"assets/images/OPIcons/Finka_Icon.png",
+					"assets/R6Images/OPIcons/Finka_Icon.png",
 				],
 			}),
 			new OPInfo({
 				name: "Flores",
 				icons: [
-					"assets/images/OPIcons/Flores_Icon.png",
+					"assets/R6Images/OPIcons/Flores_Icon.png",
 				],
 			}),
 			new OPInfo({
 				name: "Fuze",
 				icons: [
-					"assets/images/OPIcons/Fuze_Icon.png",
+					"assets/R6Images/OPIcons/Fuze_Icon.png",
 				],
 				images: [
-					"assets/images/OPImages/Fuze.png",
+					"assets/R6Images/OPImages/Fuze.png",
 				],
 				equipment: [
 					new EquipmentInfo({
 						name: "Breach Charge",
 						images: [
-							"assets/images/Equipment/Breach_Charge.png",
+							"assets/R6Images/Equipment/Breach_Charge.png",
 						],
 					}),
 					new EquipmentInfo({
 						name: "Hard Breach Charge",
 						images: [
-							"assets/images/Equipment/Hard Breach Charge.png",
+							"assets/R6Images/Equipment/Hard Breach Charge.png",
 						],
 					}),
 					new EquipmentInfo({
 						name: "Smoke Grenade",
 						images: [
-							"assets/images/Equipment/Smoke Grenade.png",
+							"assets/R6Images/Equipment/Smoke Grenade.png",
 						],
 					}),
 				],
@@ -958,92 +958,92 @@ export const GROUPS: Groups = {
 					new WeaponInfo({
 						name: "6P41",
 						images: [
-							"assets/images/Weapons/PrimaryWeapons/6P41.png",
+							"assets/R6Images/Weapons/PrimaryWeapons/6P41.png",
 						],
 						attachments: {
 							sights: [
 								new SightAttachmentInfo({
 									name: "HOLO A",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_A.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO B",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_B.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO C",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_C.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_C.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO D",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_D.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_D.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "IRON SIGHT",
 									images: [
-										"assets/images/Attachments/SightAttachments/IRON_SIGHT.png",
+										"assets/R6Images/Attachments/SightAttachments/IRON_SIGHT.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "MAGNIFIED A",
 									images: [
-										"assets/images/Attachments/SightAttachments/MAGNIFIED_A.png",
+										"assets/R6Images/Attachments/SightAttachments/MAGNIFIED_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "MAGNIFIED B",
 									images: [
-										"assets/images/Attachments/SightAttachments/MAGNIFIED_B.png",
+										"assets/R6Images/Attachments/SightAttachments/MAGNIFIED_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "MAGNIFIED C",
 									images: [
-										"assets/images/Attachments/SightAttachments/MAGNIFIED_C.png",
+										"assets/R6Images/Attachments/SightAttachments/MAGNIFIED_C.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT A",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_A.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT B",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_B.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT C",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_C.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_C.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX A",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_A.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX B",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_B.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX C",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_C.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_C.png",
 									],
 								}),
 							],
@@ -1051,31 +1051,31 @@ export const GROUPS: Groups = {
 								new BarrelAttachmentInfo({
 									name: "COMPENSATOR",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/COMPENSATOR.png",
+										"assets/R6Images/Attachments/BarrelAttachments/COMPENSATOR.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "FLASH HIDER",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/FLASH_HIDER.png",
+										"assets/R6Images/Attachments/BarrelAttachments/FLASH_HIDER.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "MUZZLE BRAKE",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
+										"assets/R6Images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "SUPPRESSOR",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/SUPPRESSOR.png",
+										"assets/R6Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -1083,19 +1083,19 @@ export const GROUPS: Groups = {
 								new GripAttachmentInfo({
 									name: "ANGLED GRIP",
 									images: [
-										"assets/images/Attachments/GripAttachments/ANGLED_GRIP.png",
+										"assets/R6Images/Attachments/GripAttachments/ANGLED_GRIP.png",
 									],
 								}),
 								new GripAttachmentInfo({
 									name: "HORIZONTAL GRIP",
 									images: [
-										"assets/images/Attachments/GripAttachments/HORIZONTAL_GRIP.png",
+										"assets/R6Images/Attachments/GripAttachments/HORIZONTAL_GRIP.png",
 									],
 								}),
 								new GripAttachmentInfo({
 									name: "VERTICAL GRIP",
 									images: [
-										"assets/images/Attachments/GripAttachments/VERTICAL_GRIP.png",
+										"assets/R6Images/Attachments/GripAttachments/VERTICAL_GRIP.png",
 									],
 								}),
 							],
@@ -1103,13 +1103,13 @@ export const GROUPS: Groups = {
 								new UnderBarrelAttachmentInfo({
 									name: "LASER",
 									images: [
-										"assets/images/Attachments/UnderBarrelAttachments/LASER.png",
+										"assets/R6Images/Attachments/UnderBarrelAttachments/LASER.png",
 									],
 								}),
 								new UnderBarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -1118,92 +1118,92 @@ export const GROUPS: Groups = {
 					new WeaponInfo({
 						name: "AK-12",
 						images: [
-							"assets/images/Weapons/PrimaryWeapons/AK-12.png",
+							"assets/R6Images/Weapons/PrimaryWeapons/AK-12.png",
 						],
 						attachments: {
 							sights: [
 								new SightAttachmentInfo({
 									name: "HOLO A",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_A.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO B",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_B.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO C",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_C.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_C.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO D",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_D.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_D.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "IRON SIGHT",
 									images: [
-										"assets/images/Attachments/SightAttachments/IRON_SIGHT.png",
+										"assets/R6Images/Attachments/SightAttachments/IRON_SIGHT.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "MAGNIFIED A",
 									images: [
-										"assets/images/Attachments/SightAttachments/MAGNIFIED_A.png",
+										"assets/R6Images/Attachments/SightAttachments/MAGNIFIED_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "MAGNIFIED B",
 									images: [
-										"assets/images/Attachments/SightAttachments/MAGNIFIED_B.png",
+										"assets/R6Images/Attachments/SightAttachments/MAGNIFIED_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "MAGNIFIED C",
 									images: [
-										"assets/images/Attachments/SightAttachments/MAGNIFIED_C.png",
+										"assets/R6Images/Attachments/SightAttachments/MAGNIFIED_C.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT A",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_A.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT B",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_B.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT C",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_C.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_C.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX A",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_A.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX B",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_B.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX C",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_C.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_C.png",
 									],
 								}),
 							],
@@ -1211,31 +1211,31 @@ export const GROUPS: Groups = {
 								new BarrelAttachmentInfo({
 									name: "COMPENSATOR",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/COMPENSATOR.png",
+										"assets/R6Images/Attachments/BarrelAttachments/COMPENSATOR.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "FLASH HIDER",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/FLASH_HIDER.png",
+										"assets/R6Images/Attachments/BarrelAttachments/FLASH_HIDER.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "MUZZLE BRAKE",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
+										"assets/R6Images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "SUPPRESSOR",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/SUPPRESSOR.png",
+										"assets/R6Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -1243,19 +1243,19 @@ export const GROUPS: Groups = {
 								new GripAttachmentInfo({
 									name: "ANGLED GRIP",
 									images: [
-										"assets/images/Attachments/GripAttachments/ANGLED_GRIP.png",
+										"assets/R6Images/Attachments/GripAttachments/ANGLED_GRIP.png",
 									],
 								}),
 								new GripAttachmentInfo({
 									name: "HORIZONTAL GRIP",
 									images: [
-										"assets/images/Attachments/GripAttachments/HORIZONTAL_GRIP.png",
+										"assets/R6Images/Attachments/GripAttachments/HORIZONTAL_GRIP.png",
 									],
 								}),
 								new GripAttachmentInfo({
 									name: "VERTICAL GRIP",
 									images: [
-										"assets/images/Attachments/GripAttachments/VERTICAL_GRIP.png",
+										"assets/R6Images/Attachments/GripAttachments/VERTICAL_GRIP.png",
 									],
 								}),
 							],
@@ -1263,13 +1263,13 @@ export const GROUPS: Groups = {
 								new UnderBarrelAttachmentInfo({
 									name: "LASER",
 									images: [
-										"assets/images/Attachments/UnderBarrelAttachments/LASER.png",
+										"assets/R6Images/Attachments/UnderBarrelAttachments/LASER.png",
 									],
 								}),
 								new UnderBarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -1278,7 +1278,7 @@ export const GROUPS: Groups = {
 					new WeaponInfo({
 						name: "Ballistic Shield",
 						images: [
-							"assets/images/Weapons/PrimaryWeapons/Ballistic Shield.png",
+							"assets/R6Images/Weapons/PrimaryWeapons/Ballistic Shield.png",
 						],
 						attachments: {
 						}
@@ -1288,26 +1288,26 @@ export const GROUPS: Groups = {
 					new WeaponInfo({
 						name: "GSH-18",
 						images: [
-							"assets/images/Weapons/SecondaryWeapons/GSH-18.png",
+							"assets/R6Images/Weapons/SecondaryWeapons/GSH-18.png",
 						],
 						attachments: {
 							barrels: [
 								new BarrelAttachmentInfo({
 									name: "MUZZLE BRAKE",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
+										"assets/R6Images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "SUPPRESSOR",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/SUPPRESSOR.png",
+										"assets/R6Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -1315,13 +1315,13 @@ export const GROUPS: Groups = {
 								new UnderBarrelAttachmentInfo({
 									name: "LASER",
 									images: [
-										"assets/images/Attachments/UnderBarrelAttachments/LASER.png",
+										"assets/R6Images/Attachments/UnderBarrelAttachments/LASER.png",
 									],
 								}),
 								new UnderBarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -1330,26 +1330,26 @@ export const GROUPS: Groups = {
 					new WeaponInfo({
 						name: "PMM",
 						images: [
-							"assets/images/Weapons/SecondaryWeapons/PMM.png",
+							"assets/R6Images/Weapons/SecondaryWeapons/PMM.png",
 						],
 						attachments: {
 							barrels: [
 								new BarrelAttachmentInfo({
 									name: "MUZZLE BRAKE",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
+										"assets/R6Images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "SUPPRESSOR",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/SUPPRESSOR.png",
+										"assets/R6Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -1357,13 +1357,13 @@ export const GROUPS: Groups = {
 								new UnderBarrelAttachmentInfo({
 									name: "LASER",
 									images: [
-										"assets/images/Attachments/UnderBarrelAttachments/LASER.png",
+										"assets/R6Images/Attachments/UnderBarrelAttachments/LASER.png",
 									],
 								}),
 								new UnderBarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -1374,28 +1374,28 @@ export const GROUPS: Groups = {
 			new OPInfo({
 				name: "Glaz",
 				icons: [
-					"assets/images/OPIcons/Glaz_Icon.png",
+					"assets/R6Images/OPIcons/Glaz_Icon.png",
 				],
 				images: [
-					"assets/images/OPImages/Glaz.png",
+					"assets/R6Images/OPImages/Glaz.png",
 				],
 				equipment: [
 					new EquipmentInfo({
 						name: "Claymore",
 						images: [
-							"assets/images/Equipment/Claymore.png",
+							"assets/R6Images/Equipment/Claymore.png",
 						],
 					}),
 					new EquipmentInfo({
 						name: "Frag",
 						images: [
-							"assets/images/Equipment/Frag.png",
+							"assets/R6Images/Equipment/Frag.png",
 						],
 					}),
 					new EquipmentInfo({
 						name: "Smoke Grenade",
 						images: [
-							"assets/images/Equipment/Smoke Grenade.png",
+							"assets/R6Images/Equipment/Smoke Grenade.png",
 						],
 					}),
 				],
@@ -1403,74 +1403,74 @@ export const GROUPS: Groups = {
 					new WeaponInfo({
 						name: "0Ts-03",
 						images: [
-							"assets/images/Weapons/PrimaryWeapons/0Ts-03.png",
+							"assets/R6Images/Weapons/PrimaryWeapons/0Ts-03.png",
 						],
 						attachments: {
 							sights: [
 								new SightAttachmentInfo({
 									name: "HOLO A",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_A.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO B",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_B.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO C",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_C.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_C.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO D",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_D.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_D.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "IRON SIGHT",
 									images: [
-										"assets/images/Attachments/SightAttachments/IRON_SIGHT.png",
+										"assets/R6Images/Attachments/SightAttachments/IRON_SIGHT.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT A",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_A.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT B",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_B.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT C",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_C.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_C.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX A",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_A.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX B",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_B.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX C",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_C.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_C.png",
 									],
 								}),
 							],
@@ -1478,19 +1478,19 @@ export const GROUPS: Groups = {
 								new BarrelAttachmentInfo({
 									name: "MUZZLE BRAKE",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
+										"assets/R6Images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "SUPPRESSOR",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/SUPPRESSOR.png",
+										"assets/R6Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -1498,19 +1498,19 @@ export const GROUPS: Groups = {
 								new GripAttachmentInfo({
 									name: "ANGLED GRIP",
 									images: [
-										"assets/images/Attachments/GripAttachments/ANGLED_GRIP.png",
+										"assets/R6Images/Attachments/GripAttachments/ANGLED_GRIP.png",
 									],
 								}),
 								new GripAttachmentInfo({
 									name: "HORIZONTAL GRIP",
 									images: [
-										"assets/images/Attachments/GripAttachments/HORIZONTAL_GRIP.png",
+										"assets/R6Images/Attachments/GripAttachments/HORIZONTAL_GRIP.png",
 									],
 								}),
 								new GripAttachmentInfo({
 									name: "VERTICAL GRIP",
 									images: [
-										"assets/images/Attachments/GripAttachments/VERTICAL_GRIP.png",
+										"assets/R6Images/Attachments/GripAttachments/VERTICAL_GRIP.png",
 									],
 								}),
 							],
@@ -1518,13 +1518,13 @@ export const GROUPS: Groups = {
 								new UnderBarrelAttachmentInfo({
 									name: "LASER",
 									images: [
-										"assets/images/Attachments/UnderBarrelAttachments/LASER.png",
+										"assets/R6Images/Attachments/UnderBarrelAttachments/LASER.png",
 									],
 								}),
 								new UnderBarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -1535,74 +1535,74 @@ export const GROUPS: Groups = {
 					new WeaponInfo({
 						name: "Bearing 9",
 						images: [
-							"assets/images/Weapons/SecondaryWeapons/Bearing_9.png",
+							"assets/R6Images/Weapons/SecondaryWeapons/Bearing_9.png",
 						],
 						attachments: {
 							sights: [
 								new SightAttachmentInfo({
 									name: "HOLO A",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_A.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO B",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_B.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO C",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_C.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_C.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO D",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_D.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_D.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "IRON SIGHT",
 									images: [
-										"assets/images/Attachments/SightAttachments/IRON_SIGHT.png",
+										"assets/R6Images/Attachments/SightAttachments/IRON_SIGHT.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT A",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_A.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT B",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_B.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT C",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_C.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_C.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX A",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_A.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX B",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_B.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX C",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_C.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_C.png",
 									],
 								}),
 							],
@@ -1610,37 +1610,37 @@ export const GROUPS: Groups = {
 								new BarrelAttachmentInfo({
 									name: "COMPENSATOR",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/COMPENSATOR.png",
+										"assets/R6Images/Attachments/BarrelAttachments/COMPENSATOR.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "EXTENDED BARREL",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/EXTENDED_BARREL.png",
+										"assets/R6Images/Attachments/BarrelAttachments/EXTENDED_BARREL.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "FLASH HIDER",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/FLASH_HIDER.png",
+										"assets/R6Images/Attachments/BarrelAttachments/FLASH_HIDER.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "MUZZLE BRAKE",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
+										"assets/R6Images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "SUPPRESSOR",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/SUPPRESSOR.png",
+										"assets/R6Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -1648,13 +1648,13 @@ export const GROUPS: Groups = {
 								new UnderBarrelAttachmentInfo({
 									name: "LASER",
 									images: [
-										"assets/images/Attachments/UnderBarrelAttachments/LASER.png",
+										"assets/R6Images/Attachments/UnderBarrelAttachments/LASER.png",
 									],
 								}),
 								new UnderBarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -1663,7 +1663,7 @@ export const GROUPS: Groups = {
 					new WeaponInfo({
 						name: "Gonne 6",
 						images: [
-							"assets/images/Weapons/SecondaryWeapons/Gonne_6.png",
+							"assets/R6Images/Weapons/SecondaryWeapons/Gonne_6.png",
 						],
 						attachments: {
 						}
@@ -1671,26 +1671,26 @@ export const GROUPS: Groups = {
 					new WeaponInfo({
 						name: "PMM",
 						images: [
-							"assets/images/Weapons/SecondaryWeapons/PMM.png",
+							"assets/R6Images/Weapons/SecondaryWeapons/PMM.png",
 						],
 						attachments: {
 							barrels: [
 								new BarrelAttachmentInfo({
 									name: "MUZZLE BRAKE",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
+										"assets/R6Images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "SUPPRESSOR",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/SUPPRESSOR.png",
+										"assets/R6Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -1698,13 +1698,13 @@ export const GROUPS: Groups = {
 								new UnderBarrelAttachmentInfo({
 									name: "LASER",
 									images: [
-										"assets/images/Attachments/UnderBarrelAttachments/LASER.png",
+										"assets/R6Images/Attachments/UnderBarrelAttachments/LASER.png",
 									],
 								}),
 								new UnderBarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -1715,52 +1715,52 @@ export const GROUPS: Groups = {
 			new OPInfo({
 				name: "Gridlock",
 				icons: [
-					"assets/images/OPIcons/Gridlock_Icon.png",
+					"assets/R6Images/OPIcons/Gridlock_Icon.png",
 				],
 			}),
 			new OPInfo({
 				name: "Grim",
 				icons: [
-					"assets/images/OPIcons/Grim_Icon.png",
+					"assets/R6Images/OPIcons/Grim_Icon.png",
 				],
 			}),
 			new OPInfo({
 				name: "Hibana",
 				icons: [
-					"assets/images/OPIcons/Hibana_Icon.png",
+					"assets/R6Images/OPIcons/Hibana_Icon.png",
 				],
 			}),
 			new OPInfo({
 				name: "Iana",
 				icons: [
-					"assets/images/OPIcons/Iana_Icon.png",
+					"assets/R6Images/OPIcons/Iana_Icon.png",
 				],
 			}),
 			new OPInfo({
 				name: "IQ",
 				icons: [
-					"assets/images/OPIcons/IQ_Icon.png",
+					"assets/R6Images/OPIcons/IQ_Icon.png",
 				],
 				images: [
-					"assets/images/OPImages/IQ.png",
+					"assets/R6Images/OPImages/IQ.png",
 				],
 				equipment: [
 					new EquipmentInfo({
 						name: "Breach Charge",
 						images: [
-							"assets/images/Equipment/Breach_Charge.png",
+							"assets/R6Images/Equipment/Breach_Charge.png",
 						],
 					}),
 					new EquipmentInfo({
 						name: "Claymore",
 						images: [
-							"assets/images/Equipment/Claymore.png",
+							"assets/R6Images/Equipment/Claymore.png",
 						],
 					}),
 					new EquipmentInfo({
 						name: "Frag",
 						images: [
-							"assets/images/Equipment/Frag.png",
+							"assets/R6Images/Equipment/Frag.png",
 						],
 					}),
 				],
@@ -1768,92 +1768,92 @@ export const GROUPS: Groups = {
 					new WeaponInfo({
 						name: "552 COMMANDO",
 						images: [
-							"assets/images/Weapons/PrimaryWeapons/552_COMMANDO.png",
+							"assets/R6Images/Weapons/PrimaryWeapons/552_COMMANDO.png",
 						],
 						attachments: {
 							sights: [
 								new SightAttachmentInfo({
 									name: "HOLO A",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_A.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO B",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_B.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO C",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_C.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_C.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO D",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_D.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_D.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "IRON SIGHT",
 									images: [
-										"assets/images/Attachments/SightAttachments/IRON_SIGHT.png",
+										"assets/R6Images/Attachments/SightAttachments/IRON_SIGHT.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "MAGNIFIED A",
 									images: [
-										"assets/images/Attachments/SightAttachments/MAGNIFIED_A.png",
+										"assets/R6Images/Attachments/SightAttachments/MAGNIFIED_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "MAGNIFIED B",
 									images: [
-										"assets/images/Attachments/SightAttachments/MAGNIFIED_B.png",
+										"assets/R6Images/Attachments/SightAttachments/MAGNIFIED_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "MAGNIFIED C",
 									images: [
-										"assets/images/Attachments/SightAttachments/MAGNIFIED_C.png",
+										"assets/R6Images/Attachments/SightAttachments/MAGNIFIED_C.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT A",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_A.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT B",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_B.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT C",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_C.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_C.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX A",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_A.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX B",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_B.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX C",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_C.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_C.png",
 									],
 								}),
 							],
@@ -1861,37 +1861,37 @@ export const GROUPS: Groups = {
 								new BarrelAttachmentInfo({
 									name: "COMPENSATOR",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/COMPENSATOR.png",
+										"assets/R6Images/Attachments/BarrelAttachments/COMPENSATOR.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "EXTENDED BARREL",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/EXTENDED_BARREL.png",
+										"assets/R6Images/Attachments/BarrelAttachments/EXTENDED_BARREL.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "FLASH HIDER",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/FLASH_HIDER.png",
+										"assets/R6Images/Attachments/BarrelAttachments/FLASH_HIDER.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "MUZZLE BRAKE",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
+										"assets/R6Images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "SUPPRESSOR",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/SUPPRESSOR.png",
+										"assets/R6Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -1899,19 +1899,19 @@ export const GROUPS: Groups = {
 								new GripAttachmentInfo({
 									name: "ANGLED GRIP",
 									images: [
-										"assets/images/Attachments/GripAttachments/ANGLED_GRIP.png",
+										"assets/R6Images/Attachments/GripAttachments/ANGLED_GRIP.png",
 									],
 								}),
 								new GripAttachmentInfo({
 									name: "HORIZONTAL GRIP",
 									images: [
-										"assets/images/Attachments/GripAttachments/HORIZONTAL_GRIP.png",
+										"assets/R6Images/Attachments/GripAttachments/HORIZONTAL_GRIP.png",
 									],
 								}),
 								new GripAttachmentInfo({
 									name: "VERTICAL GRIP",
 									images: [
-										"assets/images/Attachments/GripAttachments/VERTICAL_GRIP.png",
+										"assets/R6Images/Attachments/GripAttachments/VERTICAL_GRIP.png",
 									],
 								}),
 							],
@@ -1919,13 +1919,13 @@ export const GROUPS: Groups = {
 								new UnderBarrelAttachmentInfo({
 									name: "LASER",
 									images: [
-										"assets/images/Attachments/UnderBarrelAttachments/LASER.png",
+										"assets/R6Images/Attachments/UnderBarrelAttachments/LASER.png",
 									],
 								}),
 								new UnderBarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -1934,92 +1934,92 @@ export const GROUPS: Groups = {
 					new WeaponInfo({
 						name: "AUG A2",
 						images: [
-							"assets/images/Weapons/PrimaryWeapons/AUG_A2.png",
+							"assets/R6Images/Weapons/PrimaryWeapons/AUG_A2.png",
 						],
 						attachments: {
 							sights: [
 								new SightAttachmentInfo({
 									name: "HOLO A",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_A.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO B",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_B.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO C",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_C.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_C.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO D",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_D.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_D.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "IRON SIGHT",
 									images: [
-										"assets/images/Attachments/SightAttachments/IRON_SIGHT.png",
+										"assets/R6Images/Attachments/SightAttachments/IRON_SIGHT.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "MAGNIFIED A",
 									images: [
-										"assets/images/Attachments/SightAttachments/MAGNIFIED_A.png",
+										"assets/R6Images/Attachments/SightAttachments/MAGNIFIED_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "MAGNIFIED B",
 									images: [
-										"assets/images/Attachments/SightAttachments/MAGNIFIED_B.png",
+										"assets/R6Images/Attachments/SightAttachments/MAGNIFIED_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "MAGNIFIED C",
 									images: [
-										"assets/images/Attachments/SightAttachments/MAGNIFIED_C.png",
+										"assets/R6Images/Attachments/SightAttachments/MAGNIFIED_C.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT A",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_A.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT B",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_B.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT C",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_C.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_C.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX A",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_A.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX B",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_B.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX C",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_C.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_C.png",
 									],
 								}),
 							],
@@ -2027,31 +2027,31 @@ export const GROUPS: Groups = {
 								new BarrelAttachmentInfo({
 									name: "COMPENSATOR",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/COMPENSATOR.png",
+										"assets/R6Images/Attachments/BarrelAttachments/COMPENSATOR.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "FLASH HIDER",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/FLASH_HIDER.png",
+										"assets/R6Images/Attachments/BarrelAttachments/FLASH_HIDER.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "MUZZLE BRAKE",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
+										"assets/R6Images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "SUPPRESSOR",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/SUPPRESSOR.png",
+										"assets/R6Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -2059,13 +2059,13 @@ export const GROUPS: Groups = {
 								new UnderBarrelAttachmentInfo({
 									name: "LASER",
 									images: [
-										"assets/images/Attachments/UnderBarrelAttachments/LASER.png",
+										"assets/R6Images/Attachments/UnderBarrelAttachments/LASER.png",
 									],
 								}),
 								new UnderBarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -2074,92 +2074,92 @@ export const GROUPS: Groups = {
 					new WeaponInfo({
 						name: "G8A1",
 						images: [
-							"assets/images/Weapons/PrimaryWeapons/G8A1.png",
+							"assets/R6Images/Weapons/PrimaryWeapons/G8A1.png",
 						],
 						attachments: {
 							sights: [
 								new SightAttachmentInfo({
 									name: "HOLO A",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_A.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO B",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_B.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO C",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_C.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_C.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO D",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_D.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_D.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "IRON SIGHT",
 									images: [
-										"assets/images/Attachments/SightAttachments/IRON_SIGHT.png",
+										"assets/R6Images/Attachments/SightAttachments/IRON_SIGHT.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "MAGNIFIED A",
 									images: [
-										"assets/images/Attachments/SightAttachments/MAGNIFIED_A.png",
+										"assets/R6Images/Attachments/SightAttachments/MAGNIFIED_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "MAGNIFIED B",
 									images: [
-										"assets/images/Attachments/SightAttachments/MAGNIFIED_B.png",
+										"assets/R6Images/Attachments/SightAttachments/MAGNIFIED_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "MAGNIFIED C",
 									images: [
-										"assets/images/Attachments/SightAttachments/MAGNIFIED_C.png",
+										"assets/R6Images/Attachments/SightAttachments/MAGNIFIED_C.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT A",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_A.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT B",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_B.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT C",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_C.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_C.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX A",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_A.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX B",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_B.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX C",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_C.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_C.png",
 									],
 								}),
 							],
@@ -2167,31 +2167,31 @@ export const GROUPS: Groups = {
 								new BarrelAttachmentInfo({
 									name: "COMPENSATOR",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/COMPENSATOR.png",
+										"assets/R6Images/Attachments/BarrelAttachments/COMPENSATOR.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "FLASH HIDER",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/FLASH_HIDER.png",
+										"assets/R6Images/Attachments/BarrelAttachments/FLASH_HIDER.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "MUZZLE BRAKE",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
+										"assets/R6Images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "SUPPRESSOR",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/SUPPRESSOR.png",
+										"assets/R6Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -2199,19 +2199,19 @@ export const GROUPS: Groups = {
 								new GripAttachmentInfo({
 									name: "ANGLED GRIP",
 									images: [
-										"assets/images/Attachments/GripAttachments/ANGLED_GRIP.png",
+										"assets/R6Images/Attachments/GripAttachments/ANGLED_GRIP.png",
 									],
 								}),
 								new GripAttachmentInfo({
 									name: "HORIZONTAL GRIP",
 									images: [
-										"assets/images/Attachments/GripAttachments/HORIZONTAL_GRIP.png",
+										"assets/R6Images/Attachments/GripAttachments/HORIZONTAL_GRIP.png",
 									],
 								}),
 								new GripAttachmentInfo({
 									name: "VERTICAL GRIP",
 									images: [
-										"assets/images/Attachments/GripAttachments/VERTICAL_GRIP.png",
+										"assets/R6Images/Attachments/GripAttachments/VERTICAL_GRIP.png",
 									],
 								}),
 							],
@@ -2219,13 +2219,13 @@ export const GROUPS: Groups = {
 								new UnderBarrelAttachmentInfo({
 									name: "LASER",
 									images: [
-										"assets/images/Attachments/UnderBarrelAttachments/LASER.png",
+										"assets/R6Images/Attachments/UnderBarrelAttachments/LASER.png",
 									],
 								}),
 								new UnderBarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -2236,26 +2236,26 @@ export const GROUPS: Groups = {
 					new WeaponInfo({
 						name: "P12",
 						images: [
-							"assets/images/Weapons/SecondaryWeapons/P12.png",
+							"assets/R6Images/Weapons/SecondaryWeapons/P12.png",
 						],
 						attachments: {
 							barrels: [
 								new BarrelAttachmentInfo({
 									name: "MUZZLE BRAKE",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
+										"assets/R6Images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "SUPPRESSOR",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/SUPPRESSOR.png",
+										"assets/R6Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -2263,13 +2263,13 @@ export const GROUPS: Groups = {
 								new UnderBarrelAttachmentInfo({
 									name: "LASER",
 									images: [
-										"assets/images/Attachments/UnderBarrelAttachments/LASER.png",
+										"assets/R6Images/Attachments/UnderBarrelAttachments/LASER.png",
 									],
 								}),
 								new UnderBarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -2280,52 +2280,52 @@ export const GROUPS: Groups = {
 			new OPInfo({
 				name: "Jackal",
 				icons: [
-					"assets/images/OPIcons/Jackal_Icon.png",
+					"assets/R6Images/OPIcons/Jackal_Icon.png",
 				],
 			}),
 			new OPInfo({
 				name: "Kali",
 				icons: [
-					"assets/images/OPIcons/Kali_Icon.png",
+					"assets/R6Images/OPIcons/Kali_Icon.png",
 				],
 			}),
 			new OPInfo({
 				name: "Lion",
 				icons: [
-					"assets/images/OPIcons/Lion_Icon.png",
+					"assets/R6Images/OPIcons/Lion_Icon.png",
 				],
 			}),
 			new OPInfo({
 				name: "Maverick",
 				icons: [
-					"assets/images/OPIcons/Maverick_Icon.png",
+					"assets/R6Images/OPIcons/Maverick_Icon.png",
 				],
 			}),
 			new OPInfo({
 				name: "Montagne",
 				icons: [
-					"assets/images/OPIcons/Montagne_Icon.png",
+					"assets/R6Images/OPIcons/Montagne_Icon.png",
 				],
 				images: [
-					"assets/images/OPImages/Montagne.png",
+					"assets/R6Images/OPImages/Montagne.png",
 				],
 				equipment: [
 					new EquipmentInfo({
 						name: "Hard Breach Charge",
 						images: [
-							"assets/images/Equipment/Hard Breach Charge.png",
+							"assets/R6Images/Equipment/Hard Breach Charge.png",
 						],
 					}),
 					new EquipmentInfo({
 						name: "Impact EMP",
 						images: [
-							"assets/images/Equipment/Impact EMP.png",
+							"assets/R6Images/Equipment/Impact EMP.png",
 						],
 					}),
 					new EquipmentInfo({
 						name: "Smoke Grenade",
 						images: [
-							"assets/images/Equipment/Smoke Grenade.png",
+							"assets/R6Images/Equipment/Smoke Grenade.png",
 						],
 					}),
 				],
@@ -2333,7 +2333,7 @@ export const GROUPS: Groups = {
 					new WeaponInfo({
 						name: "LE ROC SHIELD",
 						images: [
-							"assets/images/Weapons/PrimaryWeapons/LE_ROC_SHIELD.png",
+							"assets/R6Images/Weapons/PrimaryWeapons/LE_ROC_SHIELD.png",
 						],
 					}),
 				],
@@ -2341,20 +2341,20 @@ export const GROUPS: Groups = {
 					new WeaponInfo({
 						name: "LFP589",
 						images: [
-							"assets/images/Weapons/SecondaryWeapons/LFP589.png",
+							"assets/R6Images/Weapons/SecondaryWeapons/LFP589.png",
 						],
 						attachments: {
 							underBarrels: [
 								new UnderBarrelAttachmentInfo({
 									name: "LASER",
 									images: [
-										"assets/images/Attachments/UnderBarrelAttachments/LASER.png",
+										"assets/R6Images/Attachments/UnderBarrelAttachments/LASER.png",
 									],
 								}),
 								new UnderBarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -2363,26 +2363,26 @@ export const GROUPS: Groups = {
 					new WeaponInfo({
 						name: "P9",
 						images: [
-							"assets/images/Weapons/SecondaryWeapons/P9.png",
+							"assets/R6Images/Weapons/SecondaryWeapons/P9.png",
 						],
 						attachments: {
 							barrels: [
 								new BarrelAttachmentInfo({
 									name: "MUZZLE BRAKE",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
+										"assets/R6Images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "SUPPRESSOR",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/SUPPRESSOR.png",
+										"assets/R6Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -2390,13 +2390,13 @@ export const GROUPS: Groups = {
 								new UnderBarrelAttachmentInfo({
 									name: "LASER",
 									images: [
-										"assets/images/Attachments/UnderBarrelAttachments/LASER.png",
+										"assets/R6Images/Attachments/UnderBarrelAttachments/LASER.png",
 									],
 								}),
 								new UnderBarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -2407,34 +2407,34 @@ export const GROUPS: Groups = {
 			new OPInfo({
 				name: "Nokk",
 				icons: [
-					"assets/images/OPIcons/Nokk_Icon.png",
+					"assets/R6Images/OPIcons/Nokk_Icon.png",
 				],
 			}),
 			new OPInfo({
 				name: "Sledge",
 				icons: [
-					"assets/images/OPIcons/Sledge_Icon.png",
+					"assets/R6Images/OPIcons/Sledge_Icon.png",
 				],
 				images: [
-					"assets/images/OPImages/Sledge.png",
+					"assets/R6Images/OPImages/Sledge.png",
 				],
 				equipment: [
 					new EquipmentInfo({
 						name: "Frag",
 						images: [
-							"assets/images/Equipment/Frag.png",
+							"assets/R6Images/Equipment/Frag.png",
 						],
 					}),
 					new EquipmentInfo({
 						name: "Impact EMP",
 						images: [
-							"assets/images/Equipment/Impact EMP.png",
+							"assets/R6Images/Equipment/Impact EMP.png",
 						],
 					}),
 					new EquipmentInfo({
 						name: "Stun Grenade",
 						images: [
-							"assets/images/Equipment/Stun Grenade.png",
+							"assets/R6Images/Equipment/Stun Grenade.png",
 						],
 					}),
 				],
@@ -2442,92 +2442,92 @@ export const GROUPS: Groups = {
 					new WeaponInfo({
 						name: "L85A2",
 						images: [
-							"assets/images/Weapons/PrimaryWeapons/L85A2.png",
+							"assets/R6Images/Weapons/PrimaryWeapons/L85A2.png",
 						],
 						attachments: {
 							sights: [
 								new SightAttachmentInfo({
 									name: "HOLO A",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_A.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO B",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_B.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO C",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_C.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_C.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO D",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_D.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_D.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "IRON SIGHT",
 									images: [
-										"assets/images/Attachments/SightAttachments/IRON_SIGHT.png",
+										"assets/R6Images/Attachments/SightAttachments/IRON_SIGHT.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "MAGNIFIED A",
 									images: [
-										"assets/images/Attachments/SightAttachments/MAGNIFIED_A.png",
+										"assets/R6Images/Attachments/SightAttachments/MAGNIFIED_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "MAGNIFIED B",
 									images: [
-										"assets/images/Attachments/SightAttachments/MAGNIFIED_B.png",
+										"assets/R6Images/Attachments/SightAttachments/MAGNIFIED_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "MAGNIFIED C",
 									images: [
-										"assets/images/Attachments/SightAttachments/MAGNIFIED_C.png",
+										"assets/R6Images/Attachments/SightAttachments/MAGNIFIED_C.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT A",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_A.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT B",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_B.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT C",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_C.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_C.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX A",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_A.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX B",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_B.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX C",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_C.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_C.png",
 									],
 								}),
 							],
@@ -2535,31 +2535,31 @@ export const GROUPS: Groups = {
 								new BarrelAttachmentInfo({
 									name: "COMPENSATOR",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/COMPENSATOR.png",
+										"assets/R6Images/Attachments/BarrelAttachments/COMPENSATOR.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "FLASH HIDER",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/FLASH_HIDER.png",
+										"assets/R6Images/Attachments/BarrelAttachments/FLASH_HIDER.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "MUZZLE BRAKE",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
+										"assets/R6Images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "SUPPRESSOR",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/SUPPRESSOR.png",
+										"assets/R6Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -2567,19 +2567,19 @@ export const GROUPS: Groups = {
 								new GripAttachmentInfo({
 									name: "ANGLED GRIP",
 									images: [
-										"assets/images/Attachments/GripAttachments/ANGLED_GRIP.png",
+										"assets/R6Images/Attachments/GripAttachments/ANGLED_GRIP.png",
 									],
 								}),
 								new GripAttachmentInfo({
 									name: "HORIZONTAL GRIP",
 									images: [
-										"assets/images/Attachments/GripAttachments/HORIZONTAL_GRIP.png",
+										"assets/R6Images/Attachments/GripAttachments/HORIZONTAL_GRIP.png",
 									],
 								}),
 								new GripAttachmentInfo({
 									name: "VERTICAL GRIP",
 									images: [
-										"assets/images/Attachments/GripAttachments/VERTICAL_GRIP.png",
+										"assets/R6Images/Attachments/GripAttachments/VERTICAL_GRIP.png",
 									],
 								}),
 							],
@@ -2587,13 +2587,13 @@ export const GROUPS: Groups = {
 								new UnderBarrelAttachmentInfo({
 									name: "LASER",
 									images: [
-										"assets/images/Attachments/UnderBarrelAttachments/LASER.png",
+										"assets/R6Images/Attachments/UnderBarrelAttachments/LASER.png",
 									],
 								}),
 								new UnderBarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -2602,74 +2602,74 @@ export const GROUPS: Groups = {
 					new WeaponInfo({
 						name: "M590A1",
 						images: [
-							"assets/images/Weapons/PrimaryWeapons/M590A1.png",
+							"assets/R6Images/Weapons/PrimaryWeapons/M590A1.png",
 						],
 						attachments: {
 							sights: [
 								new SightAttachmentInfo({
 									name: "HOLO A",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_A.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO B",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_B.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO C",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_C.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_C.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO D",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_D.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_D.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "IRON SIGHT",
 									images: [
-										"assets/images/Attachments/SightAttachments/IRON_SIGHT.png",
+										"assets/R6Images/Attachments/SightAttachments/IRON_SIGHT.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT A",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_A.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT B",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_B.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT C",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_C.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_C.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX A",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_A.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX B",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_B.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX C",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_C.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_C.png",
 									],
 								}),
 							],
@@ -2677,13 +2677,13 @@ export const GROUPS: Groups = {
 								new UnderBarrelAttachmentInfo({
 									name: "LASER",
 									images: [
-										"assets/images/Attachments/UnderBarrelAttachments/LASER.png",
+										"assets/R6Images/Attachments/UnderBarrelAttachments/LASER.png",
 									],
 								}),
 								new UnderBarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -2694,26 +2694,26 @@ export const GROUPS: Groups = {
 					new WeaponInfo({
 						name: "P226 MK 25",
 						images: [
-							"assets/images/Weapons/SecondaryWeapons/P226_MK_25.png",
+							"assets/R6Images/Weapons/SecondaryWeapons/P226_MK_25.png",
 						],
 						attachments: {
 							barrels: [
 								new BarrelAttachmentInfo({
 									name: "MUZZLE BRAKE",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
+										"assets/R6Images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "SUPPRESSOR",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/SUPPRESSOR.png",
+										"assets/R6Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -2721,13 +2721,13 @@ export const GROUPS: Groups = {
 								new UnderBarrelAttachmentInfo({
 									name: "LASER",
 									images: [
-										"assets/images/Attachments/UnderBarrelAttachments/LASER.png",
+										"assets/R6Images/Attachments/UnderBarrelAttachments/LASER.png",
 									],
 								}),
 								new UnderBarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -2738,22 +2738,22 @@ export const GROUPS: Groups = {
 			new OPInfo({
 				name: "Thatcher",
 				icons: [
-					"assets/images/OPIcons/Thatcher_Icon.png",
+					"assets/R6Images/OPIcons/Thatcher_Icon.png",
 				],
 				images: [
-					"assets/images/OPImages/Thatcher.png",
+					"assets/R6Images/OPImages/Thatcher.png",
 				],
 				equipment: [
 					new EquipmentInfo({
 						name: "Breach Charge",
 						images: [
-							"assets/images/Equipment/Breach_Charge.png",
+							"assets/R6Images/Equipment/Breach_Charge.png",
 						],
 					}),
 					new EquipmentInfo({
 						name: "Claymore",
 						images: [
-							"assets/images/Equipment/Claymore.png",
+							"assets/R6Images/Equipment/Claymore.png",
 						],
 					}),
 				],
@@ -2761,92 +2761,92 @@ export const GROUPS: Groups = {
 					new WeaponInfo({
 						name: "AR33",
 						images: [
-							"assets/images/Weapons/PrimaryWeapons/AR33.png",
+							"assets/R6Images/Weapons/PrimaryWeapons/AR33.png",
 						],
 						attachments: {
 							sights: [
 								new SightAttachmentInfo({
 									name: "HOLO A",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_A.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO B",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_B.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO C",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_C.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_C.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO D",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_D.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_D.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "IRON SIGHT",
 									images: [
-										"assets/images/Attachments/SightAttachments/IRON_SIGHT.png",
+										"assets/R6Images/Attachments/SightAttachments/IRON_SIGHT.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "MAGNIFIED A",
 									images: [
-										"assets/images/Attachments/SightAttachments/MAGNIFIED_A.png",
+										"assets/R6Images/Attachments/SightAttachments/MAGNIFIED_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "MAGNIFIED B",
 									images: [
-										"assets/images/Attachments/SightAttachments/MAGNIFIED_B.png",
+										"assets/R6Images/Attachments/SightAttachments/MAGNIFIED_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "MAGNIFIED C",
 									images: [
-										"assets/images/Attachments/SightAttachments/MAGNIFIED_C.png",
+										"assets/R6Images/Attachments/SightAttachments/MAGNIFIED_C.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT A",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_A.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT B",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_B.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT C",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_C.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_C.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX A",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_A.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX B",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_B.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX C",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_C.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_C.png",
 									],
 								}),
 							],
@@ -2854,31 +2854,31 @@ export const GROUPS: Groups = {
 								new BarrelAttachmentInfo({
 									name: "COMPENSATOR",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/COMPENSATOR.png",
+										"assets/R6Images/Attachments/BarrelAttachments/COMPENSATOR.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "FLASH HIDER",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/FLASH_HIDER.png",
+										"assets/R6Images/Attachments/BarrelAttachments/FLASH_HIDER.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "MUZZLE BRAKE",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
+										"assets/R6Images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "SUPPRESSOR",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/SUPPRESSOR.png",
+										"assets/R6Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -2886,19 +2886,19 @@ export const GROUPS: Groups = {
 								new GripAttachmentInfo({
 									name: "ANGLED GRIP",
 									images: [
-										"assets/images/Attachments/GripAttachments/ANGLED_GRIP.png",
+										"assets/R6Images/Attachments/GripAttachments/ANGLED_GRIP.png",
 									],
 								}),
 								new GripAttachmentInfo({
 									name: "HORIZONTAL GRIP",
 									images: [
-										"assets/images/Attachments/GripAttachments/HORIZONTAL_GRIP.png",
+										"assets/R6Images/Attachments/GripAttachments/HORIZONTAL_GRIP.png",
 									],
 								}),
 								new GripAttachmentInfo({
 									name: "VERTICAL GRIP",
 									images: [
-										"assets/images/Attachments/GripAttachments/VERTICAL_GRIP.png",
+										"assets/R6Images/Attachments/GripAttachments/VERTICAL_GRIP.png",
 									],
 								}),
 							],
@@ -2906,13 +2906,13 @@ export const GROUPS: Groups = {
 								new UnderBarrelAttachmentInfo({
 									name: "LASER",
 									images: [
-										"assets/images/Attachments/UnderBarrelAttachments/LASER.png",
+										"assets/R6Images/Attachments/UnderBarrelAttachments/LASER.png",
 									],
 								}),
 								new UnderBarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -2921,92 +2921,92 @@ export const GROUPS: Groups = {
 					new WeaponInfo({
 						name: "L85A2",
 						images: [
-							"assets/images/Weapons/PrimaryWeapons/L85A2.png",
+							"assets/R6Images/Weapons/PrimaryWeapons/L85A2.png",
 						],
 						attachments: {
 							sights: [
 								new SightAttachmentInfo({
 									name: "HOLO A",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_A.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO B",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_B.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO C",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_C.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_C.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO D",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_D.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_D.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "IRON SIGHT",
 									images: [
-										"assets/images/Attachments/SightAttachments/IRON_SIGHT.png",
+										"assets/R6Images/Attachments/SightAttachments/IRON_SIGHT.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "MAGNIFIED A",
 									images: [
-										"assets/images/Attachments/SightAttachments/MAGNIFIED_A.png",
+										"assets/R6Images/Attachments/SightAttachments/MAGNIFIED_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "MAGNIFIED B",
 									images: [
-										"assets/images/Attachments/SightAttachments/MAGNIFIED_B.png",
+										"assets/R6Images/Attachments/SightAttachments/MAGNIFIED_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "MAGNIFIED C",
 									images: [
-										"assets/images/Attachments/SightAttachments/MAGNIFIED_C.png",
+										"assets/R6Images/Attachments/SightAttachments/MAGNIFIED_C.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT A",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_A.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT B",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_B.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT C",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_C.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_C.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX A",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_A.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX B",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_B.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX C",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_C.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_C.png",
 									],
 								}),
 							],
@@ -3014,31 +3014,31 @@ export const GROUPS: Groups = {
 								new BarrelAttachmentInfo({
 									name: "COMPENSATOR",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/COMPENSATOR.png",
+										"assets/R6Images/Attachments/BarrelAttachments/COMPENSATOR.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "FLASH HIDER",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/FLASH_HIDER.png",
+										"assets/R6Images/Attachments/BarrelAttachments/FLASH_HIDER.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "MUZZLE BRAKE",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
+										"assets/R6Images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "SUPPRESSOR",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/SUPPRESSOR.png",
+										"assets/R6Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -3046,19 +3046,19 @@ export const GROUPS: Groups = {
 								new GripAttachmentInfo({
 									name: "ANGLED GRIP",
 									images: [
-										"assets/images/Attachments/GripAttachments/ANGLED_GRIP.png",
+										"assets/R6Images/Attachments/GripAttachments/ANGLED_GRIP.png",
 									],
 								}),
 								new GripAttachmentInfo({
 									name: "HORIZONTAL GRIP",
 									images: [
-										"assets/images/Attachments/GripAttachments/HORIZONTAL_GRIP.png",
+										"assets/R6Images/Attachments/GripAttachments/HORIZONTAL_GRIP.png",
 									],
 								}),
 								new GripAttachmentInfo({
 									name: "VERTICAL GRIP",
 									images: [
-										"assets/images/Attachments/GripAttachments/VERTICAL_GRIP.png",
+										"assets/R6Images/Attachments/GripAttachments/VERTICAL_GRIP.png",
 									],
 								}),
 							],
@@ -3066,13 +3066,13 @@ export const GROUPS: Groups = {
 								new UnderBarrelAttachmentInfo({
 									name: "LASER",
 									images: [
-										"assets/images/Attachments/UnderBarrelAttachments/LASER.png",
+										"assets/R6Images/Attachments/UnderBarrelAttachments/LASER.png",
 									],
 								}),
 								new UnderBarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -3081,74 +3081,74 @@ export const GROUPS: Groups = {
 					new WeaponInfo({
 						name: "M590A1",
 						images: [
-							"assets/images/Weapons/PrimaryWeapons/M590A1.png",
+							"assets/R6Images/Weapons/PrimaryWeapons/M590A1.png",
 						],
 						attachments: {
 							sights: [
 								new SightAttachmentInfo({
 									name: "HOLO A",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_A.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO B",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_B.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO C",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_C.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_C.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO D",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_D.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_D.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "IRON SIGHT",
 									images: [
-										"assets/images/Attachments/SightAttachments/IRON_SIGHT.png",
+										"assets/R6Images/Attachments/SightAttachments/IRON_SIGHT.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT A",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_A.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT B",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_B.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT C",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_C.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_C.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX A",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_A.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX B",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_B.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX C",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_C.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_C.png",
 									],
 								}),
 							],
@@ -3156,13 +3156,13 @@ export const GROUPS: Groups = {
 								new UnderBarrelAttachmentInfo({
 									name: "LASER",
 									images: [
-										"assets/images/Attachments/UnderBarrelAttachments/LASER.png",
+										"assets/R6Images/Attachments/UnderBarrelAttachments/LASER.png",
 									],
 								}),
 								new UnderBarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -3173,26 +3173,26 @@ export const GROUPS: Groups = {
 					new WeaponInfo({
 						name: "P226 MK 25",
 						images: [
-							"assets/images/Weapons/SecondaryWeapons/P226_MK_25.png",
+							"assets/R6Images/Weapons/SecondaryWeapons/P226_MK_25.png",
 						],
 						attachments: {
 							barrels: [
 								new BarrelAttachmentInfo({
 									name: "MUZZLE BRAKE",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
+										"assets/R6Images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "SUPPRESSOR",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/SUPPRESSOR.png",
+										"assets/R6Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -3200,13 +3200,13 @@ export const GROUPS: Groups = {
 								new UnderBarrelAttachmentInfo({
 									name: "LASER",
 									images: [
-										"assets/images/Attachments/UnderBarrelAttachments/LASER.png",
+										"assets/R6Images/Attachments/UnderBarrelAttachments/LASER.png",
 									],
 								}),
 								new UnderBarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -3217,22 +3217,22 @@ export const GROUPS: Groups = {
 			new OPInfo({
 				name: "Thermite",
 				icons: [
-					"assets/images/OPIcons/Thermite_Icon.png",
+					"assets/R6Images/OPIcons/Thermite_Icon.png",
 				],
 				images: [
-					"assets/images/OPImages/Thermite.png",
+					"assets/R6Images/OPImages/Thermite.png",
 				],
 				equipment: [
 					new EquipmentInfo({
 						name: "Smoke Grenade",
 						images: [
-							"assets/images/Equipment/Smoke Grenade.png",
+							"assets/R6Images/Equipment/Smoke Grenade.png",
 						],
 					}),
 					new EquipmentInfo({
 						name: "Stun Grenade",
 						images: [
-							"assets/images/Equipment/Stun Grenade.png",
+							"assets/R6Images/Equipment/Stun Grenade.png",
 						],
 					}),
 				],
@@ -3240,92 +3240,92 @@ export const GROUPS: Groups = {
 					new WeaponInfo({
 						name: "556XI",
 						images: [
-							"assets/images/Weapons/PrimaryWeapons/556XI.png",
+							"assets/R6Images/Weapons/PrimaryWeapons/556XI.png",
 						],
 						attachments: {
 							sights: [
 								new SightAttachmentInfo({
 									name: "HOLO A",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_A.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO B",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_B.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO C",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_C.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_C.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO D",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_D.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_D.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "IRON SIGHT",
 									images: [
-										"assets/images/Attachments/SightAttachments/IRON_SIGHT.png",
+										"assets/R6Images/Attachments/SightAttachments/IRON_SIGHT.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "MAGNIFIED A",
 									images: [
-										"assets/images/Attachments/SightAttachments/MAGNIFIED_A.png",
+										"assets/R6Images/Attachments/SightAttachments/MAGNIFIED_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "MAGNIFIED B",
 									images: [
-										"assets/images/Attachments/SightAttachments/MAGNIFIED_B.png",
+										"assets/R6Images/Attachments/SightAttachments/MAGNIFIED_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "MAGNIFIED C",
 									images: [
-										"assets/images/Attachments/SightAttachments/MAGNIFIED_C.png",
+										"assets/R6Images/Attachments/SightAttachments/MAGNIFIED_C.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT A",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_A.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT B",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_B.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT C",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_C.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_C.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX A",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_A.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX B",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_B.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX C",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_C.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_C.png",
 									],
 								}),
 							],
@@ -3333,31 +3333,31 @@ export const GROUPS: Groups = {
 								new BarrelAttachmentInfo({
 									name: "COMPENSATOR",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/COMPENSATOR.png",
+										"assets/R6Images/Attachments/BarrelAttachments/COMPENSATOR.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "FLASH HIDER",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/FLASH_HIDER.png",
+										"assets/R6Images/Attachments/BarrelAttachments/FLASH_HIDER.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "MUZZLE BRAKE",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
+										"assets/R6Images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "SUPPRESSOR",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/SUPPRESSOR.png",
+										"assets/R6Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -3365,19 +3365,19 @@ export const GROUPS: Groups = {
 								new GripAttachmentInfo({
 									name: "ANGLED GRIP",
 									images: [
-										"assets/images/Attachments/GripAttachments/ANGLED_GRIP.png",
+										"assets/R6Images/Attachments/GripAttachments/ANGLED_GRIP.png",
 									],
 								}),
 								new GripAttachmentInfo({
 									name: "HORIZONTAL GRIP",
 									images: [
-										"assets/images/Attachments/GripAttachments/HORIZONTAL_GRIP.png",
+										"assets/R6Images/Attachments/GripAttachments/HORIZONTAL_GRIP.png",
 									],
 								}),
 								new GripAttachmentInfo({
 									name: "VERTICAL GRIP",
 									images: [
-										"assets/images/Attachments/GripAttachments/VERTICAL_GRIP.png",
+										"assets/R6Images/Attachments/GripAttachments/VERTICAL_GRIP.png",
 									],
 								}),
 							],
@@ -3385,13 +3385,13 @@ export const GROUPS: Groups = {
 								new UnderBarrelAttachmentInfo({
 									name: "LASER",
 									images: [
-										"assets/images/Attachments/UnderBarrelAttachments/LASER.png",
+										"assets/R6Images/Attachments/UnderBarrelAttachments/LASER.png",
 									],
 								}),
 								new UnderBarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -3400,74 +3400,74 @@ export const GROUPS: Groups = {
 					new WeaponInfo({
 						name: "M1014",
 						images: [
-							"assets/images/Weapons/PrimaryWeapons/M1014.png",
+							"assets/R6Images/Weapons/PrimaryWeapons/M1014.png",
 						],
 						attachments: {
 							sights: [
 								new SightAttachmentInfo({
 									name: "HOLO A",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_A.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO B",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_B.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO C",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_C.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_C.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO D",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_D.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_D.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "IRON SIGHT",
 									images: [
-										"assets/images/Attachments/SightAttachments/IRON_SIGHT.png",
+										"assets/R6Images/Attachments/SightAttachments/IRON_SIGHT.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT A",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_A.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT B",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_B.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT C",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_C.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_C.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX A",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_A.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX B",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_B.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX C",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_C.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_C.png",
 									],
 								}),
 							],
@@ -3475,13 +3475,13 @@ export const GROUPS: Groups = {
 								new UnderBarrelAttachmentInfo({
 									name: "LASER",
 									images: [
-										"assets/images/Attachments/UnderBarrelAttachments/LASER.png",
+										"assets/R6Images/Attachments/UnderBarrelAttachments/LASER.png",
 									],
 								}),
 								new UnderBarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -3492,26 +3492,26 @@ export const GROUPS: Groups = {
 					new WeaponInfo({
 						name: "5.7 USG",
 						images: [
-							"assets/images/Weapons/SecondaryWeapons/5.7 USG.png",
+							"assets/R6Images/Weapons/SecondaryWeapons/5.7 USG.png",
 						],
 						attachments: {
 							barrels: [
 								new BarrelAttachmentInfo({
 									name: "MUZZLE BRAKE",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
+										"assets/R6Images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "SUPPRESSOR",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/SUPPRESSOR.png",
+										"assets/R6Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -3519,13 +3519,13 @@ export const GROUPS: Groups = {
 								new UnderBarrelAttachmentInfo({
 									name: "LASER",
 									images: [
-										"assets/images/Attachments/UnderBarrelAttachments/LASER.png",
+										"assets/R6Images/Attachments/UnderBarrelAttachments/LASER.png",
 									],
 								}),
 								new UnderBarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -3534,26 +3534,26 @@ export const GROUPS: Groups = {
 					new WeaponInfo({
 						name: "M54 MEUSOC",
 						images: [
-							"assets/images/Weapons/SecondaryWeapons/M54_MEUSOC.png",
+							"assets/R6Images/Weapons/SecondaryWeapons/M54_MEUSOC.png",
 						],
 						attachments: {
 							barrels: [
 								new BarrelAttachmentInfo({
 									name: "MUZZLE BRAKE",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
+										"assets/R6Images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "SUPPRESSOR",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/SUPPRESSOR.png",
+										"assets/R6Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -3561,13 +3561,13 @@ export const GROUPS: Groups = {
 								new UnderBarrelAttachmentInfo({
 									name: "LASER",
 									images: [
-										"assets/images/Attachments/UnderBarrelAttachments/LASER.png",
+										"assets/R6Images/Attachments/UnderBarrelAttachments/LASER.png",
 									],
 								}),
 								new UnderBarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -3578,22 +3578,22 @@ export const GROUPS: Groups = {
 			new OPInfo({
 				name: "Twitch",
 				icons: [
-					"assets/images/OPIcons/Twitch_Icon.png",
+					"assets/R6Images/OPIcons/Twitch_Icon.png",
 				],
 				images: [
-					"assets/images/OPImages/Twitch.png",
+					"assets/R6Images/OPImages/Twitch.png",
 				],
 				equipment: [
 					new EquipmentInfo({
 						name: "Claymore",
 						images: [
-							"assets/images/Equipment/Claymore.png",
+							"assets/R6Images/Equipment/Claymore.png",
 						],
 					}),
 					new EquipmentInfo({
 						name: "Smoke Grenade",
 						images: [
-							"assets/images/Equipment/Smoke Grenade.png",
+							"assets/R6Images/Equipment/Smoke Grenade.png",
 						],
 					}),
 				],
@@ -3601,104 +3601,104 @@ export const GROUPS: Groups = {
 					new WeaponInfo({
 						name: "417",
 						images: [
-							"assets/images/Weapons/PrimaryWeapons/417.png",
+							"assets/R6Images/Weapons/PrimaryWeapons/417.png",
 						],
 						attachments: {
 							sights: [
 								new SightAttachmentInfo({
 									name: "HOLO A",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_A.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO B",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_B.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO C",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_C.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_C.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO D",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_D.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_D.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "IRON SIGHT",
 									images: [
-										"assets/images/Attachments/SightAttachments/IRON_SIGHT.png",
+										"assets/R6Images/Attachments/SightAttachments/IRON_SIGHT.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "MAGNIFIED A",
 									images: [
-										"assets/images/Attachments/SightAttachments/MAGNIFIED_A.png",
+										"assets/R6Images/Attachments/SightAttachments/MAGNIFIED_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "MAGNIFIED B",
 									images: [
-										"assets/images/Attachments/SightAttachments/MAGNIFIED_B.png",
+										"assets/R6Images/Attachments/SightAttachments/MAGNIFIED_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "MAGNIFIED C",
 									images: [
-										"assets/images/Attachments/SightAttachments/MAGNIFIED_C.png",
+										"assets/R6Images/Attachments/SightAttachments/MAGNIFIED_C.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT A",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_A.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT B",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_B.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT C",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_C.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_C.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX A",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_A.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX B",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_B.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX C",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_C.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_C.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "TELESCOPIC A",
 									images: [
-										"assets/images/Attachments/SightAttachments/TELESCOPIC_A.png",
+										"assets/R6Images/Attachments/SightAttachments/TELESCOPIC_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "TELESCOPIC B",
 									images: [
-										"assets/images/Attachments/SightAttachments/TELESCOPIC_B.png",
+										"assets/R6Images/Attachments/SightAttachments/TELESCOPIC_B.png",
 									],
 								}),
 							],
@@ -3706,19 +3706,19 @@ export const GROUPS: Groups = {
 								new BarrelAttachmentInfo({
 									name: "MUZZLE BRAKE",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
+										"assets/R6Images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "SUPPRESSOR",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/SUPPRESSOR.png",
+										"assets/R6Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -3726,19 +3726,19 @@ export const GROUPS: Groups = {
 								new GripAttachmentInfo({
 									name: "ANGLED GRIP",
 									images: [
-										"assets/images/Attachments/GripAttachments/ANGLED_GRIP.png",
+										"assets/R6Images/Attachments/GripAttachments/ANGLED_GRIP.png",
 									],
 								}),
 								new GripAttachmentInfo({
 									name: "HORIZONTAL GRIP",
 									images: [
-										"assets/images/Attachments/GripAttachments/HORIZONTAL_GRIP.png",
+										"assets/R6Images/Attachments/GripAttachments/HORIZONTAL_GRIP.png",
 									],
 								}),
 								new GripAttachmentInfo({
 									name: "VERTICAL GRIP",
 									images: [
-										"assets/images/Attachments/GripAttachments/VERTICAL_GRIP.png",
+										"assets/R6Images/Attachments/GripAttachments/VERTICAL_GRIP.png",
 									],
 								}),
 							],
@@ -3746,13 +3746,13 @@ export const GROUPS: Groups = {
 								new UnderBarrelAttachmentInfo({
 									name: "LASER",
 									images: [
-										"assets/images/Attachments/UnderBarrelAttachments/LASER.png",
+										"assets/R6Images/Attachments/UnderBarrelAttachments/LASER.png",
 									],
 								}),
 								new UnderBarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -3761,92 +3761,92 @@ export const GROUPS: Groups = {
 					new WeaponInfo({
 						name: "F2",
 						images: [
-							"assets/images/Weapons/PrimaryWeapons/F2.png",
+							"assets/R6Images/Weapons/PrimaryWeapons/F2.png",
 						],
 						attachments: {
 							sights: [
 								new SightAttachmentInfo({
 									name: "HOLO A",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_A.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO B",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_B.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO C",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_C.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_C.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO D",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_D.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_D.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "IRON SIGHT",
 									images: [
-										"assets/images/Attachments/SightAttachments/IRON_SIGHT.png",
+										"assets/R6Images/Attachments/SightAttachments/IRON_SIGHT.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "MAGNIFIED A",
 									images: [
-										"assets/images/Attachments/SightAttachments/MAGNIFIED_A.png",
+										"assets/R6Images/Attachments/SightAttachments/MAGNIFIED_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "MAGNIFIED B",
 									images: [
-										"assets/images/Attachments/SightAttachments/MAGNIFIED_B.png",
+										"assets/R6Images/Attachments/SightAttachments/MAGNIFIED_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "MAGNIFIED C",
 									images: [
-										"assets/images/Attachments/SightAttachments/MAGNIFIED_C.png",
+										"assets/R6Images/Attachments/SightAttachments/MAGNIFIED_C.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT A",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_A.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT B",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_B.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT C",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_C.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_C.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX A",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_A.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX B",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_B.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX C",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_C.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_C.png",
 									],
 								}),
 							],
@@ -3854,37 +3854,37 @@ export const GROUPS: Groups = {
 								new BarrelAttachmentInfo({
 									name: "COMPENSATOR",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/COMPENSATOR.png",
+										"assets/R6Images/Attachments/BarrelAttachments/COMPENSATOR.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "EXTENDED BARREL",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/EXTENDED_BARREL.png",
+										"assets/R6Images/Attachments/BarrelAttachments/EXTENDED_BARREL.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "FLASH HIDER",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/FLASH_HIDER.png",
+										"assets/R6Images/Attachments/BarrelAttachments/FLASH_HIDER.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "MUZZLE BRAKE",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
+										"assets/R6Images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "SUPPRESSOR",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/SUPPRESSOR.png",
+										"assets/R6Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -3892,13 +3892,13 @@ export const GROUPS: Groups = {
 								new UnderBarrelAttachmentInfo({
 									name: "LASER",
 									images: [
-										"assets/images/Attachments/UnderBarrelAttachments/LASER.png",
+										"assets/R6Images/Attachments/UnderBarrelAttachments/LASER.png",
 									],
 								}),
 								new UnderBarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -3907,74 +3907,74 @@ export const GROUPS: Groups = {
 					new WeaponInfo({
 						name: "SG-CQB",
 						images: [
-							"assets/images/Weapons/PrimaryWeapons/SG-CQB.png",
+							"assets/R6Images/Weapons/PrimaryWeapons/SG-CQB.png",
 						],
 						attachments: {
 							sights: [
 								new SightAttachmentInfo({
 									name: "HOLO A",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_A.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO B",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_B.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO C",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_C.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_C.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO D",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_D.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_D.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "IRON SIGHT",
 									images: [
-										"assets/images/Attachments/SightAttachments/IRON_SIGHT.png",
+										"assets/R6Images/Attachments/SightAttachments/IRON_SIGHT.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT A",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_A.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT B",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_B.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT C",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_C.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_C.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX A",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_A.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX B",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_B.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX C",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_C.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_C.png",
 									],
 								}),
 							],
@@ -3982,13 +3982,13 @@ export const GROUPS: Groups = {
 								new GripAttachmentInfo({
 									name: "HORIZONTAL GRIP",
 									images: [
-										"assets/images/Attachments/GripAttachments/HORIZONTAL_GRIP.png",
+										"assets/R6Images/Attachments/GripAttachments/HORIZONTAL_GRIP.png",
 									],
 								}),
 								new GripAttachmentInfo({
 									name: "VERTICAL GRIP",
 									images: [
-										"assets/images/Attachments/GripAttachments/VERTICAL_GRIP.png",
+										"assets/R6Images/Attachments/GripAttachments/VERTICAL_GRIP.png",
 									],
 								}),
 							],
@@ -3996,13 +3996,13 @@ export const GROUPS: Groups = {
 								new UnderBarrelAttachmentInfo({
 									name: "LASER",
 									images: [
-										"assets/images/Attachments/UnderBarrelAttachments/LASER.png",
+										"assets/R6Images/Attachments/UnderBarrelAttachments/LASER.png",
 									],
 								}),
 								new UnderBarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -4013,20 +4013,20 @@ export const GROUPS: Groups = {
 					new WeaponInfo({
 						name: "LFP589",
 						images: [
-							"assets/images/Weapons/SecondaryWeapons/LFP589.png",
+							"assets/R6Images/Weapons/SecondaryWeapons/LFP589.png",
 						],
 						attachments: {
 							underBarrels: [
 								new UnderBarrelAttachmentInfo({
 									name: "LASER",
 									images: [
-										"assets/images/Attachments/UnderBarrelAttachments/LASER.png",
+										"assets/R6Images/Attachments/UnderBarrelAttachments/LASER.png",
 									],
 								}),
 								new UnderBarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -4035,26 +4035,26 @@ export const GROUPS: Groups = {
 					new WeaponInfo({
 						name: "P9",
 						images: [
-							"assets/images/Weapons/SecondaryWeapons/P9.png",
+							"assets/R6Images/Weapons/SecondaryWeapons/P9.png",
 						],
 						attachments: {
 							barrels: [
 								new BarrelAttachmentInfo({
 									name: "MUZZLE BRAKE",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
+										"assets/R6Images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "SUPPRESSOR",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/SUPPRESSOR.png",
+										"assets/R6Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -4062,13 +4062,13 @@ export const GROUPS: Groups = {
 								new UnderBarrelAttachmentInfo({
 									name: "LASER",
 									images: [
-										"assets/images/Attachments/UnderBarrelAttachments/LASER.png",
+										"assets/R6Images/Attachments/UnderBarrelAttachments/LASER.png",
 									],
 								}),
 								new UnderBarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -4079,22 +4079,22 @@ export const GROUPS: Groups = {
 			new OPInfo({
 				name: "Zofia",
 				icons: [
-					"assets/images/OPIcons/Zofia_Icon.png",
+					"assets/R6Images/OPIcons/Zofia_Icon.png",
 				],
 				images: [
-					"assets/images/OPImages/Zofia.png",
+					"assets/R6Images/OPImages/Zofia.png",
 				],
 				equipment: [
 					new EquipmentInfo({
 						name: "Breach Charge",
 						images: [
-							"assets/images/Equipment/Breach_Charge.png",
+							"assets/R6Images/Equipment/Breach_Charge.png",
 						],
 					}),
 					new EquipmentInfo({
 						name: "Claymore",
 						images: [
-							"assets/images/Equipment/Claymore.png",
+							"assets/R6Images/Equipment/Claymore.png",
 						],
 					}),
 				],
@@ -4102,92 +4102,92 @@ export const GROUPS: Groups = {
 					new WeaponInfo({
 						name: "LMG E",
 						images: [
-							"assets/images/Weapons/PrimaryWeapons/LMG_E.png",
+							"assets/R6Images/Weapons/PrimaryWeapons/LMG_E.png",
 						],
 						attachments: {
 							sights: [
 								new SightAttachmentInfo({
 									name: "HOLO A",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_A.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO B",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_B.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO C",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_C.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_C.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO D",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_D.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_D.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "IRON SIGHT",
 									images: [
-										"assets/images/Attachments/SightAttachments/IRON_SIGHT.png",
+										"assets/R6Images/Attachments/SightAttachments/IRON_SIGHT.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "MAGNIFIED A",
 									images: [
-										"assets/images/Attachments/SightAttachments/MAGNIFIED_A.png",
+										"assets/R6Images/Attachments/SightAttachments/MAGNIFIED_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "MAGNIFIED B",
 									images: [
-										"assets/images/Attachments/SightAttachments/MAGNIFIED_B.png",
+										"assets/R6Images/Attachments/SightAttachments/MAGNIFIED_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "MAGNIFIED C",
 									images: [
-										"assets/images/Attachments/SightAttachments/MAGNIFIED_C.png",
+										"assets/R6Images/Attachments/SightAttachments/MAGNIFIED_C.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT A",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_A.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT B",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_B.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT C",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_C.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_C.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX A",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_A.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX B",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_B.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX C",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_C.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_C.png",
 									],
 								}),
 							],
@@ -4195,31 +4195,31 @@ export const GROUPS: Groups = {
 								new BarrelAttachmentInfo({
 									name: "COMPENSATOR",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/COMPENSATOR.png",
+										"assets/R6Images/Attachments/BarrelAttachments/COMPENSATOR.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "FLASH HIDER",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/FLASH_HIDER.png",
+										"assets/R6Images/Attachments/BarrelAttachments/FLASH_HIDER.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "MUZZLE BRAKE",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
+										"assets/R6Images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "SUPPRESSOR",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/SUPPRESSOR.png",
+										"assets/R6Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -4227,19 +4227,19 @@ export const GROUPS: Groups = {
 								new GripAttachmentInfo({
 									name: "ANGLED GRIP",
 									images: [
-										"assets/images/Attachments/GripAttachments/ANGLED_GRIP.png",
+										"assets/R6Images/Attachments/GripAttachments/ANGLED_GRIP.png",
 									],
 								}),
 								new GripAttachmentInfo({
 									name: "HORIZONTAL GRIP",
 									images: [
-										"assets/images/Attachments/GripAttachments/HORIZONTAL_GRIP.png",
+										"assets/R6Images/Attachments/GripAttachments/HORIZONTAL_GRIP.png",
 									],
 								}),
 								new GripAttachmentInfo({
 									name: "VERTICAL GRIP",
 									images: [
-										"assets/images/Attachments/GripAttachments/VERTICAL_GRIP.png",
+										"assets/R6Images/Attachments/GripAttachments/VERTICAL_GRIP.png",
 									],
 								}),
 							],
@@ -4247,13 +4247,13 @@ export const GROUPS: Groups = {
 								new UnderBarrelAttachmentInfo({
 									name: "LASER",
 									images: [
-										"assets/images/Attachments/UnderBarrelAttachments/LASER.png",
+										"assets/R6Images/Attachments/UnderBarrelAttachments/LASER.png",
 									],
 								}),
 								new UnderBarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -4262,92 +4262,92 @@ export const GROUPS: Groups = {
 					new WeaponInfo({
 						name: "M762",
 						images: [
-							"assets/images/Weapons/PrimaryWeapons/M762.png",
+							"assets/R6Images/Weapons/PrimaryWeapons/M762.png",
 						],
 						attachments: {
 							sights: [
 								new SightAttachmentInfo({
 									name: "HOLO A",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_A.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO B",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_B.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO C",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_C.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_C.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO D",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_D.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_D.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "IRON SIGHT",
 									images: [
-										"assets/images/Attachments/SightAttachments/IRON_SIGHT.png",
+										"assets/R6Images/Attachments/SightAttachments/IRON_SIGHT.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "MAGNIFIED A",
 									images: [
-										"assets/images/Attachments/SightAttachments/MAGNIFIED_A.png",
+										"assets/R6Images/Attachments/SightAttachments/MAGNIFIED_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "MAGNIFIED B",
 									images: [
-										"assets/images/Attachments/SightAttachments/MAGNIFIED_B.png",
+										"assets/R6Images/Attachments/SightAttachments/MAGNIFIED_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "MAGNIFIED C",
 									images: [
-										"assets/images/Attachments/SightAttachments/MAGNIFIED_C.png",
+										"assets/R6Images/Attachments/SightAttachments/MAGNIFIED_C.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT A",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_A.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT B",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_B.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT C",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_C.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_C.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX A",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_A.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX B",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_B.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX C",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_C.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_C.png",
 									],
 								}),
 							],
@@ -4355,31 +4355,31 @@ export const GROUPS: Groups = {
 								new BarrelAttachmentInfo({
 									name: "COMPENSATOR",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/COMPENSATOR.png",
+										"assets/R6Images/Attachments/BarrelAttachments/COMPENSATOR.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "FLASH HIDER",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/FLASH_HIDER.png",
+										"assets/R6Images/Attachments/BarrelAttachments/FLASH_HIDER.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "MUZZLE BRAKE",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
+										"assets/R6Images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "SUPPRESSOR",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/SUPPRESSOR.png",
+										"assets/R6Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -4387,19 +4387,19 @@ export const GROUPS: Groups = {
 								new GripAttachmentInfo({
 									name: "ANGLED GRIP",
 									images: [
-										"assets/images/Attachments/GripAttachments/ANGLED_GRIP.png",
+										"assets/R6Images/Attachments/GripAttachments/ANGLED_GRIP.png",
 									],
 								}),
 								new GripAttachmentInfo({
 									name: "HORIZONTAL GRIP",
 									images: [
-										"assets/images/Attachments/GripAttachments/HORIZONTAL_GRIP.png",
+										"assets/R6Images/Attachments/GripAttachments/HORIZONTAL_GRIP.png",
 									],
 								}),
 								new GripAttachmentInfo({
 									name: "VERTICAL GRIP",
 									images: [
-										"assets/images/Attachments/GripAttachments/VERTICAL_GRIP.png",
+										"assets/R6Images/Attachments/GripAttachments/VERTICAL_GRIP.png",
 									],
 								}),
 							],
@@ -4407,13 +4407,13 @@ export const GROUPS: Groups = {
 								new UnderBarrelAttachmentInfo({
 									name: "LASER",
 									images: [
-										"assets/images/Attachments/UnderBarrelAttachments/LASER.png",
+										"assets/R6Images/Attachments/UnderBarrelAttachments/LASER.png",
 									],
 								}),
 								new UnderBarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -4424,26 +4424,26 @@ export const GROUPS: Groups = {
 					new WeaponInfo({
 						name: "RG15",
 						images: [
-							"assets/images/Weapons/SecondaryWeapons/RG15.png",
+							"assets/R6Images/Weapons/SecondaryWeapons/RG15.png",
 						],
 						attachments: {
 							barrels: [
 								new BarrelAttachmentInfo({
 									name: "MUZZLE BRAKE",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
+										"assets/R6Images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "SUPPRESSOR",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/SUPPRESSOR.png",
+										"assets/R6Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -4451,13 +4451,13 @@ export const GROUPS: Groups = {
 								new UnderBarrelAttachmentInfo({
 									name: "LASER",
 									images: [
-										"assets/images/Attachments/UnderBarrelAttachments/LASER.png",
+										"assets/R6Images/Attachments/UnderBarrelAttachments/LASER.png",
 									],
 								}),
 								new UnderBarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -4469,29 +4469,29 @@ export const GROUPS: Groups = {
 	}),
 	Defenders: new GroupInfo({
 		icons: [
-			"assets/images/GroupIcons/Defenders_Icon_hover.svg",
-			"assets/images/GroupIcons/Defenders_Icon.svg",
+			"assets/R6Images/GroupIcons/Defenders_Icon_hover.svg",
+			"assets/R6Images/GroupIcons/Defenders_Icon.svg",
 		],
 		ops: [
 			new OPInfo({
 				name: "Alibi",
 				icons: [
-					"assets/images/OPIcons/Alibi_Icon.png",
+					"assets/R6Images/OPIcons/Alibi_Icon.png",
 				],
 				images: [
-					"assets/images/OPImages/Alibi.webp",
+					"assets/R6Images/OPImages/Alibi.webp",
 				],
 				equipment: [
 					new EquipmentInfo({
 						name: "Observation Blocker",
 						images: [
-							"assets/images/Equipment/Observation_Blocker.webp",
+							"assets/R6Images/Equipment/Observation_Blocker.webp",
 						],
 					}),
 					new EquipmentInfo({
 						name: "Proximity Alarm",
 						images: [
-							"assets/images/Equipment/Proximity Alarm.png",
+							"assets/R6Images/Equipment/Proximity Alarm.png",
 						],
 					}),
 				],
@@ -4499,20 +4499,20 @@ export const GROUPS: Groups = {
 					new WeaponInfo({
 						name: "ACS12",
 						images: [
-							"assets/images/Weapons/PrimaryWeapons/ACS12.webp",
+							"assets/R6Images/Weapons/PrimaryWeapons/ACS12.webp",
 						],
 						attachments: {
 							grips: [
 								new GripAttachmentInfo({
 									name: "ANGLED GRIP",
 									images: [
-										"assets/images/Attachments/GripAttachments/ANGLED_GRIP.png",
+										"assets/R6Images/Attachments/GripAttachments/ANGLED_GRIP.png",
 									],
 								}),
 								new GripAttachmentInfo({
 									name: "VERTICAL GRIP",
 									images: [
-										"assets/images/Attachments/GripAttachments/VERTICAL_GRIP.png",
+										"assets/R6Images/Attachments/GripAttachments/VERTICAL_GRIP.png",
 									],
 								}),
 							],
@@ -4520,85 +4520,85 @@ export const GROUPS: Groups = {
 								new SightAttachmentInfo({
 									name: "HOLO A",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_A.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO B",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_B.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO C",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_C.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_C.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO D",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_D.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_D.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "IRON SIGHT",
 									images: [
-										"assets/images/Attachments/SightAttachments/IRON_SIGHT.png",
+										"assets/R6Images/Attachments/SightAttachments/IRON_SIGHT.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "MAGNIFIED A",
 									images: [
-										"assets/images/Attachments/SightAttachments/MAGNIFIED_A.png",
+										"assets/R6Images/Attachments/SightAttachments/MAGNIFIED_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "MAGNIFIED B",
 									images: [
-										"assets/images/Attachments/SightAttachments/MAGNIFIED_B.png",
+										"assets/R6Images/Attachments/SightAttachments/MAGNIFIED_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "MAGNIFIED C",
 									images: [
-										"assets/images/Attachments/SightAttachments/MAGNIFIED_C.png",
+										"assets/R6Images/Attachments/SightAttachments/MAGNIFIED_C.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT A",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_A.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT B",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_B.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT C",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_C.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_C.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX A",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_A.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX B",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_B.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX C",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_C.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_C.png",
 									],
 								}),
 							],
@@ -4606,13 +4606,13 @@ export const GROUPS: Groups = {
 								new UnderBarrelAttachmentInfo({
 									name: "LASER",
 									images: [
-										"assets/images/Attachments/UnderBarrelAttachments/LASER.png",
+										"assets/R6Images/Attachments/UnderBarrelAttachments/LASER.png",
 									],
 								}),
 								new UnderBarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -4621,44 +4621,44 @@ export const GROUPS: Groups = {
 					new WeaponInfo({
 						name: "Mx4 Storm",
 						images: [
-							"assets/images/Weapons/PrimaryWeapons/Mx4_Storm.webp",
+							"assets/R6Images/Weapons/PrimaryWeapons/Mx4_Storm.webp",
 						],
 						attachments: {
 							barrels: [
 								new BarrelAttachmentInfo({
 									name: "COMPENSATOR",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/COMPENSATOR.png",
+										"assets/R6Images/Attachments/BarrelAttachments/COMPENSATOR.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "EXTENDED BARREL",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/EXTENDED_BARREL.png",
+										"assets/R6Images/Attachments/BarrelAttachments/EXTENDED_BARREL.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "FLASH HIDER",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/FLASH_HIDER.png",
+										"assets/R6Images/Attachments/BarrelAttachments/FLASH_HIDER.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "MUZZLE BRAKE",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
+										"assets/R6Images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "SUPPRESSOR",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/SUPPRESSOR.png",
+										"assets/R6Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -4666,13 +4666,13 @@ export const GROUPS: Groups = {
 								new GripAttachmentInfo({
 									name: "ANGLED GRIP",
 									images: [
-										"assets/images/Attachments/GripAttachments/ANGLED_GRIP.png",
+										"assets/R6Images/Attachments/GripAttachments/ANGLED_GRIP.png",
 									],
 								}),
 								new GripAttachmentInfo({
 									name: "VERTICAL GRIP",
 									images: [
-										"assets/images/Attachments/GripAttachments/VERTICAL_GRIP.png",
+										"assets/R6Images/Attachments/GripAttachments/VERTICAL_GRIP.png",
 									],
 								}),
 							],
@@ -4680,67 +4680,67 @@ export const GROUPS: Groups = {
 								new SightAttachmentInfo({
 									name: "HOLO A",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_A.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO B",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_B.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO C",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_C.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_C.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "HOLO D",
 									images: [
-										"assets/images/Attachments/SightAttachments/HOLO_D.png",
+										"assets/R6Images/Attachments/SightAttachments/HOLO_D.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "IRON SIGHT",
 									images: [
-										"assets/images/Attachments/SightAttachments/IRON_SIGHT.png",
+										"assets/R6Images/Attachments/SightAttachments/IRON_SIGHT.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT A",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_A.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT B",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_B.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "RED DOT C",
 									images: [
-										"assets/images/Attachments/SightAttachments/RED_DOT_C.png",
+										"assets/R6Images/Attachments/SightAttachments/RED_DOT_C.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX A",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_A.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_A.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX B",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_B.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_B.png",
 									],
 								}),
 								new SightAttachmentInfo({
 									name: "REFLEX C",
 									images: [
-										"assets/images/Attachments/SightAttachments/REFLEX_C.png",
+										"assets/R6Images/Attachments/SightAttachments/REFLEX_C.png",
 									],
 								}),
 							],
@@ -4748,13 +4748,13 @@ export const GROUPS: Groups = {
 								new UnderBarrelAttachmentInfo({
 									name: "LASER",
 									images: [
-										"assets/images/Attachments/UnderBarrelAttachments/LASER.png",
+										"assets/R6Images/Attachments/UnderBarrelAttachments/LASER.png",
 									],
 								}),
 								new UnderBarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -4765,20 +4765,20 @@ export const GROUPS: Groups = {
 					new WeaponInfo({
 						name: "Bailiff 410",
 						images: [
-							"assets/images/Weapons/SecondaryWeapons/Bailiff_410.webp",
+							"assets/R6Images/Weapons/SecondaryWeapons/Bailiff_410.webp",
 						],
 						attachments: {
 							underBarrels: [
 								new UnderBarrelAttachmentInfo({
 									name: "LASER",
 									images: [
-										"assets/images/Attachments/UnderBarrelAttachments/LASER.png",
+										"assets/R6Images/Attachments/UnderBarrelAttachments/LASER.png",
 									],
 								}),
 								new UnderBarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -4787,26 +4787,26 @@ export const GROUPS: Groups = {
 					new WeaponInfo({
 						name: "Keratos .357",
 						images: [
-							"assets/images/Weapons/SecondaryWeapons/Keratos_.357.webp",
+							"assets/R6Images/Weapons/SecondaryWeapons/Keratos_.357.webp",
 						],
 						attachments: {
 							barrels: [
 								new BarrelAttachmentInfo({
 									name: "MUZZLE BRAKE",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
+										"assets/R6Images/Attachments/BarrelAttachments/MUZZLE_BRAKE.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "SUPPRESSOR",
 									images: [
-										"assets/images/Attachments/BarrelAttachments/SUPPRESSOR.png",
+										"assets/R6Images/Attachments/BarrelAttachments/SUPPRESSOR.png",
 									],
 								}),
 								new BarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -4814,13 +4814,13 @@ export const GROUPS: Groups = {
 								new UnderBarrelAttachmentInfo({
 									name: "LASER",
 									images: [
-										"assets/images/Attachments/UnderBarrelAttachments/LASER.png",
+										"assets/R6Images/Attachments/UnderBarrelAttachments/LASER.png",
 									],
 								}),
 								new UnderBarrelAttachmentInfo({
 									name: "None",
 									images: [
-										"assets/images/Attachments/SharedAttachments/None.png",
+										"assets/R6Images/Attachments/SharedAttachments/None.png",
 									],
 								}),
 							],
@@ -4831,7 +4831,7 @@ export const GROUPS: Groups = {
 			new OPInfo({
 				name: "Clash",
 				icons: [
-					"assets/images/OPIcons/KYSClash_Icon.png",
+					"assets/R6Images/OPIcons/KYSClash_Icon.png",
 				],
 			}),
 		],

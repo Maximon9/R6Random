@@ -154,7 +154,7 @@ class __Parser:
         this.__spaces: list[str] = [" ", "_", "-"]
 
         this.parsed_json_path: str = "./Siege-Rando-Images/parsed.json"
-        this.images_path: str = "./images"
+        this.images_path: str = "./R6Images"
         this.parsed_json_base_path: str = "./Siege-Rando-Images"
         this.base_path: str = ".."
         this.ops_ts_path: str = "../src/ops.ts"

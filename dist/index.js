@@ -16,6 +16,10 @@ function isScrollable(element, dir) {
     return res;
 }
 function main() {
+    const op = localStorage.getItem("op");
+    if (op !== null) {
+        localStorage.removeItem("op");
+    }
     createGroupButtons();
     createFilter();
     createOptions();

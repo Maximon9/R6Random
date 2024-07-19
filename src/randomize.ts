@@ -1,3 +1,4 @@
+import { json } from "stream/consumers";
 import { GROUPS } from "./ops.js";
 import { WeaponAttackments, WeaponAttackmentsInfo } from "./types/weapon.js";
 import { Equipment, EquipmentInfo } from "./utils/equipment.js";
@@ -15,10 +16,19 @@ import { Weapon, WeaponInfo } from "./utils/weaponInfo/weapon.js";
 const key = localStorage.getItem("group");
 if (key !== null) {
     const group = GROUPS[key];
-    const op = randomizeOP(key, group);
-    console.log(op);
+    let opString = localStorage.getItem("op");
+    let op: OP | undefined = undefined;
+    if (opString !== null) {
+        const json = JSON.parse(opString);
+        op = OP.createOPFromJSON(json);
+    } else {
+        op = randomizeOP(key, group);
+        if (op !== undefined) {
+            localStorage.setItem("op", JSON.stringify(op));
+        }
+    }
     if (op !== undefined) {
-        localStorage.setItem("op", JSON.stringify(op));
+        console.log(op);
     }
 }
 
@@ -40,8 +50,12 @@ function randomizeOP(key: string, group: GroupInfo): OP | undefined {
     if (Options.Filter.GroupFalse(key)) {
         return undefined;
     } else {
-        while (Options.Filter.OPTrue(key, opInfo.name) === false) {
-            opInfo = getRandomItemFromArray(group.ops);
+        if (group.ops.length > 0) {
+            while (Options.Filter.OPTrue(key, opInfo.name) === false) {
+                opInfo = getRandomItemFromArray(group.ops);
+            }
+        } else {
+            return undefined;
         }
     }
     const op = new OP({
@@ -76,6 +90,7 @@ function randomizeOP(key: string, group: GroupInfo): OP | undefined {
             getRandomItemFromArray(opInfo.secondaryWeapons)
         );
     }
+    return op;
 }
 
 function randomizeEquipment(equipmentInfos: EquipmentInfo[]): Equipment[] {

@@ -7,10 +7,20 @@ import { Weapon } from "./utils/weaponInfo/weapon.js";
 const key = localStorage.getItem("group");
 if (key !== null) {
     const group = GROUPS[key];
-    const op = randomizeOP(key, group);
-    console.log(op);
+    let opString = localStorage.getItem("op");
+    let op = undefined;
+    if (opString !== null) {
+        const json = JSON.parse(opString);
+        op = OP.createOPFromJSON(json);
+    }
+    else {
+        op = randomizeOP(key, group);
+        if (op !== undefined) {
+            localStorage.setItem("op", JSON.stringify(op));
+        }
+    }
     if (op !== undefined) {
-        localStorage.setItem("op", JSON.stringify(op));
+        console.log(op);
     }
 }
 function equipmentMatchesList(equipment, equipments) {
@@ -28,8 +38,13 @@ function randomizeOP(key, group) {
         return undefined;
     }
     else {
-        while (Options.Filter.OPTrue(key, opInfo.name) === false) {
-            opInfo = getRandomItemFromArray(group.ops);
+        if (group.ops.length > 0) {
+            while (Options.Filter.OPTrue(key, opInfo.name) === false) {
+                opInfo = getRandomItemFromArray(group.ops);
+            }
+        }
+        else {
+            return undefined;
         }
     }
     const op = new OP({
@@ -61,6 +76,7 @@ function randomizeOP(key, group) {
     if (opInfo.secondaryWeapons.length > 0) {
         op.secondaryWeapon = randomizeWeapon(getRandomItemFromArray(opInfo.secondaryWeapons));
     }
+    return op;
 }
 function randomizeEquipment(equipmentInfos) {
     const equipments = [];
