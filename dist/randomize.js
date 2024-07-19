@@ -8,10 +8,9 @@ const key = localStorage.getItem("group");
 if (key !== null) {
     const group = GROUPS[key];
     const op = randomizeOP(key, group);
-    console.log(op);
+    // console.log(op);
     if (op !== undefined) {
-        console.log(JSON.stringify(op));
-        // localStorage.setItem("op", )
+        localStorage.setItem("op", JSON.stringify(op));
     }
 }
 function equipmentMatchesList(equipment, equipments) {
@@ -24,36 +23,44 @@ function equipmentMatchesList(equipment, equipments) {
     return false;
 }
 function randomizeOP(key, group) {
-    let op = getRandomItemFromArray(group.ops);
+    let opInfo = getRandomItemFromArray(group.ops);
     if (Options.Filter.GroupFalse(key)) {
         return undefined;
     }
     else {
-        while (Options.Filter.OPTrue(key, op.name) === false) {
-            op = getRandomItemFromArray(group.ops);
+        while (Options.Filter.OPTrue(key, opInfo.name) === false) {
+            opInfo = getRandomItemFromArray(group.ops);
         }
     }
-    const equipmentInfos = [];
-    for (let i = 0; i < op.equipmentNum; i++) {
-        if (i == 0) {
-            equipmentInfos.push(getRandomItemFromArray(op.equipment));
-        }
-        else {
-            let equipment = getRandomItemFromArray(op.equipment);
-            while (equipmentMatchesList(equipment, equipmentInfos)) {
-                equipment = getRandomItemFromArray(op.equipment);
-            }
-            equipmentInfos.push(equipment);
-        }
-    }
-    return new OP({
-        name: op.name,
-        icon: getRandomItemFromArray(op.icons),
-        image: getRandomItemFromArray(op.images),
-        equipment: randomizeEquipment(equipmentInfos),
-        primaryWeapon: randomizeWeapon(getRandomItemFromArray(op.primaryWeapons)),
-        secondaryWeapon: randomizeWeapon(getRandomItemFromArray(op.secondaryWeapons)),
+    const op = new OP({
+        name: opInfo.name,
+        icon: getRandomItemFromArray(opInfo.icons),
+        image: getRandomItemFromArray(opInfo.images),
     });
+    const equipmentInfos = [];
+    if (opInfo.equipment.length >= opInfo.equipmentCount) {
+        for (let i = 0; i < opInfo.equipmentCount; i++) {
+            if (i == 0) {
+                equipmentInfos.push(getRandomItemFromArray(opInfo.equipment));
+            }
+            else {
+                let equipment = getRandomItemFromArray(opInfo.equipment);
+                while (equipmentMatchesList(equipment, equipmentInfos)) {
+                    equipment = getRandomItemFromArray(opInfo.equipment);
+                }
+                equipmentInfos.push(equipment);
+            }
+        }
+    }
+    if (equipmentInfos.length > 0) {
+        op.equipment = randomizeEquipment(equipmentInfos);
+    }
+    if (opInfo.primaryWeapons.length > 0) {
+        op.primaryWeapon = randomizeWeapon(getRandomItemFromArray(opInfo.primaryWeapons));
+    }
+    if (opInfo.secondaryWeapons.length > 0) {
+        op.secondaryWeapon = randomizeWeapon(getRandomItemFromArray(opInfo.secondaryWeapons));
+    }
 }
 function randomizeEquipment(equipmentInfos) {
     const equipments = [];
@@ -80,7 +87,7 @@ function randomizeAttachments(attachmentInfos) {
         const name = fetchMatchingAttachmentName(key);
         if (name !== undefined) {
             const ats = attachmentInfos[key];
-            if (ats !== undefined) {
+            if (ats !== undefined && ats.length > 0) {
                 const attachmentInfo = getRandomItemFromArray(ats);
                 switch (name) {
                     case "sight":

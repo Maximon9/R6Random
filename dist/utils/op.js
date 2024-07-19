@@ -4,7 +4,7 @@ export class OPInfo {
     name;
     images;
     icons;
-    equipmentNum;
+    equipmentCount;
     equipment;
     primaryWeapons;
     secondaryWeapons;
@@ -12,7 +12,7 @@ export class OPInfo {
         this.name = info["name"] ?? "";
         this.images = info["images"] ?? [whiteBackground];
         this.icons = info["icons"] ?? [whiteBackground];
-        this.equipmentNum = info["equipmentNum"] ?? 1;
+        this.equipmentCount = info["equipmentNum"] ?? 1;
         this.equipment = info["equipment"] ?? [];
         this.primaryWeapons = info["primaryWeapons"] ?? [];
         this.secondaryWeapons = info["secondaryWeapons"] ?? [];
