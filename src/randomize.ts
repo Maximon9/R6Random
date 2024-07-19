@@ -1,8 +1,8 @@
-import type { AllOPNames, ParsedGroupKeys } from "./ops.js";
+//#region Main
+import type { AllGroups, ParsedGroupKeys } from "./ops.js";
 import { GROUPS } from "./ops.js";
 import { WeaponAttackments, WeaponAttackmentsInfo } from "./types/weapon.js";
 import { Equipment, EquipmentInfo } from "./utils/equipment.js";
-import { GroupInfo } from "./utils/group.js";
 import { OP } from "./utils/op.js";
 import Options from "./utils/options.js";
 import {
@@ -32,23 +32,25 @@ if (key !== null) {
     }
 }
 
-function randomizeOP<names extends string = string>(
-    key: ParsedGroupKeys,
-    group: GroupInfo<names>
-): OP | undefined {
-    let opInfo = getRandomItemFromArray(group.ops);
-    if (Options.Filter.GroupFalse(key)) {
-        return undefined;
-    } else {
-        if (group.ops.length > 0) {
-            while (
-                Options.Filter.OPTrue(key, opInfo.name as AllOPNames) === false
-            ) {
-                opInfo = getRandomItemFromArray(group.ops);
-            }
+function randomizeOP(key: ParsedGroupKeys, group: AllGroups): OP | undefined {
+    let opInfo = undefined;
+    if (group.ops.length > 0) {
+        opInfo = getRandomItemFromArray<(typeof group.ops)[0]>(group.ops);
+        if (Options.Filter.GroupFalse(key)) {
+            return opInfo;
         } else {
-            return undefined;
+            if (group.ops.length > 0) {
+                while (Options.Filter.OPTrue(key, opInfo.name) === false) {
+                    opInfo = getRandomItemFromArray<(typeof group.ops)[0]>(
+                        group.ops
+                    );
+                }
+            } else {
+                return opInfo;
+            }
         }
+    } else {
+        return opInfo;
     }
     const op = new OP({
         name: opInfo.name,
@@ -185,3 +187,4 @@ function equipmentMatchesList(
     }
     return false;
 }
+//#endregion

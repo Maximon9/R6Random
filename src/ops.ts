@@ -4932,4 +4932,6 @@ export type AllOPNames = keyof CombinedOPParseKeys;
 
 export type ALLOPParsedValues = keyof typeof OPParseKeysRev["0"] | keyof typeof OPParseKeysRev["1"];
 
+export type AllGroups = typeof GROUPS["Attackers"] | typeof GROUPS["Defenders"];
+
 //#endregion

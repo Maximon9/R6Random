@@ -268,18 +268,23 @@ class __Parser:
 
         type_string = "\nexport type CombinedOPParseKeys = "
         rev_type_string = "\nexport type ALLOPParsedValues = "
+        """ type AllGroups = typeof GROUPS["Attackers"] & typeof GROUPS["Defenders"] """
+        all_group_type_string = "\n\nexport type AllGroups = "
         for i in range(len(groups)):
             (key, num, _) = groups[i]
             if i >= 0 and i < len(groups) - 1:
                 type_string += f'typeof OPParseKeys["{num}"] & '
                 rev_type_string += f'keyof typeof OPParseKeysRev["{num}"] | '
+                all_group_type_string += f'typeof GROUPS["{key}"] | '
             else:
                 type_string += f'typeof OPParseKeys["{num}"]'
                 rev_type_string += f'keyof typeof OPParseKeysRev["{num}"]'
+                all_group_type_string += f'typeof GROUPS["{key}"]'
         parse_keys += type_string + ";"
         parse_keys += "\nexport type AllOPNames = keyof CombinedOPParseKeys;\n"
-
         parse_keys += rev_type_string + ";"
+
+        parse_keys += all_group_type_string + ";"
 
         return parse_keys
 
