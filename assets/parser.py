@@ -7,6 +7,7 @@ from os.path import dirname, relpath as __relpath
 from pathlib import Path
 from typing import Callable, LiteralString, Optional, TypedDict, Union, TypeVar, Generic
 from math import ceil
+from shutil import copyfile
 
 
 class Import(TypedDict):
@@ -153,6 +154,7 @@ class __Parser:
         this.__spaces: list[str] = [" ", "_", "-"]
 
         this.parsed_json_path: str = "./Siege-Rando-Images/parsed.json"
+        this.images_path: str = "./images"
         this.parsed_json_base_path: str = "./Siege-Rando-Images"
         this.base_path: str = ".."
         this.ops_ts_path: str = "../src/ops.ts"
@@ -588,7 +590,11 @@ class __Parser:
         if len(images) > 0:
             parse_string += f"\n{tabs}{id}: ["
             for icon in images:
-                parse_string += f'\n{tabs}\t"{relpath(join(this.parsed_json_base_path, icon), this.base_path)}",'
+                dist_path = join(this.images_path, icon)
+                if not exists(dist_path):
+                    Path(dirname(dist_path)).mkdir(parents=True, exist_ok=True)
+                    copyfile(join(this.parsed_json_base_path, icon), dist_path)
+                parse_string += f'\n{tabs}\t"{relpath(dist_path, this.base_path)}",'
             parse_string += f"\n{tabs}],"
         return parse_string
 
