@@ -24,19 +24,25 @@ if (key !== null) {
     }
 }
 function randomizeOP(key, group) {
-    let opInfo = getRandomItemFromArray(group.ops);
-    if (Options.Filter.GroupFalse(key)) {
-        return undefined;
-    }
-    else {
-        if (group.ops.length > 0) {
-            while (Options.Filter.OPTrue(key, opInfo.name) === false) {
-                opInfo = getRandomItemFromArray(group.ops);
-            }
+    let opInfo = undefined;
+    if (group.ops.length > 0) {
+        opInfo = getRandomItemFromArray(group.ops);
+        if (Options.Filter.GroupFalse(key)) {
+            return opInfo;
         }
         else {
-            return undefined;
+            if (group.ops.length > 0) {
+                while (Options.Filter.OPTrue(key, opInfo.name) === false) {
+                    opInfo = getRandomItemFromArray(group.ops);
+                }
+            }
+            else {
+                return opInfo;
+            }
         }
+    }
+    else {
+        return opInfo;
     }
     const op = new OP({
         name: opInfo.name,
@@ -149,4 +155,5 @@ function equipmentMatchesList(equipment, equipments) {
     }
     return false;
 }
+//#endregion
 //# sourceMappingURL=randomize.js.map
