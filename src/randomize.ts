@@ -16,7 +16,7 @@ const key = localStorage.getItem("group");
 if (key !== null) {
     const group = GROUPS[key];
     const op = randomizeOP(key, group);
-    // console.log(op);
+    console.log(op);
     if (op !== undefined) {
         localStorage.setItem("op", JSON.stringify(op));
     }
