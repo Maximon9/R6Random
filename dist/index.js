@@ -40,8 +40,8 @@ function createGroupButtons() {
         html_op.draggable = false;
         html_op.href = "op.html";
         const html_group = document.createElement("img");
-        html_group.className = "group-button";
         html_group.draggable = false;
+        html_group.className = "group-button";
         const html_images = group.fetch_html_images();
         if (html_images.normalIcon !== undefined &&
             html_images.hoverIcon !== undefined) {

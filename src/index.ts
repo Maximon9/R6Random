@@ -57,8 +57,8 @@ function createGroupButtons() {
         html_op.href = "op.html";
 
         const html_group = document.createElement("img");
-        html_group.className = "group-button";
         html_group.draggable = false;
+        html_group.className = "group-button";
         const html_images = group.fetch_html_images();
         if (
             html_images.normalIcon !== undefined &&
@@ -172,6 +172,7 @@ function createFilter() {
                 OP_IMAGE.draggable = false;
                 OP_IMAGE.src = op.icons[0];
                 OP_IMAGE.alt = op.name;
+
                 OP_BUTTON.appendChild(OP_IMAGE);
                 OP_BUTTON.innerHTML += op.name;
                 if (Options.Filter.OPTrue(key, op.name)) {
