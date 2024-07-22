@@ -39,21 +39,24 @@ function createGroupButtons() {
     for (let i = 0; i < group_keys.length; i++) {
         const key = group_keys[i];
         const group = GROUPS[key];
-        const html_countainer = document.createElement("div");
-        html_countainer.className = "container";
-        html_countainer.innerHTML += key;
         const html_op = document.createElement("a");
         html_op.draggable = false;
         html_op.href = "op.html";
+        const html_countainer = document.createElement("div");
+        html_countainer.className = "container";
+        html_countainer.innerHTML += key;
         const html_group = document.createElement("img");
         html_group.draggable = false;
         html_group.className = "group-button";
         const html_images = group.fetch_html_images();
         if (html_images.normalIcon !== undefined &&
             html_images.hoverIcon !== undefined) {
-            giveHoverAnimation(html_group, new HoverOptions({
-                enterImg: html_images.hoverIcon,
-                leaveImg: html_images.normalIcon,
+            giveHoverAnimation(html_op, new HoverOptions({
+                imgInfo: {
+                    element: html_group,
+                    enterImg: html_images.hoverIcon,
+                    leaveImg: html_images.normalIcon,
+                },
                 scale: 90,
             }));
         }
@@ -68,9 +71,9 @@ function createGroupButtons() {
             html_group.src = first_icon;
         }
         html_group.alt = key + " Icon";
-        html_op.appendChild(html_group);
-        html_countainer.appendChild(html_op);
-        GROUP_MODAL_CONTENT.appendChild(html_countainer);
+        html_countainer.appendChild(html_group);
+        html_op.appendChild(html_countainer);
+        GROUP_MODAL_CONTENT.appendChild(html_op);
     }
     GROUP_MODAL.appendChild(GROUP_MODAL_CONTENT);
     document.body.insertBefore(GROUP_MODAL, document.body.childNodes[2]);
@@ -364,6 +367,7 @@ function createOptions() {
     document.body.insertBefore(OPTIONS_MODAL, document.body.childNodes[2]);
 }
 class HoverOptions {
+    imageElement;
     enterImg;
     leaveImg;
     transitionSec;
@@ -374,8 +378,11 @@ class HoverOptions {
         click: false,
         scale: 90,
     }) {
-        this.enterImg = options.enterImg;
-        this.leaveImg = options.leaveImg;
+        this.imageElement = options.imgInfo
+            ? options.imgInfo.element
+            : undefined;
+        this.enterImg = options.imgInfo ? options.imgInfo.enterImg : undefined;
+        this.leaveImg = options.imgInfo ? options.imgInfo.leaveImg : undefined;
         this.transitionSec = options.transitionSec ?? 0.13;
         this.click = options.click ?? false;
         this.scale = options.scale ?? 90;
@@ -396,9 +403,9 @@ function giveHoverAnimation(element, options = new HoverOptions()) {
     if (!isTouchScreen) {
         const mouseEnter = () => {
             const enterImg = options["enterImg"];
-            if (element instanceof HTMLImageElement) {
+            if (options.imageElement !== undefined) {
                 if (enterImg !== undefined) {
-                    element.src = enterImg;
+                    options.imageElement.src = enterImg;
                 }
             }
             element.style.transition = `transform ${options.transitionSec}s ease-in-out`;
@@ -406,9 +413,9 @@ function giveHoverAnimation(element, options = new HoverOptions()) {
         };
         const mouseLeave = () => {
             const leaveImg = options["leaveImg"];
-            if (element instanceof HTMLImageElement) {
+            if (options.imageElement !== undefined) {
                 if (leaveImg !== undefined) {
-                    element.src = leaveImg;
+                    options.imageElement.src = leaveImg;
                 }
             }
             element.style.transition = `transform ${options.transitionSec}s ease-in-out`;
