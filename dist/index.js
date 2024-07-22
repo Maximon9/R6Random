@@ -16,6 +16,13 @@ function isScrollable(element, dir) {
     return res;
 }
 function main() {
+    if (window.matchMedia("(pointer: coarse)").matches) {
+        // touchscreen
+        console.log("Touch Screen");
+    }
+    else {
+        console.log("No Touch Screen");
+    }
     const op = localStorage.getItem("op");
     if (op !== null) {
         localStorage.removeItem("op");
