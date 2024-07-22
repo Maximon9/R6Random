@@ -78,7 +78,7 @@ body {
 }
 .group-modal-content {
     display: flex;
-    width: 80%;
+    width: 60%;
 }
 
 .filter-modal-content {
@@ -166,24 +166,16 @@ body::-webkit-scrollbar-track {
 
 .container,
 .container:hover {
+    flex: 1;
+    color: white;
+    font-size: 2em;
     padding-top: 5%;
     transition: transform 0.13s ease-in-out;
     height: fit-content;
 }
-.container {
-    flex: 1;
-    color: white;
-    font-size: 2em;
-}
-.container:hover {
-    transform: scale(110%);
-}
-
 .group-button {
     height: 100%;
     width: 100%;
-    background-size: contain;
-    background-repeat: no-repeat;
     background-color: transparent;
     border-color: transparent;
     object-fit: contain;

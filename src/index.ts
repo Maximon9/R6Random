@@ -70,12 +70,14 @@ function createGroupButtons() {
             html_images.normalIcon !== undefined &&
             html_images.hoverIcon !== undefined
         ) {
-            html_group.addEventListener("mouseenter", () => {
-                html_group.src = html_images.hoverIcon!;
-            });
-            html_group.addEventListener("mouseleave", () => {
-                html_group.src = html_images.normalIcon!;
-            });
+            giveHoverAnimation(
+                html_group,
+                new HoverOptions({
+                    enterImg: html_images.hoverIcon,
+                    leaveImg: html_images.normalIcon,
+                    scale: 90,
+                })
+            );
         }
         html_op.addEventListener("click", () => {
             groupButtonClicked(key);
@@ -189,7 +191,10 @@ function createFilter() {
                     (
                         OP_BUTTON.children.item(0) as HTMLImageElement
                     ).style.filter = "grayscale(100%)";
-                    giveHoverAnimation(OP_BUTTON, false, 70);
+                    giveHoverAnimation(
+                        OP_BUTTON,
+                        new HoverOptions({ scale: 70 })
+                    );
                 }
                 OP_BUTTON.addEventListener("click", () => {
                     if (Options.Filter.OPTrue(key, op.name)) {
@@ -197,13 +202,19 @@ function createFilter() {
                         (
                             OP_BUTTON.children.item(0) as HTMLImageElement
                         ).style.filter = "grayscale(100%)";
-                        giveHoverAnimation(OP_BUTTON, true, 70);
+                        giveHoverAnimation(
+                            OP_BUTTON,
+                            new HoverOptions({ click: true, scale: 70 })
+                        );
                     } else {
                         Options.Filter.selectOP(key, op.name);
                         (
                             OP_BUTTON.children.item(0) as HTMLImageElement
                         ).style.filter = "";
-                        giveHoverAnimation(OP_BUTTON, true);
+                        giveHoverAnimation(
+                            OP_BUTTON,
+                            new HoverOptions({ click: true })
+                        );
                     }
                     for (let i = 0; i < htmlSelectGroupButtons.length; i++) {
                         const [key, element] = htmlSelectGroupButtons[i];
@@ -263,7 +274,10 @@ function createFilter() {
                             (
                                 button.children.item(0) as HTMLImageElement
                             ).style.filter = "grayscale(100%)";
-                            giveHoverAnimation(button, false, 70);
+                            giveHoverAnimation(
+                                button,
+                                new HoverOptions({ scale: 70 })
+                            );
                         }
                     }
                 }
@@ -304,7 +318,10 @@ function createFilter() {
                             (
                                 button.children.item(0) as HTMLImageElement
                             ).style.filter = "grayscale(100%)";
-                            giveHoverAnimation(button, false, 70);
+                            giveHoverAnimation(
+                                button,
+                                new HoverOptions({ scale: 70 })
+                            );
                         }
                     }
                 }
@@ -382,17 +399,20 @@ function createOptions() {
         giveHoverAnimation(TABLE_DATA_2);
     } else {
         TABLE_DATA_2.style.color = "#999999";
-        giveHoverAnimation(TABLE_DATA_2, false, 70);
+        giveHoverAnimation(TABLE_DATA_2, new HoverOptions({ scale: 70 }));
     }
     TABLE_DATA_2.addEventListener("click", () => {
         if (Options.options[OptionsParse[key]] === undefined) {
             Options.setOption(OptionsParse[key], false);
             TABLE_DATA_2.style.color = "#999999";
-            giveHoverAnimation(TABLE_DATA_2, true, 70);
+            giveHoverAnimation(
+                TABLE_DATA_2,
+                new HoverOptions({ click: true, scale: 70 })
+            );
         } else {
             Options.removeOption(OptionsParse[key]);
             TABLE_DATA_2.style.color = "#ffffff";
-            giveHoverAnimation(TABLE_DATA_2, true);
+            giveHoverAnimation(TABLE_DATA_2, new HoverOptions({ click: true }));
         }
     });
 
@@ -405,30 +425,68 @@ function createOptions() {
     document.body.insertBefore(OPTIONS_MODAL, document.body.childNodes[2]);
 }
 
+class HoverOptions {
+    enterImg?: string;
+    leaveImg?: string;
+    transitionSec: number;
+    click: boolean;
+    scale: number;
+    constructor(
+        options: {
+            enterImg?: string;
+            leaveImg?: string;
+            transitionSec?: number;
+            click?: boolean;
+            scale?: number;
+        } = {
+            transitionSec: 0.13,
+            click: false,
+            scale: 90,
+        }
+    ) {
+        this.enterImg = options.enterImg;
+        this.leaveImg = options.leaveImg;
+        this.transitionSec = options.transitionSec ?? 0.13;
+        this.click = options.click ?? false;
+        this.scale = options.scale ?? 90;
+    }
+}
+
 function giveHoverAnimation(
     element: HTMLElement,
-    click = false,
-    scale: number = 90
+    options: HoverOptions = new HoverOptions()
 ) {
     const isTouchScreen = Options.isTouchScreen;
     let setNormalScale = true;
-    if (click) {
+    if (options.click) {
         if (!window.matchMedia("(pointer: coarse)").matches) {
-            element.style.transform = `scale(${scale + 10}%)`;
+            element.style.transform = `scale(${options.scale + 10}%)`;
             setNormalScale = false;
         }
     }
     if (setNormalScale) {
-        element.style.transform = `scale(${scale}%)`;
+        element.style.transform = `scale(${options.scale}%)`;
     }
     if (!isTouchScreen) {
         const mouseEnter = () => {
-            element.style.transition = "transform 0.13s ease-in-out";
-            element.style.transform = `scale(${scale + 10}%)`;
+            const enterImg = options["enterImg"];
+            if (element instanceof HTMLImageElement) {
+                if (enterImg !== undefined) {
+                    element.src = enterImg;
+                }
+            }
+            element.style.transition = `transform ${options.transitionSec}s ease-in-out`;
+            element.style.transform = `scale(${options.scale + 10}%)`;
         };
         const mouseLeave = () => {
-            element.style.transition = "transform 0.13s ease-in-out";
-            element.style.transform = `scale(${scale}%)`;
+            const leaveImg = options["leaveImg"];
+            if (element instanceof HTMLImageElement) {
+                if (leaveImg !== undefined) {
+                    element.src = leaveImg;
+                }
+            }
+            element.style.transition = `transform ${options.transitionSec}s ease-in-out`;
+            element.style.transform = `scale(${options.scale}%)`;
         };
         element.removeEventListener("mouseenter", mouseEnter);
         element.removeEventListener("mouseleave", mouseLeave);
