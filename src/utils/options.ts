@@ -276,12 +276,6 @@ export default class Options {
             document.cookie = "Null";
         }
         console.log(document.cookie);
-        if (window.matchMedia("(pointer: coarse)").matches) {
-            // touchscreen
-            console.log("Touch Screen");
-        } else {
-            console.log("No Touch Screen");
-        }
     }
     static setOption(key: string, value: boolean) {
         this.options[key] = value;

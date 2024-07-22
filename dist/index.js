@@ -359,20 +359,31 @@ function createOptions() {
     document.body.insertBefore(OPTIONS_MODAL, document.body.childNodes[2]);
 }
 function giveHoverAnimation(element, click = false, scale = 90) {
+    const isTouchScreen = window.matchMedia("(pointer: coarse)").matches;
+    let setNormalScale = true;
     if (click) {
-        element.style.transform = `scale(${scale + 10}%)`;
+        if (!window.matchMedia("(pointer: coarse)").matches) {
+            element.style.transform = `scale(${scale + 10}%)`;
+            setNormalScale = false;
+        }
     }
-    else {
+    if (setNormalScale) {
         element.style.transform = `scale(${scale}%)`;
     }
-    element.addEventListener("mouseenter", () => {
-        element.style.transition = "transform 0.13s ease-in-out";
-        element.style.transform = `scale(${scale + 10}%)`;
-    });
-    element.addEventListener("mouseleave", () => {
-        element.style.transition = "transform 0.13s ease-in-out";
-        element.style.transform = `scale(${scale}%)`;
-    });
+    if (!isTouchScreen) {
+        const mouseEnter = () => {
+            element.style.transition = "transform 0.13s ease-in-out";
+            element.style.transform = `scale(${scale + 10}%)`;
+        };
+        const mouseLeave = () => {
+            element.style.transition = "transform 0.13s ease-in-out";
+            element.style.transform = `scale(${scale}%)`;
+        };
+        element.removeEventListener("mouseenter", mouseEnter);
+        element.removeEventListener("mouseleave", mouseLeave);
+        element.addEventListener("mouseenter", mouseEnter);
+        element.addEventListener("mouseleave", mouseLeave);
+    }
 }
 function groupButtonClicked(key) {
     localStorage.setItem("group", key);
