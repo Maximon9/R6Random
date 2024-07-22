@@ -13,36 +13,24 @@ export const GROUPS = {
         ops: [
             new OPInfo({
                 name: "Ace",
-                icons: [
-                    "assets/R6Images/OPIcons/Ace_Icon.png",
-                ],
+                icons: ["assets/R6Images/OPIcons/Ace_Icon.png"],
             }),
             new OPInfo({
                 name: "Amaru",
-                icons: [
-                    "assets/R6Images/OPIcons/Amaru_Icon.png",
-                ],
+                icons: ["assets/R6Images/OPIcons/Amaru_Icon.png"],
             }),
             new OPInfo({
                 name: "Ash",
-                icons: [
-                    "assets/R6Images/OPIcons/Ash_Icon.png",
-                ],
-                images: [
-                    "assets/R6Images/OPImages/Ash.png",
-                ],
+                icons: ["assets/R6Images/OPIcons/Ash_Icon.png"],
+                images: ["assets/R6Images/OPImages/Ash.png"],
                 equipment: [
                     new EquipmentInfo({
                         name: "Breach Charge",
-                        images: [
-                            "assets/R6Images/Equipment/Breach_Charge.png",
-                        ],
+                        images: ["assets/R6Images/Equipment/Breach_Charge.png"],
                     }),
                     new EquipmentInfo({
                         name: "Claymore",
-                        images: [
-                            "assets/R6Images/Equipment/Claymore.png",
-                        ],
+                        images: ["assets/R6Images/Equipment/Claymore.png"],
                     }),
                 ],
                 primaryWeapons: [
@@ -210,7 +198,7 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        }
+                        },
                     }),
                     new WeaponInfo({
                         name: "R4-C",
@@ -376,7 +364,7 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        }
+                        },
                     }),
                 ],
                 secondaryWeapons: [
@@ -406,7 +394,7 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        }
+                        },
                     }),
                     new WeaponInfo({
                         name: "M45 MEUSOC",
@@ -434,36 +422,26 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        }
+                        },
                     }),
                 ],
             }),
             new OPInfo({
                 name: "Blackbeard",
-                icons: [
-                    "assets/R6Images/OPIcons/Blackbeard_Icon.png",
-                ],
+                icons: ["assets/R6Images/OPIcons/Blackbeard_Icon.png"],
             }),
             new OPInfo({
                 name: "Blitz",
-                icons: [
-                    "assets/R6Images/OPIcons/Blitz_Icon.png",
-                ],
-                images: [
-                    "assets/R6Images/OPImages/Blitz.png",
-                ],
+                icons: ["assets/R6Images/OPIcons/Blitz_Icon.png"],
+                images: ["assets/R6Images/OPImages/Blitz.png"],
                 equipment: [
                     new EquipmentInfo({
                         name: "Breach Charge",
-                        images: [
-                            "assets/R6Images/Equipment/Breach_Charge.png",
-                        ],
+                        images: ["assets/R6Images/Equipment/Breach_Charge.png"],
                     }),
                     new EquipmentInfo({
                         name: "Smoke Grenade",
-                        images: [
-                            "assets/R6Images/Equipment/Smoke Grenade.png",
-                        ],
+                        images: ["assets/R6Images/Equipment/Smoke Grenade.png"],
                     }),
                 ],
                 primaryWeapons: [
@@ -515,24 +493,18 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        }
+                        },
                     }),
                 ],
             }),
             new OPInfo({
                 name: "Brava",
-                icons: [
-                    "assets/R6Images/OPIcons/Brava_Icon.png",
-                ],
+                icons: ["assets/R6Images/OPIcons/Brava_Icon.png"],
             }),
             new OPInfo({
                 name: "Buck",
-                icons: [
-                    "assets/R6Images/OPIcons/Buck_Icon.png",
-                ],
-                images: [
-                    "assets/R6Images/OPImages/Buck.png",
-                ],
+                icons: ["assets/R6Images/OPIcons/Buck_Icon.png"],
+                images: ["assets/R6Images/OPImages/Buck.png"],
                 equipment: [
                     new EquipmentInfo({
                         name: "Hard Breach Charge",
@@ -542,9 +514,7 @@ export const GROUPS = {
                     }),
                     new EquipmentInfo({
                         name: "Stun Grenade",
-                        images: [
-                            "assets/R6Images/Equipment/Stun Grenade.png",
-                        ],
+                        images: ["assets/R6Images/Equipment/Stun Grenade.png"],
                     }),
                 ],
                 primaryWeapons: [
@@ -692,7 +662,7 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        }
+                        },
                     }),
                     new WeaponInfo({
                         name: "CAMRS",
@@ -832,7 +802,7 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        }
+                        },
                     }),
                 ],
                 secondaryWeapons: [
@@ -841,7 +811,7 @@ export const GROUPS = {
                         images: [
                             "assets/R6Images/Weapons/SecondaryWeapons/Gonne_6.png",
                         ],
-                        attachments: {}
+                        attachments: {},
                     }),
                     new WeaponInfo({
                         name: "MK1 9mm",
@@ -883,54 +853,38 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        }
+                        },
                     }),
                 ],
             }),
             new OPInfo({
                 name: "Capitao",
-                icons: [
-                    "assets/R6Images/OPIcons/Capitao_Icon.png",
-                ],
+                icons: ["assets/R6Images/OPIcons/Capitao_Icon.png"],
             }),
             new OPInfo({
                 name: "Deimos",
-                icons: [
-                    "assets/R6Images/OPIcons/Deimos_Icon.png",
-                ],
+                icons: ["assets/R6Images/OPIcons/Deimos_Icon.png"],
             }),
             new OPInfo({
                 name: "Dokkaebi",
-                icons: [
-                    "assets/R6Images/OPIcons/Dokkaebi_Icon.png",
-                ],
+                icons: ["assets/R6Images/OPIcons/Dokkaebi_Icon.png"],
             }),
             new OPInfo({
                 name: "Finka",
-                icons: [
-                    "assets/R6Images/OPIcons/Finka_Icon.png",
-                ],
+                icons: ["assets/R6Images/OPIcons/Finka_Icon.png"],
             }),
             new OPInfo({
                 name: "Flores",
-                icons: [
-                    "assets/R6Images/OPIcons/Flores_Icon.png",
-                ],
+                icons: ["assets/R6Images/OPIcons/Flores_Icon.png"],
             }),
             new OPInfo({
                 name: "Fuze",
-                icons: [
-                    "assets/R6Images/OPIcons/Fuze_Icon.png",
-                ],
-                images: [
-                    "assets/R6Images/OPImages/Fuze.png",
-                ],
+                icons: ["assets/R6Images/OPIcons/Fuze_Icon.png"],
+                images: ["assets/R6Images/OPImages/Fuze.png"],
                 equipment: [
                     new EquipmentInfo({
                         name: "Breach Charge",
-                        images: [
-                            "assets/R6Images/Equipment/Breach_Charge.png",
-                        ],
+                        images: ["assets/R6Images/Equipment/Breach_Charge.png"],
                     }),
                     new EquipmentInfo({
                         name: "Hard Breach Charge",
@@ -940,9 +894,7 @@ export const GROUPS = {
                     }),
                     new EquipmentInfo({
                         name: "Smoke Grenade",
-                        images: [
-                            "assets/R6Images/Equipment/Smoke Grenade.png",
-                        ],
+                        images: ["assets/R6Images/Equipment/Smoke Grenade.png"],
                     }),
                 ],
                 primaryWeapons: [
@@ -1104,7 +1056,7 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        }
+                        },
                     }),
                     new WeaponInfo({
                         name: "AK-12",
@@ -1264,14 +1216,14 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        }
+                        },
                     }),
                     new WeaponInfo({
                         name: "Ballistic Shield",
                         images: [
                             "assets/R6Images/Weapons/PrimaryWeapons/Ballistic Shield.png",
                         ],
-                        attachments: {}
+                        attachments: {},
                     }),
                 ],
                 secondaryWeapons: [
@@ -1315,7 +1267,7 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        }
+                        },
                     }),
                     new WeaponInfo({
                         name: "PMM",
@@ -1357,36 +1309,26 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        }
+                        },
                     }),
                 ],
             }),
             new OPInfo({
                 name: "Glaz",
-                icons: [
-                    "assets/R6Images/OPIcons/Glaz_Icon.png",
-                ],
-                images: [
-                    "assets/R6Images/OPImages/Glaz.png",
-                ],
+                icons: ["assets/R6Images/OPIcons/Glaz_Icon.png"],
+                images: ["assets/R6Images/OPImages/Glaz.png"],
                 equipment: [
                     new EquipmentInfo({
                         name: "Claymore",
-                        images: [
-                            "assets/R6Images/Equipment/Claymore.png",
-                        ],
+                        images: ["assets/R6Images/Equipment/Claymore.png"],
                     }),
                     new EquipmentInfo({
                         name: "Frag",
-                        images: [
-                            "assets/R6Images/Equipment/Frag.png",
-                        ],
+                        images: ["assets/R6Images/Equipment/Frag.png"],
                     }),
                     new EquipmentInfo({
                         name: "Smoke Grenade",
-                        images: [
-                            "assets/R6Images/Equipment/Smoke Grenade.png",
-                        ],
+                        images: ["assets/R6Images/Equipment/Smoke Grenade.png"],
                     }),
                 ],
                 primaryWeapons: [
@@ -1518,7 +1460,7 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        }
+                        },
                     }),
                 ],
                 secondaryWeapons: [
@@ -1648,14 +1590,14 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        }
+                        },
                     }),
                     new WeaponInfo({
                         name: "Gonne 6",
                         images: [
                             "assets/R6Images/Weapons/SecondaryWeapons/Gonne_6.png",
                         ],
-                        attachments: {}
+                        attachments: {},
                     }),
                     new WeaponInfo({
                         name: "PMM",
@@ -1697,60 +1639,42 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        }
+                        },
                     }),
                 ],
             }),
             new OPInfo({
                 name: "Gridlock",
-                icons: [
-                    "assets/R6Images/OPIcons/Gridlock_Icon.png",
-                ],
+                icons: ["assets/R6Images/OPIcons/Gridlock_Icon.png"],
             }),
             new OPInfo({
                 name: "Grim",
-                icons: [
-                    "assets/R6Images/OPIcons/Grim_Icon.png",
-                ],
+                icons: ["assets/R6Images/OPIcons/Grim_Icon.png"],
             }),
             new OPInfo({
                 name: "Hibana",
-                icons: [
-                    "assets/R6Images/OPIcons/Hibana_Icon.png",
-                ],
+                icons: ["assets/R6Images/OPIcons/Hibana_Icon.png"],
             }),
             new OPInfo({
                 name: "Iana",
-                icons: [
-                    "assets/R6Images/OPIcons/Iana_Icon.png",
-                ],
+                icons: ["assets/R6Images/OPIcons/Iana_Icon.png"],
             }),
             new OPInfo({
                 name: "IQ",
-                icons: [
-                    "assets/R6Images/OPIcons/IQ_Icon.png",
-                ],
-                images: [
-                    "assets/R6Images/OPImages/IQ.png",
-                ],
+                icons: ["assets/R6Images/OPIcons/IQ_Icon.png"],
+                images: ["assets/R6Images/OPImages/IQ.png"],
                 equipment: [
                     new EquipmentInfo({
                         name: "Breach Charge",
-                        images: [
-                            "assets/R6Images/Equipment/Breach_Charge.png",
-                        ],
+                        images: ["assets/R6Images/Equipment/Breach_Charge.png"],
                     }),
                     new EquipmentInfo({
                         name: "Claymore",
-                        images: [
-                            "assets/R6Images/Equipment/Claymore.png",
-                        ],
+                        images: ["assets/R6Images/Equipment/Claymore.png"],
                     }),
                     new EquipmentInfo({
                         name: "Frag",
-                        images: [
-                            "assets/R6Images/Equipment/Frag.png",
-                        ],
+                        images: ["assets/R6Images/Equipment/Frag.png"],
                     }),
                 ],
                 primaryWeapons: [
@@ -1918,7 +1842,7 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        }
+                        },
                     }),
                     new WeaponInfo({
                         name: "AUG A2",
@@ -2058,7 +1982,7 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        }
+                        },
                     }),
                     new WeaponInfo({
                         name: "G8A1",
@@ -2218,7 +2142,7 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        }
+                        },
                     }),
                 ],
                 secondaryWeapons: [
@@ -2262,42 +2186,30 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        }
+                        },
                     }),
                 ],
             }),
             new OPInfo({
                 name: "Jackal",
-                icons: [
-                    "assets/R6Images/OPIcons/Jackal_Icon.png",
-                ],
+                icons: ["assets/R6Images/OPIcons/Jackal_Icon.png"],
             }),
             new OPInfo({
                 name: "Kali",
-                icons: [
-                    "assets/R6Images/OPIcons/Kali_Icon.png",
-                ],
+                icons: ["assets/R6Images/OPIcons/Kali_Icon.png"],
             }),
             new OPInfo({
                 name: "Lion",
-                icons: [
-                    "assets/R6Images/OPIcons/Lion_Icon.png",
-                ],
+                icons: ["assets/R6Images/OPIcons/Lion_Icon.png"],
             }),
             new OPInfo({
                 name: "Maverick",
-                icons: [
-                    "assets/R6Images/OPIcons/Maverick_Icon.png",
-                ],
+                icons: ["assets/R6Images/OPIcons/Maverick_Icon.png"],
             }),
             new OPInfo({
                 name: "Montagne",
-                icons: [
-                    "assets/R6Images/OPIcons/Montagne_Icon.png",
-                ],
-                images: [
-                    "assets/R6Images/OPImages/Montagne.png",
-                ],
+                icons: ["assets/R6Images/OPIcons/Montagne_Icon.png"],
+                images: ["assets/R6Images/OPImages/Montagne.png"],
                 equipment: [
                     new EquipmentInfo({
                         name: "Hard Breach Charge",
@@ -2307,15 +2219,11 @@ export const GROUPS = {
                     }),
                     new EquipmentInfo({
                         name: "Impact EMP",
-                        images: [
-                            "assets/R6Images/Equipment/Impact EMP.png",
-                        ],
+                        images: ["assets/R6Images/Equipment/Impact EMP.png"],
                     }),
                     new EquipmentInfo({
                         name: "Smoke Grenade",
-                        images: [
-                            "assets/R6Images/Equipment/Smoke Grenade.png",
-                        ],
+                        images: ["assets/R6Images/Equipment/Smoke Grenade.png"],
                     }),
                 ],
                 primaryWeapons: [
@@ -2347,7 +2255,7 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        }
+                        },
                     }),
                     new WeaponInfo({
                         name: "P9",
@@ -2389,42 +2297,30 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        }
+                        },
                     }),
                 ],
             }),
             new OPInfo({
                 name: "Nokk",
-                icons: [
-                    "assets/R6Images/OPIcons/Nokk_Icon.png",
-                ],
+                icons: ["assets/R6Images/OPIcons/Nokk_Icon.png"],
             }),
             new OPInfo({
                 name: "Sledge",
-                icons: [
-                    "assets/R6Images/OPIcons/Sledge_Icon.png",
-                ],
-                images: [
-                    "assets/R6Images/OPImages/Sledge.png",
-                ],
+                icons: ["assets/R6Images/OPIcons/Sledge_Icon.png"],
+                images: ["assets/R6Images/OPImages/Sledge.png"],
                 equipment: [
                     new EquipmentInfo({
                         name: "Frag",
-                        images: [
-                            "assets/R6Images/Equipment/Frag.png",
-                        ],
+                        images: ["assets/R6Images/Equipment/Frag.png"],
                     }),
                     new EquipmentInfo({
                         name: "Impact EMP",
-                        images: [
-                            "assets/R6Images/Equipment/Impact EMP.png",
-                        ],
+                        images: ["assets/R6Images/Equipment/Impact EMP.png"],
                     }),
                     new EquipmentInfo({
                         name: "Stun Grenade",
-                        images: [
-                            "assets/R6Images/Equipment/Stun Grenade.png",
-                        ],
+                        images: ["assets/R6Images/Equipment/Stun Grenade.png"],
                     }),
                 ],
                 primaryWeapons: [
@@ -2586,7 +2482,7 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        }
+                        },
                     }),
                     new WeaponInfo({
                         name: "M590A1",
@@ -2676,7 +2572,7 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        }
+                        },
                     }),
                 ],
                 secondaryWeapons: [
@@ -2720,30 +2616,22 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        }
+                        },
                     }),
                 ],
             }),
             new OPInfo({
                 name: "Thatcher",
-                icons: [
-                    "assets/R6Images/OPIcons/Thatcher_Icon.png",
-                ],
-                images: [
-                    "assets/R6Images/OPImages/Thatcher.png",
-                ],
+                icons: ["assets/R6Images/OPIcons/Thatcher_Icon.png"],
+                images: ["assets/R6Images/OPImages/Thatcher.png"],
                 equipment: [
                     new EquipmentInfo({
                         name: "Breach Charge",
-                        images: [
-                            "assets/R6Images/Equipment/Breach_Charge.png",
-                        ],
+                        images: ["assets/R6Images/Equipment/Breach_Charge.png"],
                     }),
                     new EquipmentInfo({
                         name: "Claymore",
-                        images: [
-                            "assets/R6Images/Equipment/Claymore.png",
-                        ],
+                        images: ["assets/R6Images/Equipment/Claymore.png"],
                     }),
                 ],
                 primaryWeapons: [
@@ -2905,7 +2793,7 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        }
+                        },
                     }),
                     new WeaponInfo({
                         name: "L85A2",
@@ -3065,7 +2953,7 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        }
+                        },
                     }),
                     new WeaponInfo({
                         name: "M590A1",
@@ -3155,7 +3043,7 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        }
+                        },
                     }),
                 ],
                 secondaryWeapons: [
@@ -3199,30 +3087,22 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        }
+                        },
                     }),
                 ],
             }),
             new OPInfo({
                 name: "Thermite",
-                icons: [
-                    "assets/R6Images/OPIcons/Thermite_Icon.png",
-                ],
-                images: [
-                    "assets/R6Images/OPImages/Thermite.png",
-                ],
+                icons: ["assets/R6Images/OPIcons/Thermite_Icon.png"],
+                images: ["assets/R6Images/OPImages/Thermite.png"],
                 equipment: [
                     new EquipmentInfo({
                         name: "Smoke Grenade",
-                        images: [
-                            "assets/R6Images/Equipment/Smoke Grenade.png",
-                        ],
+                        images: ["assets/R6Images/Equipment/Smoke Grenade.png"],
                     }),
                     new EquipmentInfo({
                         name: "Stun Grenade",
-                        images: [
-                            "assets/R6Images/Equipment/Stun Grenade.png",
-                        ],
+                        images: ["assets/R6Images/Equipment/Stun Grenade.png"],
                     }),
                 ],
                 primaryWeapons: [
@@ -3384,7 +3264,7 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        }
+                        },
                     }),
                     new WeaponInfo({
                         name: "M1014",
@@ -3474,7 +3354,7 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        }
+                        },
                     }),
                 ],
                 secondaryWeapons: [
@@ -3518,7 +3398,7 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        }
+                        },
                     }),
                     new WeaponInfo({
                         name: "M54 MEUSOC",
@@ -3560,30 +3440,22 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        }
+                        },
                     }),
                 ],
             }),
             new OPInfo({
                 name: "Twitch",
-                icons: [
-                    "assets/R6Images/OPIcons/Twitch_Icon.png",
-                ],
-                images: [
-                    "assets/R6Images/OPImages/Twitch.png",
-                ],
+                icons: ["assets/R6Images/OPIcons/Twitch_Icon.png"],
+                images: ["assets/R6Images/OPImages/Twitch.png"],
                 equipment: [
                     new EquipmentInfo({
                         name: "Claymore",
-                        images: [
-                            "assets/R6Images/Equipment/Claymore.png",
-                        ],
+                        images: ["assets/R6Images/Equipment/Claymore.png"],
                     }),
                     new EquipmentInfo({
                         name: "Smoke Grenade",
-                        images: [
-                            "assets/R6Images/Equipment/Smoke Grenade.png",
-                        ],
+                        images: ["assets/R6Images/Equipment/Smoke Grenade.png"],
                     }),
                 ],
                 primaryWeapons: [
@@ -3745,7 +3617,7 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        }
+                        },
                     }),
                     new WeaponInfo({
                         name: "F2",
@@ -3891,7 +3763,7 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        }
+                        },
                     }),
                     new WeaponInfo({
                         name: "SG-CQB",
@@ -3995,7 +3867,7 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        }
+                        },
                     }),
                 ],
                 secondaryWeapons: [
@@ -4019,7 +3891,7 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        }
+                        },
                     }),
                     new WeaponInfo({
                         name: "P9",
@@ -4061,30 +3933,22 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        }
+                        },
                     }),
                 ],
             }),
             new OPInfo({
                 name: "Zofia",
-                icons: [
-                    "assets/R6Images/OPIcons/Zofia_Icon.png",
-                ],
-                images: [
-                    "assets/R6Images/OPImages/Zofia.png",
-                ],
+                icons: ["assets/R6Images/OPIcons/Zofia_Icon.png"],
+                images: ["assets/R6Images/OPImages/Zofia.png"],
                 equipment: [
                     new EquipmentInfo({
                         name: "Breach Charge",
-                        images: [
-                            "assets/R6Images/Equipment/Breach_Charge.png",
-                        ],
+                        images: ["assets/R6Images/Equipment/Breach_Charge.png"],
                     }),
                     new EquipmentInfo({
                         name: "Claymore",
-                        images: [
-                            "assets/R6Images/Equipment/Claymore.png",
-                        ],
+                        images: ["assets/R6Images/Equipment/Claymore.png"],
                     }),
                 ],
                 primaryWeapons: [
@@ -4246,7 +4110,7 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        }
+                        },
                     }),
                     new WeaponInfo({
                         name: "M762",
@@ -4406,7 +4270,7 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        }
+                        },
                     }),
                 ],
                 secondaryWeapons: [
@@ -4450,7 +4314,7 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        }
+                        },
                     }),
                 ],
             }),
@@ -4464,12 +4328,8 @@ export const GROUPS = {
         ops: [
             new OPInfo({
                 name: "Alibi",
-                icons: [
-                    "assets/R6Images/OPIcons/Alibi_Icon.png",
-                ],
-                images: [
-                    "assets/R6Images/OPImages/Alibi.webp",
-                ],
+                icons: ["assets/R6Images/OPIcons/Alibi_Icon.png"],
+                images: ["assets/R6Images/OPImages/Alibi.webp"],
                 equipment: [
                     new EquipmentInfo({
                         name: "Observation Blocker",
@@ -4605,7 +4465,7 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        }
+                        },
                     }),
                     new WeaponInfo({
                         name: "Mx4 Storm",
@@ -4747,7 +4607,7 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        }
+                        },
                     }),
                 ],
                 secondaryWeapons: [
@@ -4771,7 +4631,7 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        }
+                        },
                     }),
                     new WeaponInfo({
                         name: "Keratos .357",
@@ -4813,15 +4673,13 @@ export const GROUPS = {
                                     ],
                                 }),
                             ],
-                        }
+                        },
                     }),
                 ],
             }),
             new OPInfo({
                 name: "Clash",
-                icons: [
-                    "assets/R6Images/OPIcons/KYSClash_Icon.png",
-                ],
+                icons: ["assets/R6Images/OPIcons/KYSClash_Icon.png"],
             }),
         ],
     }),
