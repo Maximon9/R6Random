@@ -410,7 +410,7 @@ function giveHoverAnimation(
     click = false,
     scale: number = 90
 ) {
-    const isTouchScreen = window.matchMedia("(pointer: coarse)").matches;
+    const isTouchScreen = Options.isTouchScreen;
     let setNormalScale = true;
     if (click) {
         if (!window.matchMedia("(pointer: coarse)").matches) {

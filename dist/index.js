@@ -365,7 +365,7 @@ function createOptions() {
     document.body.insertBefore(OPTIONS_MODAL, document.body.childNodes[2]);
 }
 function giveHoverAnimation(element, click = false, scale = 90) {
-    const isTouchScreen = window.matchMedia("(pointer: coarse)").matches;
+    const isTouchScreen = Options.isTouchScreen;
     let setNormalScale = true;
     if (click) {
         if (!window.matchMedia("(pointer: coarse)").matches) {

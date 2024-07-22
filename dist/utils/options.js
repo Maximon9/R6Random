@@ -2,6 +2,9 @@ import { GROUPS, GroupParseKeys, GroupParseKeysRev, OPParseKeys, } from "../ops.
 export const OptionsParse = {};
 OptionsParse[(OptionsParse["Avoid Dupes"] = "0")] = "Avoid Dupes";
 export default class Options {
+    static get isTouchScreen() {
+        return window.matchMedia("(pointer: coarse)").matches;
+    }
     static options = {};
     static Filter = class {
         static filter = {};

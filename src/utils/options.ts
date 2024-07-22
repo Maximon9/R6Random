@@ -17,6 +17,9 @@ export const OptionsParse: { [k: string]: string } = {};
 OptionsParse[(OptionsParse["Avoid Dupes"] = "0")] = "Avoid Dupes";
 
 export default class Options {
+    static get isTouchScreen(): boolean {
+        return window.matchMedia("(pointer: coarse)").matches;
+    }
     static options: { [k: string]: boolean } = {};
     static Filter = class {
         static filter: {
