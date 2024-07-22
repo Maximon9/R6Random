@@ -16,6 +16,12 @@ function isScrollable(element, dir) {
     return res;
 }
 function main() {
+    document.body.oncontextmenu = (event) => {
+        event.preventDefault();
+        event.stopPropagation(); // not necessary in my case, could leave in case stopImmediateProp isn't available?
+        event.stopImmediatePropagation();
+        return false;
+    };
     const op = localStorage.getItem("op");
     if (op !== null) {
         localStorage.removeItem("op");
