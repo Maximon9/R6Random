@@ -16,13 +16,6 @@ function isScrollable(element, dir) {
     return res;
 }
 function main() {
-    if (window.matchMedia("(pointer: coarse)").matches) {
-        // touchscreen
-        console.log("Touch Screen");
-    }
-    else {
-        console.log("No Touch Screen");
-    }
     const op = localStorage.getItem("op");
     if (op !== null) {
         localStorage.removeItem("op");
@@ -110,8 +103,8 @@ function createFilter() {
     FILTER_TABLE_BODY.appendChild(FILTER_SELECT_OPS);
     const htmlSelectGroupButtons = [];
     const htmlSelectOpButtons = {};
-    let key;
-    for (key in GROUPS) {
+    for (const nKey in GROUPS) {
+        const key = nKey;
         const group = GROUPS[key];
         const GROUP_SELECT_BUTTON = document.createElement("td");
         GROUP_SELECT_BUTTON.className = "group-select";
@@ -255,8 +248,8 @@ function createFilter() {
                     element.innerHTML = "Select All " + key;
                 }
             }
-            let key;
-            for (key in htmlSelectOpButtons) {
+            for (const nKey in htmlSelectOpButtons) {
+                const key = nKey;
                 const item = htmlSelectOpButtons[key];
                 if (item !== undefined) {
                     for (let i = 0; i < item.length; i++) {

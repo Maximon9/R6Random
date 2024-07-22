@@ -19,7 +19,11 @@ export default class Options {
                         const v = vars[i];
                         const [key, value] = v.split(":");
                         if (key !== undefined && value !== undefined) {
-                            this.filter[g_key][key] = Boolean(Number(value));
+                            let group = this.filter[g_key];
+                            if (group === undefined) {
+                                group = this.filter[g_key] = {};
+                            }
+                            group[key] = Boolean(Number(value));
                         }
                     }
                 }
@@ -31,29 +35,35 @@ export default class Options {
             for (let i = 0; i < keys.length; i++) {
                 const key = keys[i];
                 const value = this.filter[key];
-                const op_keys = Object.keys(value);
-                str += `${key}#`;
-                for (let i1 = 0; i1 < op_keys.length; i1++) {
-                    const op_key = op_keys[i1];
-                    const op_value = value[op_key];
-                    if (i1 < op_keys.length - 1) {
-                        str += `${op_key}:${op_value ? 1 : 0}|`;
+                if (value !== undefined) {
+                    const op_keys = Object.keys(value);
+                    str += `${key}#`;
+                    for (let i1 = 0; i1 < op_keys.length; i1++) {
+                        const op_key = op_keys[i1];
+                        const op_value = value[op_key];
+                        if (i1 < op_keys.length - 1) {
+                            str += `${op_key}:${op_value ? 1 : 0}|`;
+                        }
+                        else {
+                            str += `${op_key}:${op_value ? 1 : 0}`;
+                        }
                     }
-                    else {
-                        str += `${op_key}:${op_value ? 1 : 0}`;
-                    }
+                    if (i < keys.length - 1)
+                        str += `%`;
                 }
-                if (i < keys.length - 1)
-                    str += `%`;
             }
             return str;
         }
         static get AllTrue() {
-            for (const key in this.filter) {
+            let key;
+            for (key in this.filter) {
                 const value = this.filter[key];
-                for (const op_key in value) {
-                    if (value[op_key] === false) {
-                        return false;
+                if (value !== undefined) {
+                    let op_key;
+                    for (op_key in value) {
+                        if (value[op_key] === false) {
+                            return false;
+                        }
                     }
                 }
             }
@@ -65,7 +75,8 @@ export default class Options {
                 return true;
             }
             else {
-                for (const op_key in value) {
+                let op_key;
+                for (op_key in value) {
                     if (value[op_key] === false) {
                         return false;
                     }
@@ -99,11 +110,12 @@ export default class Options {
             }
             else {
                 const nKey = OPParseKeys[nGroupKey][key];
-                if (value[nKey] === undefined) {
+                let item = value[nKey];
+                if (item === undefined) {
                     return true;
                 }
                 else {
-                    return value[nKey];
+                    return item;
                 }
             }
         }
@@ -211,6 +223,13 @@ export default class Options {
             document.cookie = "Null";
         }
         console.log(document.cookie);
+        if (window.matchMedia("(pointer: coarse)").matches) {
+            // touchscreen
+            console.log("Touch Screen");
+        }
+        else {
+            console.log("No Touch Screen");
+        }
     }
     static setOption(key, value) {
         this.options[key] = value;

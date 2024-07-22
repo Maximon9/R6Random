@@ -19,13 +19,18 @@ OptionsParse[(OptionsParse["Avoid Dupes"] = "0")] = "Avoid Dupes";
 export default class Options {
     static options: { [k: string]: boolean } = {};
     static Filter = class {
-        static filter: { [k: string]: { [k: string]: boolean } } = {};
+        static filter: {
+            [k in ParsedGroupKeysRev]?: { [k in ALLOPParsedValues]?: boolean };
+        } = {};
 
         static parseFilterCookie(cookie: string) {
             const group_vars = cookie.split("%");
             for (let i = 0; i < group_vars.length; i++) {
                 const g_v = group_vars[i];
-                const [g_key, g_value] = g_v.split("#");
+                const [g_key, g_value] = g_v.split("#") as [
+                    ParsedGroupKeysRev,
+                    ALLOPParsedValues
+                ];
                 if (g_key !== undefined && g_value !== undefined) {
                     if (this.filter[g_key] === undefined) {
                         this.filter[g_key] = {};
@@ -33,9 +38,16 @@ export default class Options {
                     const vars = g_value.split("|");
                     for (let i = 0; i < vars.length; i++) {
                         const v = vars[i];
-                        const [key, value] = v.split(":");
+                        const [key, value] = v.split(":") as [
+                            ALLOPParsedValues,
+                            "0" | "1"
+                        ];
                         if (key !== undefined && value !== undefined) {
-                            this.filter[g_key][key] = Boolean(Number(value));
+                            let group = this.filter[g_key];
+                            if (group === undefined) {
+                                group = this.filter[g_key] = {};
+                            }
+                            group[key] = Boolean(Number(value));
                         }
                     }
                 }
@@ -43,32 +55,38 @@ export default class Options {
         }
         static toString(): string {
             let str = "";
-            const keys = Object.keys(this.filter);
+            const keys = Object.keys(this.filter) as ParsedGroupKeysRev[];
             for (let i = 0; i < keys.length; i++) {
                 const key = keys[i];
                 const value = this.filter[key];
-                const op_keys = Object.keys(value);
-                str += `${key}#`;
-                for (let i1 = 0; i1 < op_keys.length; i1++) {
-                    const op_key = op_keys[i1];
-                    const op_value = value[op_key];
-                    if (i1 < op_keys.length - 1) {
-                        str += `${op_key}:${op_value ? 1 : 0}|`;
-                    } else {
-                        str += `${op_key}:${op_value ? 1 : 0}`;
+                if (value !== undefined) {
+                    const op_keys = Object.keys(value) as ALLOPParsedValues[];
+                    str += `${key}#`;
+                    for (let i1 = 0; i1 < op_keys.length; i1++) {
+                        const op_key = op_keys[i1];
+                        const op_value = value[op_key];
+                        if (i1 < op_keys.length - 1) {
+                            str += `${op_key}:${op_value ? 1 : 0}|`;
+                        } else {
+                            str += `${op_key}:${op_value ? 1 : 0}`;
+                        }
                     }
+                    if (i < keys.length - 1) str += `%`;
                 }
-                if (i < keys.length - 1) str += `%`;
             }
             return str;
         }
 
         static get AllTrue(): boolean {
-            for (const key in this.filter) {
+            let key: ParsedGroupKeysRev;
+            for (key in this.filter) {
                 const value = this.filter[key];
-                for (const op_key in value) {
-                    if (value[op_key] === false) {
-                        return false;
+                if (value !== undefined) {
+                    let op_key: ALLOPParsedValues;
+                    for (op_key in value) {
+                        if (value[op_key] === false) {
+                            return false;
+                        }
                     }
                 }
             }
@@ -79,7 +97,8 @@ export default class Options {
             if (value === undefined) {
                 return true;
             } else {
-                for (const op_key in value) {
+                let op_key: ALLOPParsedValues;
+                for (op_key in value) {
                     if (value[op_key] === false) {
                         return false;
                     }
@@ -117,10 +136,11 @@ export default class Options {
                 const nKey = (OPParseKeys[nGroupKey] as CombinedOPParseKeys)[
                     key
                 ];
-                if (value[nKey] === undefined) {
+                let item = value[nKey];
+                if (item === undefined) {
                     return true;
                 } else {
-                    return value[nKey];
+                    return item;
                 }
             }
         }
@@ -256,6 +276,12 @@ export default class Options {
             document.cookie = "Null";
         }
         console.log(document.cookie);
+        if (window.matchMedia("(pointer: coarse)").matches) {
+            // touchscreen
+            console.log("Touch Screen");
+        } else {
+            console.log("No Touch Screen");
+        }
     }
     static setOption(key: string, value: boolean) {
         this.options[key] = value;
