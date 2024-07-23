@@ -1,17 +1,9 @@
 //#region Main
 import type { AllOPNames } from "./ops.js";
 import { GROUPS } from "./ops.js";
+import { whiteBackground } from "./utils/img.js";
 import Options, { OptionsParse } from "./utils/options.js";
-declare global {
-    interface String {
-        get domURL(): string;
-    }
-}
-Object.defineProperty(String.prototype, "domURL", {
-    get() {
-        return `url(${this})`;
-    },
-});
+import IDKButImHardRN from "./utils/time.js";
 function isScrollable(
     element: HTMLElement,
     dir: "vertical" | "horizontal"
@@ -35,76 +27,120 @@ function main() {
         event.stopImmediatePropagation();
         return false;
     };
-    const op = localStorage.getItem("op");
-    if (op !== null) {
-        localStorage.removeItem("op");
-    }
+    localStorage.removeItem("op");
     createGroupButtons();
     createFilter();
     createOptions();
 }
-
 function createGroupButtons() {
-    const GROUP_MODAL = document.createElement("section");
-    GROUP_MODAL.className = "group-modal";
-    const GROUP_MODAL_CONTENT = document.createElement("div");
-    GROUP_MODAL_CONTENT.className = "group-modal-content";
-    const group_keys = Object.keys(GROUPS) as (keyof typeof GROUPS)[];
-    for (let i = 0; i < group_keys.length; i++) {
-        const key = group_keys[i];
+    let switcher: IDKButImHardRN;
+    if (Options.isTouchScreen) {
+        switcher = new IDKButImHardRN(changeLink, 300);
+    } else {
+        switcher = new IDKButImHardRN(changeLink, 0);
+    }
+    const groupModal = document.createElement("section");
+    groupModal.className = "group-modal";
+    const groupModalTable = document.createElement("table");
+    const groupModalTBody = document.createElement("tbody");
+    const groupModalRow = document.createElement("tr");
+    const grouKeys = Object.keys(GROUPS) as (keyof typeof GROUPS)[];
+    const htmlGroups: [
+        string,
+        HTMLTableCellElement,
+        {
+            normalIcon?: string;
+            hoverIcon?: string;
+        }
+    ][] = [];
+    for (let i = 0; i < grouKeys.length; i++) {
+        const key = grouKeys[i];
         const group = GROUPS[key];
 
-        const html_op = document.createElement("a");
-        html_op.className = "container";
-        html_op.draggable = false;
-        html_op.style.textDecoration = "None";
-        html_op.innerHTML += key;
-        html_op.href = "op.html";
+        const htmlGroup = document.createElement("td");
+        htmlGroup.innerHTML += key;
 
-        const html_group = document.createElement("img");
-        html_group.draggable = false;
-        html_group.className = "group-button";
+        const htmlGroupDiv = document.createElement("div");
+        const htmlGroupImg = document.createElement("img");
+        htmlGroupImg.draggable = false;
+        htmlGroupImg.className = "group-button";
 
-        const html_images = group.fetch_html_images();
-        if (
-            html_images.normalIcon !== undefined &&
-            html_images.hoverIcon !== undefined
-        ) {
-            giveHoverAnimation(
-                html_op,
-                new HoverOptions({
-                    imgInfo: {
-                        element: html_group,
-                        enterImg: html_images.hoverIcon,
-                        leaveImg: html_images.normalIcon,
-                    },
-                    scale: 90,
-                })
-            );
-        }
-        html_op.addEventListener("click", () => {
-            groupButtonClicked(key);
-        });
-        if (!(i >= group_keys.length - 1)) {
-            html_op.style.marginRight = "10%";
-        }
-        const first_icon = html_images.normalIcon ?? html_images.hoverIcon;
+        const htmlImages = group.fetch_html_images();
+        giveHoverAnimation(
+            htmlGroup,
+            new HoverOptions({
+                imgInfo: {
+                    element: htmlGroupImg,
+                    enterImg: htmlImages.hoverIcon ?? whiteBackground,
+                    leaveImg: htmlImages.normalIcon ?? whiteBackground,
+                },
+                click: false,
+                animateOnTouch: true,
+                scale: 90,
+            })
+        );
+        htmlGroups.push([key, htmlGroup, htmlImages]);
+
+        const first_icon = htmlImages.normalIcon ?? htmlImages.hoverIcon;
         if (first_icon != undefined) {
-            html_group.src = first_icon;
+            htmlGroupImg.src = first_icon;
         }
-        html_group.alt = key + " Icon";
-        html_op.appendChild(html_group);
-        GROUP_MODAL_CONTENT.appendChild(html_op);
+        htmlGroupImg.alt = key + " Icon";
+        htmlGroupDiv.appendChild(htmlGroupImg);
+        htmlGroup.appendChild(htmlGroupDiv);
+        groupModalRow.appendChild(htmlGroup);
     }
-    GROUP_MODAL.appendChild(GROUP_MODAL_CONTENT);
-    document.body.insertBefore(GROUP_MODAL, document.body.childNodes[2]);
+    for (let i = 0; i < htmlGroups.length; i++) {
+        const [key, htmlGroup, htmlImages] = htmlGroups[i];
+        htmlGroup.addEventListener("click", () => {
+            const imgElement = htmlGroup.children.item(0)?.children[0] as
+                | HTMLImageElement
+                | undefined;
+            groupButtonClicked(key);
+            if (imgElement !== undefined) {
+                giveHoverAnimation(
+                    htmlGroup,
+                    new HoverOptions({
+                        imgInfo: {
+                            element: imgElement,
+                            enterImg: htmlImages.hoverIcon ?? whiteBackground,
+                            leaveImg: htmlImages.normalIcon ?? whiteBackground,
+                        },
+                        click: true,
+                        animateOnTouch: true,
+                        scale: 100,
+                    })
+                );
+            }
+            for (let i = 0; i < htmlGroups.length; i++) {
+                const [key1, htmlGroup1, htmlImages1] = htmlGroups[i];
+                const imgElement1 = htmlGroup1.children.item(0)?.children[0] as
+                    | HTMLImageElement
+                    | undefined;
+                if (key1 !== key && imgElement1 !== undefined) {
+                    htmlGroup1.style.transition = `transform 0.13s ease-in-out`;
+                    htmlGroup1.style.transform = `scale(100%)`;
+                    imgElement1.src = htmlImages1.normalIcon ?? whiteBackground;
+                }
+            }
+            switcher.run("op.html");
+        });
+    }
+    groupModalTBody.appendChild(groupModalRow);
+    groupModalTable.appendChild(groupModalTBody);
+    groupModal.appendChild(groupModalTable);
+    document.body.insertBefore(groupModal, document.body.childNodes[2]);
+}
+
+async function changeLink(link: string) {
+    window.location = link as unknown as Location;
 }
 
 function createFilter() {
     const MAIN = document.createElement("section");
     MAIN.style.background = "#444444";
 
-    document.body.insertBefore(MAIN, document.body.childNodes[2]);
+    document.body.insertBefore(MAIN, document.body.childNodes[3]);
 
     const FILTER_MODAL = document.createElement("section");
     FILTER_MODAL.className = "filter-modal";
@@ -424,7 +460,7 @@ function createOptions() {
     TABLE_BODY.appendChild(TABLE_ROW_2);
     TABLE.appendChild(TABLE_BODY);
     OPTIONS_MODAL.appendChild(TABLE);
-    document.body.insertBefore(OPTIONS_MODAL, document.body.childNodes[2]);
+    document.body.insertBefore(OPTIONS_MODAL, document.body.childNodes[3]);
 }
 
 class HoverOptions {
@@ -433,6 +469,7 @@ class HoverOptions {
     leaveImg?: string;
     transitionSec: number;
     click: boolean;
+    animateOnTouch: boolean;
     scale: number;
     constructor(
         options: {
@@ -443,9 +480,11 @@ class HoverOptions {
             };
             transitionSec?: number;
             click?: boolean;
+            animateOnTouch?: boolean;
             scale?: number;
         } = {
             transitionSec: 0.13,
+            animateOnTouch: false,
             click: false,
             scale: 90,
         }
@@ -456,6 +495,7 @@ class HoverOptions {
         this.enterImg = options.imgInfo ? options.imgInfo.enterImg : undefined;
         this.leaveImg = options.imgInfo ? options.imgInfo.leaveImg : undefined;
         this.transitionSec = options.transitionSec ?? 0.13;
+        this.animateOnTouch = options.animateOnTouch ?? false;
         this.click = options.click ?? false;
         this.scale = options.scale ?? 90;
     }
@@ -468,7 +508,18 @@ function giveHoverAnimation(
     const isTouchScreen = Options.isTouchScreen;
     let setNormalScale = true;
     if (options.click) {
-        if (!window.matchMedia("(pointer: coarse)").matches) {
+        if (isTouchScreen) {
+            if (options.animateOnTouch) {
+                const enterImg = options["enterImg"];
+                if (options.imageElement !== undefined) {
+                    if (enterImg !== undefined) {
+                        options.imageElement.src = enterImg;
+                    }
+                }
+                element.style.transition = `transform ${options.transitionSec}s ease-in-out`;
+                element.style.transform = `scale(${options.scale + 10}%)`;
+            }
+        } else {
             element.style.transform = `scale(${options.scale + 10}%)`;
             setNormalScale = false;
         }

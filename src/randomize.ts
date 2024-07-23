@@ -27,9 +27,7 @@ if (key !== null) {
             localStorage.setItem("op", JSON.stringify(op));
         }
     }
-    if (op !== undefined) {
-        console.log(op);
-    }
+    console.log(op);
 }
 
 function randomizeOP(key: ParsedGroupKeys, group: AllGroups): OP | undefined {
@@ -37,7 +35,7 @@ function randomizeOP(key: ParsedGroupKeys, group: AllGroups): OP | undefined {
     if (group.ops.length > 0) {
         opInfo = getRandomItemFromArray<(typeof group.ops)[0]>(group.ops);
         if (Options.Filter.GroupFalse(key)) {
-            return opInfo;
+            return undefined;
         } else {
             if (group.ops.length > 0) {
                 while (Options.Filter.OPTrue(key, opInfo.name) === false) {
@@ -46,11 +44,11 @@ function randomizeOP(key: ParsedGroupKeys, group: AllGroups): OP | undefined {
                     );
                 }
             } else {
-                return opInfo;
+                return undefined;
             }
         }
     } else {
-        return opInfo;
+        return undefined;
     }
     const op = new OP({
         name: opInfo.name,

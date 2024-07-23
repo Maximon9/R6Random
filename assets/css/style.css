@@ -12,32 +12,34 @@ body {
     background-size: cover;
 }
 
-@font-face {
-    font-family: bebasBold;
-    src: url(../fonts/BebasNeue-Bold.otf);
-}
-
-h1,
-.container,
-#title,
-.filter-modal-content p,
-.filter-modal-content button,
-.filter-modal-content table tr td div,
-.options-modal table tbody tr td,
-.group-select {
-    font-family: bebasBold, Verdana, Geneva, Tahoma, sans-serif;
-}
-.filter-modal-content button,
-.filter-modal-content table tr td div,
-.group-modal-content div {
-    cursor: pointer;
-}
 body {
     -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
     -webkit-user-drag: none;
     -webkit-user-select: none; /* Safari */
     -ms-user-select: none; /* IE 10 and IE 11 */
     user-select: none; /* Standard syntax */
+}
+
+@font-face {
+    font-family: bebasBold;
+    src: url(../fonts/BebasNeue-Bold.otf);
+}
+
+h1,
+#title,
+.filter-modal-content p,
+.filter-modal-content button,
+.group-modal table tbody tr td,
+.filter-modal-content table tr td div,
+.options-modal table tbody tr td,
+.group-select {
+    font-family: bebasBold, Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.filter-modal-content button,
+.filter-modal-content table tr td div,
+.group-modal-content div {
+    cursor: pointer;
 }
 
 .options-modal {
@@ -69,16 +71,30 @@ body {
     padding-bottom: 30px;
 }
 
-.group-modal,
+.group-modal {
+    height: fit-content;
+    width: fit-content;
+}
+.group-modal table tbody tr td {
+    color: white;
+    font-size: 2vmax;
+    text-align: center;
+    transition: transform 0.13s ease-in-out;
+}
+.group-modal table tbody tr td div {
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    height: 50%;
+}
 .filter-modal {
     height: 600px;
     display: flex;
-    align-items: flex-start;
     justify-content: center;
 }
-.group-modal-content {
-    display: flex;
-    width: 60%;
+.group-modal,
+.filter-modal {
+    align-items: flex-start;
 }
 
 .filter-modal-content {
@@ -164,15 +180,6 @@ body::-webkit-scrollbar-track {
     display: block;
 }
 
-.container,
-.container:hover {
-    flex: 1;
-    color: white;
-    font-size: 2em;
-    padding-top: 5%;
-    transition: transform 0.13s ease-in-out;
-    height: fit-content;
-}
 .group-button {
     height: 100%;
     width: 100%;

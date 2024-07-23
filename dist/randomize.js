@@ -19,16 +19,14 @@ if (key !== null) {
             localStorage.setItem("op", JSON.stringify(op));
         }
     }
-    if (op !== undefined) {
-        console.log(op);
-    }
+    console.log(op);
 }
 function randomizeOP(key, group) {
     let opInfo = undefined;
     if (group.ops.length > 0) {
         opInfo = getRandomItemFromArray(group.ops);
         if (Options.Filter.GroupFalse(key)) {
-            return opInfo;
+            return undefined;
         }
         else {
             if (group.ops.length > 0) {
@@ -37,12 +35,12 @@ function randomizeOP(key, group) {
                 }
             }
             else {
-                return opInfo;
+                return undefined;
             }
         }
     }
     else {
-        return opInfo;
+        return undefined;
     }
     const op = new OP({
         name: opInfo.name,
