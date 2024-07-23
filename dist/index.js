@@ -19,7 +19,11 @@ function main() {
         event.stopImmediatePropagation();
         return false;
     };
-    localStorage.removeItem("op");
+    const op = localStorage.getItem("op");
+    if (op !== null && op !== undefined) {
+        localStorage.removeItem("op");
+        // location.reload();
+    }
     createGroupButtons();
     createFilter();
     createOptions();
@@ -57,7 +61,7 @@ function createGroupButtons() {
             },
             click: false,
             animateOnTouch: true,
-            scale: 90,
+            scale: 100,
         }));
         htmlGroups.push([key, htmlGroup, htmlImages]);
         const first_icon = htmlImages.normalIcon ?? htmlImages.hoverIcon;
