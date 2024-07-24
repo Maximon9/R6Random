@@ -150,6 +150,10 @@ function createGroupButtons() {
 
 async function changeLink(link: string) {
     window.location = link as unknown as Location;
+    const op = localStorage.getItem("op");
+    if (op !== null && op !== undefined) {
+        localStorage.removeItem("op");
+    }
 }
 
 function createFilter() {

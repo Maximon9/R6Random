@@ -9,9 +9,10 @@ let op = undefined;
 if (key !== null) {
     const group = GROUPS[key];
     let opString = localStorage.getItem("op");
-    if (opString !== null) {
+    if (opString !== null && opString !== undefined) {
         const json = JSON.parse(opString);
         op = OP.createOPFromJSON(json);
+        console.log("Saved OP: ", op);
     }
     else {
         op = randomizeOP(key, group);
