@@ -19,7 +19,7 @@ function main() {
         event.stopImmediatePropagation();
         return false;
     };
-    console.log("This is the thing that is supposed to run in console");
+    console.log("This is the thing that is supposed to run");
     const op = localStorage.getItem("op");
     if (op !== null && op !== undefined) {
         localStorage.removeItem("op");
