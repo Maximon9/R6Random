@@ -112,11 +112,8 @@ function createGroupButtons() {
 }
 async function changeLink(link) {
     const op = localStorage.getItem("op");
-    console.log(op);
     if (op !== null && op !== undefined) {
         localStorage.removeItem("op");
-        console.log(`deleted op`);
-        console.log(localStorage.getItem("op"));
     }
     window.location = link;
 }

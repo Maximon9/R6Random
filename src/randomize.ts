@@ -21,7 +21,6 @@ if (key !== null) {
     if (opString !== null && opString !== undefined) {
         const json = JSON.parse(opString);
         op = OP.createOPFromJSON(json);
-        console.log("Saved OP: ", op);
     } else {
         op = randomizeOP(key, group);
         if (op !== undefined) {
