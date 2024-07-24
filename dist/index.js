@@ -118,11 +118,11 @@ function createGroupButtons() {
     document.body.insertBefore(groupModal, document.body.childNodes[2]);
 }
 async function changeLink(link) {
-    window.location = link;
     const op = localStorage.getItem("op");
     if (op !== null && op !== undefined) {
         localStorage.removeItem("op");
     }
+    window.location = link;
 }
 function createFilter() {
     const main = document.createElement("section");
