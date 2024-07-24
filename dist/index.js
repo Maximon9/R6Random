@@ -47,8 +47,17 @@ function createGroupButtons() {
         const key = grouKeys[i];
         const group = GROUPS[key];
         const htmlGroup = document.createElement("td");
+        htmlGroup.style.color = "white";
+        htmlGroup.style.fontSize = "2vmax";
+        htmlGroup.style.textAlign = "center";
+        htmlGroup.style.transition = "transform 0.13s ease-in-out";
         htmlGroup.innerHTML += key;
+        console.log(htmlGroup);
         const htmlGroupDiv = document.createElement("div");
+        htmlGroupDiv.style.marginLeft = "auto";
+        htmlGroupDiv.style.marginRight = "auto";
+        htmlGroupDiv.style.width = "50%";
+        htmlGroupDiv.style.height = "50%";
         const htmlGroupImg = document.createElement("img");
         htmlGroupImg.draggable = false;
         htmlGroupImg.className = "group-button";
@@ -76,6 +85,7 @@ function createGroupButtons() {
     for (let i = 0; i < htmlGroups.length; i++) {
         const [key, htmlGroup, htmlImages] = htmlGroups[i];
         htmlGroup.addEventListener("click", () => {
+            console.log(htmlGroup);
             const imgElement = htmlGroup.children.item(0)?.children[0];
             groupButtonClicked(key);
             if (imgElement !== undefined) {
@@ -111,48 +121,49 @@ async function changeLink(link) {
     window.location = link;
 }
 function createFilter() {
-    const MAIN = document.createElement("section");
-    MAIN.style.background = "#444444";
-    document.body.insertBefore(MAIN, document.body.childNodes[3]);
-    const FILTER_MODAL = document.createElement("section");
-    FILTER_MODAL.className = "filter-modal";
-    MAIN.appendChild(FILTER_MODAL);
-    const FILTER_MODAL_CONTENT = document.createElement("div");
-    FILTER_MODAL_CONTENT.className = "filter-modal-content";
-    FILTER_MODAL.appendChild(FILTER_MODAL_CONTENT);
+    const main = document.createElement("section");
+    main.style.background = "#444444";
+    document.body.insertBefore(main, document.body.childNodes[3]);
+    const filterModal = document.createElement("section");
+    filterModal.className = "filter-modal";
+    filterModal.style.height = "600px";
+    main.appendChild(filterModal);
+    const filterModalContent = document.createElement("div");
+    filterModalContent.className = "filter-modal-content";
+    filterModal.appendChild(filterModalContent);
     const FILTER_HEADER = document.createElement("h1");
     FILTER_HEADER.innerHTML = "Filter";
-    FILTER_MODAL_CONTENT.appendChild(FILTER_HEADER);
-    const FILTER_SELECT_ALL_CONTAINER = document.createElement("div");
-    FILTER_MODAL_CONTENT.appendChild(FILTER_SELECT_ALL_CONTAINER);
-    const FILTER_SELECT_ALL = document.createElement("button");
+    filterModalContent.appendChild(FILTER_HEADER);
+    const filterSelectAllContainer = document.createElement("div");
+    filterModalContent.appendChild(filterSelectAllContainer);
+    const filterSelectAll = document.createElement("button");
     if (Options.Filter.AllTrue) {
-        FILTER_SELECT_ALL.innerHTML = "Deselect All";
+        filterSelectAll.innerHTML = "Deselect All";
     }
     else {
-        FILTER_SELECT_ALL.innerHTML = "Select All";
+        filterSelectAll.innerHTML = "Select All";
     }
-    FILTER_SELECT_ALL_CONTAINER.appendChild(FILTER_SELECT_ALL);
-    const FILTER_TABLE = document.createElement("table");
-    FILTER_MODAL_CONTENT.appendChild(FILTER_TABLE);
-    const FILTER_TABLE_BODY = document.createElement("tbody");
-    FILTER_TABLE.appendChild(FILTER_TABLE_BODY);
-    const FILTER_SELECT_GROUP = document.createElement("tr");
-    FILTER_TABLE_BODY.appendChild(FILTER_SELECT_GROUP);
-    const FILTER_SELECT_OPS = document.createElement("tr");
-    FILTER_TABLE_BODY.appendChild(FILTER_SELECT_OPS);
+    filterSelectAllContainer.appendChild(filterSelectAll);
+    const filterTable = document.createElement("table");
+    filterModalContent.appendChild(filterTable);
+    const filterTableBody = document.createElement("tbody");
+    filterTable.appendChild(filterTableBody);
+    const filterSelectGroup = document.createElement("tr");
+    filterTableBody.appendChild(filterSelectGroup);
+    const filterSelectOPs = document.createElement("tr");
+    filterTableBody.appendChild(filterSelectOPs);
     const htmlSelectGroupButtons = [];
     const htmlSelectOpButtons = {};
     for (const nKey in GROUPS) {
         const key = nKey;
         const group = GROUPS[key];
-        const GROUP_SELECT_BUTTON = document.createElement("td");
-        GROUP_SELECT_BUTTON.className = "group-select";
+        const groupSelectButton = document.createElement("td");
+        groupSelectButton.className = "group-select";
         if (Options.Filter.GroupTrue(key)) {
-            GROUP_SELECT_BUTTON.innerHTML = "Deselect All " + key;
+            groupSelectButton.innerHTML = "Deselect All " + key;
         }
         else {
-            GROUP_SELECT_BUTTON.innerHTML = "Select All " + key;
+            groupSelectButton.innerHTML = "Select All " + key;
         }
         let makeGroupSelectButton = true;
         if (group.ops.length > 0) {
@@ -162,10 +173,10 @@ function createFilter() {
             let column2 = null;
             if (group.ops.length > 1) {
                 column2 = document.createElement("td");
-                GROUP_SELECT_BUTTON.colSpan = 2;
+                groupSelectButton.colSpan = 2;
             }
             else if (group.ops.length === 1) {
-                GROUP_SELECT_BUTTON.colSpan = 1;
+                groupSelectButton.colSpan = 1;
             }
             else {
                 makeGroupSelectButton = false;
@@ -173,31 +184,31 @@ function createFilter() {
             const halfLength = Math.ceil(group.ops.length / 2);
             for (let i = 0; i < group.ops.length; i++) {
                 const op = group.ops[i];
-                const OP_BUTTON = document.createElement("div");
-                const OP_IMAGE = document.createElement("img");
-                OP_IMAGE.draggable = false;
-                OP_IMAGE.src = op.icons[0];
-                OP_IMAGE.alt = op.name;
-                OP_BUTTON.appendChild(OP_IMAGE);
-                OP_BUTTON.innerHTML += op.name;
+                const opButton = document.createElement("div");
+                const opImage = document.createElement("img");
+                opImage.draggable = false;
+                opImage.src = op.icons[0];
+                opImage.alt = op.name;
+                opButton.appendChild(opImage);
+                opButton.innerHTML += op.name;
                 if (Options.Filter.OPTrue(key, op.name)) {
-                    OP_BUTTON.children.item(0).style.filter = "";
-                    giveHoverAnimation(OP_BUTTON);
+                    opButton.children.item(0).style.filter = "";
+                    giveHoverAnimation(opButton);
                 }
                 else {
-                    OP_BUTTON.children.item(0).style.filter = "grayscale(100%)";
-                    giveHoverAnimation(OP_BUTTON, new HoverOptions({ scale: 70 }));
+                    opButton.children.item(0).style.filter = "grayscale(100%)";
+                    giveHoverAnimation(opButton, new HoverOptions({ scale: 70 }));
                 }
-                OP_BUTTON.addEventListener("click", () => {
+                opButton.addEventListener("click", () => {
                     if (Options.Filter.OPTrue(key, op.name)) {
                         Options.Filter.deselectOP(key, op.name);
-                        OP_BUTTON.children.item(0).style.filter = "grayscale(100%)";
-                        giveHoverAnimation(OP_BUTTON, new HoverOptions({ click: true, scale: 70 }));
+                        opButton.children.item(0).style.filter = "grayscale(100%)";
+                        giveHoverAnimation(opButton, new HoverOptions({ click: true, scale: 70 }));
                     }
                     else {
                         Options.Filter.selectOP(key, op.name);
-                        OP_BUTTON.children.item(0).style.filter = "";
-                        giveHoverAnimation(OP_BUTTON, new HoverOptions({ click: true }));
+                        opButton.children.item(0).style.filter = "";
+                        giveHoverAnimation(opButton, new HoverOptions({ click: true }));
                     }
                     for (let i = 0; i < htmlSelectGroupButtons.length; i++) {
                         const [key, element] = htmlSelectGroupButtons[i];
@@ -209,46 +220,46 @@ function createFilter() {
                         }
                     }
                     if (Options.Filter.AllTrue) {
-                        FILTER_SELECT_ALL.innerHTML = "Deselect All";
+                        filterSelectAll.innerHTML = "Deselect All";
                     }
                     else {
-                        FILTER_SELECT_ALL.innerHTML = "Select All";
+                        filterSelectAll.innerHTML = "Select All";
                     }
                 });
-                item.push([op.name, OP_BUTTON]);
+                item.push([op.name, opButton]);
                 if (column2 == null) {
-                    column1.appendChild(OP_BUTTON);
+                    column1.appendChild(opButton);
                 }
                 else {
                     if (i < halfLength) {
-                        column1.appendChild(OP_BUTTON);
+                        column1.appendChild(opButton);
                     }
                     else {
-                        column2.appendChild(OP_BUTTON);
+                        column2.appendChild(opButton);
                     }
                 }
             }
-            FILTER_SELECT_OPS.appendChild(column1);
+            filterSelectOPs.appendChild(column1);
             if (column2 !== null) {
-                FILTER_SELECT_OPS.appendChild(column2);
+                filterSelectOPs.appendChild(column2);
             }
         }
         if (makeGroupSelectButton) {
-            giveHoverAnimation(GROUP_SELECT_BUTTON);
-            GROUP_SELECT_BUTTON.addEventListener("click", () => {
+            giveHoverAnimation(groupSelectButton);
+            groupSelectButton.addEventListener("click", () => {
                 if (Options.Filter.GroupTrue(key)) {
                     Options.Filter.delectGroup(key);
-                    GROUP_SELECT_BUTTON.innerHTML = "Select All " + key;
+                    groupSelectButton.innerHTML = "Select All " + key;
                 }
                 else {
                     Options.Filter.selectGroup(key);
-                    GROUP_SELECT_BUTTON.innerHTML = "Deselect All " + key;
+                    groupSelectButton.innerHTML = "Deselect All " + key;
                 }
                 if (Options.Filter.AllTrue) {
-                    FILTER_SELECT_ALL.innerHTML = "Deselect All";
+                    filterSelectAll.innerHTML = "Deselect All";
                 }
                 else {
-                    FILTER_SELECT_ALL.innerHTML = "Select All";
+                    filterSelectAll.innerHTML = "Select All";
                 }
                 const item = htmlSelectOpButtons[key];
                 if (item !== undefined) {
@@ -265,19 +276,19 @@ function createFilter() {
                     }
                 }
             });
-            htmlSelectGroupButtons.push([key, GROUP_SELECT_BUTTON]);
-            FILTER_SELECT_GROUP.appendChild(GROUP_SELECT_BUTTON);
+            htmlSelectGroupButtons.push([key, groupSelectButton]);
+            filterSelectGroup.appendChild(groupSelectButton);
         }
     }
     if (htmlSelectGroupButtons.length > 0) {
-        FILTER_SELECT_ALL.addEventListener("click", () => {
+        filterSelectAll.addEventListener("click", () => {
             if (Options.Filter.AllTrue) {
                 Options.Filter.deselectAll();
-                FILTER_SELECT_ALL.innerHTML = "Select All";
+                filterSelectAll.innerHTML = "Select All";
             }
             else {
                 Options.Filter.selectAll();
-                FILTER_SELECT_ALL.innerHTML = "Deselect All";
+                filterSelectAll.innerHTML = "Deselect All";
             }
             for (let i = 0; i < htmlSelectGroupButtons.length; i++) {
                 const [key, element] = htmlSelectGroupButtons[i];
@@ -306,55 +317,55 @@ function createFilter() {
                 }
             }
         });
-        giveHoverAnimation(FILTER_SELECT_ALL);
+        giveHoverAnimation(filterSelectAll);
     }
     else {
-        FILTER_MODAL_CONTENT.removeChild(FILTER_MODAL_CONTENT.childNodes[2]);
+        filterModalContent.removeChild(filterModalContent.childNodes[2]);
     }
-    if (isScrollable(FILTER_MODAL_CONTENT, "horizontal")) {
+    if (isScrollable(filterModalContent, "horizontal")) {
         let pre_left = null;
-        while (FILTER_MODAL_CONTENT.scrollLeft !== pre_left) {
-            FILTER_MODAL_CONTENT.scrollTo({
-                left: FILTER_MODAL_CONTENT.scrollLeft + 10000,
+        while (filterModalContent.scrollLeft !== pre_left) {
+            filterModalContent.scrollTo({
+                left: filterModalContent.scrollLeft + 10000,
             });
-            pre_left = FILTER_MODAL_CONTENT.scrollLeft;
+            pre_left = filterModalContent.scrollLeft;
         }
-        FILTER_MODAL_CONTENT.scrollTo({
-            left: FILTER_MODAL_CONTENT.scrollLeft / 2,
+        filterModalContent.scrollTo({
+            left: filterModalContent.scrollLeft / 2,
         });
-        FILTER_MODAL_CONTENT.style.overflowX = "scroll";
+        filterModalContent.style.overflowX = "scroll";
     }
     else {
-        FILTER_MODAL_CONTENT.style.overflowX = "hidden";
+        filterModalContent.style.overflowX = "hidden";
     }
-    if (isScrollable(FILTER_MODAL_CONTENT, "vertical")) {
-        FILTER_MODAL_CONTENT.style.overflowY = "scroll";
+    if (isScrollable(filterModalContent, "vertical")) {
+        filterModalContent.style.overflowY = "scroll";
     }
     else {
-        FILTER_MODAL_CONTENT.style.overflowY = "hidden";
+        filterModalContent.style.overflowY = "hidden";
     }
     window.addEventListener("resize", () => {
-        if (isScrollable(FILTER_MODAL_CONTENT, "horizontal")) {
+        if (isScrollable(filterModalContent, "horizontal")) {
             let pre_left = null;
-            while (FILTER_MODAL_CONTENT.scrollLeft !== pre_left) {
-                FILTER_MODAL_CONTENT.scrollTo({
-                    left: FILTER_MODAL_CONTENT.scrollLeft + 10000,
+            while (filterModalContent.scrollLeft !== pre_left) {
+                filterModalContent.scrollTo({
+                    left: filterModalContent.scrollLeft + 10000,
                 });
-                pre_left = FILTER_MODAL_CONTENT.scrollLeft;
+                pre_left = filterModalContent.scrollLeft;
             }
-            FILTER_MODAL_CONTENT.scrollTo({
-                left: FILTER_MODAL_CONTENT.scrollLeft / 2,
+            filterModalContent.scrollTo({
+                left: filterModalContent.scrollLeft / 2,
             });
-            FILTER_MODAL_CONTENT.style.overflowX = "scroll";
+            filterModalContent.style.overflowX = "scroll";
         }
         else {
-            FILTER_MODAL_CONTENT.style.overflowX = "hidden";
+            filterModalContent.style.overflowX = "hidden";
         }
-        if (isScrollable(FILTER_MODAL_CONTENT, "vertical")) {
-            FILTER_MODAL_CONTENT.style.overflowY = "scroll";
+        if (isScrollable(filterModalContent, "vertical")) {
+            filterModalContent.style.overflowY = "scroll";
         }
         else {
-            FILTER_MODAL_CONTENT.style.overflowY = "hidden";
+            filterModalContent.style.overflowY = "hidden";
         }
     });
 }
@@ -424,6 +435,7 @@ class HoverOptions {
     }
 }
 function giveHoverAnimation(element, options = new HoverOptions()) {
+    console.log(element);
     const isTouchScreen = Options.isTouchScreen;
     let setNormalScale = true;
     if (options.click) {
@@ -437,6 +449,7 @@ function giveHoverAnimation(element, options = new HoverOptions()) {
                 }
                 element.style.transition = `transform ${options.transitionSec}s ease-in-out`;
                 element.style.transform = `scale(${options.scale + 10}%)`;
+                setNormalScale = false;
             }
         }
         else {

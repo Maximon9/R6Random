@@ -19,6 +19,19 @@ body {
     -ms-user-select: none; /* IE 10 and IE 11 */
     user-select: none; /* Standard syntax */
 }
+.filter-modal-content::-webkit-scrollbar,
+body::-webkit-scrollbar {
+    width: 12px;
+    background-color: #444;
+}
+.filter-modal-content::-webkit-scrollbar-thumb,
+body::-webkit-scrollbar-thumb {
+    background-color: #2b2b2b;
+}
+.filter-modal-content::-webkit-scrollbar-track,
+body::-webkit-scrollbar-track {
+    background-color: #444;
+}
 
 @font-face {
     font-family: bebasBold;
@@ -70,30 +83,9 @@ h1,
 .options-modal table {
     padding-bottom: 30px;
 }
-
-.group-modal {
-    height: fit-content;
-    width: fit-content;
-}
-.group-modal table tbody tr td {
-    color: white;
-    font-size: 2vmax;
-    text-align: center;
-    transition: transform 0.13s ease-in-out;
-}
-.group-modal table tbody tr td div {
-    margin-left: auto;
-    margin-right: auto;
-    width: 50%;
-    height: 50%;
-}
 .filter-modal {
-    height: 600px;
     display: flex;
     justify-content: center;
-}
-.group-modal,
-.filter-modal {
     align-items: flex-start;
 }
 
@@ -105,19 +97,6 @@ h1,
     color: #ffffff;
     overflow: auto;
     position: relative;
-}
-.filter-modal-content::-webkit-scrollbar,
-body::-webkit-scrollbar {
-    width: 12px;
-    background-color: #444;
-}
-.filter-modal-content::-webkit-scrollbar-thumb,
-body::-webkit-scrollbar-thumb {
-    background-color: #2b2b2b;
-}
-.filter-modal-content::-webkit-scrollbar-track,
-body::-webkit-scrollbar-track {
-    background-color: #444;
 }
 
 .filter-modal-content h1 {
