@@ -19,13 +19,6 @@ function main() {
         event.stopImmediatePropagation();
         return false;
     };
-    const op = localStorage.getItem("op");
-    console.log(op);
-    if (op !== null && op !== undefined) {
-        localStorage.removeItem("op");
-        console.log(`deleted op`);
-        console.log(localStorage.getItem("op"));
-    }
     createGroupButtons();
     createFilter();
     createOptions();
@@ -119,8 +112,11 @@ function createGroupButtons() {
 }
 async function changeLink(link) {
     const op = localStorage.getItem("op");
+    console.log(op);
     if (op !== null && op !== undefined) {
         localStorage.removeItem("op");
+        console.log(`deleted op`);
+        console.log(localStorage.getItem("op"));
     }
     window.location = link;
 }
