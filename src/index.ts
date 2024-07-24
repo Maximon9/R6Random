@@ -27,11 +27,12 @@ function main() {
         event.stopImmediatePropagation();
         return false;
     };
-    console.log("This is the thing that is supposed to run");
     const op = localStorage.getItem("op");
+    console.log(op);
     if (op !== null && op !== undefined) {
         localStorage.removeItem("op");
-        // location.reload();
+        console.log(`deleted op`);
+        console.log(localStorage.getItem("op"));
     }
 
     createGroupButtons();
