@@ -69,8 +69,6 @@ function createGroupButtons() {
         htmlGroup.style.transition = "transform 0.13s ease-in-out";
         htmlGroup.innerHTML += key;
 
-        console.log(htmlGroup);
-
         const htmlGroupDiv = document.createElement("div");
         htmlGroupDiv.style.marginLeft = "auto";
         htmlGroupDiv.style.marginRight = "auto";
@@ -109,7 +107,6 @@ function createGroupButtons() {
     for (let i = 0; i < htmlGroups.length; i++) {
         const [key, htmlGroup, htmlImages] = htmlGroups[i];
         htmlGroup.addEventListener("click", () => {
-            console.log(htmlGroup);
             const imgElement = htmlGroup.children.item(0)?.children[0] as
                 | HTMLImageElement
                 | undefined;
@@ -523,7 +520,6 @@ function giveHoverAnimation(
     element: HTMLElement,
     options: HoverOptions = new HoverOptions()
 ) {
-    console.log(element);
     const isTouchScreen = Options.isTouchScreen;
     let setNormalScale = true;
     if (options.click) {
@@ -540,11 +536,13 @@ function giveHoverAnimation(
                 setNormalScale = false;
             }
         } else {
+            element.style.transition = `transform ${options.transitionSec}s ease-in-out`;
             element.style.transform = `scale(${options.scale + 10}%)`;
             setNormalScale = false;
         }
     }
     if (setNormalScale) {
+        element.style.transition = `transform ${options.transitionSec}s ease-in-out`;
         element.style.transform = `scale(${options.scale}%)`;
     }
     if (!isTouchScreen) {
