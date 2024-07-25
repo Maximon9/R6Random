@@ -1,19 +1,29 @@
 import { GROUPS, GroupParseKeys, GroupParseKeysRev, OPParseKeys } from "../ops.js";
-export const AvoidOptions = {
-    "OP Dupes": "0",
-    "Equipment Dupes": "1",
-    "Primary Weapon Dupes": "2",
-    "Secondary Weapon Dupes": "3",
-    "Primary Attachment Dupes": "4",
-    "Secondary Attachment Dupes": "5",
+export const OptionCategories = {
+    "Try Avoid Dupes": "0",
 };
-export const AvoidOptionsRev = {
-    "0": "OP Dupes",
-    "1": "Equipment Dupes",
-    "2": "Primary Weapon Dupes",
-    "3": "Secondary Weapon Dupes",
-    "4": "Primary Attachment Dupes",
-    "5": "Secondary Attachment Dupes",
+export const OptionCategoriesRev = {
+    "0": "Try Avoid Dupes",
+};
+export const CategoryOptions = {
+    "0": {
+        OPs: "0",
+        Equipment: "1",
+        "Primary Weapons": "2",
+        "Secondary Weapons": "3",
+        "Primary Attachments": "4",
+        "Secondary Attachments": "5",
+    },
+};
+export const CategoryOptionsRev = {
+    "0": {
+        "0": "OPs",
+        "1": "Equipment",
+        "2": "Primary Weapons",
+        "3": "Secondary Weapons",
+        "4": "Primary Attachments",
+        "5": "Secondary Attachments",
+    },
 };
 export default class Options {
     static get isTouchScreen() {
@@ -241,37 +251,121 @@ export default class Options {
         }
         console.log(document.cookie);
     }
-    static optionTrue(key) {
-        if (this.options[AvoidOptions[key]] === undefined) {
+    static optionTrue(categoryName, key) {
+        const nCategoryName = OptionCategories[categoryName];
+        const category = this.options[nCategoryName];
+        if (category === undefined || category[CategoryOptions[nCategoryName][key]] === undefined) {
             return true;
         }
         else {
             return false;
         }
     }
-    static setOption(key, value) {
-        this.options[AvoidOptions[key]] = value;
-        this.#setCookie();
-    }
-    static removeOption(key) {
-        const nKey = AvoidOptions[key];
-        if (this.options[nKey] !== undefined) {
-            delete this.options[nKey];
+    static categoryTrue(categoryName) {
+        const category = this.options[OptionCategories[categoryName]];
+        if (category === undefined) {
+            return true;
         }
-        this.#setCookie();
+        else {
+            let key;
+            for (key in category) {
+                if (category[key] === false) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    static #changeCategory(categoryName, enable, setCookie = true) {
+        let category = this.options[categoryName];
+        let changeOptions = true;
+        if (enable) {
+            if (category === undefined) {
+                changeOptions = false;
+            }
+        }
+        else {
+            if (category === undefined) {
+                category = this.options[categoryName] = {};
+            }
+        }
+        if (changeOptions) {
+            if (enable) {
+                for (const key in category) {
+                    this.#changeOption(categoryName, key, enable, false);
+                }
+            }
+            else {
+                for (const key in CategoryOptionsRev[categoryName]) {
+                    this.#changeOption(categoryName, key, enable, false);
+                }
+            }
+        }
+        if (setCookie) {
+            Options.#setCookie();
+        }
+    }
+    static #changeOption(categoryName, key, enable, setCookie = true) {
+        let category = this.options[categoryName];
+        if (enable) {
+            if (category !== undefined) {
+                if (category[key] !== undefined) {
+                    delete category[key];
+                    if (Object.keys(category).length <= 0) {
+                        delete this.options[categoryName];
+                    }
+                }
+            }
+        }
+        else {
+            if (category === undefined) {
+                category = this.options[categoryName] = {};
+            }
+            category[key] = enable;
+        }
+        if (setCookie) {
+            Options.#setCookie();
+        }
+    }
+    static enableCategory(categoryName) {
+        const nCategoryName = OptionCategories[categoryName];
+        this.#changeCategory(nCategoryName, true);
+    }
+    static disableCategory(categoryName) {
+        const nCategoryName = OptionCategories[categoryName];
+        this.#changeCategory(nCategoryName, false);
+    }
+    static enableOption(categoryName, key) {
+        const nCategoryName = OptionCategories[categoryName];
+        const nKey = CategoryOptions[nCategoryName][key];
+        this.#changeOption(nCategoryName, nKey, true);
+    }
+    static disableOption(categoryName, key) {
+        const nCategoryName = OptionCategories[categoryName];
+        const nKey = CategoryOptions[nCategoryName][key];
+        this.#changeOption(nCategoryName, nKey, false);
     }
     static parseCookie() {
         const cookies = document.cookie.split("$");
         if (cookies.length > 0) {
             this.Filter.parseFilterCookie(cookies[0]);
             if (cookies.length > 1) {
-                this.Filter.parseFilterCookie(cookies[0]);
-                const vars = cookies[1].split("|");
-                for (let i = 0; i < vars.length; i++) {
-                    const v = vars[i];
-                    const [key, value] = v.split(":");
+                const categories = cookies[1].split("%");
+                for (let i = 0; i < categories.length; i++) {
+                    const categoryString = categories[i];
+                    const [key, value] = categoryString.split("#");
                     if (key !== undefined && value !== undefined) {
-                        this.options[key] = Boolean(Number(value));
+                        const vars = value.split("|");
+                        for (let i1 = 0; i1 < vars.length; i1++) {
+                            const [vKey, vValue] = vars[i1].split(":");
+                            if (vKey !== undefined && vValue !== undefined) {
+                                let category = this.options[key];
+                                if (category === undefined) {
+                                    category = this.options[key] = {};
+                                }
+                                category[vKey] = Boolean(Number(vValue));
+                            }
+                        }
                     }
                 }
             }
@@ -283,11 +377,24 @@ export default class Options {
         for (let i = 0; i < keys.length; i++) {
             const key = keys[i];
             const value = this.options[key];
-            if (i < keys.length - 1) {
-                str += `${key}:${value ? 1 : 0}|`;
-            }
-            else {
-                str += `${key}:${value ? 1 : 0}`;
+            if (value !== undefined) {
+                str += `${key}#`;
+                const vKeys = Object.keys(value);
+                for (let i1 = 0; i1 < vKeys.length; i1++) {
+                    const vKey = vKeys[i1];
+                    const vValue = value[vKey];
+                    if (vValue !== undefined) {
+                        if (i1 < vKeys.length - 1) {
+                            str += `${vKey}:${vValue ? 1 : 0}|`;
+                        }
+                        else {
+                            str += `${vKey}:${vValue ? 1 : 0}`;
+                        }
+                    }
+                }
+                if (i < keys.length - 1) {
+                    str += `%`;
+                }
             }
         }
         return str;

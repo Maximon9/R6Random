@@ -45,29 +45,31 @@ body {
 
 .filter-modal-content button,
 .filter-modal-content table tr td div,
-.group-modal-content div {
+.options-modal table tbody tr td section div div {
     cursor: pointer;
 }
 
 .options-modal {
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
+    display: block;
     background: #444444;
     height: fit-content;
     overflow: auto;
+    padding-bottom: 5vmax;
 }
-.options-modal table tbody tr td h1 {
+.options-modal-content {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+.options-modal h1 {
     margin: 10px 0;
     font-size: 5vmax;
     color: #ffffff;
-    cursor: pointer;
 }
 .options-modal table tbody tr td h2 {
     margin: 10px 0;
     font-size: 3vmax;
     color: #ffffff;
-    cursor: pointer;
 }
 .options-modal table tbody tr td section {
     display: flex;
@@ -95,6 +97,23 @@ body {
     text-align: center;
 }
 
+.nav-bar {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+.nav-bar button {
+    color: white;
+    background: transparent;
+    width: 100%;
+    font-size: 3vmax;
+    font-family: inherit;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+}
+
 .filter-modal {
     display: flex;
     align-items: flex-start;
@@ -116,6 +135,7 @@ body {
     left: 0;
 }
 .filter-modal-content button {
+    margin-top: 2vmax;
     background: transparent;
     border-color: #333333;
     color: white;
@@ -135,6 +155,7 @@ body {
 
 .filter-modal-content table tbody tr td {
     padding: 0 10px;
+    font-size: 2vmax;
     height: 5vmax;
     line-height: 5vmax;
     text-align: center;

@@ -8,31 +8,44 @@ import type {
 } from "../ops.js";
 import { GROUPS, GroupParseKeys, GroupParseKeysRev, OPParseKeys } from "../ops.js";
 
-export const AvoidOptions = {
-    "OP Dupes": "0" as const,
-    "Equipment Dupes": "1" as const,
-    "Primary Weapon Dupes": "2" as const,
-    "Secondary Weapon Dupes": "3" as const,
-    "Primary Attachment Dupes": "4" as const,
-    "Secondary Attachment Dupes": "5" as const,
+export const OptionCategories = {
+    "Try Avoid Dupes": "0" as const,
 };
-export const AvoidOptionsRev = {
-    "0": "OP Dupes" as const,
-    "1": "Equipment Dupes" as const,
-    "2": "Primary Weapon Dupes" as const,
-    "3": "Secondary Weapon Dupes" as const,
-    "4": "Primary Attachment Dupes" as const,
-    "5": "Secondary Attachment Dupes" as const,
+export const OptionCategoriesRev = {
+    "0": "Try Avoid Dupes" as const,
 };
 
-type OptionNames = keyof typeof AvoidOptions;
-type OptionValues = keyof typeof AvoidOptionsRev;
+export const CategoryOptions = {
+    "0": {
+        OPs: "0" as const,
+        Equipment: "1" as const,
+        "Primary Weapons": "2" as const,
+        "Secondary Weapons": "3" as const,
+        "Primary Attachments": "4" as const,
+        "Secondary Attachments": "5" as const,
+    },
+};
+export const CategoryOptionsRev = {
+    "0": {
+        "0": "OPs" as const,
+        "1": "Equipment" as const,
+        "2": "Primary Weapons" as const,
+        "3": "Secondary Weapons" as const,
+        "4": "Primary Attachments" as const,
+        "5": "Secondary Attachments" as const,
+    },
+};
+
+export type CategoryNames = keyof typeof OptionCategories;
+export type CategoryValues = keyof typeof OptionCategoriesRev;
+export type OptionNames = keyof (typeof CategoryOptions)["0"];
+export type OptionValues = keyof (typeof CategoryOptionsRev)["0"];
 
 export default class Options {
     static get isTouchScreen(): boolean {
         return window.matchMedia("(pointer: coarse)").matches;
     }
-    static options: { [k in OptionValues]?: boolean } = {};
+    static options: { "0"?: { [k in OptionValues]?: boolean } } = {};
     static Filter = class {
         static filter: {
             [k in ParsedGroupKeysRev]?: { [k in ALLOPParsedValues]?: boolean };
@@ -259,36 +272,127 @@ export default class Options {
         }
         console.log(document.cookie);
     }
-    static optionTrue(key: OptionNames) {
-        if (this.options[AvoidOptions[key]] === undefined) {
+    static optionTrue(categoryName: CategoryNames, key: OptionNames) {
+        const nCategoryName = OptionCategories[categoryName];
+        const category = this.options[nCategoryName];
+        if (category === undefined || category[CategoryOptions[nCategoryName][key]] === undefined) {
             return true;
         } else {
             return false;
         }
     }
-    static setOption(key: OptionNames, value: boolean) {
-        this.options[AvoidOptions[key]] = value;
-        this.#setCookie();
-    }
-    static removeOption(key: OptionNames) {
-        const nKey = AvoidOptions[key];
-        if (this.options[nKey] !== undefined) {
-            delete this.options[nKey];
+    static categoryTrue(categoryName: CategoryNames) {
+        const category = this.options[OptionCategories[categoryName]];
+        if (category === undefined) {
+            return true;
+        } else {
+            let key: keyof typeof category;
+            for (key in category) {
+                if (category[key] === false) {
+                    return false;
+                }
+            }
         }
-        this.#setCookie();
+        return true;
     }
+    static #changeCategory(categoryName: CategoryValues, enable: boolean, setCookie = true) {
+        let category = this.options[categoryName];
+        let changeOptions = true;
+        if (enable) {
+            if (category === undefined) {
+                changeOptions = false;
+            }
+        } else {
+            if (category === undefined) {
+                category = this.options[categoryName] = {};
+            }
+        }
+        if (changeOptions) {
+            if (enable) {
+                for (const key in category) {
+                    this.#changeOption(categoryName, key as keyof typeof category, enable, false);
+                }
+            } else {
+                for (const key in CategoryOptionsRev[categoryName]) {
+                    this.#changeOption(categoryName, key as OptionValues, enable, false);
+                }
+            }
+        }
+        if (setCookie) {
+            Options.#setCookie();
+        }
+    }
+    static #changeOption(
+        categoryName: CategoryValues,
+        key: OptionValues,
+        enable: boolean,
+        setCookie = true
+    ) {
+        let category = this.options[categoryName];
+        if (enable) {
+            if (category !== undefined) {
+                if (category[key] !== undefined) {
+                    delete category[key];
+                    if (Object.keys(category).length <= 0) {
+                        delete this.options[categoryName];
+                    }
+                }
+            }
+        } else {
+            if (category === undefined) {
+                category = this.options[categoryName] = {};
+            }
+            category[key] = enable;
+        }
+        if (setCookie) {
+            Options.#setCookie();
+        }
+    }
+
+    static enableCategory(categoryName: CategoryNames) {
+        const nCategoryName = OptionCategories[categoryName];
+        this.#changeCategory(nCategoryName, true);
+    }
+    static disableCategory(categoryName: CategoryNames) {
+        const nCategoryName = OptionCategories[categoryName];
+        this.#changeCategory(nCategoryName, false);
+    }
+
+    static enableOption(categoryName: CategoryNames, key: OptionNames) {
+        const nCategoryName = OptionCategories[categoryName];
+        const nKey = CategoryOptions[nCategoryName][key];
+        this.#changeOption(nCategoryName, nKey, true);
+    }
+    static disableOption(categoryName: CategoryNames, key: OptionNames) {
+        const nCategoryName = OptionCategories[categoryName];
+        const nKey = CategoryOptions[nCategoryName][key];
+        this.#changeOption(nCategoryName, nKey, false);
+    }
+
     static parseCookie() {
         const cookies = document.cookie.split("$");
         if (cookies.length > 0) {
             this.Filter.parseFilterCookie(cookies[0]);
             if (cookies.length > 1) {
-                this.Filter.parseFilterCookie(cookies[0]);
-                const vars = cookies[1].split("|");
-                for (let i = 0; i < vars.length; i++) {
-                    const v = vars[i];
-                    const [key, value] = v.split(":") as [OptionValues, "1"];
+                const categories = cookies[1].split("%");
+                for (let i = 0; i < categories.length; i++) {
+                    const categoryString = categories[i];
+                    const [key, value] = categoryString.split("#") as [
+                        keyof typeof this.options,
+                        string
+                    ];
                     if (key !== undefined && value !== undefined) {
-                        this.options[key] = Boolean(Number(value));
+                        const vars = value.split("|");
+                        for (let i1 = 0; i1 < vars.length; i1++) {
+                            const [vKey, vValue] = vars[i1].split(":") as [OptionValues, string];
+                            if (vKey !== undefined && vValue !== undefined) {
+                                let category = this.options[key];
+                                if (category === undefined) {
+                                    category = this.options[key] = {};
+                                }
+                                category[vKey] = Boolean(Number(vValue));
+                            }
+                        }
                     }
                 }
             }
@@ -296,14 +400,27 @@ export default class Options {
     }
     static toString(): string {
         let str = "";
-        const keys = Object.keys(this.options);
+        const keys = Object.keys(this.options) as (keyof typeof this.options)[];
         for (let i = 0; i < keys.length; i++) {
-            const key = keys[i] as OptionValues;
+            const key = keys[i];
             const value = this.options[key];
-            if (i < keys.length - 1) {
-                str += `${key}:${value ? 1 : 0}|`;
-            } else {
-                str += `${key}:${value ? 1 : 0}`;
+            if (value !== undefined) {
+                str += `${key}#`;
+                const vKeys = Object.keys(value) as OptionValues[];
+                for (let i1 = 0; i1 < vKeys.length; i1++) {
+                    const vKey = vKeys[i1];
+                    const vValue = value[vKey];
+                    if (vValue !== undefined) {
+                        if (i1 < vKeys.length - 1) {
+                            str += `${vKey}:${vValue ? 1 : 0}|`;
+                        } else {
+                            str += `${vKey}:${vValue ? 1 : 0}`;
+                        }
+                    }
+                }
+                if (i < keys.length - 1) {
+                    str += `%`;
+                }
             }
         }
         return str;

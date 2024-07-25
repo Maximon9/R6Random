@@ -1,6 +1,6 @@
 import { GROUPS } from "./ops.js";
 import { whiteBackground } from "./utils/img.js";
-import Options, { AvoidOptionsRev } from "./utils/options.js";
+import Options, { CategoryOptionsRev } from "./utils/options.js";
 import IDKButImHardRN from "./utils/time.js";
 function isScrollable(element, dir) {
     const new_dir = dir === "vertical" ? "scrollTop" : "scrollLeft";
@@ -34,6 +34,7 @@ function createGroupButtons() {
     groupModal.className = "group-modal";
     const groupModalTable = document.createElement("table");
     const groupModalTBody = document.createElement("tbody");
+    const groupModalTitleRow = document.createElement("tr");
     const groupModalRow = document.createElement("tr");
     const grouKeys = Object.keys(GROUPS);
     const htmlGroups = [];
@@ -45,6 +46,7 @@ function createGroupButtons() {
         htmlGroup.style.fontSize = "2vmax";
         htmlGroup.style.textAlign = "center";
         htmlGroup.style.transition = "transform 0.13s ease-in-out";
+        htmlGroup.style.cursor = "pointer";
         htmlGroup.innerHTML += key;
         const htmlGroupDiv = document.createElement("div");
         htmlGroupDiv.style.marginLeft = "auto";
@@ -104,6 +106,14 @@ function createGroupButtons() {
             switcher.run("op.html");
         });
     }
+    if (htmlGroups.length > 0) {
+        const groupModalTitleData = document.createElement("td");
+        groupModalTitleData.colSpan = htmlGroups.length;
+        groupModalTitleData.innerHTML = "Roll Here";
+        groupModalTitleData.style.fontSize = "4vmax";
+        groupModalTitleRow.appendChild(groupModalTitleData);
+        groupModalTBody.appendChild(groupModalTitleRow);
+    }
     groupModalTBody.appendChild(groupModalRow);
     groupModalTable.appendChild(groupModalTBody);
     groupModal.appendChild(groupModalTable);
@@ -112,49 +122,108 @@ function createGroupButtons() {
 function createOptions() {
     const optionsModal = document.createElement("section");
     optionsModal.className = "options-modal";
-    const table = document.createElement("table");
-    const tableBody = document.createElement("tbody");
-    const tableRow = document.createElement("tr");
-    const tableData = document.createElement("td");
     const optionsLabel = document.createElement("h1");
     optionsLabel.innerHTML = "Options";
+    const optionsModalContent = document.createElement("div");
+    optionsModalContent.className = "options-modal-content";
+    const table = document.createElement("table");
+    const tableBody = document.createElement("tbody");
+    optionsModal.appendChild(optionsLabel);
+    createOptionsNavBar(optionsModal, tableBody);
+    table.appendChild(tableBody);
+    optionsModal.appendChild(optionsModalContent);
+    optionsModalContent.appendChild(table);
+    document.body.insertBefore(optionsModal, document.body.childNodes[3]);
+}
+const optionNames = { Filter: false, "Try Avoid Dupes": false };
+function createOptionsNavBar(optionsModal, tableBody) {
+    const navBar = document.createElement("div");
+    navBar.className = "nav-bar";
+    const navButtons = [];
+    for (const n in optionNames) {
+        const name = n;
+        const navButton = document.createElement("button");
+        navButton.innerHTML = name;
+        navButton.style.background = "transparent";
+        if (!Options.isTouchScreen) {
+            navButton.addEventListener("mouseenter", () => {
+                if (!optionNames[name]) {
+                    navButton.style.transition = "background-color 0.3s ease-in-out";
+                    navButton.style.backgroundColor = "#333333";
+                }
+            });
+            navButton.addEventListener("mouseleave", () => {
+                if (!optionNames[name]) {
+                    navButton.style.transition = "background-color 0.3s ease-in-out";
+                    navButton.style.backgroundColor = "transparent";
+                }
+            });
+        }
+        navButtons.push([name, navButton]);
+        navBar.appendChild(navButton);
+    }
+    for (let i = 0; i < navButtons.length; i++) {
+        const [name, navButton] = navButtons[i];
+        navButton.addEventListener("click", () => {
+            optionNames[name] = !optionNames[name];
+            for (let i = 0; i < navButtons.length; i++) {
+                const [key, navButton1] = navButtons[i];
+                if (key !== name) {
+                    optionNames[key] = false;
+                    navButton1.style.transition = "background-color 0.3s ease-in-out";
+                    navButton1.style.backgroundColor = "transparent";
+                }
+            }
+            for (let i = 0; i < tableBody.childNodes.length; i++) {
+                tableBody.removeChild(tableBody.childNodes[i]);
+            }
+            switch (name) {
+                case "Filter":
+                    createFilter(tableBody);
+                    break;
+                default:
+                    createTryAvoidOptions(tableBody);
+                    break;
+            }
+            navButton.style.transition = "background-color 0.3s ease-in-out";
+            navButton.style.backgroundColor = "#222222";
+        });
+    }
+    optionsModal.appendChild(navBar);
+    const firstButton = navBar.children[0];
+    firstButton.click();
+}
+function createTryAvoidOptions(tableBody) {
     const avoidSection = document.createElement("section");
     const avoidContent = document.createElement("div");
-    const avoidLabel = document.createElement("h2");
-    avoidLabel.innerHTML = "Try Avoid";
-    tableData.appendChild(optionsLabel);
+    const tableRow = document.createElement("tr");
+    const tableData = document.createElement("td");
+    tableRow.appendChild(tableData);
+    tableBody.appendChild(tableRow);
     tableData.appendChild(avoidSection);
-    avoidContent.appendChild(avoidLabel);
     avoidSection.appendChild(avoidContent);
     tableRow.appendChild(tableData);
     tableBody.appendChild(tableRow);
-    table.appendChild(tableBody);
-    optionsModal.appendChild(table);
-    document.body.insertBefore(optionsModal, document.body.childNodes[3]);
     const avoidTable = document.createElement("table");
     const avoidTableBody = document.createElement("tbody");
     const avoidTableRow = document.createElement("tr");
-    const keys = Object.keys(AvoidOptionsRev);
-    const half = Math.ceil(keys.length / 2);
-    // const allTableDatas: HTMLTableCellElement[] = [];
     const avoidTableData = document.createElement("td");
-    for (let i = 0; i < keys.length; i++) {
-        // if (i < half) {
-        //     if (allTableDatas[0] === undefined) {
-        //         allTableDatas[0] = document.createElement("td");
-        //     }
-        //     tableData = allTableDatas[0];
-        // } else {
-        //     if (allTableDatas[1] === undefined) {
-        //         allTableDatas[1] = document.createElement("td");
-        //     }
-        //     tableData = allTableDatas[1];
-        // }
-        const parseKey = keys[i];
+    const categoryName = "Try Avoid Dupes";
+    const selectAllButton = document.createElement("div");
+    if (Options.categoryTrue(categoryName)) {
+        selectAllButton.innerHTML = "Deselect All";
+    }
+    else {
+        selectAllButton.innerHTML = "Select All";
+    }
+    giveHoverAnimation(selectAllButton);
+    avoidTableData.appendChild(selectAllButton);
+    const optionButtons = [];
+    for (const parseKey in CategoryOptionsRev["0"]) {
         const optionButton = document.createElement("div");
-        const key = AvoidOptionsRev[parseKey];
+        const key = CategoryOptionsRev["0"][parseKey];
         optionButton.innerHTML = key;
-        if (Options.optionTrue(key)) {
+        if (Options.optionTrue(categoryName, key)) {
             optionButton.style.color = "#ffffff";
             giveHoverAnimation(optionButton);
         }
@@ -163,36 +232,54 @@ function createOptions() {
             giveHoverAnimation(optionButton, new HoverOptions({ scale: 70 }));
         }
         optionButton.addEventListener("click", () => {
-            if (Options.optionTrue(key)) {
-                Options.setOption(key, false);
+            if (Options.optionTrue(categoryName, key)) {
+                Options.disableOption(categoryName, key);
                 optionButton.style.color = "#999999";
                 giveHoverAnimation(optionButton, new HoverOptions({ click: true, scale: 70 }));
             }
             else {
-                Options.removeOption(key);
+                Options.enableOption(categoryName, key);
                 optionButton.style.color = "#ffffff";
                 giveHoverAnimation(optionButton, new HoverOptions({ click: true }));
             }
         });
+        optionButtons.push([key, optionButton]);
         avoidTableData.appendChild(optionButton);
         avoidContent.appendChild(avoidTableData);
     }
+    selectAllButton.addEventListener("click", () => {
+        if (Options.categoryTrue(categoryName)) {
+            Options.disableCategory(categoryName);
+            selectAllButton.innerHTML = "Select All";
+        }
+        else {
+            Options.enableCategory(categoryName);
+            selectAllButton.innerHTML = "Deselect All";
+        }
+        for (let i = 0; i < optionButtons.length; i++) {
+            const [key, optionButton] = optionButtons[i];
+            if (Options.optionTrue(categoryName, key)) {
+                optionButton.style.color = "#ffffff";
+                giveHoverAnimation(optionButton);
+            }
+            else {
+                optionButton.style.color = "#999999";
+                giveHoverAnimation(optionButton, new HoverOptions({ scale: 70 }));
+            }
+        }
+    });
     avoidTableBody.appendChild(avoidTableRow);
     avoidTable.appendChild(avoidTableBody);
+}
+function createFilter(tableBody) {
     const filterTableRow = document.createElement("tr");
     tableBody.appendChild(filterTableRow);
-    createFilter(filterTableRow);
-}
-function createFilter(optionsModal) {
     const filterModal = document.createElement("section");
     filterModal.className = "filter-modal";
-    optionsModal.appendChild(filterModal);
+    filterTableRow.appendChild(filterModal);
     const filterModalContent = document.createElement("div");
     filterModalContent.className = "filter-modal-content";
     filterModal.appendChild(filterModalContent);
-    const FILTER_HEADER = document.createElement("h1");
-    FILTER_HEADER.innerHTML = "Filter";
-    filterModalContent.appendChild(FILTER_HEADER);
     const filterSelectAllContainer = document.createElement("div");
     filterModalContent.appendChild(filterSelectAllContainer);
     const filterSelectAll = document.createElement("button");
