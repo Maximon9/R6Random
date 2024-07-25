@@ -209,7 +209,17 @@ function createTryAvoidOptions(tableBody) {
     const avoidTableRow = document.createElement("tr");
     const avoidTableData = document.createElement("td");
     const categoryName = "Try Avoid Dupes";
+    const selectAllButtonContainer = document.createElement("div");
+    selectAllButtonContainer.style.display = "flex";
+    selectAllButtonContainer.style.alignItems = "flex-start";
+    selectAllButtonContainer.style.justifyContent = "center";
+    selectAllButtonContainer.style.borderColor = "transparent";
+    selectAllButtonContainer.style.borderStyle = "none";
+    selectAllButtonContainer.style.paddingBottom = "2vmax";
     const selectAllButton = document.createElement("div");
+    selectAllButton.style.paddingLeft = "2vmax";
+    selectAllButton.style.paddingRight = "2vmax";
+    selectAllButton.style.width = "fit-content";
     if (Options.categoryTrue(categoryName)) {
         selectAllButton.innerHTML = "Deselect All";
     }
@@ -217,7 +227,8 @@ function createTryAvoidOptions(tableBody) {
         selectAllButton.innerHTML = "Select All";
     }
     giveHoverAnimation(selectAllButton);
-    avoidTableData.appendChild(selectAllButton);
+    selectAllButtonContainer.appendChild(selectAllButton);
+    avoidTableData.appendChild(selectAllButtonContainer);
     const optionButtons = [];
     for (const parseKey in CategoryOptionsRev["0"]) {
         const optionButton = document.createElement("div");

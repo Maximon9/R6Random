@@ -241,7 +241,7 @@ export default class Options {
             document.cookie = filter;
         }
         else if (options !== "" && filter === "") {
-            document.cookie = options;
+            document.cookie = "$" + options;
         }
         else if (options !== "" && filter !== "") {
             document.cookie = filter + "$" + options;
