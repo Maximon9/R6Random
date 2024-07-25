@@ -110,7 +110,7 @@ function createGroupButtons() {
     document.body.insertBefore(groupModal, document.body.childNodes[2]);
 }
 function createOptions() {
-    const optionsModal = document.createElement("div");
+    const optionsModal = document.createElement("section");
     optionsModal.className = "options-modal";
     const table = document.createElement("table");
     const tableBody = document.createElement("tbody");
@@ -119,11 +119,13 @@ function createOptions() {
     const optionsLabel = document.createElement("h1");
     optionsLabel.innerHTML = "Options";
     const avoidSection = document.createElement("section");
+    const avoidContent = document.createElement("div");
     const avoidLabel = document.createElement("h2");
     avoidLabel.innerHTML = "Try Avoid";
     tableData.appendChild(optionsLabel);
     tableData.appendChild(avoidSection);
-    avoidSection.appendChild(avoidLabel);
+    avoidContent.appendChild(avoidLabel);
+    avoidSection.appendChild(avoidContent);
     tableRow.appendChild(tableData);
     tableBody.appendChild(tableRow);
     table.appendChild(tableBody);
@@ -134,21 +136,20 @@ function createOptions() {
     const avoidTableRow = document.createElement("tr");
     const keys = Object.keys(AvoidOptionsRev);
     const half = Math.ceil(keys.length / 2);
-    const allTableDatas = [];
+    // const allTableDatas: HTMLTableCellElement[] = [];
+    const avoidTableData = document.createElement("td");
     for (let i = 0; i < keys.length; i++) {
-        let tableData = undefined;
-        if (i < half) {
-            if (allTableDatas[0] === undefined) {
-                allTableDatas[0] = document.createElement("td");
-            }
-            tableData = allTableDatas[0];
-        }
-        else {
-            if (allTableDatas[1] === undefined) {
-                allTableDatas[1] = document.createElement("td");
-            }
-            tableData = allTableDatas[1];
-        }
+        // if (i < half) {
+        //     if (allTableDatas[0] === undefined) {
+        //         allTableDatas[0] = document.createElement("td");
+        //     }
+        //     tableData = allTableDatas[0];
+        // } else {
+        //     if (allTableDatas[1] === undefined) {
+        //         allTableDatas[1] = document.createElement("td");
+        //     }
+        //     tableData = allTableDatas[1];
+        // }
         const parseKey = keys[i];
         const optionButton = document.createElement("div");
         const key = AvoidOptionsRev[parseKey];
@@ -173,8 +174,8 @@ function createOptions() {
                 giveHoverAnimation(optionButton, new HoverOptions({ click: true }));
             }
         });
-        tableData.appendChild(optionButton);
-        avoidSection.appendChild(tableData);
+        avoidTableData.appendChild(optionButton);
+        avoidContent.appendChild(avoidTableData);
     }
     avoidTableBody.appendChild(avoidTableRow);
     avoidTable.appendChild(avoidTableBody);
@@ -185,7 +186,6 @@ function createOptions() {
 function createFilter(optionsModal) {
     const filterModal = document.createElement("section");
     filterModal.className = "filter-modal";
-    filterModal.style.height = "600px";
     optionsModal.appendChild(filterModal);
     const filterModalContent = document.createElement("div");
     filterModalContent.className = "filter-modal-content";
