@@ -6,21 +6,33 @@ import type {
     ParsedGroupKeys,
     ParsedGroupKeysRev,
 } from "../ops.js";
-import {
-    GROUPS,
-    GroupParseKeys,
-    GroupParseKeysRev,
-    OPParseKeys,
-} from "../ops.js";
+import { GROUPS, GroupParseKeys, GroupParseKeysRev, OPParseKeys } from "../ops.js";
 
-export const OptionsParse: { [k: string]: string } = {};
-OptionsParse[(OptionsParse["Avoid Dupes"] = "0")] = "Avoid Dupes";
+export const AvoidOptions = {
+    "OP Dupes": "0" as const,
+    "Equipment Dupes": "1" as const,
+    "Primary Weapon Dupes": "2" as const,
+    "Secondary Weapon Dupes": "3" as const,
+    "Primary Attachment Dupes": "4" as const,
+    "Secondary Attachment Dupes": "5" as const,
+};
+export const AvoidOptionsRev = {
+    "0": "OP Dupes" as const,
+    "1": "Equipment Dupes" as const,
+    "2": "Primary Weapon Dupes" as const,
+    "3": "Secondary Weapon Dupes" as const,
+    "4": "Primary Attachment Dupes" as const,
+    "5": "Secondary Attachment Dupes" as const,
+};
+
+type OptionNames = keyof typeof AvoidOptions;
+type OptionValues = keyof typeof AvoidOptionsRev;
 
 export default class Options {
     static get isTouchScreen(): boolean {
         return window.matchMedia("(pointer: coarse)").matches;
     }
-    static options: { [k: string]: boolean } = {};
+    static options: { [k in OptionValues]?: boolean } = {};
     static Filter = class {
         static filter: {
             [k in ParsedGroupKeysRev]?: { [k in ALLOPParsedValues]?: boolean };
@@ -30,10 +42,7 @@ export default class Options {
             const group_vars = cookie.split("%");
             for (let i = 0; i < group_vars.length; i++) {
                 const g_v = group_vars[i];
-                const [g_key, g_value] = g_v.split("#") as [
-                    ParsedGroupKeysRev,
-                    ALLOPParsedValues
-                ];
+                const [g_key, g_value] = g_v.split("#") as [ParsedGroupKeysRev, ALLOPParsedValues];
                 if (g_key !== undefined && g_value !== undefined) {
                     if (this.filter[g_key] === undefined) {
                         this.filter[g_key] = {};
@@ -41,10 +50,7 @@ export default class Options {
                     const vars = g_value.split("|");
                     for (let i = 0; i < vars.length; i++) {
                         const v = vars[i];
-                        const [key, value] = v.split(":") as [
-                            ALLOPParsedValues,
-                            "0" | "1"
-                        ];
+                        const [key, value] = v.split(":") as [ALLOPParsedValues, "0" | "1"];
                         if (key !== undefined && value !== undefined) {
                             let group = this.filter[g_key];
                             if (group === undefined) {
@@ -119,11 +125,7 @@ export default class Options {
                 const group = GROUPS[og_key];
                 for (let i = 0; i < group.ops.length; i++) {
                     const op = group.ops[i];
-                    if (
-                        value[
-                            (OPParseKeys[nKey] as CombinedOPParseKeys)[op.name]
-                        ] === undefined
-                    ) {
+                    if (value[(OPParseKeys[nKey] as CombinedOPParseKeys)[op.name]] === undefined) {
                         return false;
                     }
                 }
@@ -136,9 +138,7 @@ export default class Options {
             if (value === undefined) {
                 return true;
             } else {
-                const nKey = (OPParseKeys[nGroupKey] as CombinedOPParseKeys)[
-                    key
-                ];
+                const nKey = (OPParseKeys[nGroupKey] as CombinedOPParseKeys)[key];
                 let item = value[nKey];
                 if (item === undefined) {
                     return true;
@@ -151,11 +151,7 @@ export default class Options {
         static #changeAllFilterValues(select: boolean) {
             if (select) {
                 for (const key in this.filter) {
-                    this.#changeAGroup(
-                        key as ParsedGroupKeysRev,
-                        select,
-                        false
-                    );
+                    this.#changeAGroup(key as ParsedGroupKeysRev, select, false);
                 }
             } else {
                 let key: ParsedGroupKeys;
@@ -165,11 +161,7 @@ export default class Options {
             }
             Options.#setCookie();
         }
-        static #changeAGroup(
-            key: ParsedGroupKeysRev,
-            select: boolean,
-            setCookie = true
-        ) {
+        static #changeAGroup(key: ParsedGroupKeysRev, select: boolean, setCookie = true) {
             let value = this.filter[key];
             let changeOPs = true;
             if (select) {
@@ -184,12 +176,7 @@ export default class Options {
             if (changeOPs) {
                 if (select) {
                     for (const op_key in value) {
-                        this.#changeOP(
-                            key,
-                            op_key as ALLOPParsedValues,
-                            select,
-                            false
-                        );
+                        this.#changeOP(key, op_key as ALLOPParsedValues, select, false);
                     }
                 } else {
                     const group = GROUPS[GroupParseKeysRev[key]];
@@ -237,19 +224,11 @@ export default class Options {
 
         static selectOP(groupKey: ParsedGroupKeys, key: AllOPNames) {
             const nGroupKey = GroupParseKeys[groupKey];
-            this.#changeOP(
-                nGroupKey,
-                (OPParseKeys[nGroupKey] as CombinedOPParseKeys)[key],
-                true
-            );
+            this.#changeOP(nGroupKey, (OPParseKeys[nGroupKey] as CombinedOPParseKeys)[key], true);
         }
         static deselectOP(groupKey: ParsedGroupKeys, key: AllOPNames) {
             const nGroupKey = GroupParseKeys[groupKey];
-            this.#changeOP(
-                nGroupKey,
-                (OPParseKeys[nGroupKey] as CombinedOPParseKeys)[key],
-                false
-            );
+            this.#changeOP(nGroupKey, (OPParseKeys[nGroupKey] as CombinedOPParseKeys)[key], false);
         }
 
         static selectAll() {
@@ -280,13 +259,21 @@ export default class Options {
         }
         console.log(document.cookie);
     }
-    static setOption(key: string, value: boolean) {
-        this.options[key] = value;
+    static optionTrue(key: OptionNames) {
+        if (this.options[AvoidOptions[key]] === undefined) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    static setOption(key: OptionNames, value: boolean) {
+        this.options[AvoidOptions[key]] = value;
         this.#setCookie();
     }
-    static removeOption(key: string) {
-        if (this.options[key] !== undefined) {
-            delete this.options[key];
+    static removeOption(key: OptionNames) {
+        const nKey = AvoidOptions[key];
+        if (this.options[nKey] !== undefined) {
+            delete this.options[nKey];
         }
         this.#setCookie();
     }
@@ -299,7 +286,7 @@ export default class Options {
                 const vars = cookies[1].split("|");
                 for (let i = 0; i < vars.length; i++) {
                     const v = vars[i];
-                    const [key, value] = v.split(":");
+                    const [key, value] = v.split(":") as [OptionValues, "1"];
                     if (key !== undefined && value !== undefined) {
                         this.options[key] = Boolean(Number(value));
                     }
@@ -311,7 +298,7 @@ export default class Options {
         let str = "";
         const keys = Object.keys(this.options);
         for (let i = 0; i < keys.length; i++) {
-            const key = keys[i];
+            const key = keys[i] as OptionValues;
             const value = this.options[key];
             if (i < keys.length - 1) {
                 str += `${key}:${value ? 1 : 0}|`;

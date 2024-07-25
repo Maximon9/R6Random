@@ -1,8 +1,5 @@
 //#region Main
-import type {
-    AttachmentInfoParameters,
-    AttachmentParameters,
-} from "../../types/attachment.js";
+import type { AttachmentInfoParameters, AttachmentParameters } from "../../types/attachment.js";
 import { whiteBackground } from "../img.js";
 
 export class AttachmentInfo<Name extends string = string> {
@@ -13,18 +10,10 @@ export class AttachmentInfo<Name extends string = string> {
         this.images = info["images"] ?? [whiteBackground];
     }
 }
-export class SightAttachmentInfo<
-    Name extends string = string
-> extends AttachmentInfo<Name> {}
-export class BarrelAttachmentInfo<
-    Name extends string = string
-> extends AttachmentInfo<Name> {}
-export class UnderBarrelAttachmentInfo<
-    Name extends string = string
-> extends AttachmentInfo<Name> {}
-export class GripAttachmentInfo<
-    Name extends string = string
-> extends AttachmentInfo<Name> {}
+export class SightAttachmentInfo<Name extends string = string> extends AttachmentInfo<Name> {}
+export class BarrelAttachmentInfo<Name extends string = string> extends AttachmentInfo<Name> {}
+export class UnderBarrelAttachmentInfo<Name extends string = string> extends AttachmentInfo<Name> {}
+export class GripAttachmentInfo<Name extends string = string> extends AttachmentInfo<Name> {}
 
 export class Attachment<Name extends string = string> {
     name: Name;
@@ -34,16 +23,8 @@ export class Attachment<Name extends string = string> {
         this.image = info["image"] ?? whiteBackground;
     }
 }
-export class SightAttachment<
-    Name extends string = string
-> extends Attachment<Name> {}
-export class BarrelAttachment<
-    Name extends string = string
-> extends Attachment<Name> {}
-export class UnderBarrelAttachment<
-    Name extends string = string
-> extends Attachment<Name> {}
-export class GripAttachment<
-    Name extends string = string
-> extends Attachment<Name> {}
+export class SightAttachment<Name extends string = string> extends Attachment<Name> {}
+export class BarrelAttachment<Name extends string = string> extends Attachment<Name> {}
+export class UnderBarrelAttachment<Name extends string = string> extends Attachment<Name> {}
+export class GripAttachment<Name extends string = string> extends Attachment<Name> {}
 //#endregion

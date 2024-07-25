@@ -1,6 +1,20 @@
-import { GROUPS, GroupParseKeys, GroupParseKeysRev, OPParseKeys, } from "../ops.js";
-export const OptionsParse = {};
-OptionsParse[(OptionsParse["Avoid Dupes"] = "0")] = "Avoid Dupes";
+import { GROUPS, GroupParseKeys, GroupParseKeysRev, OPParseKeys } from "../ops.js";
+export const AvoidOptions = {
+    "OP Dupes": "0",
+    "Equipment Dupes": "1",
+    "Primary Weapon Dupes": "2",
+    "Secondary Weapon Dupes": "3",
+    "Primary Attachment Dupes": "4",
+    "Secondary Attachment Dupes": "5",
+};
+export const AvoidOptionsRev = {
+    "0": "OP Dupes",
+    "1": "Equipment Dupes",
+    "2": "Primary Weapon Dupes",
+    "3": "Secondary Weapon Dupes",
+    "4": "Primary Attachment Dupes",
+    "5": "Secondary Attachment Dupes",
+};
 export default class Options {
     static get isTouchScreen() {
         return window.matchMedia("(pointer: coarse)").matches;
@@ -227,13 +241,22 @@ export default class Options {
         }
         console.log(document.cookie);
     }
+    static optionTrue(key) {
+        if (this.options[AvoidOptions[key]] === undefined) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
     static setOption(key, value) {
-        this.options[key] = value;
+        this.options[AvoidOptions[key]] = value;
         this.#setCookie();
     }
     static removeOption(key) {
-        if (this.options[key] !== undefined) {
-            delete this.options[key];
+        const nKey = AvoidOptions[key];
+        if (this.options[nKey] !== undefined) {
+            delete this.options[nKey];
         }
         this.#setCookie();
     }

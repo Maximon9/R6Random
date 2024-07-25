@@ -1,5 +1,5 @@
 //#region Main
-import type { AllGroups, ParsedGroupKeys } from "./ops.js";
+import type { AllGroups, AllOPNames, ParsedGroupKeys } from "./ops.js";
 import { GROUPS } from "./ops.js";
 import { WeaponAttackments, WeaponAttackmentsInfo } from "./types/weapon.js";
 import { Equipment, EquipmentInfo } from "./utils/equipment.js";
@@ -13,39 +13,50 @@ import {
 } from "./utils/weaponInfo/attachment.js";
 import { Weapon, WeaponInfo } from "./utils/weaponInfo/weapon.js";
 
-const key = localStorage.getItem("group") as ParsedGroupKeys | null;
-let op: OP | undefined = undefined;
-if (key !== null) {
-    const group = GROUPS[key];
+function roll() {
+    let op: OP | undefined = undefined;
+    const key = localStorage.getItem("group") as ParsedGroupKeys | null;
+    const rollString = localStorage.getItem("roll") as "1" | null;
+    if (key !== null && rollString !== null) {
+        const roll = Boolean(Number(rollString));
+        const group = GROUPS[key];
+        let savedOP = tryFetchSavedOP();
+        if (roll) {
+            op = randomizeOP(key, group, savedOP);
+            if (op !== undefined) {
+                localStorage.setItem("op", JSON.stringify(op));
+            }
+        } else {
+            op = savedOP;
+        }
+        console.log(op);
+    }
+}
+
+function tryFetchSavedOP(): OP<AllOPNames> | undefined {
     let opString = localStorage.getItem("op");
     if (opString !== null && opString !== undefined) {
         const json = JSON.parse(opString);
-        op = OP.createOPFromJSON(json);
-    } else {
-        op = randomizeOP(key, group);
-        if (op !== undefined) {
-            localStorage.setItem("op", JSON.stringify(op));
-        }
+        return OP.createOPFromJSON(json) as OP<AllOPNames>;
     }
-    console.log(op);
 }
 
-function randomizeOP(key: ParsedGroupKeys, group: AllGroups): OP | undefined {
+function randomizeOP(
+    key: ParsedGroupKeys,
+    group: AllGroups,
+    savedOP?: OP<AllOPNames>
+): OP | undefined {
     let opInfo = undefined;
     if (group.ops.length > 0) {
-        opInfo = getRandomItemFromArray<(typeof group.ops)[0]>(group.ops);
         if (Options.Filter.GroupFalse(key)) {
             return undefined;
         } else {
-            if (group.ops.length > 0) {
-                while (Options.Filter.OPTrue(key, opInfo.name) === false) {
-                    opInfo = getRandomItemFromArray<(typeof group.ops)[0]>(
-                        group.ops
-                    );
-                }
-            } else {
-                return undefined;
-            }
+            const opInfos = group.ops.filter(
+                (opInfo) =>
+                    Options.Filter.OPTrue(key, opInfo.name) === true &&
+                    opInfo.name !== savedOP?.name
+            );
+            opInfo = getRandomItemFromArray<(typeof group.ops)[0]>(opInfos);
         }
     } else {
         return undefined;
@@ -55,37 +66,48 @@ function randomizeOP(key: ParsedGroupKeys, group: AllGroups): OP | undefined {
         icon: getRandomItemFromArray(opInfo.icons),
         image: getRandomItemFromArray(opInfo.images),
     });
-    const equipmentInfos = [];
-    if (opInfo.equipment.length >= opInfo.equipmentCount) {
-        for (let i = 0; i < opInfo.equipmentCount; i++) {
-            if (i == 0) {
-                equipmentInfos.push(getRandomItemFromArray(opInfo.equipment));
-            } else {
-                let equipment = getRandomItemFromArray(opInfo.equipment);
-                while (equipmentMatchesList(equipment, equipmentInfos)) {
-                    equipment = getRandomItemFromArray(opInfo.equipment);
-                }
-                equipmentInfos.push(equipment);
-            }
-        }
-    }
-    if (equipmentInfos.length > 0) {
-        op.equipment = randomizeEquipment(equipmentInfos);
+    if (opInfo.equipment.length > 0) {
+        op.equipment = randomizeEquipment(
+            opInfo.equipment,
+            opInfo.equipmentCount,
+            savedOP === undefined ? [] : savedOP.equipment ?? []
+        );
     }
     if (opInfo.primaryWeapons.length > 0) {
-        op.primaryWeapon = randomizeWeapon(
-            getRandomItemFromArray(opInfo.primaryWeapons)
-        );
+        op.primaryWeapon = randomizeWeapon(getRandomItemFromArray(opInfo.primaryWeapons));
     }
     if (opInfo.secondaryWeapons.length > 0) {
-        op.secondaryWeapon = randomizeWeapon(
-            getRandomItemFromArray(opInfo.secondaryWeapons)
-        );
+        op.secondaryWeapon = randomizeWeapon(getRandomItemFromArray(opInfo.secondaryWeapons));
     }
     return op;
 }
 
-function randomizeEquipment(equipmentInfos: EquipmentInfo[]): Equipment[] {
+function randomizeEquipment(
+    opInfoEuipment: EquipmentInfo[],
+    equipmentCount: number,
+    savedEquipment: Equipment[]
+): Equipment[] {
+    const equipmentInfos: EquipmentInfo[] = [];
+    let opInfoEuipmentCopy: EquipmentInfo[] = [...opInfoEuipment];
+    if (opInfoEuipmentCopy.length >= equipmentCount) {
+        for (let i = 0; i < equipmentCount; i++) {
+            opInfoEuipmentCopy = opInfoEuipmentCopy.filter(
+                (equipment) => !equipmentMatchesList(equipment, equipmentInfos)
+            );
+            let randomEquipment = getRandomItemFromArray(opInfoEuipmentCopy);
+            if (equipmentMatchesList(randomEquipment, savedEquipment)) {
+                if (opInfoEuipment.length > equipmentCount) {
+                    opInfoEuipmentCopy = opInfoEuipmentCopy.filter(
+                        (equipment) => !equipmentMatchesList(equipment, savedEquipment)
+                    );
+                    if (opInfoEuipmentCopy.length > 0) {
+                        randomEquipment = getRandomItemFromArray(opInfoEuipmentCopy);
+                    }
+                }
+            }
+            equipmentInfos.push(randomEquipment);
+        }
+    }
     const equipments: Equipment[] = [];
     for (let i = 0; i < equipmentInfos.length; i++) {
         const equipmentInfo = equipmentInfos[i];
@@ -106,9 +128,7 @@ function randomizeWeapon(weaponInfo: WeaponInfo): Weapon {
     });
 }
 
-function randomizeAttachments(
-    attachmentInfos: WeaponAttackmentsInfo
-): WeaponAttackments {
+function randomizeAttachments(attachmentInfos: WeaponAttackmentsInfo): WeaponAttackments {
     const attachments: WeaponAttackments = {};
     let key: keyof WeaponAttackmentsInfo;
     for (key in attachmentInfos) {
@@ -121,33 +141,25 @@ function randomizeAttachments(
                     case "sight":
                         attachments[name] = new SightAttachment({
                             name: attachmentInfo.name,
-                            image: getRandomItemFromArray(
-                                attachmentInfo.images
-                            ),
+                            image: getRandomItemFromArray(attachmentInfo.images),
                         });
                         break;
                     case "barrel":
                         attachments[name] = new BarrelAttachment({
                             name: attachmentInfo.name,
-                            image: getRandomItemFromArray(
-                                attachmentInfo.images
-                            ),
+                            image: getRandomItemFromArray(attachmentInfo.images),
                         });
                         break;
                     case "grip":
                         attachments[name] = new GripAttachment({
                             name: attachmentInfo.name,
-                            image: getRandomItemFromArray(
-                                attachmentInfo.images
-                            ),
+                            image: getRandomItemFromArray(attachmentInfo.images),
                         });
                         break;
                     default:
                         attachments[name] = new UnderBarrelAttachment({
                             name: attachmentInfo.name,
-                            image: getRandomItemFromArray(
-                                attachmentInfo.images
-                            ),
+                            image: getRandomItemFromArray(attachmentInfo.images),
                         });
                         break;
                 }
@@ -156,9 +168,7 @@ function randomizeAttachments(
     }
     return attachments;
 }
-function fetchMatchingAttachmentName(
-    key: string
-): keyof WeaponAttackments | undefined {
+function fetchMatchingAttachmentName(key: string): keyof WeaponAttackments | undefined {
     const attachmentNames = ["sight", "barrel", "grip", "underBarrel"] as const;
     for (let index = 0; index < attachmentNames.length; index++) {
         const name = attachmentNames[index];
@@ -174,8 +184,8 @@ function getRandomItemFromArray<T>(array: T[]) {
 }
 
 function equipmentMatchesList(
-    equipment: EquipmentInfo,
-    equipments: EquipmentInfo[]
+    equipment: EquipmentInfo | Equipment,
+    equipments: EquipmentInfo[] | Equipment[]
 ) {
     for (let i = 0; i < equipments.length; i++) {
         const check = equipments[i];
@@ -185,4 +195,6 @@ function equipmentMatchesList(
     }
     return false;
 }
+
+roll();
 //#endregion

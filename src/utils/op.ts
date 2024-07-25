@@ -100,9 +100,7 @@ export class OP<Name extends string = string> {
         }
         return op;
     }
-    static #createEquipmentFromJson(
-        array: { [k: string]: string }[]
-    ): Equipment[] | undefined {
+    static #createEquipmentFromJson(array: { [k: string]: string }[]): Equipment[] | undefined {
         const equipmentArray: Equipment[] = [];
         for (let i = 0; i < array.length; i++) {
             const equipmentInfo = array[i];
@@ -126,9 +124,7 @@ export class OP<Name extends string = string> {
         }
         if (equipmentArray.length > 0) return equipmentArray;
     }
-    static #createWeaponFromJson(json: {
-        [k: string]: string | {};
-    }): Weapon | undefined {
+    static #createWeaponFromJson(json: { [k: string]: string | {} }): Weapon | undefined {
         const weapon = new Weapon();
         let empty = true;
         for (const key in json) {

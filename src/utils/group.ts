@@ -25,9 +25,7 @@ export class GroupInfo<Names extends string = string> {
         return {
             normalIcon:
                 hoverIcons.length > 0
-                    ? normalIcons[
-                          Math.floor(Math.random() * normalIcons.length)
-                      ]
+                    ? normalIcons[Math.floor(Math.random() * normalIcons.length)]
                     : undefined,
             hoverIcon:
                 hoverIcons.length > 0

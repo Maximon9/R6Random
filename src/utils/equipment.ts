@@ -1,8 +1,5 @@
 //#region Main
-import type {
-    EquipmentInfoParameters,
-    EquipmentParameters,
-} from "../types/equipment.js";
+import type { EquipmentInfoParameters, EquipmentParameters } from "../types/equipment.js";
 import { whiteBackground } from "./img.js";
 
 export class EquipmentInfo<Name extends string = string> {

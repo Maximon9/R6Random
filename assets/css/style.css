@@ -19,16 +19,16 @@ body {
     -ms-user-select: none; /* IE 10 and IE 11 */
     user-select: none; /* Standard syntax */
 }
-.filter-modal-content::-webkit-scrollbar,
+.filter-modal::-webkit-scrollbar,
 body::-webkit-scrollbar {
     width: 12px;
     background-color: #444;
 }
-.filter-modal-content::-webkit-scrollbar-thumb,
+.filter-modal::-webkit-scrollbar-thumb,
 body::-webkit-scrollbar-thumb {
     background-color: #2b2b2b;
 }
-.filter-modal-content::-webkit-scrollbar-track,
+.filter-modal::-webkit-scrollbar-track,
 body::-webkit-scrollbar-track {
     background-color: #444;
 }
@@ -38,15 +38,9 @@ body::-webkit-scrollbar-track {
     src: url(../fonts/BebasNeue-Bold.otf);
 }
 
-h1,
-#title,
-.filter-modal-content p,
-.filter-modal-content button,
-.group-modal table tbody tr td,
-.filter-modal-content table tr td div,
-.options-modal table tbody tr td,
-.group-select {
+body {
     font-family: bebasBold, Verdana, Geneva, Tahoma, sans-serif;
+    color: #ffffff;
 }
 
 .filter-modal-content button,
@@ -60,81 +54,81 @@ h1,
     align-items: flex-start;
     justify-content: center;
     background: #444444;
+    height: fit-content;
 }
-.options-modal table tbody tr td {
-    font-size: 30px;
-    color: #ffffff;
-    cursor: pointer;
-    border: #333333;
-    border-style: outset;
-}
-.options-modal table tbody tr h1 {
+.options-modal table tbody tr td h1 {
     margin: 10px 0;
-    font-size: 50px;
+    font-size: 5vmax;
     color: #ffffff;
     cursor: pointer;
 }
-.options-modal table tbody tr h1 {
+.options-modal table tbody tr td h2 {
     margin: 10px 0;
-    font-size: 50px;
+    font-size: 3vmax;
     color: #ffffff;
     cursor: pointer;
 }
-.options-modal table {
-    padding-bottom: 30px;
-}
-.filter-modal {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-}
-
-.filter-modal-content {
+.options-modal table tbody tr td section {
     width: fit-content;
-    max-height: 80%;
+    height: fit-content;
     background: #333333;
-    padding: 25px;
-    color: #ffffff;
     overflow: auto;
     position: relative;
+    padding-top: 3%;
+    padding-bottom: 3%;
+    border-width: 100%;
+    border-style: inset;
+    border-color: #333333;
+}
+.options-modal table tbody tr td section div {
+    background: transparent;
+    color: white;
+    font-size: 3vmax;
+    height: 5vmax;
+    width: 30vmax;
+    line-height: 5.5vmax;
+    border-width: 100%;
+    border-style: outset;
+    border-color: #333333;
+    font-family: inherit;
+    text-align: center;
+}
+
+.filter-modal {
+    display: flex;
+    background: #333333;
+    align-items: flex-start;
+    justify-content: center;
+    border-width: 100%;
+    border-style: inset;
+    border-color: #333333;
+    overflow: auto;
 }
 
 .filter-modal-content h1 {
     position: sticky;
     left: 0;
     margin: 0 0 10px;
-    font-size: 3em;
-}
-.filter-modal-content p {
-    position: sticky;
-    left: 0;
-    margin: 10px 0;
-    font-size: 1.3em;
+    font-size: 4vmax;
 }
 .filter-modal-content div {
     position: sticky;
     left: 0;
 }
 .filter-modal-content button {
-    margin-bottom: 0;
-    background-color: transparent;
+    background: transparent;
     border-color: #333333;
     color: white;
-    font-size: 24px;
+    font-family: inherit;
+    font-size: 2vmax;
     width: fit-content;
     text-align: center;
 }
 .group-select {
-    padding: 0;
     cursor: pointer;
-    font-size: 20px;
+    font-size: 2vmax;
     border-color: #333333;
     border-style: outset;
-}
-
-.filter-modal-content table {
-    font-size: 1.6em;
-    width: 100%;
 }
 
 .filter-modal-content table tbody tr td {
@@ -146,8 +140,8 @@ h1,
     margin-left: auto;
     margin-right: auto;
     text-align: center;
-    width: 80px;
-    font-size: 18px;
+    width: 9vmax;
+    font-size: 2vmax;
     border-width: 100%;
     border-style: outset;
     border-color: #333333;

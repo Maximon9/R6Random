@@ -2,12 +2,9 @@
 import type { AllOPNames } from "./ops.js";
 import { GROUPS } from "./ops.js";
 import { whiteBackground } from "./utils/img.js";
-import Options, { OptionsParse } from "./utils/options.js";
+import Options, { AvoidOptionsRev } from "./utils/options.js";
 import IDKButImHardRN from "./utils/time.js";
-function isScrollable(
-    element: HTMLElement,
-    dir: "vertical" | "horizontal"
-): boolean {
+function isScrollable(element: HTMLElement, dir: "vertical" | "horizontal"): boolean {
     const new_dir = dir === "vertical" ? "scrollTop" : "scrollLeft";
 
     let res = !!element[new_dir];
@@ -28,7 +25,6 @@ function main() {
         return false;
     };
     createGroupButtons();
-    createFilter();
     createOptions();
 }
 function createGroupButtons() {
@@ -140,24 +136,93 @@ function createGroupButtons() {
     document.body.insertBefore(groupModal, document.body.childNodes[2]);
 }
 
-async function changeLink(link: string) {
-    const op = localStorage.getItem("op");
-    if (op !== null && op !== undefined) {
-        localStorage.removeItem("op");
+function createOptions() {
+    const optionsModal = document.createElement("div");
+    optionsModal.className = "options-modal";
+
+    const table = document.createElement("table");
+
+    const tableBody = document.createElement("tbody");
+
+    const tableRow = document.createElement("tr");
+
+    const tableData = document.createElement("td");
+    const optionsLabel = document.createElement("h1");
+    optionsLabel.innerHTML = "Options";
+
+    const avoidSection = document.createElement("section");
+    const avoidLabel = document.createElement("h2");
+    avoidLabel.innerHTML = "Try Avoid";
+
+    tableData.appendChild(optionsLabel);
+    tableData.appendChild(avoidSection);
+    avoidSection.appendChild(avoidLabel);
+    tableRow.appendChild(tableData);
+    tableBody.appendChild(tableRow);
+    table.appendChild(tableBody);
+    optionsModal.appendChild(table);
+    document.body.insertBefore(optionsModal, document.body.childNodes[3]);
+
+    const avoidTable = document.createElement("table");
+
+    const avoidTableBody = document.createElement("tbody");
+
+    const avoidTableRow = document.createElement("tr");
+
+    const keys = Object.keys(AvoidOptionsRev);
+    const half = Math.ceil(keys.length / 2);
+    const allTableDatas: HTMLTableCellElement[] = [];
+
+    for (let i = 0; i < keys.length; i++) {
+        let tableData = undefined;
+        if (i < half) {
+            if (allTableDatas[0] === undefined) {
+                allTableDatas[0] = document.createElement("td");
+            }
+            tableData = allTableDatas[0];
+        } else {
+            if (allTableDatas[1] === undefined) {
+                allTableDatas[1] = document.createElement("td");
+            }
+            tableData = allTableDatas[1];
+        }
+        const parseKey = keys[i];
+        const optionButton = document.createElement("div");
+        const key = AvoidOptionsRev[parseKey as keyof typeof AvoidOptionsRev];
+        optionButton.innerHTML = key;
+        if (Options.optionTrue(key)) {
+            optionButton.style.color = "#ffffff";
+            giveHoverAnimation(optionButton);
+        } else {
+            optionButton.style.color = "#999999";
+            giveHoverAnimation(optionButton, new HoverOptions({ scale: 70 }));
+        }
+        optionButton.addEventListener("click", () => {
+            if (Options.optionTrue(key)) {
+                Options.setOption(key, false);
+                optionButton.style.color = "#999999";
+                giveHoverAnimation(optionButton, new HoverOptions({ click: true, scale: 70 }));
+            } else {
+                Options.removeOption(key);
+                optionButton.style.color = "#ffffff";
+                giveHoverAnimation(optionButton, new HoverOptions({ click: true }));
+            }
+        });
+        tableData.appendChild(optionButton);
+        avoidSection.appendChild(tableData);
     }
-    window.location = link as unknown as Location;
+    avoidTableBody.appendChild(avoidTableRow);
+    avoidTable.appendChild(avoidTableBody);
+    const filterTableRow = document.createElement("tr");
+    tableBody.appendChild(filterTableRow);
+    createFilter(filterTableRow);
 }
 
-function createFilter() {
-    const main = document.createElement("section");
-    main.style.background = "#444444";
-
-    document.body.insertBefore(main, document.body.childNodes[3]);
-
+function createFilter(optionsModal: HTMLElement) {
     const filterModal = document.createElement("section");
     filterModal.className = "filter-modal";
     filterModal.style.height = "600px";
-    main.appendChild(filterModal);
+    optionsModal.appendChild(filterModal);
 
     const filterModalContent = document.createElement("div");
     filterModalContent.className = "filter-modal-content";
@@ -190,10 +255,7 @@ function createFilter() {
     const filterSelectOPs = document.createElement("tr");
     filterTableBody.appendChild(filterSelectOPs);
 
-    const htmlSelectGroupButtons: [
-        keyof typeof GROUPS,
-        HTMLTableCellElement
-    ][] = [];
+    const htmlSelectGroupButtons: [keyof typeof GROUPS, HTMLTableCellElement][] = [];
     const htmlSelectOpButtons: {
         [k in keyof typeof GROUPS]?: [AllOPNames, HTMLDivElement][];
     } = {};
@@ -234,38 +296,23 @@ function createFilter() {
                 opButton.appendChild(opImage);
                 opButton.innerHTML += op.name;
                 if (Options.Filter.OPTrue(key, op.name)) {
-                    (
-                        opButton.children.item(0) as HTMLImageElement
-                    ).style.filter = "";
+                    (opButton.children.item(0) as HTMLImageElement).style.filter = "";
                     giveHoverAnimation(opButton);
                 } else {
-                    (
-                        opButton.children.item(0) as HTMLImageElement
-                    ).style.filter = "grayscale(100%)";
-                    giveHoverAnimation(
-                        opButton,
-                        new HoverOptions({ scale: 70 })
-                    );
+                    (opButton.children.item(0) as HTMLImageElement).style.filter =
+                        "grayscale(100%)";
+                    giveHoverAnimation(opButton, new HoverOptions({ scale: 70 }));
                 }
                 opButton.addEventListener("click", () => {
                     if (Options.Filter.OPTrue(key, op.name)) {
                         Options.Filter.deselectOP(key, op.name);
-                        (
-                            opButton.children.item(0) as HTMLImageElement
-                        ).style.filter = "grayscale(100%)";
-                        giveHoverAnimation(
-                            opButton,
-                            new HoverOptions({ click: true, scale: 70 })
-                        );
+                        (opButton.children.item(0) as HTMLImageElement).style.filter =
+                            "grayscale(100%)";
+                        giveHoverAnimation(opButton, new HoverOptions({ click: true, scale: 70 }));
                     } else {
                         Options.Filter.selectOP(key, op.name);
-                        (
-                            opButton.children.item(0) as HTMLImageElement
-                        ).style.filter = "";
-                        giveHoverAnimation(
-                            opButton,
-                            new HoverOptions({ click: true })
-                        );
+                        (opButton.children.item(0) as HTMLImageElement).style.filter = "";
+                        giveHoverAnimation(opButton, new HoverOptions({ click: true }));
                     }
                     for (let i = 0; i < htmlSelectGroupButtons.length; i++) {
                         const [key, element] = htmlSelectGroupButtons[i];
@@ -317,18 +364,12 @@ function createFilter() {
                     for (let i = 0; i < item.length; i++) {
                         const [name, button] = item[i];
                         if (Options.Filter.OPTrue(key, name)) {
-                            (
-                                button.children.item(0) as HTMLImageElement
-                            ).style.filter = "";
+                            (button.children.item(0) as HTMLImageElement).style.filter = "";
                             giveHoverAnimation(button);
                         } else {
-                            (
-                                button.children.item(0) as HTMLImageElement
-                            ).style.filter = "grayscale(100%)";
-                            giveHoverAnimation(
-                                button,
-                                new HoverOptions({ scale: 70 })
-                            );
+                            (button.children.item(0) as HTMLImageElement).style.filter =
+                                "grayscale(100%)";
+                            giveHoverAnimation(button, new HoverOptions({ scale: 70 }));
                         }
                     }
                 }
@@ -361,18 +402,12 @@ function createFilter() {
                     for (let i = 0; i < item.length; i++) {
                         const [name, button] = item[i];
                         if (Options.Filter.OPTrue(key, name)) {
-                            (
-                                button.children.item(0) as HTMLImageElement
-                            ).style.filter = "";
+                            (button.children.item(0) as HTMLImageElement).style.filter = "";
                             giveHoverAnimation(button);
                         } else {
-                            (
-                                button.children.item(0) as HTMLImageElement
-                            ).style.filter = "grayscale(100%)";
-                            giveHoverAnimation(
-                                button,
-                                new HoverOptions({ scale: 70 })
-                            );
+                            (button.children.item(0) as HTMLImageElement).style.filter =
+                                "grayscale(100%)";
+                            giveHoverAnimation(button, new HoverOptions({ scale: 70 }));
                         }
                     }
                 }
@@ -427,55 +462,6 @@ function createFilter() {
     });
 }
 
-function createOptions() {
-    const OPTIONS_MODAL = document.createElement("section");
-    OPTIONS_MODAL.className = "options-modal";
-
-    const TABLE = document.createElement("table");
-
-    const TABLE_BODY = document.createElement("tbody");
-
-    const TABLE_ROW_1 = document.createElement("tr");
-
-    const TABLE_DATA_1 = document.createElement("h1");
-    TABLE_DATA_1.innerHTML = "Options";
-
-    const TABLE_ROW_2 = document.createElement("tr");
-
-    const TABLE_DATA_2 = document.createElement("td");
-    const key = "Avoid Dupes" as const;
-    TABLE_DATA_2.innerHTML = key;
-    if (Options.options[OptionsParse[key]] === undefined) {
-        TABLE_DATA_2.style.color = "#ffffff";
-        giveHoverAnimation(TABLE_DATA_2);
-    } else {
-        TABLE_DATA_2.style.color = "#999999";
-        giveHoverAnimation(TABLE_DATA_2, new HoverOptions({ scale: 70 }));
-    }
-    TABLE_DATA_2.addEventListener("click", () => {
-        if (Options.options[OptionsParse[key]] === undefined) {
-            Options.setOption(OptionsParse[key], false);
-            TABLE_DATA_2.style.color = "#999999";
-            giveHoverAnimation(
-                TABLE_DATA_2,
-                new HoverOptions({ click: true, scale: 70 })
-            );
-        } else {
-            Options.removeOption(OptionsParse[key]);
-            TABLE_DATA_2.style.color = "#ffffff";
-            giveHoverAnimation(TABLE_DATA_2, new HoverOptions({ click: true }));
-        }
-    });
-
-    TABLE_ROW_1.appendChild(TABLE_DATA_1);
-    TABLE_ROW_2.appendChild(TABLE_DATA_2);
-    TABLE_BODY.appendChild(TABLE_ROW_1);
-    TABLE_BODY.appendChild(TABLE_ROW_2);
-    TABLE.appendChild(TABLE_BODY);
-    OPTIONS_MODAL.appendChild(TABLE);
-    document.body.insertBefore(OPTIONS_MODAL, document.body.childNodes[3]);
-}
-
 class HoverOptions {
     imageElement?: HTMLImageElement;
     enterImg?: string;
@@ -502,9 +488,7 @@ class HoverOptions {
             scale: 90,
         }
     ) {
-        this.imageElement = options.imgInfo
-            ? options.imgInfo.element
-            : undefined;
+        this.imageElement = options.imgInfo ? options.imgInfo.element : undefined;
         this.enterImg = options.imgInfo ? options.imgInfo.enterImg : undefined;
         this.leaveImg = options.imgInfo ? options.imgInfo.leaveImg : undefined;
         this.transitionSec = options.transitionSec ?? 0.13;
@@ -514,10 +498,7 @@ class HoverOptions {
     }
 }
 
-function giveHoverAnimation(
-    element: HTMLElement,
-    options: HoverOptions = new HoverOptions()
-) {
+function giveHoverAnimation(element: HTMLElement, options: HoverOptions = new HoverOptions()) {
     const isTouchScreen = Options.isTouchScreen;
     let setNormalScale = true;
     if (options.click) {
@@ -573,6 +554,11 @@ function giveHoverAnimation(
 
 function groupButtonClicked(key: string) {
     localStorage.setItem("group", key);
+    localStorage.setItem("roll", "1");
+}
+
+async function changeLink(link: string) {
+    window.location = link as unknown as Location;
 }
 
 main();
