@@ -15,17 +15,17 @@ import { Weapon, WeaponInfo } from "./utils/weaponInfo/weapon.js";
 
 function roll() {
     let op: OP | undefined = undefined;
-    const key = localStorage.getItem("group") as ParsedGroupKeys | null;
-    const rollString = localStorage.getItem("roll") as "1" | null;
-    if (key !== null && rollString !== null) {
-        const roll = Boolean(Number(rollString));
+    const key = sessionStorage.getItem("group") as ParsedGroupKeys | null;
+    const roll = sessionStorage.getItem("roll") as "1" | null;
+    if (key !== null) {
         const group = GROUPS[key];
         let savedOP = tryFetchSavedOP();
-        if (roll) {
+        if (roll !== null && Boolean(Number(roll))) {
             op = randomizeOP(key, group, savedOP);
             if (op !== undefined) {
-                localStorage.setItem("op", JSON.stringify(op));
+                sessionStorage.setItem("op", JSON.stringify(op));
             }
+            sessionStorage.removeItem("roll");
         } else {
             op = savedOP;
         }
@@ -34,7 +34,7 @@ function roll() {
 }
 
 function tryFetchSavedOP(): OP<AllOPNames> | undefined {
-    let opString = localStorage.getItem("op");
+    let opString = sessionStorage.getItem("op");
     if (opString !== null && opString !== undefined) {
         const json = JSON.parse(opString);
         return OP.createOPFromJSON(json) as OP<AllOPNames>;

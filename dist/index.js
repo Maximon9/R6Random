@@ -13,6 +13,7 @@ function isScrollable(element, dir) {
     return res;
 }
 function main() {
+    console.log(sessionStorage.getItem("op"));
     document.body.oncontextmenu = (event) => {
         event.preventDefault();
         event.stopPropagation(); // not necessary in my case, could leave in case stopImmediateProp isn't available?
@@ -608,8 +609,8 @@ function giveHoverAnimation(element, options = new HoverOptions()) {
     }
 }
 function groupButtonClicked(key) {
-    localStorage.setItem("group", key);
-    localStorage.setItem("roll", "1");
+    sessionStorage.setItem("group", key);
+    sessionStorage.setItem("roll", "1");
 }
 async function changeLink(link) {
     window.location = link;

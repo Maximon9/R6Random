@@ -6,17 +6,17 @@ import { BarrelAttachment, GripAttachment, SightAttachment, UnderBarrelAttachmen
 import { Weapon } from "./utils/weaponInfo/weapon.js";
 function roll() {
     let op = undefined;
-    const key = localStorage.getItem("group");
-    const rollString = localStorage.getItem("roll");
-    if (key !== null && rollString !== null) {
-        const roll = Boolean(Number(rollString));
+    const key = sessionStorage.getItem("group");
+    const roll = sessionStorage.getItem("roll");
+    if (key !== null) {
         const group = GROUPS[key];
         let savedOP = tryFetchSavedOP();
-        if (roll) {
+        if (roll !== null && Boolean(Number(roll))) {
             op = randomizeOP(key, group, savedOP);
             if (op !== undefined) {
-                localStorage.setItem("op", JSON.stringify(op));
+                sessionStorage.setItem("op", JSON.stringify(op));
             }
+            sessionStorage.removeItem("roll");
         }
         else {
             op = savedOP;
@@ -25,7 +25,7 @@ function roll() {
     }
 }
 function tryFetchSavedOP() {
-    let opString = localStorage.getItem("op");
+    let opString = sessionStorage.getItem("op");
     if (opString !== null && opString !== undefined) {
         const json = JSON.parse(opString);
         return OP.createOPFromJSON(json);
