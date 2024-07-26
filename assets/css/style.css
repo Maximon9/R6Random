@@ -40,6 +40,40 @@ body {
     color: #ffffff;
 }
 
+.container {
+    flex-wrap: wrap;
+    height: auto;
+    margin: 0, auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.container.fill {
+    height: 100%;
+}
+.container.vertical {
+    flex-direction: column;
+}
+.container.horizontal {
+    height: fit-content;
+    width: fit-content;
+    flex-direction: row;
+}
+.weapon-data {
+    padding: 2vmax;
+}
+.attachments {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.attachment-section div {
+    font-size: 2vmax;
+}
+.attachment-section {
+    padding: 1vmax;
+}
+
 .scrollable-wrapper {
     height: 30vmax;
     width: fit-content;
