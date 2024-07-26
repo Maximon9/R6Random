@@ -74,22 +74,7 @@ body {
     position: sticky;
     left: 0;
 }
-.avoid-select-all-button {
-    margin-top: 2vmax;
-    margin-left: auto;
-    margin-right: auto;
-    background: transparent;
-    border-style: outset;
-    border-color: #333333;
-    padding-left: 1vmax;
-    padding-right: 1vmax;
-    color: white;
-    font-size: 3vmax;
-    height: 7vmax;
-    width: 33vmax;
-    line-height: 7.5vmax;
-    text-align: center;
-}
+.avoid-select-all-button,
 .select-all-button {
     margin-top: 2vmax;
     margin-left: auto;
@@ -97,13 +82,13 @@ body {
     background: transparent;
     border-style: outset;
     border-color: #333333;
-    padding-left: 1vmax;
-    padding-right: 1vmax;
+    padding-left: 2vmax;
+    padding-right: 2vmax;
     color: white;
-    font-size: 2vmax;
-    height: 5vmax;
-    line-height: 5vmax;
+    font-size: 3vmax;
+    height: fit-content;
     width: fit-content;
+    line-height: 7.5vmax;
     text-align: center;
 }
 .options-modal {
@@ -119,7 +104,8 @@ body {
     justify-content: center;
 }
 .options-modal h1 {
-    margin: 10px 0;
+    padding-top: 1.5vmax;
+    margin: 1vmax 0;
     font-size: 5vmax;
     color: #ffffff;
 }

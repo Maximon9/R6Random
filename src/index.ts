@@ -301,9 +301,6 @@ function createTryAvoidOptions(
 
     const selectAllButton = document.createElement("div");
     selectAllButton.className = "avoid-select-all-button";
-    selectAllButton.style.paddingLeft = "2vmax";
-    selectAllButton.style.paddingRight = "2vmax";
-    selectAllButton.style.width = "fit-content";
     if (Options.categoryTrue(categoryName)) {
         selectAllButton.innerHTML = "Deselect All";
     } else {
