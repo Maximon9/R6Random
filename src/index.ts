@@ -5,16 +5,11 @@ import { whiteBackground } from "./utils/img.js";
 import Options, { CategoryOptions, CategoryOptionsRev } from "./utils/options.js";
 import IDKButImHardRN from "./utils/time.js";
 function isScrollable(element: HTMLElement, dir: "vertical" | "horizontal"): boolean {
-    const new_dir = dir === "vertical" ? "scrollTop" : "scrollLeft";
-
-    let res = !!element[new_dir];
-
-    if (!res) {
-        element[new_dir] = 1;
-        res = !!element[new_dir];
-        element[new_dir] = 0;
+    if (dir === "vertical") {
+        return element.scrollHeight > element.clientHeight;
+    } else {
+        return element.scrollWidth > element.clientWidth;
     }
-    return res;
 }
 
 function main() {
@@ -164,28 +159,14 @@ function createOptions() {
 
     const tableBody = document.createElement("tbody");
     optionsModal.appendChild(optionsLabel);
-    createOptionsNavBar(optionsModal, tableBody);
+    createOptionsNavBar(optionsModalContentScrollWrapper, optionsModal, tableBody);
 
-    if (isScrollable(optionsModalContentScrollWrapper, "horizontal")) {
-        let pre_left: number | null = null;
-        while (optionsModalContentScrollWrapper.scrollLeft !== pre_left) {
-            optionsModalContentScrollWrapper.scrollTo({
-                left: optionsModalContentScrollWrapper.scrollLeft + 10000,
-            });
-            pre_left = optionsModalContentScrollWrapper.scrollLeft;
-        }
-        optionsModalContentScrollWrapper.scrollTo({
-            left: optionsModalContentScrollWrapper.scrollLeft / 2,
-        });
-        optionsModalContentScrollWrapper.style.overflowX = "scroll";
-    } else {
-        optionsModalContentScrollWrapper.style.overflowX = "hidden";
-    }
-    if (isScrollable(optionsModalContentScrollWrapper, "vertical")) {
-        optionsModalContentScrollWrapper.style.overflowY = "scroll";
-    } else {
-        optionsModalContentScrollWrapper.style.overflowY = "hidden";
-    }
+    table.appendChild(tableBody);
+    optionsModal.appendChild(optionsModalContent);
+    optionsModalContentScrollWrapper.appendChild(table);
+    optionsModalContent.appendChild(optionsModalContentScrollWrapper);
+    document.body.insertBefore(optionsModal, document.body.childNodes[3]);
+
     window.addEventListener("resize", () => {
         if (isScrollable(optionsModalContentScrollWrapper, "horizontal")) {
             let pre_left: number | null = null;
@@ -208,16 +189,14 @@ function createOptions() {
             optionsModalContentScrollWrapper.style.overflowY = "hidden";
         }
     });
-
-    table.appendChild(tableBody);
-    optionsModal.appendChild(optionsModalContent);
-    optionsModalContentScrollWrapper.appendChild(table);
-    optionsModalContent.appendChild(optionsModalContentScrollWrapper);
-    document.body.insertBefore(optionsModal, document.body.childNodes[3]);
 }
 
 const optionNames = { Filter: false, "Try Avoid Dupes": false };
-function createOptionsNavBar(optionsModal: HTMLElement, tableBody: HTMLTableSectionElement) {
+function createOptionsNavBar(
+    optionsModalContentScrollWrapper: HTMLDivElement,
+    optionsModal: HTMLElement,
+    tableBody: HTMLTableSectionElement
+) {
     const navBar = document.createElement("div");
     navBar.className = "nav-bar";
     const navButtons: [keyof typeof optionNames, HTMLButtonElement][] = [];
@@ -256,19 +235,49 @@ function createOptionsNavBar(optionsModal: HTMLElement, tableBody: HTMLTableSect
                     navButton1.style.backgroundColor = "transparent";
                 }
             }
+            const selectAllContainers = [
+                ...document.getElementsByClassName("select-all-button-container"),
+                ...document.getElementsByClassName("avoid-select-all-button-container"),
+            ];
+            for (let i = 0; i < selectAllContainers.length; i++) {
+                const container = selectAllContainers[i];
+                container.remove();
+            }
             for (let i = 0; i < tableBody.childNodes.length; i++) {
                 tableBody.removeChild(tableBody.childNodes[i]);
             }
             switch (name) {
                 case "Filter":
-                    createFilter(tableBody);
+                    createFilter(optionsModalContentScrollWrapper, tableBody);
                     break;
                 default:
-                    createTryAvoidOptions(tableBody);
+                    createTryAvoidOptions(optionsModalContentScrollWrapper, tableBody);
                     break;
             }
             navButton.style.transition = "background-color 0.3s ease-in-out";
             navButton.style.backgroundColor = "#222222";
+            setTimeout(() => {
+                if (isScrollable(optionsModalContentScrollWrapper, "horizontal")) {
+                    let pre_left: number | null = null;
+                    while (optionsModalContentScrollWrapper.scrollLeft !== pre_left) {
+                        optionsModalContentScrollWrapper.scrollTo({
+                            left: optionsModalContentScrollWrapper.scrollLeft + 10000,
+                        });
+                        pre_left = optionsModalContentScrollWrapper.scrollLeft;
+                    }
+                    optionsModalContentScrollWrapper.scrollTo({
+                        left: optionsModalContentScrollWrapper.scrollLeft / 2,
+                    });
+                    optionsModalContentScrollWrapper.style.overflowX = "scroll";
+                } else {
+                    optionsModalContentScrollWrapper.style.overflowX = "hidden";
+                }
+                if (isScrollable(optionsModalContentScrollWrapper, "vertical")) {
+                    optionsModalContentScrollWrapper.style.overflowY = "scroll";
+                } else {
+                    optionsModalContentScrollWrapper.style.overflowY = "hidden";
+                }
+            }, 100);
         });
     }
 
@@ -277,42 +286,21 @@ function createOptionsNavBar(optionsModal: HTMLElement, tableBody: HTMLTableSect
     firstButton.click();
 }
 
-function createTryAvoidOptions(tableBody: HTMLTableSectionElement) {
-    const avoidSection = document.createElement("section");
-
-    const avoidContent = document.createElement("div");
-
-    const tableRow = document.createElement("tr");
-
-    const tableData = document.createElement("td");
-
-    tableRow.appendChild(tableData);
-    tableBody.appendChild(tableRow);
-
-    tableData.appendChild(avoidSection);
-    avoidSection.appendChild(avoidContent);
-    tableRow.appendChild(tableData);
-    tableBody.appendChild(tableRow);
-
-    const avoidTable = document.createElement("table");
-
-    const avoidTableBody = document.createElement("tbody");
-
-    const avoidTableRow = document.createElement("tr");
-
-    const avoidTableData = document.createElement("td");
-
+function createTryAvoidOptions(
+    optionsModalContentScrollWrapper: HTMLDivElement,
+    tableBody: HTMLTableSectionElement
+) {
     const categoryName = "Try Avoid Dupes";
-
     const selectAllButtonContainer = document.createElement("div");
+    selectAllButtonContainer.className = "avoid-select-all-button-container";
     selectAllButtonContainer.style.display = "flex";
     selectAllButtonContainer.style.alignItems = "flex-start";
     selectAllButtonContainer.style.justifyContent = "center";
     selectAllButtonContainer.style.borderColor = "transparent";
     selectAllButtonContainer.style.borderStyle = "none";
-    selectAllButtonContainer.style.paddingBottom = "2vmax";
 
     const selectAllButton = document.createElement("div");
+    selectAllButton.className = "avoid-select-all-button";
     selectAllButton.style.paddingLeft = "2vmax";
     selectAllButton.style.paddingRight = "2vmax";
     selectAllButton.style.width = "fit-content";
@@ -323,7 +311,24 @@ function createTryAvoidOptions(tableBody: HTMLTableSectionElement) {
     }
     giveHoverAnimation(selectAllButton);
     selectAllButtonContainer.appendChild(selectAllButton);
-    avoidTableData.appendChild(selectAllButtonContainer);
+    optionsModalContentScrollWrapper.insertBefore(
+        selectAllButtonContainer,
+        optionsModalContentScrollWrapper.childNodes[0]
+    );
+
+    const avoidModal = document.createElement("section");
+    avoidModal.className = "avoid-modal";
+
+    const avoidContent = document.createElement("div");
+
+    const tableRow = document.createElement("tr");
+
+    const tableData = document.createElement("td");
+
+    tableData.appendChild(avoidModal);
+    avoidModal.appendChild(avoidContent);
+    tableRow.appendChild(tableData);
+    tableBody.appendChild(tableRow);
 
     const optionButtons: [keyof (typeof CategoryOptions)["0"], HTMLDivElement][] = [];
     for (const parseKey in CategoryOptionsRev["0"]) {
@@ -349,8 +354,7 @@ function createTryAvoidOptions(tableBody: HTMLTableSectionElement) {
             }
         });
         optionButtons.push([key, optionButton]);
-        avoidTableData.appendChild(optionButton);
-        avoidContent.appendChild(avoidTableData);
+        avoidContent.appendChild(optionButton);
     }
 
     selectAllButton.addEventListener("click", () => {
@@ -372,32 +376,41 @@ function createTryAvoidOptions(tableBody: HTMLTableSectionElement) {
             }
         }
     });
-    avoidTableBody.appendChild(avoidTableRow);
-    avoidTable.appendChild(avoidTableBody);
 }
 
-function createFilter(tableBody: HTMLTableSectionElement) {
+function createFilter(
+    optionsModalContentScrollWrapper: HTMLDivElement,
+    tableBody: HTMLTableSectionElement
+) {
     const filterTableRow = document.createElement("tr");
-    tableBody.appendChild(filterTableRow);
+
+    const filterTableData = document.createElement("td");
 
     const filterModal = document.createElement("section");
     filterModal.className = "filter-modal";
-    filterTableRow.appendChild(filterModal);
 
     const filterModalContent = document.createElement("div");
     filterModalContent.className = "filter-modal-content";
-    filterModal.appendChild(filterModalContent);
 
     const filterSelectAllContainer = document.createElement("div");
-    filterModalContent.appendChild(filterSelectAllContainer);
+    filterSelectAllContainer.className = "select-all-button-container";
 
     const filterSelectAll = document.createElement("div");
+    filterSelectAll.className = "select-all-button";
     if (Options.Filter.AllTrue) {
         filterSelectAll.innerHTML = "Deselect All";
     } else {
         filterSelectAll.innerHTML = "Select All";
     }
     filterSelectAllContainer.appendChild(filterSelectAll);
+    optionsModalContentScrollWrapper.insertBefore(
+        filterSelectAllContainer,
+        optionsModalContentScrollWrapper.childNodes[0]
+    );
+    filterModal.appendChild(filterModalContent);
+    filterTableData.appendChild(filterModal);
+    filterTableRow.appendChild(filterTableData);
+    tableBody.appendChild(filterTableRow);
 
     const filterTable = document.createElement("table");
     filterModalContent.appendChild(filterTable);
