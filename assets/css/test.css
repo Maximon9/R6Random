@@ -1,0 +1,33 @@
+html,
+body {
+    text-align: center;
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    background-color: #555555;
+    background-repeat: no-repeat;
+    background-size: cover;
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+    -webkit-user-drag: none;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+}
+
+body section {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+.scrollable-wrapper {
+    height: 20vmax;
+    width: 15vmax;
+    overflow-x: auto;
+}
+.scrollable-wrapper table {
+    height: 30vmax;
+    width: 30vmax;
+    overflow-x: auto;
+}

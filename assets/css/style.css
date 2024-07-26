@@ -10,25 +10,22 @@ body {
     background-color: #555555;
     background-repeat: no-repeat;
     background-size: cover;
-}
-
-body {
     -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
     -webkit-user-drag: none;
     -webkit-user-select: none; /* Safari */
     -ms-user-select: none; /* IE 10 and IE 11 */
     user-select: none; /* Standard syntax */
 }
-.filter-modal::-webkit-scrollbar,
+.options-modal-content-scroll-wrapper::-webkit-scrollbar,
 body::-webkit-scrollbar {
     width: 12px;
     background-color: #444;
 }
-.filter-modal::-webkit-scrollbar-thumb,
+.options-modal-content-scroll-wrapper::-webkit-scrollbar-thumb,
 body::-webkit-scrollbar-thumb {
     background-color: #2b2b2b;
 }
-.filter-modal::-webkit-scrollbar-track,
+.options-modal-content-scroll-wrapper::-webkit-scrollbar-track,
 body::-webkit-scrollbar-track {
     background-color: #444;
 }
@@ -43,20 +40,40 @@ body {
     color: #ffffff;
 }
 
-.filter-modal-content button,
+.scrollable-wrapper {
+    height: 30vmax;
+    width: fit-content;
+    overflow-x: auto;
+    background-color: #333333;
+}
+.scrollable-wrapper table {
+    height: 35vmax;
+    width: 35vmax;
+}
+.scrollable-wrapper table tbody tr td button {
+    height: 3.25vmax;
+    width: 6.5vmax;
+}
+
+.filter-modal-content div div,
 .filter-modal-content table tr td div,
 .options-modal table tbody tr td section div div {
     cursor: pointer;
 }
 
+.options-modal-content-scroll-wrapper {
+    width: fit-content;
+    height: 60vmax;
+    overflow: auto;
+}
 .options-modal {
     display: block;
     background: #444444;
     height: fit-content;
-    overflow: auto;
-    padding-bottom: 5vmax;
+    padding-bottom: 10vmax;
 }
-.options-modal-content {
+.options-modal-content,
+.group-modal {
     display: flex;
     align-items: flex-start;
     justify-content: center;
@@ -119,9 +136,15 @@ body {
     align-items: flex-start;
     justify-content: center;
     background: #333333;
-    border-width: 100%;
     border-style: inset;
     border-color: #333333;
+    height: fit-content;
+    width: fit-content;
+}
+.filter-modal-content {
+    width: fit-content;
+    height: fit-content;
+    overflow: none;
 }
 
 .filter-modal-content h1 {
@@ -134,15 +157,19 @@ body {
     position: sticky;
     left: 0;
 }
-.filter-modal-content button {
+.filter-modal-content div div {
     margin-top: 2vmax;
+    margin-left: auto;
+    margin-right: auto;
     background: transparent;
+    border-style: outset;
     border-color: #333333;
+    padding-left: 1vmax;
+    padding-right: 1vmax;
     color: white;
-    font-family: inherit;
     font-size: 2vmax;
     height: 5vmax;
-    line-height: 4.8vmax;
+    line-height: 5vmax;
     width: fit-content;
     text-align: center;
 }

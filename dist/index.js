@@ -127,13 +127,62 @@ function createOptions() {
     optionsLabel.innerHTML = "Options";
     const optionsModalContent = document.createElement("div");
     optionsModalContent.className = "options-modal-content";
+    const optionsModalContentScrollWrapper = document.createElement("div");
+    optionsModalContentScrollWrapper.className = "options-modal-content-scroll-wrapper";
     const table = document.createElement("table");
     const tableBody = document.createElement("tbody");
     optionsModal.appendChild(optionsLabel);
     createOptionsNavBar(optionsModal, tableBody);
+    if (isScrollable(optionsModalContentScrollWrapper, "horizontal")) {
+        let pre_left = null;
+        while (optionsModalContentScrollWrapper.scrollLeft !== pre_left) {
+            optionsModalContentScrollWrapper.scrollTo({
+                left: optionsModalContentScrollWrapper.scrollLeft + 10000,
+            });
+            pre_left = optionsModalContentScrollWrapper.scrollLeft;
+        }
+        optionsModalContentScrollWrapper.scrollTo({
+            left: optionsModalContentScrollWrapper.scrollLeft / 2,
+        });
+        optionsModalContentScrollWrapper.style.overflowX = "scroll";
+    }
+    else {
+        optionsModalContentScrollWrapper.style.overflowX = "hidden";
+    }
+    if (isScrollable(optionsModalContentScrollWrapper, "vertical")) {
+        optionsModalContentScrollWrapper.style.overflowY = "scroll";
+    }
+    else {
+        optionsModalContentScrollWrapper.style.overflowY = "hidden";
+    }
+    window.addEventListener("resize", () => {
+        if (isScrollable(optionsModalContentScrollWrapper, "horizontal")) {
+            let pre_left = null;
+            while (optionsModalContentScrollWrapper.scrollLeft !== pre_left) {
+                optionsModalContentScrollWrapper.scrollTo({
+                    left: optionsModalContentScrollWrapper.scrollLeft + 10000,
+                });
+                pre_left = optionsModalContentScrollWrapper.scrollLeft;
+            }
+            optionsModalContentScrollWrapper.scrollTo({
+                left: optionsModalContentScrollWrapper.scrollLeft / 2,
+            });
+            optionsModalContentScrollWrapper.style.overflowX = "scroll";
+        }
+        else {
+            optionsModalContentScrollWrapper.style.overflowX = "hidden";
+        }
+        if (isScrollable(optionsModalContentScrollWrapper, "vertical")) {
+            optionsModalContentScrollWrapper.style.overflowY = "scroll";
+        }
+        else {
+            optionsModalContentScrollWrapper.style.overflowY = "hidden";
+        }
+    });
     table.appendChild(tableBody);
     optionsModal.appendChild(optionsModalContent);
-    optionsModalContent.appendChild(table);
+    optionsModalContentScrollWrapper.appendChild(table);
+    optionsModalContent.appendChild(optionsModalContentScrollWrapper);
     document.body.insertBefore(optionsModal, document.body.childNodes[3]);
 }
 const optionNames = { Filter: false, "Try Avoid Dupes": false };
@@ -294,7 +343,7 @@ function createFilter(tableBody) {
     filterModal.appendChild(filterModalContent);
     const filterSelectAllContainer = document.createElement("div");
     filterModalContent.appendChild(filterSelectAllContainer);
-    const filterSelectAll = document.createElement("button");
+    const filterSelectAll = document.createElement("div");
     if (Options.Filter.AllTrue) {
         filterSelectAll.innerHTML = "Deselect All";
     }
@@ -484,52 +533,6 @@ function createFilter(tableBody) {
     else {
         filterModalContent.removeChild(filterModalContent.childNodes[2]);
     }
-    if (isScrollable(filterModalContent, "horizontal")) {
-        let pre_left = null;
-        while (filterModalContent.scrollLeft !== pre_left) {
-            filterModalContent.scrollTo({
-                left: filterModalContent.scrollLeft + 10000,
-            });
-            pre_left = filterModalContent.scrollLeft;
-        }
-        filterModalContent.scrollTo({
-            left: filterModalContent.scrollLeft / 2,
-        });
-        filterModalContent.style.overflowX = "scroll";
-    }
-    else {
-        filterModalContent.style.overflowX = "hidden";
-    }
-    if (isScrollable(filterModalContent, "vertical")) {
-        filterModalContent.style.overflowY = "scroll";
-    }
-    else {
-        filterModalContent.style.overflowY = "hidden";
-    }
-    window.addEventListener("resize", () => {
-        if (isScrollable(filterModalContent, "horizontal")) {
-            let pre_left = null;
-            while (filterModalContent.scrollLeft !== pre_left) {
-                filterModalContent.scrollTo({
-                    left: filterModalContent.scrollLeft + 10000,
-                });
-                pre_left = filterModalContent.scrollLeft;
-            }
-            filterModalContent.scrollTo({
-                left: filterModalContent.scrollLeft / 2,
-            });
-            filterModalContent.style.overflowX = "scroll";
-        }
-        else {
-            filterModalContent.style.overflowX = "hidden";
-        }
-        if (isScrollable(filterModalContent, "vertical")) {
-            filterModalContent.style.overflowY = "scroll";
-        }
-        else {
-            filterModalContent.style.overflowY = "hidden";
-        }
-    });
 }
 class HoverOptions {
     imageElement;
