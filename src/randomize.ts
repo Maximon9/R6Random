@@ -1,7 +1,8 @@
 //#region Main
 import type { AllGroups, AllOPNames, ParsedGroupKeys } from "./ops.js";
+import type { OptionNames } from "./utils/options.js";
+import type { WeaponAttackments, WeaponAttackmentsInfo } from "./types/weapon.js";
 import { GROUPS } from "./ops.js";
-import { WeaponAttackments, WeaponAttackmentsInfo } from "./types/weapon.js";
 import { Equipment, EquipmentInfo } from "./utils/equipment.js";
 import { OP } from "./utils/op.js";
 import Options from "./utils/options.js";
@@ -46,17 +47,29 @@ function randomizeOP(
     group: AllGroups,
     savedOP?: OP<AllOPNames>
 ): OP | undefined {
-    let opInfo = undefined;
+    let opInfo: (typeof group.ops)[0] | undefined = undefined;
     if (group.ops.length > 0) {
         if (Options.Filter.GroupFalse(key)) {
             return undefined;
         } else {
-            const opInfos = group.ops.filter(
-                (opInfo) =>
-                    Options.Filter.OPTrue(key, opInfo.name) === true &&
-                    opInfo.name !== savedOP?.name
-            );
-            opInfo = getRandomItemFromArray<(typeof group.ops)[0]>(opInfos);
+            let opInfos: (typeof group.ops)[0][] = [];
+            if (Options.optionTrue("Try Avoid Dupes", "OPs") && savedOP !== undefined) {
+                opInfos = group.ops.filter(
+                    (opInfo) =>
+                        Options.Filter.OPTrue(key, opInfo.name) === true &&
+                        opInfo.name !== savedOP?.name
+                );
+                if (opInfos.length <= 0) {
+                    opInfos = group.ops.filter(
+                        (opInfo) => Options.Filter.OPTrue(key, opInfo.name) === true
+                    );
+                }
+            } else {
+                opInfos = group.ops.filter(
+                    (opInfo) => Options.Filter.OPTrue(key, opInfo.name) === true
+                );
+            }
+            opInfo = getRandomItemFromArray<(typeof opInfos)[0]>(opInfos);
         }
     } else {
         return undefined;
@@ -67,17 +80,28 @@ function randomizeOP(
         image: getRandomItemFromArray(opInfo.images),
     });
     if (opInfo.equipment.length > 0) {
-        op.equipment = randomizeEquipment(
+        const equipment = randomizeEquipment(
             opInfo.equipment,
             opInfo.equipmentCount,
             savedOP === undefined ? [] : savedOP.equipment ?? []
         );
+        if (equipment !== undefined) {
+            op.equipment = equipment;
+        }
     }
     if (opInfo.primaryWeapons.length > 0) {
-        op.primaryWeapon = randomizeWeapon(getRandomItemFromArray(opInfo.primaryWeapons));
+        op.primaryWeapon = randomizeWeapon(
+            opInfo.primaryWeapons,
+            "Primary",
+            savedOP?.primaryWeapon
+        );
     }
     if (opInfo.secondaryWeapons.length > 0) {
-        op.secondaryWeapon = randomizeWeapon(getRandomItemFromArray(opInfo.secondaryWeapons));
+        op.secondaryWeapon = randomizeWeapon(
+            opInfo.secondaryWeapons,
+            "Secondary",
+            savedOP?.secondaryWeapon
+        );
     }
     return op;
 }
@@ -86,7 +110,7 @@ function randomizeEquipment(
     opInfoEuipment: EquipmentInfo[],
     equipmentCount: number,
     savedEquipment: Equipment[]
-): Equipment[] {
+): Equipment[] | undefined {
     const equipmentInfos: EquipmentInfo[] = [];
     let opInfoEuipmentCopy: EquipmentInfo[] = [...opInfoEuipment];
     if (opInfoEuipmentCopy.length >= equipmentCount) {
@@ -95,14 +119,17 @@ function randomizeEquipment(
                 (equipment) => !equipmentMatchesList(equipment, equipmentInfos)
             );
             let randomEquipment = getRandomItemFromArray(opInfoEuipmentCopy);
-            if (equipmentMatchesList(randomEquipment, savedEquipment)) {
-                if (opInfoEuipment.length > equipmentCount) {
-                    opInfoEuipmentCopy = opInfoEuipmentCopy.filter(
-                        (equipment) => !equipmentMatchesList(equipment, savedEquipment)
-                    );
-                    if (opInfoEuipmentCopy.length > 0) {
-                        randomEquipment = getRandomItemFromArray(opInfoEuipmentCopy);
-                    }
+            while (
+                Options.optionTrue("Try Avoid Dupes", "Equipment") &&
+                equipmentMatchesList(randomEquipment, savedEquipment)
+            ) {
+                opInfoEuipmentCopy = opInfoEuipmentCopy.filter(
+                    (equipment) => !equipmentMatchesList(equipment, savedEquipment)
+                );
+                if (opInfoEuipmentCopy.length > 0) {
+                    randomEquipment = getRandomItemFromArray(opInfoEuipmentCopy);
+                } else {
+                    break;
                 }
             }
             equipmentInfos.push(randomEquipment);
@@ -118,17 +145,40 @@ function randomizeEquipment(
             })
         );
     }
-    return equipments;
+    if (equipments.length > 0) {
+        return equipments;
+    }
 }
-function randomizeWeapon(weaponInfo: WeaponInfo): Weapon {
+function randomizeWeapon(
+    weaponInfos: WeaponInfo[],
+    type: "Primary" | "Secondary",
+    savedWeapon?: Weapon
+): Weapon {
+    let weaponInfosCopy = [...weaponInfos];
+    if (
+        Options.optionTrue("Try Avoid Dupes", (type + " Weapons") as OptionNames) &&
+        savedWeapon !== undefined
+    ) {
+        weaponInfosCopy = weaponInfosCopy.filter(
+            (weaponInfo) => weaponInfo.name !== savedWeapon.name
+        );
+        if (weaponInfosCopy.length <= 0) {
+            weaponInfosCopy = [...weaponInfos];
+        }
+    }
+    const weaponInfo = getRandomItemFromArray(weaponInfosCopy);
     return new Weapon({
         name: weaponInfo.name,
         image: getRandomItemFromArray(weaponInfo.images),
-        attachments: randomizeAttachments(weaponInfo.attachments),
+        attachments: randomizeAttachments(weaponInfo.attachments, type, savedWeapon?.attachments),
     });
 }
 
-function randomizeAttachments(attachmentInfos: WeaponAttackmentsInfo): WeaponAttackments {
+function randomizeAttachments(
+    attachmentInfos: WeaponAttackmentsInfo,
+    type: "Primary" | "Secondary",
+    savedAttachments?: WeaponAttackments
+): WeaponAttackments {
     const attachments: WeaponAttackments = {};
     let key: keyof WeaponAttackmentsInfo;
     for (key in attachmentInfos) {
@@ -136,7 +186,19 @@ function randomizeAttachments(attachmentInfos: WeaponAttackmentsInfo): WeaponAtt
         if (name !== undefined) {
             const ats = attachmentInfos[key];
             if (ats !== undefined && ats.length > 0) {
-                const attachmentInfo = getRandomItemFromArray(ats);
+                let atsCopy = [...ats];
+                if (
+                    Options.optionTrue("Try Avoid Dupes", (type + " " + key) as OptionNames) &&
+                    savedAttachments !== undefined
+                ) {
+                    atsCopy = atsCopy.filter(
+                        (attachmentInfo) => attachmentInfo.name !== savedAttachments[name]?.name
+                    );
+                    if (atsCopy.length <= 0) {
+                        atsCopy = [...ats];
+                    }
+                }
+                const attachmentInfo = getRandomItemFromArray(atsCopy);
                 switch (name) {
                     case "sight":
                         attachments[name] = new SightAttachment({
@@ -185,7 +247,7 @@ function getRandomItemFromArray<T>(array: T[]) {
 
 function equipmentMatchesList(
     equipment: EquipmentInfo | Equipment,
-    equipments: EquipmentInfo[] | Equipment[]
+    equipments: (EquipmentInfo | Equipment)[]
 ) {
     for (let i = 0; i < equipments.length; i++) {
         const check = equipments[i];

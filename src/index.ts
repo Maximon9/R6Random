@@ -13,7 +13,6 @@ function isScrollable(element: HTMLElement, dir: "vertical" | "horizontal"): boo
 }
 
 function main() {
-    console.log(sessionStorage.getItem("op"));
     document.body.oncontextmenu = (event: MouseEvent) => {
         event.preventDefault();
         event.stopPropagation(); // not necessary in my case, could leave in case stopImmediateProp isn't available?
