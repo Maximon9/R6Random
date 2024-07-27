@@ -251,7 +251,6 @@ body {
     margin-right: auto;
     background: transparent;
     border: #222222 outset 0.4vmax;
-    background-clip: padding-box;
     padding-left: 2vmax;
     padding-right: 2vmax;
     color: white;
