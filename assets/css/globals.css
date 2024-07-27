@@ -140,7 +140,7 @@ body {
 }
 .op-data {
     background-color: #333333;
-    border: #333333, inset, 0.4vmax;
+    border: #333333 inset 0.4vmax;
     max-width: fit-content;
     max-height: fit-content;
     margin: 1vmax;
@@ -164,7 +164,7 @@ body {
 .attachment-section-data-wrapper,
 .weapon-data {
     background-color: #333333;
-    border: #333333, inset, 0.4vmax;
+    border: #333333 inset 0.4vmax;
     padding: 0.5vmax;
 }
 .attachment-section {
@@ -206,7 +206,7 @@ body {
 }
 .equipment-data {
     background-color: #333333;
-    border: #333333, inset, 0.4vmax;
+    border: #333333 inset 0.4vmax;
     margin: 1vmax;
     font-size: 1.5vmax;
 }
@@ -237,7 +237,7 @@ body {
     height: fit-content;
     overflow: auto;
     background: #333333;
-    border: #333333, inset, 0.4vmax;
+    border: #333333 inset 0.4vmax;
 }
 .avoid-select-all-button-container,
 .select-all-button-container {
@@ -250,7 +250,7 @@ body {
     margin-left: auto;
     margin-right: auto;
     background: transparent;
-    border: #333333, outset, 0.4vmax;
+    border: #333333 outset 0.4vmax;
     background-clip: padding-box;
     padding-left: 2vmax;
     padding-right: 2vmax;
@@ -299,7 +299,7 @@ body {
     height: 7vmax;
     width: 33vmax;
     line-height: 7.5vmax;
-    border: #333333, outset, 0.4vmax;
+    border: #333333 outset 0.4vmax;
     font-family: inherit;
     text-align: center;
 }
@@ -343,7 +343,7 @@ body {
 .group-select {
     cursor: pointer;
     font-size: 2vmax;
-    border: #333333, outset, 0.4vmax;
+    border: #333333 outset 0.4vmax;
 }
 
 .filter-modal-content table tbody tr td {
@@ -360,7 +360,7 @@ body {
     text-align: center;
     width: 8vmax;
     font-size: 1.7vmax;
-    border: #333333, outset, 0.4vmax;
+    border: #333333 outset 0.4vmax;
     line-height: normal;
 }
 .filter-modal-content table tbody img {
