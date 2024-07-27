@@ -361,21 +361,19 @@ function applyVisuals(op) {
         equipmentData.appendChild(equipmentDataWrapper);
         const equipment = op?.equipment;
         if (equipment !== undefined) {
-            for (let i1 = 0; i1 < 2; i1++) {
-                for (let i = 0; i < equipment.length; i++) {
-                    const eq = equipment[i];
-                    const eqImageContainer = document.createElement("div");
-                    eqImageContainer.style.display = "flex";
-                    eqImageContainer.style.flexDirection = "column";
-                    eqImageContainer.style.fontSize = "2vmax";
-                    const eqImage = document.createElement("img");
-                    eqImage.src = eq.image ?? whiteBackground;
-                    eqImage.alt = "Equipment Image";
-                    eqImage.style.width = "13vmax";
-                    eqImageContainer.appendChild(eqImage);
-                    eqImageContainer.innerHTML += eq.name ?? "";
-                    equipmentDataWrapper.appendChild(eqImageContainer);
-                }
+            for (let i = 0; i < equipment.length; i++) {
+                const eq = equipment[i];
+                const eqImageContainer = document.createElement("div");
+                eqImageContainer.style.display = "flex";
+                eqImageContainer.style.flexDirection = "column";
+                eqImageContainer.style.fontSize = "2vmax";
+                const eqImage = document.createElement("img");
+                eqImage.src = eq.image ?? whiteBackground;
+                eqImage.alt = "Equipment Image";
+                eqImage.style.width = "13vmax";
+                eqImageContainer.appendChild(eqImage);
+                eqImageContainer.innerHTML += eq.name ?? "";
+                equipmentDataWrapper.appendChild(eqImageContainer);
             }
             opModalInfo.appendChild(equipmentData);
         }
