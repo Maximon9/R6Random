@@ -16,11 +16,17 @@ export class UnderBarrelAttachmentInfo<Name extends string = string> extends Att
 export class GripAttachmentInfo<Name extends string = string> extends AttachmentInfo<Name> {}
 
 export class Attachment<Name extends string = string> {
-    name: Name;
-    image: string;
+    name?: Name;
+    image?: string;
     constructor(info: AttachmentParameters<Name> = {}) {
-        this.name = info["name"] ?? ("" as Name);
-        this.image = info["image"] ?? whiteBackground;
+        let item: any = info["name"];
+        if (item !== undefined) {
+            this.name = item;
+        }
+        item = info["image"];
+        if (item !== undefined) {
+            this.image = item;
+        }
     }
 }
 export class SightAttachment<Name extends string = string> extends Attachment<Name> {}
