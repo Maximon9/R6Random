@@ -40,6 +40,7 @@ body::-webkit-scrollbar-track {
 }
 
 body {
+    font-family: bebasBold Verdana Geneva Tahoma sans-serif;
     font-family: bebasBold, Verdana, Geneva, Tahoma, sans-serif;
     color: #ffffff;
 }
