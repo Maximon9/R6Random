@@ -40,8 +40,8 @@ body::-webkit-scrollbar-track {
 }
 
 body {
-    font-family: bebasBold, Verdana, Geneva, Tahoma, sans-serif;
     font-family: bebasBold Verdana Geneva Tahoma sans-serif;
+    font-family: bebasBold, Verdana, Geneva, Tahoma, sans-serif;
     color: #ffffff;
 }
 
@@ -251,7 +251,7 @@ body {
     margin-left: auto;
     margin-right: auto;
     background: transparent;
-    border: #333333 outset 0.4vmax;
+    border: #222222 outset 0.4vmax;
     background-clip: padding-box;
     padding-left: 2vmax;
     padding-right: 2vmax;
