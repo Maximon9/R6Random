@@ -40,38 +40,81 @@ body {
     color: #ffffff;
 }
 
-.container {
-    flex-wrap: wrap;
-    height: auto;
-    margin: 0, auto;
+.weapon-container,
+.attachments,
+.op-modal,
+.op-modal-content,
+.op-modal-info {
     display: flex;
     align-items: center;
+}
+.attachments,
+.op-modal-content,
+.op-modal {
     justify-content: center;
 }
-.container.fill {
-    height: 100%;
+.weapon-container,
+.op-modal-info {
+    justify-content: space-around;
 }
-.container.vertical {
+.op-modal-info {
     flex-direction: column;
+    flex-flow: column;
 }
-.container.horizontal {
+
+.op-modal,
+.op-modal-content {
+    min-width: fit-content;
+}
+.op-modal {
+    min-height: 100%;
+}
+.op-modal-content {
+    background-color: #444444;
+    border-color: #666666;
+    border-style: inset;
+    min-height: fit-content;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+.weapon-container {
     height: fit-content;
     width: fit-content;
-    flex-direction: row;
+}
+
+.weapon-container,
+.op-modal-content,
+.op-modal-info {
+    flex-wrap: wrap;
+}
+.op-modal-content div {
+    flex-grow: 1;
+}
+.op-modal-info-data {
+    background-color: #333333;
+    border-color: #333333;
+    border-style: outset;
+    max-width: fit-content;
+    max-height: fit-content;
+    padding: 2vmax;
+    margin: 1vmax;
+    font-size: 2vmax;
 }
 .weapon-data {
+    background-color: #333333;
+    border-color: #333333;
+    border-style: outset;
+    max-width: fit-content;
+    max-height: fit-content;
     padding: 2vmax;
-}
-.attachments {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    margin: 1vmax;
+    font-size: 2vmax;
 }
 .attachment-section div {
     font-size: 2vmax;
 }
 .attachment-section {
-    padding: 1vmax;
+    margin: 1vmax;
 }
 
 .scrollable-wrapper {
