@@ -5,6 +5,7 @@ import Options from "./utils/options.js";
 import { BarrelAttachment, GripAttachment, SightAttachment, UnderBarrelAttachment, } from "./utils/weaponInfo/attachment.js";
 import { Weapon } from "./utils/weaponInfo/weapon.js";
 import { whiteBackground } from "./utils/img.js";
+import { giveHoverAnimation, HoverOptions } from "./utils/html.js";
 function roll() {
     let op = undefined;
     const key = sessionStorage.getItem("group");
@@ -195,6 +196,7 @@ function equipmentMatchesList(equipment, equipments) {
 }
 roll();
 function applyVisuals(op) {
+    addOptionButton();
     if (op !== undefined) {
         const opModal = document.createElement("section");
         opModal.className = "op-modal";
@@ -263,8 +265,30 @@ function applyVisuals(op) {
         opModalContent.appendChild(opModalInfo);
         opModalContent.appendChild(weaponContainer);
         opModal.appendChild(opModalContent);
-        document.body.insertBefore(opModal, document.body.childNodes[0]);
+        document.body.insertBefore(opModal, document.body.childNodes[2]);
     }
+}
+function addOptionButton() {
+    const options = document.createElement("div");
+    options.className = "options";
+    const optionsContainer = document.createElement("div");
+    optionsContainer.addEventListener("mouseenter", () => {
+        setRootVariable("--options-hover", "0");
+        console.log(0, getRootVariable("--options-hover"));
+    });
+    optionsContainer.addEventListener("mouseleave", () => {
+        setRootVariable("--options-hover", "-6vmax");
+        console.log(1, getRootVariable("--options-hover"));
+    });
+    const optionsButton = document.createElement("div");
+    optionsButton.innerHTML += "Options";
+    const translate = () => {
+        optionsButton.style.transform += "translate(0, var(--options-hover))";
+    };
+    giveHoverAnimation(optionsButton, new HoverOptions({ transitionSec: 0.15, onMouseEnter: translate, onMouseLeave: translate }));
+    optionsContainer.appendChild(optionsButton);
+    options.appendChild(optionsContainer);
+    document.body.insertBefore(options, document.body.childNodes[0]);
 }
 function tryAddWeaponVisuals(key, weaponContainer, weapon) {
     if (weapon !== undefined && weapon.name !== undefined) {
@@ -376,8 +400,7 @@ function getRootVariable(key) {
 }
 function setRootVariable(key, value) {
     if (root !== null) {
-        const rs = getComputedStyle(root);
-        return rs.setProperty(key, value);
+        return root.style.setProperty(key, value);
     }
 }
 //#endregion

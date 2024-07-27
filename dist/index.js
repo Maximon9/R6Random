@@ -1,4 +1,5 @@
 import { GROUPS } from "./ops.js";
+import { giveHoverAnimation, HoverOptions } from "./utils/html.js";
 import { whiteBackground } from "./utils/img.js";
 import Options, { CategoryOptionsRev } from "./utils/options.js";
 import IDKButImHardRN from "./utils/time.js";
@@ -533,83 +534,6 @@ function createFilter(optionsModalContentScrollWrapper, tableBody) {
     }
     else {
         filterModalContent.removeChild(filterModalContent.childNodes[2]);
-    }
-}
-class HoverOptions {
-    imageElement;
-    enterImg;
-    leaveImg;
-    transitionSec;
-    click;
-    animateOnTouch;
-    scale;
-    constructor(options = {
-        transitionSec: 0.13,
-        animateOnTouch: false,
-        click: false,
-        scale: 90,
-    }) {
-        this.imageElement = options.imgInfo ? options.imgInfo.element : undefined;
-        this.enterImg = options.imgInfo ? options.imgInfo.enterImg : undefined;
-        this.leaveImg = options.imgInfo ? options.imgInfo.leaveImg : undefined;
-        this.transitionSec = options.transitionSec ?? 0.13;
-        this.animateOnTouch = options.animateOnTouch ?? false;
-        this.click = options.click ?? false;
-        this.scale = options.scale ?? 90;
-    }
-}
-function giveHoverAnimation(element, options = new HoverOptions()) {
-    const isTouchScreen = Options.isTouchScreen;
-    let setNormalScale = true;
-    if (options.click) {
-        if (isTouchScreen) {
-            if (options.animateOnTouch) {
-                const enterImg = options["enterImg"];
-                if (options.imageElement !== undefined) {
-                    if (enterImg !== undefined) {
-                        options.imageElement.src = enterImg;
-                    }
-                }
-                element.style.transition = `transform ${options.transitionSec}s ease-in-out`;
-                element.style.transform = `scale(${options.scale + 10}%)`;
-                setNormalScale = false;
-            }
-        }
-        else {
-            element.style.transition = `transform ${options.transitionSec}s ease-in-out`;
-            element.style.transform = `scale(${options.scale + 10}%)`;
-            setNormalScale = false;
-        }
-    }
-    if (setNormalScale) {
-        element.style.transition = `transform ${options.transitionSec}s ease-in-out`;
-        element.style.transform = `scale(${options.scale}%)`;
-    }
-    if (!isTouchScreen) {
-        const mouseEnter = () => {
-            const enterImg = options["enterImg"];
-            if (options.imageElement !== undefined) {
-                if (enterImg !== undefined) {
-                    options.imageElement.src = enterImg;
-                }
-            }
-            element.style.transition = `transform ${options.transitionSec}s ease-in-out`;
-            element.style.transform = `scale(${options.scale + 10}%)`;
-        };
-        const mouseLeave = () => {
-            const leaveImg = options["leaveImg"];
-            if (options.imageElement !== undefined) {
-                if (leaveImg !== undefined) {
-                    options.imageElement.src = leaveImg;
-                }
-            }
-            element.style.transition = `transform ${options.transitionSec}s ease-in-out`;
-            element.style.transform = `scale(${options.scale}%)`;
-        };
-        element.removeEventListener("mouseenter", mouseEnter);
-        element.removeEventListener("mouseleave", mouseLeave);
-        element.addEventListener("mouseenter", mouseEnter);
-        element.addEventListener("mouseleave", mouseLeave);
     }
 }
 function groupButtonClicked(key) {

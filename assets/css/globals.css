@@ -1,4 +1,8 @@
 /* #region Main */
+:root {
+    --options-hover: -6vmax;
+}
+
 html,
 body {
     text-align: center;
@@ -40,6 +44,29 @@ body {
     color: #ffffff;
 }
 
+.options {
+    position: absolute;
+    width: 100%;
+}
+.options div {
+    position: sticky;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: start;
+    justify-content: center;
+    height: 15vmax;
+    width: 30vmax;
+}
+.options div div {
+    height: fit-content;
+    width: fit-content;
+    transform: translate(0, var(--options-hover));
+    transition: transform 0.15s ease-in-out;
+    font-size: 6vmax;
+}
 .icon-container {
     width: 100%;
     height: 100%;
@@ -57,6 +84,7 @@ body {
 .equipment-wrapper,
 .op-modal-info,
 .attachment-section-data,
+.options,
 .attachment-section-data-wrapper {
     display: flex;
     align-items: center;
@@ -67,12 +95,13 @@ body {
 .equipment-image,
 .op-modal,
 .attachment-section-data,
+.options,
 .attachment-section-data-wrapper {
     justify-content: center;
 }
 .weapons-container,
 .op-modal-info {
-    justify-content: space-around;
+    justify-content: center;
 }
 .weapons-container,
 .op-modal-content,
@@ -111,8 +140,7 @@ body {
 }
 .op-data {
     background-color: #333333;
-    border-color: #333333;
-    border-style: inset;
+    border: #333333, inset, 0.4vmax;
     max-width: fit-content;
     max-height: fit-content;
     margin: 1vmax;
@@ -120,9 +148,6 @@ body {
 }
 
 .weapon-content {
-    /* background-color: #333333;
-    border-color: #333333;
-    border-style: outset; */
     max-width: fit-content;
     max-height: fit-content;
     padding: 1vmax;
@@ -139,7 +164,7 @@ body {
 .attachment-section-data-wrapper,
 .weapon-data {
     background-color: #333333;
-    border: #333333, inset;
+    border: #333333, inset, 0.4vmax;
     padding: 0.5vmax;
 }
 .attachment-section {
@@ -174,18 +199,14 @@ body {
     width: 19.5vmax;
 }
 .equipment-content {
-    /* background-color: #333333;
-    border-color: #333333;
-    border-style: outset; */
     max-width: fit-content;
     max-height: fit-content;
-    margin: 1vmax;
     font-size: 2.5vmax;
     text-align: center;
 }
 .equipment-data {
     background-color: #333333;
-    border: #333333, inset;
+    border: #333333, inset, 0.4vmax;
     margin: 1vmax;
     font-size: 1.5vmax;
 }
@@ -216,8 +237,7 @@ body {
     height: fit-content;
     overflow: auto;
     background: #333333;
-    border-style: inset;
-    border-color: #333333;
+    border: #333333, inset, 0.4vmax;
 }
 .avoid-select-all-button-container,
 .select-all-button-container {
@@ -230,8 +250,7 @@ body {
     margin-left: auto;
     margin-right: auto;
     background: transparent;
-    border-style: outset;
-    border-color: #333333;
+    border: #333333, inset, 0.4vmax;
     padding-left: 2vmax;
     padding-right: 2vmax;
     color: white;
@@ -279,8 +298,7 @@ body {
     height: 7vmax;
     width: 33vmax;
     line-height: 7.5vmax;
-    border-style: outset;
-    border-color: #333333;
+    border: #333333, outset, 0.4vmax;
     font-family: inherit;
     text-align: center;
 }
@@ -324,8 +342,7 @@ body {
 .group-select {
     cursor: pointer;
     font-size: 2vmax;
-    border-color: #333333;
-    border-style: outset;
+    border: #333333, outset, 0.4vmax;
 }
 
 .filter-modal-content table tbody tr td {
@@ -342,9 +359,7 @@ body {
     text-align: center;
     width: 8vmax;
     font-size: 1.7vmax;
-    border-width: 100%;
-    border-style: outset;
-    border-color: #333333;
+    border: #333333, outset, 0.4vmax;
     line-height: normal;
 }
 .filter-modal-content table tbody img {

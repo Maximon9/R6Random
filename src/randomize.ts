@@ -14,6 +14,8 @@ import {
 } from "./utils/weaponInfo/attachment.js";
 import { Weapon, WeaponInfo } from "./utils/weaponInfo/weapon.js";
 import { whiteBackground } from "./utils/img.js";
+import { setPriority } from "os";
+import { giveHoverAnimation, HoverOptions } from "./utils/html.js";
 
 type Ratio = [number, number];
 
@@ -264,6 +266,7 @@ function equipmentMatchesList(
 roll();
 
 function applyVisuals(op: OP | undefined) {
+    addOptionButton();
     if (op !== undefined) {
         const opModal = document.createElement("section");
         opModal.className = "op-modal";
@@ -342,8 +345,38 @@ function applyVisuals(op: OP | undefined) {
         opModalContent.appendChild(opModalInfo);
         opModalContent.appendChild(weaponContainer);
         opModal.appendChild(opModalContent);
-        document.body.insertBefore(opModal, document.body.childNodes[0]);
+        document.body.insertBefore(opModal, document.body.childNodes[2]);
     }
+}
+
+function addOptionButton() {
+    const options = document.createElement("div");
+    options.className = "options";
+
+    const optionsContainer = document.createElement("div");
+    optionsContainer.addEventListener("mouseenter", () => {
+        setRootVariable("--options-hover", "0");
+        console.log(0, getRootVariable("--options-hover"));
+    });
+    optionsContainer.addEventListener("mouseleave", () => {
+        setRootVariable("--options-hover", "-6vmax");
+        console.log(1, getRootVariable("--options-hover"));
+    });
+
+    const optionsButton = document.createElement("div");
+    optionsButton.innerHTML += "Options";
+    const translate = () => {
+        optionsButton.style.transform += "translate(0, var(--options-hover))";
+    };
+    giveHoverAnimation(
+        optionsButton,
+        new HoverOptions({ transitionSec: 0.15, onMouseEnter: translate, onMouseLeave: translate })
+    );
+
+    optionsContainer.appendChild(optionsButton);
+    options.appendChild(optionsContainer);
+
+    document.body.insertBefore(options, document.body.childNodes[0]);
 }
 
 function tryAddWeaponVisuals(
@@ -461,7 +494,7 @@ function tryAddAttachmentVisuals(weaponData: HTMLDivElement, attachments?: Weapo
     }
 }
 
-const root = document.querySelector(":root");
+const root = document.querySelector(":root") as HTMLElement;
 
 function getRootVariable(key: string) {
     if (root !== null) {
@@ -472,8 +505,7 @@ function getRootVariable(key: string) {
 
 function setRootVariable(key: string, value: string) {
     if (root !== null) {
-        const rs = getComputedStyle(root);
-        return rs.setProperty(key, value);
+        return root.style.setProperty(key, value);
     }
 }
 //#endregion
