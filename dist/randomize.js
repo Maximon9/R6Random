@@ -196,16 +196,75 @@ roll();
 function applyVisuals(op) {
     if (op !== undefined) {
     }
+    const opModalContent = document
+        .getElementsByClassName("op-modal-content")
+        .item(0);
     const opModalInfo = document
         .getElementsByClassName("op-modal-info")
         .item(0);
-    if (opModalInfo !== null) {
-        let combinedWidth = 0;
-        for (let i = 0; i < opModalInfo.children.length; i++) {
-            const child = opModalInfo.children[i];
-            combinedWidth += child.clientWidth;
+    if (opModalContent !== null && opModalInfo !== null) {
+        let info = {};
+        checkWraping(info, opModalContent.children, () => {
+            opModalInfo.style.flexDirection = "row";
+        }, () => {
+            opModalInfo.style.flexDirection = "column";
+        });
+        window.addEventListener("resize", () => {
+            checkWraping(info, opModalContent.children, () => {
+                opModalInfo.style.flexDirection = "row";
+            }, () => {
+                opModalInfo.style.flexDirection = "column";
+            });
+        });
+    }
+}
+function checkWraping(info, children, wrapFunc, unwrapFunc) {
+    let preChild = null;
+    for (let i = children.length - 1; i >= 0; i--) {
+        const child = children[i];
+        if (preChild === null) {
+            preChild = child;
         }
-        console.log(combinedWidth);
+        else {
+            const func = info["func"];
+            const type = info["type"];
+            if (func === undefined || type === undefined) {
+                if (preChild.offsetTop > child.offsetTop) {
+                    info["func"] = (preChild, child) => {
+                        return preChild.offsetTop < child.offsetTop;
+                    };
+                    info["type"] = "<";
+                    wrapFunc();
+                }
+                else if (preChild.offsetTop < child.offsetTop) {
+                    info["func"] = (preChild, child) => {
+                        return preChild.offsetTop > child.offsetTop;
+                    };
+                    info["type"] = ">";
+                    unwrapFunc();
+                }
+            }
+            else {
+                if (func(preChild, child)) {
+                    switch (type) {
+                        case "<":
+                            info["func"] = (preChild, child) => {
+                                return preChild.offsetTop > child.offsetTop;
+                            };
+                            info["type"] = ">";
+                            unwrapFunc();
+                            break;
+                        default:
+                            info["func"] = (preChild, child) => {
+                                return preChild.offsetTop < child.offsetTop;
+                            };
+                            info["type"] = "<";
+                            wrapFunc();
+                            break;
+                    }
+                }
+            }
+        }
     }
 }
 //#endregion
