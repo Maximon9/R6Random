@@ -21,7 +21,7 @@ function roll() {
         else {
             op = savedOP;
         }
-        console.log(op);
+        applyVisuals(op);
     }
 }
 function tryFetchSavedOP() {
@@ -193,5 +193,20 @@ function equipmentMatchesList(equipment, equipments) {
     return false;
 }
 roll();
+function applyVisuals(op) {
+    if (op !== undefined) {
+    }
+    const opModalInfo = document
+        .getElementsByClassName("op-modal-info")
+        .item(0);
+    if (opModalInfo !== null) {
+        let combinedWidth = 0;
+        for (let i = 0; i < opModalInfo.children.length; i++) {
+            const child = opModalInfo.children[i];
+            combinedWidth += child.clientWidth;
+        }
+        console.log(combinedWidth);
+    }
+}
 //#endregion
 //# sourceMappingURL=randomize.js.map
