@@ -196,126 +196,6 @@ function equipmentMatchesList(equipment, equipments) {
 roll();
 function applyVisuals(op) {
     if (op !== undefined) {
-        /*
-    <div class="weapon-data">
-        <div>
-            <div style="font-size: 4vmax">Primary</div>
-            <div>
-                <img
-                    src="assets/images/WhiteBackground.jpg"
-                    alt="Image"
-                    style="aspect-ratio: 7/4; width: 14vmax"
-                />
-            </div>
-            Weapon
-        </div>
-        <div class="attachments">
-            <div class="attachment-section">
-                <div>
-                    <div>
-                        <img
-                            src="assets/images/WhiteBackground.jpg"
-                            alt="Image"
-                            style="aspect-ratio: 4/3; width: 10vmax"
-                        />
-                    </div>
-                    Sight
-                </div>
-                <div>
-                    <div>
-                        <img
-                            src="assets/images/WhiteBackground.jpg"
-                            alt="Image"
-                            style="aspect-ratio: 4/3; width: 10vmax"
-                        />
-                    </div>
-                    Barrel
-                </div>
-            </div>
-            <div class="attachment-section">
-                <div>
-                    <div>
-                        <img
-                            src="assets/images/WhiteBackground.jpg"
-                            alt="Image"
-                            style="aspect-ratio: 4/3; width: 10vmax"
-                        />
-                    </div>
-                    Grip
-                </div>
-                <div>
-                    <div>
-                        <img
-                            src="assets/images/WhiteBackground.jpg"
-                            alt="Image"
-                            style="aspect-ratio: 4/3; width: 10vmax"
-                        />
-                    </div>
-                    Under Barrel
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="weapon-data">
-        <div>
-            <div style="font-size: 4vmax">Secondary</div>
-            <div>
-                <img
-                    src="assets/images/WhiteBackground.jpg"
-                    alt="Image"
-                    style="aspect-ratio: 7/4; width: 14vmax"
-                />
-            </div>
-            Weapon
-        </div>
-        <div class="attachments">
-            <div class="attachment-section">
-                <div>
-                    <div>
-                        <img
-                            src="assets/images/WhiteBackground.jpg"
-                            alt="Image"
-                            style="aspect-ratio: 4/3; width: 10vmax"
-                        />
-                    </div>
-                    Sight
-                </div>
-                <div>
-                    <div>
-                        <img
-                            src="assets/images/WhiteBackground.jpg"
-                            alt="Image"
-                            style="aspect-ratio: 4/3; width: 10vmax"
-                        />
-                    </div>
-                    Barrel
-                </div>
-            </div>
-            <div class="attachment-section">
-                <div>
-                    <div>
-                        <img
-                            src="assets/images/WhiteBackground.jpg"
-                            alt="Image"
-                            style="aspect-ratio: 4/3; width: 10vmax"
-                        />
-                    </div>
-                    Grip
-                </div>
-                <div>
-                    <div>
-                        <img
-                            src="assets/images/WhiteBackground.jpg"
-                            alt="Image"
-                            style="aspect-ratio: 4/3; width: 10vmax"
-                        />
-                    </div>
-                    Under Barrel
-                </div>
-            </div>
-        </div>
-    </div>
-    */
         const opModal = document.createElement("section");
         opModal.className = "op-modal";
         const opModalContent = document.createElement("div");
@@ -326,10 +206,10 @@ function applyVisuals(op) {
             const opData = document.createElement("div");
             opData.className = "op-data";
             const image = document.createElement("div");
-            image.style.width = "20vmax";
-            image.style.height = "25vmax";
+            image.style.width = "19.5vmax";
+            image.style.height = "22.35vmax";
             image.style.overflow = "hidden";
-            image.style.backgroundImage = `url(${op.image ?? whiteBackground})`;
+            image.style.backgroundImage = `url("${op.image ?? whiteBackground}")`;
             image.style.backgroundRepeat = "no-repeat";
             image.style.backgroundSize = "cover";
             const iconContainer = document.createElement("div");
@@ -353,123 +233,63 @@ function applyVisuals(op) {
             opData.appendChild(image);
             opModalInfo.appendChild(opData);
         }
-        const equipmentData = document.createElement("div");
-        equipmentData.className = "equipment-data";
-        equipmentData.innerHTML += "Equipment";
-        const equipmentDataWrapper = document.createElement("div");
-        equipmentDataWrapper.className = "equipment-data-wrapper";
-        equipmentData.appendChild(equipmentDataWrapper);
+        const equipmentContent = document.createElement("div");
+        equipmentContent.className = "equipment-content";
+        equipmentContent.innerHTML += "Equipment";
+        const equipmentWrapper = document.createElement("div");
+        equipmentWrapper.className = "equipment-wrapper";
         const equipment = op?.equipment;
         if (equipment !== undefined) {
             for (let i = 0; i < equipment.length; i++) {
                 const eq = equipment[i];
-                const eqImageContainer = document.createElement("div");
-                eqImageContainer.style.display = "flex";
-                eqImageContainer.style.flexDirection = "column";
-                eqImageContainer.style.fontSize = "2vmax";
-                const eqImage = document.createElement("img");
-                eqImage.src = eq.image ?? whiteBackground;
-                eqImage.alt = "Equipment Image";
-                eqImage.style.width = "13vmax";
-                eqImageContainer.appendChild(eqImage);
-                eqImageContainer.innerHTML += eq.name ?? "";
-                equipmentDataWrapper.appendChild(eqImageContainer);
+                if (eq.name !== undefined) {
+                    const equipmentData = document.createElement("div");
+                    equipmentData.className = "equipment-data";
+                    const equipmentImage = document.createElement("div");
+                    equipmentImage.className = "equipment-image";
+                    equipmentImage.style.backgroundImage = `url("${eq.image ?? whiteBackground}")`;
+                    equipmentData.appendChild(equipmentImage);
+                    equipmentData.innerHTML += eq.name;
+                    equipmentWrapper.appendChild(equipmentData);
+                }
             }
-            opModalInfo.appendChild(equipmentData);
+            equipmentContent.appendChild(equipmentWrapper);
+            opModalInfo.appendChild(equipmentContent);
         }
         const weaponContainer = document.createElement("div");
-        weaponContainer.className = "weapon-container";
-        if (op.primaryWeapon !== undefined && op.primaryWeapon.name !== undefined) {
-            const primaryData = document.createElement("div");
-            primaryData.className = "weapon-data";
-            const primaryWeaponData = document.createElement("div");
-            const primaryTitle = document.createElement("div");
-            primaryTitle.innerHTML += "Primary";
-            primaryTitle.style.fontSize = "2.5vmax";
-            const primaryWeaponImageContainer = document.createElement("div");
-            const primaryWeaponImage = document.createElement("img");
-            primaryWeaponImage.src = op.primaryWeapon.image ?? whiteBackground;
-            primaryWeaponImage.style.width = "20vmax";
-            primaryWeaponImageContainer.appendChild(primaryWeaponImage);
-            primaryWeaponData.appendChild(primaryTitle);
-            primaryWeaponData.appendChild(primaryWeaponImageContainer);
-            primaryData.appendChild(primaryWeaponData);
-            primaryData.innerHTML += op.primaryWeapon.name;
-            tryAddAttachmentVisuals(primaryData, op.primaryWeapon.attachments);
-            weaponContainer.appendChild(primaryData);
-        }
-        if (op.secondaryWeapon !== undefined && op.secondaryWeapon.name !== undefined) {
-            const secondaryData = document.createElement("div");
-            secondaryData.className = "weapon-data";
-            const secondaryWeaponData = document.createElement("div");
-            const secondaryTitle = document.createElement("div");
-            secondaryTitle.innerHTML += "Primary";
-            secondaryTitle.style.fontSize = "2.5vmax";
-            const secondaryWeaponImageContainer = document.createElement("div");
-            const secondaryWeaponImage = document.createElement("img");
-            secondaryWeaponImage.src = op.secondaryWeapon.image ?? whiteBackground;
-            secondaryWeaponImage.style.width = "20vmax";
-            secondaryWeaponImageContainer.appendChild(secondaryWeaponImage);
-            secondaryWeaponData.appendChild(secondaryTitle);
-            secondaryWeaponData.appendChild(secondaryWeaponImageContainer);
-            secondaryData.appendChild(secondaryWeaponData);
-            secondaryData.innerHTML += op.secondaryWeapon.name;
-            tryAddAttachmentVisuals(secondaryData, op.secondaryWeapon.attachments);
-            weaponContainer.appendChild(secondaryData);
-        }
+        weaponContainer.className = "weapons-container";
+        tryAddWeaponVisuals("Primary", weaponContainer, op.primaryWeapon);
+        tryAddWeaponVisuals("Secondary", weaponContainer, op.secondaryWeapon);
         opModalContent.appendChild(opModalInfo);
         opModalContent.appendChild(weaponContainer);
         opModal.appendChild(opModalContent);
         document.body.insertBefore(opModal, document.body.childNodes[0]);
     }
 }
+function tryAddWeaponVisuals(key, weaponContainer, weapon) {
+    if (weapon !== undefined && weapon.name !== undefined) {
+        const content = document.createElement("div");
+        content.className = "weapon-content";
+        const weaponSection = document.createElement("div");
+        weaponSection.className = "weapon-section";
+        const title = document.createElement("div");
+        title.innerHTML += key;
+        title.style.fontSize = "2.5vmax";
+        const weaponImage = document.createElement("div");
+        weaponImage.style.backgroundImage = `url("${weapon.image ?? whiteBackground}")`;
+        weaponImage.className = "weapon-image";
+        const weaponData = document.createElement("div");
+        weaponData.className = "weapon-data";
+        weaponData.appendChild(weaponImage);
+        weaponData.innerHTML += weapon.name;
+        weaponSection.appendChild(title);
+        weaponSection.appendChild(weaponData);
+        content.appendChild(weaponSection);
+        tryAddAttachmentVisuals(content, weapon.attachments);
+        weaponContainer.appendChild(content);
+    }
+}
 function tryAddAttachmentVisuals(weaponData, attachments) {
-    /*
-        <div class="attachment-section">
-            <div>
-                <div>
-                    <img
-                        src="assets/images/WhiteBackground.jpg"
-                        alt="Image"
-                        style="aspect-ratio: 4/3; width: 10vmax"
-                    />
-                </div>
-                Sight
-            </div>
-            <div>
-                <div>
-                    <img
-                        src="assets/images/WhiteBackground.jpg"
-                        alt="Image"
-                        style="aspect-ratio: 4/3; width: 10vmax"
-                    />
-                </div>
-                Grip
-            </div>
-        </div>
-        <div class="attachment-section">
-            <div>
-                <div>
-                    <img
-                        src="assets/images/WhiteBackground.jpg"
-                        alt="Image"
-                        style="aspect-ratio: 4/3; width: 10vmax"
-                    />
-                </div>
-                Barrel
-            </div>
-            <div>
-                <div>
-                    <img
-                        src="assets/images/WhiteBackground.jpg"
-                        alt="Image"
-                        style="aspect-ratio: 4/3; width: 10vmax"
-                    />
-                </div>
-                Under Barrel
-            </div>
-        </div>
-    */
     if (attachments !== undefined) {
         if (Object.keys(attachments).length > 0) {
             const sectionInfo = {};
@@ -482,7 +302,7 @@ function tryAddAttachmentVisuals(weaponData, attachments) {
                 let sectionZero = sectionInfo["0"];
                 let sectionOne = sectionInfo["1"];
                 let attachmentData = undefined;
-                if (key === "sight" || key === "grip") {
+                if (key === "sight" || key === "barrel") {
                     if (sectionZero === undefined) {
                         sectionZero = sectionInfo["0"] = document.createElement("div");
                         sectionZero.className = "attachment-section";
@@ -502,7 +322,7 @@ function tryAddAttachmentVisuals(weaponData, attachments) {
                         sectionOne.className = "attachment-section";
                     }
                     switch (key) {
-                        case "barrel":
+                        case "grip":
                             attachmentData = sectionOrder["1"][0] = document.createElement("div");
                             break;
                         default:
@@ -511,16 +331,22 @@ function tryAddAttachmentVisuals(weaponData, attachments) {
                     }
                 }
                 if (attachmentData !== undefined && attachment?.name !== undefined) {
-                    const imageContainer = document.createElement("div");
-                    const image = document.createElement("img");
-                    image.src = attachment.image ?? whiteBackground;
-                    image.style.width = "10vmax";
-                    imageContainer.append(image);
-                    attachmentData.innerHTML += key;
-                    attachmentData.appendChild(imageContainer);
+                    attachmentData.className = "attachment-section-data";
+                    attachmentData.style.fontSize = "1.5vmax";
+                    const image = document.createElement("div");
+                    image.className = "attachment-image";
+                    image.style.backgroundImage = `url("${attachment.image ?? whiteBackground}")`;
+                    const attachmentDataWrapper = document.createElement("div");
+                    attachmentDataWrapper.appendChild(image);
+                    attachmentDataWrapper.innerHTML += attachment.name;
+                    attachmentDataWrapper.className = "attachment-section-data-wrapper";
+                    const attachmentTitle = document.createElement("div");
+                    attachmentTitle.style.fontSize = "2vmax";
+                    attachmentTitle.innerHTML += key;
+                    attachmentData.appendChild(attachmentTitle);
+                    attachmentData.appendChild(attachmentDataWrapper);
                 }
             }
-            console.log(sectionInfo);
             for (const nKey in sectionInfo) {
                 const key = nKey;
                 const attachmentSection = sectionInfo[key];
@@ -539,6 +365,19 @@ function tryAddAttachmentVisuals(weaponData, attachments) {
             }
             weaponData.appendChild(attachmentsDiv);
         }
+    }
+}
+const root = document.querySelector(":root");
+function getRootVariable(key) {
+    if (root !== null) {
+        const rs = getComputedStyle(root);
+        return rs.getPropertyValue(key);
+    }
+}
+function setRootVariable(key, value) {
+    if (root !== null) {
+        const rs = getComputedStyle(root);
+        return rs.setProperty(key, value);
     }
 }
 //#endregion

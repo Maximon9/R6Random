@@ -44,36 +44,48 @@ body {
     width: 100%;
     height: 100%;
     display: flex;
-    flex-direction: column;
     justify-content: end;
     align-items: center;
 }
 
-.weapon-container,
+.weapons-container,
 .attachments,
 .op-modal,
 .op-modal-content,
-.equipment-data-wrapper,
-.op-modal-info {
+.weapon-section,
+.equipment-image,
+.equipment-wrapper,
+.op-modal-info,
+.attachment-section-data,
+.attachment-section-data-wrapper {
     display: flex;
     align-items: center;
 }
 .attachments,
 .op-modal-content,
-.op-modal {
+.weapon-section,
+.equipment-image,
+.op-modal,
+.attachment-section-data,
+.attachment-section-data-wrapper {
     justify-content: center;
 }
-.weapon-container,
+.weapons-container,
 .op-modal-info {
     justify-content: space-around;
 }
-.equipment-data-wrapper {
-    justify-content: space-evenly;
-}
-.weapon-container,
+.weapons-container,
 .op-modal-content,
 .op-modal-info {
     flex-wrap: wrap;
+}
+.icon-container,
+.weapon-section,
+.equipment-image,
+.attachments,
+.attachment-section-data,
+.attachment-section-data-wrapper {
+    flex-direction: column;
 }
 
 .op-modal,
@@ -88,13 +100,13 @@ body {
     margin-top: 40px;
     margin-bottom: 40px;
 }
-.weapon-container {
+.weapons-container {
     height: fit-content;
     width: fit-content;
 }
 
 .op-modal-info,
-.weapon-container {
+.weapons-container {
     flex-grow: 1;
 }
 .op-data {
@@ -106,32 +118,76 @@ body {
     margin: 1vmax;
     font-size: 3vmax;
 }
-.equipment-data {
+.equipment-content {
     background-color: #333333;
     border-color: #333333;
-    border-style: inset;
+    border-style: outset;
     max-width: fit-content;
     max-height: fit-content;
     margin: 1vmax;
     font-size: 2.5vmax;
     text-align: center;
 }
-.weapon-data {
+.weapon-content {
     background-color: #333333;
     border-color: #333333;
-    border-style: inset;
+    border-style: outset;
     max-width: fit-content;
+    height: 47vmax;
     max-height: fit-content;
-    padding: 2vmax;
+    padding: 1vmax;
     margin: 1vmax;
     font-size: 2vmax;
 }
-.attachment-section div {
+.attachment-section-data {
+    width: 10vmax;
     font-size: 2vmax;
+    margin-left: 1vmax;
+    margin-right: 1vmax;
+    margin-top: 1vmax;
+}
+.attachment-section-data-wrapper {
+    border: #333333, inset;
+    padding: 0.5vmax;
 }
 .attachment-section {
-    min-height: 100%;
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+}
+.attachment-image,
+.weapon-image {
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+.weapon-image {
+    height: 10vmax;
+    width: 15vmax;
+}
+.attachment-image {
+    height: 8vmax;
+    width: 8vmax;
+}
+.weapon-data {
+    padding: 0.5vmax;
+    border: #333333, inset;
+}
+.attachments {
+    width: 100%;
+    height: fit-content;
+}
+.equipment-image {
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    height: 14vmax;
+    width: 17.25vmax;
+}
+.equipment-data {
+    border: #333333, inset;
     margin: 1vmax;
+    font-size: 1.5vmax;
 }
 
 .scrollable-wrapper {
