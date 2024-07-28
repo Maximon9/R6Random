@@ -1,7 +1,4 @@
 /* #region Main */
-:root {
-    --options-hover: -6vmax;
-}
 
 html,
 body {
@@ -48,16 +45,10 @@ body {
     color: #ffffff;
 }
 
-.options {
-    position: absolute;
-    width: 100%;
-}
 .options div {
-    position: sticky;
+    width: 100%;
+    position: fixed;
     top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
     display: flex;
     align-items: start;
     justify-content: center;
@@ -67,9 +58,7 @@ body {
 .options div div {
     height: fit-content;
     width: fit-content;
-    transform: translate(0, var(--options-hover));
-    transition: transform 0.15s ease-in-out;
-    font-size: 6vmax;
+    font-size: 5vmax;
 }
 .icon-container {
     width: 100%;
@@ -230,8 +219,11 @@ body {
     width: 6.5vmax;
 }
 
+.nav-bar button,
 .select-all-button,
 .filter-modal-content table tr td div,
+.group-select,
+.options div div,
 .options-modal table tbody tr td section div div {
     cursor: pointer;
 }
@@ -320,7 +312,6 @@ body {
     font-family: inherit;
     border: none;
     outline: none;
-    cursor: pointer;
     padding: 14px 16px;
 }
 
@@ -344,7 +335,6 @@ body {
     font-size: 4vmax;
 }
 .group-select {
-    cursor: pointer;
     font-size: 2vmax;
     border: #535353 outset 0.4vmax;
 }

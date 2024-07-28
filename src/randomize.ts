@@ -14,10 +14,8 @@ import {
 } from "./utils/weaponInfo/attachment.js";
 import { Weapon, WeaponInfo } from "./utils/weaponInfo/weapon.js";
 import { whiteBackground } from "./utils/img.js";
-import { setPriority } from "os";
 import { giveHoverAnimation, HoverOptions } from "./utils/html.js";
-
-type Ratio = [number, number];
+import Animator from "./utils/animation.js";
 
 function roll() {
     let op: OP | undefined = undefined;
@@ -354,29 +352,28 @@ function addOptionButton() {
     options.className = "options";
 
     const optionsContainer = document.createElement("div");
-    optionsContainer.addEventListener("mouseenter", () => {
-        setRootVariable("--options-hover", "0");
-        console.log(0, getRootVariable("--options-hover"));
+    const animation = new Animator({
+        animate: () => {},
+        autoStartAnimation: true,
+        condition: 60,
     });
-    optionsContainer.addEventListener("mouseleave", () => {
-        setRootVariable("--options-hover", "-6vmax");
-        console.log(1, getRootVariable("--options-hover"));
-    });
+    // optionsContainer.addEventListener("mouseenter", () => {
+
+    // });
+    // optionsContainer.addEventListener("mouseleave", () => {});
 
     const optionsButton = document.createElement("div");
     optionsButton.innerHTML += "Options";
-    const translate = () => {
-        optionsButton.style.transform += "translate(0, var(--options-hover))";
-    };
-    giveHoverAnimation(
-        optionsButton,
-        new HoverOptions({ transitionSec: 0.15, onMouseEnter: translate, onMouseLeave: translate })
-    );
+    giveHoverAnimation(optionsButton, new HoverOptions({ transitionSec: 0.15 }));
 
     optionsContainer.appendChild(optionsButton);
     options.appendChild(optionsContainer);
 
     document.body.insertBefore(options, document.body.childNodes[0]);
+}
+
+function update() {
+    requestAnimationFrame(update);
 }
 
 function tryAddWeaponVisuals(
