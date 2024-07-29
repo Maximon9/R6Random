@@ -2,6 +2,7 @@
 import type { AllGroups, AllOPNames, ParsedGroupKeys } from "./ops.js";
 import type { OptionNames } from "./utils/Siege/options.js";
 import type { WeaponAttackments, WeaponAttackmentsInfo } from "./types/weapon.js";
+import type { OptionInfoType } from "./types/options.js";
 import { GROUPS } from "./ops.js";
 import { Equipment, EquipmentInfo } from "./utils/Siege/equipment.js";
 import { OP } from "./utils/Siege/op.js";
@@ -17,6 +18,10 @@ import { whiteBackground } from "./utils/img.js";
 import { giveHoverAnimation, HoverOptions } from "./utils/html.js";
 import Animator, { AnimationCurves } from "./utils/animation/animation.js";
 import { lerp } from "./utils/math.js";
+import InputSystem from "./input.js";
+import { on } from "events";
+
+InputSystem.start();
 
 function roll() {
     let op: OP | undefined = undefined;
@@ -262,7 +267,9 @@ function equipmentMatchesList(
     return false;
 }
 
+export let optionsInfo: OptionInfoType | undefined = undefined;
 function applyVisuals(op: OP | undefined) {
+    optionsInfo = { htmls: createOptions(1), on: false };
     addOptionButton();
     if (op !== undefined) {
         const opModal = document.createElement("section");
@@ -278,24 +285,19 @@ function applyVisuals(op: OP | undefined) {
             const opData = document.createElement("div");
             opData.className = "op-data";
             const image = document.createElement("div");
-            image.style.width = "19.5vmax";
-            image.style.height = "22.35vmax";
-            image.style.overflow = "hidden";
+            image.className = "op-image";
             image.style.backgroundImage = `url("${op.image ?? whiteBackground}")`;
-            image.style.backgroundRepeat = "no-repeat";
-            image.style.backgroundSize = "cover";
+
             const iconContainer = document.createElement("div");
             iconContainer.className = "icon-container";
 
             const iconContent = document.createElement("div");
-            iconContent.style.zIndex = "1";
             iconContent.style.width = "fit-content";
             iconContent.style.height = "fit-content";
             iconContent.style.fontSize = "2vmax";
             iconContent.style.display = "flex";
             iconContent.style.flexDirection = "column";
             const icon = document.createElement("img");
-            icon.style.zIndex = "1";
             icon.src = op.icon ?? whiteBackground;
             icon.alt = "OP Icon";
             icon.style.width = "6vmax";
@@ -381,16 +383,14 @@ function addOptionButton() {
         );
         if (Options.isTouchScreen) {
             setTimeout(() => {
-                document.body.style.overflow = "hidden";
-                createOptions();
+                displayOptions();
                 giveHoverAnimation(
                     optionsButton,
                     new HoverOptions({ transitionSec: 0.15, click: true, animateOnTouch: false })
                 );
             }, 200);
         } else {
-            document.body.style.overflow = "hidden";
-            createOptions();
+            displayOptions();
         }
     });
 
@@ -398,6 +398,17 @@ function addOptionButton() {
     options.appendChild(optionsContainer);
 
     document.body.insertBefore(options, document.body.childNodes[0]);
+}
+
+function displayOptions() {
+    if (optionsInfo !== undefined) {
+        document.body.style.overflow = "hidden";
+        for (let i = 0; i < optionsInfo.htmls.length; i++) {
+            const [element, display] = optionsInfo.htmls[0];
+            element.style.display = display;
+            optionsInfo.on = true;
+        }
+    }
 }
 
 function tryAddWeaponVisuals(
@@ -482,14 +493,18 @@ function tryAddAttachmentVisuals(weaponData: HTMLDivElement, attachments?: Weapo
                     image.style.backgroundImage = `url("${attachment.image ?? whiteBackground}")`;
 
                     const attachmentDataWrapper = document.createElement("div");
-                    attachmentDataWrapper.appendChild(image);
-                    attachmentDataWrapper.innerHTML += attachment.name;
                     attachmentDataWrapper.className = "attachment-section-data-wrapper";
 
+                    const attachmentName = document.createElement("div");
+                    attachmentName.className = "attachment-name";
+                    attachmentName.innerHTML = attachment.name;
+
                     const attachmentTitle = document.createElement("div");
-                    attachmentTitle.style.fontSize = "2vmax";
+                    attachmentTitle.style.fontSize = "1.2em";
                     attachmentTitle.innerHTML += key;
 
+                    attachmentDataWrapper.appendChild(image);
+                    attachmentDataWrapper.appendChild(attachmentName);
                     attachmentData.appendChild(attachmentTitle);
                     attachmentData.appendChild(attachmentDataWrapper);
                 }

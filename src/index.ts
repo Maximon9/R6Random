@@ -4,6 +4,9 @@ import { giveHoverAnimation, HoverOptions } from "./utils/html.js";
 import { whiteBackground } from "./utils/img.js";
 import Options, { createOptions } from "./utils/Siege/options.js";
 import IDKButImHardRN from "./utils/animation/time.js";
+import InputSystem from "./input.js";
+
+InputSystem.start();
 
 function main() {
     document.body.oncontextmenu = (event: MouseEvent) => {
@@ -13,7 +16,7 @@ function main() {
         return false;
     };
     createGroupButtons();
-    createOptions(false);
+    createOptions(3, false);
 }
 function createGroupButtons() {
     let switcher: IDKButImHardRN;

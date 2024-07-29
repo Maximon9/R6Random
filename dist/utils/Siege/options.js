@@ -421,9 +421,17 @@ export function isScrollable(element, dir) {
         return element.scrollWidth > element.clientWidth;
     }
 }
-export function createOptions(makePopup = true) {
+export function createOptions(insert, makePopup = true) {
     const optionsModal = document.createElement("section");
+    const htmls = [];
     if (makePopup) {
+        /* <span aria-hidden="true">&times;</span> */
+        const exitContainer = document.createElement("div");
+        exitContainer.className = "exit-options-container";
+        const exitButton = document.createElement("div");
+        exitButton.className = "exit-options";
+        exitButton.innerHTML += "&times;";
+        optionsModal.style.display = "none";
         optionsModal.style.zIndex = "5";
         optionsModal.style.position = "fixed";
         optionsModal.style.top = "0";
@@ -434,6 +442,9 @@ export function createOptions(makePopup = true) {
         optionsModal.style.height = "100%";
         optionsModal.style.backgroundColor = "rgba(68, 68, 68, 0.8)";
         optionsModal.style.overflow = "auto";
+        exitContainer.appendChild(exitButton);
+        optionsModal.appendChild(exitContainer);
+        htmls.push([optionsModal, ""], [exitButton, "flex"]);
     }
     optionsModal.className = "options-modal";
     const optionsLabel = document.createElement("h1");
@@ -445,12 +456,41 @@ export function createOptions(makePopup = true) {
     const table = document.createElement("table");
     const tableBody = document.createElement("tbody");
     optionsModal.appendChild(optionsLabel);
-    createOptionsNavBar(optionsModalContentScrollWrapper, optionsModal, tableBody, makePopup);
+    optionInfos = {
+        Filter: { htmls: createFilter(optionsModalContentScrollWrapper, tableBody), on: false },
+        "Try Avoid Dupes": {
+            htmls: createTryAvoidOptions(optionsModalContentScrollWrapper, tableBody),
+            on: false,
+        },
+    };
+    createOptionsNavBar(optionsModal, makePopup);
     table.appendChild(tableBody);
     optionsModal.appendChild(optionsModalContent);
     optionsModalContentScrollWrapper.appendChild(table);
     optionsModalContent.appendChild(optionsModalContentScrollWrapper);
-    document.body.insertBefore(optionsModal, document.body.childNodes[3]);
+    document.body.insertBefore(optionsModal, document.body.childNodes[insert]);
+    if (isScrollable(optionsModalContentScrollWrapper, "horizontal")) {
+        let pre_left = null;
+        while (optionsModalContentScrollWrapper.scrollLeft !== pre_left) {
+            optionsModalContentScrollWrapper.scrollTo({
+                left: optionsModalContentScrollWrapper.scrollLeft + 10000,
+            });
+            pre_left = optionsModalContentScrollWrapper.scrollLeft;
+        }
+        optionsModalContentScrollWrapper.scrollTo({
+            left: optionsModalContentScrollWrapper.scrollLeft / 2,
+        });
+        optionsModalContentScrollWrapper.style.overflowX = "scroll";
+    }
+    else {
+        optionsModalContentScrollWrapper.style.overflowX = "hidden";
+    }
+    if (isScrollable(optionsModalContentScrollWrapper, "vertical")) {
+        optionsModalContentScrollWrapper.style.overflowY = "scroll";
+    }
+    else {
+        optionsModalContentScrollWrapper.style.overflowY = "hidden";
+    }
     window.addEventListener("resize", () => {
         if (isScrollable(optionsModalContentScrollWrapper, "horizontal")) {
             let pre_left = null;
@@ -475,110 +515,85 @@ export function createOptions(makePopup = true) {
             optionsModalContentScrollWrapper.style.overflowY = "hidden";
         }
     });
+    return htmls;
 }
-const optionNames = { Filter: false, "Try Avoid Dupes": false };
-export function createOptionsNavBar(optionsModalContentScrollWrapper, optionsModal, tableBody, makePopup) {
-    const navBar = document.createElement("div");
-    navBar.className = "nav-bar";
-    const navButtons = [];
-    for (const n in optionNames) {
-        const name = n;
-        const navButton = document.createElement("button");
-        if (makePopup) {
-            navButton.style.backgroundColor = "rgba(34, 34, 34, 0.5)";
+export let optionInfos = undefined;
+export function createOptionsNavBar(optionsModal, makePopup) {
+    if (optionInfos !== undefined) {
+        const navBar = document.createElement("div");
+        navBar.className = "nav-bar";
+        const navButtons = [];
+        for (const n in optionInfos) {
+            const name = n;
+            const navButton = document.createElement("button");
+            if (makePopup) {
+                navButton.style.backgroundColor = "rgba(34, 34, 34, 0.5)";
+            }
+            navButton.innerHTML = name;
+            navButton.style.background = "transparent";
+            if (!Options.isTouchScreen) {
+                navButton.addEventListener("mouseenter", () => {
+                    if (!optionInfos[name].on) {
+                        navButton.style.transition = "background-color 0.3s ease-in-out";
+                        if (makePopup) {
+                            navButton.style.backgroundColor = "rgba(51, 51, 51, 0.8)";
+                        }
+                        else {
+                            navButton.style.backgroundColor = "rgba(51, 51, 51, 1)";
+                        }
+                    }
+                });
+                navButton.addEventListener("mouseleave", () => {
+                    if (!optionInfos[name].on) {
+                        navButton.style.transition = "background-color 0.3s ease-in-out";
+                        navButton.style.backgroundColor = "transparent";
+                    }
+                });
+            }
+            navButtons.push([name, navButton]);
+            navBar.appendChild(navButton);
         }
-        navButton.innerHTML = name;
-        navButton.style.background = "transparent";
-        if (!Options.isTouchScreen) {
-            navButton.addEventListener("mouseenter", () => {
-                if (!optionNames[name]) {
-                    navButton.style.transition = "background-color 0.3s ease-in-out";
-                    if (makePopup) {
-                        navButton.style.backgroundColor = "rgba (51, 51, 51, 0.5)";
-                    }
-                    else {
-                        navButton.style.backgroundColor = "rgba (51, 51, 51, 1)";
+        for (let i = 0; i < navButtons.length; i++) {
+            const [name, navButton] = navButtons[i];
+            navButton.addEventListener("click", () => {
+                const optionInfo = optionInfos[name];
+                optionInfo.on = true;
+                for (let i = 0; i < navButtons.length; i++) {
+                    const [key, navButton1] = navButtons[i];
+                    if (key !== name) {
+                        const optionInfo1 = optionInfos[key];
+                        optionInfo1.on = false;
+                        navButton1.style.transition = "background-color 0.3s ease-in-out";
+                        navButton1.style.backgroundColor = "transparent";
+                        for (let i = 0; i < optionInfo1.htmls.length; i++) {
+                            const [element, _] = optionInfo1.htmls[i];
+                            element.style.display = "none";
+                        }
                     }
                 }
-            });
-            navButton.addEventListener("mouseleave", () => {
-                if (!optionNames[name]) {
-                    navButton.style.transition = "background-color 0.3s ease-in-out";
-                    navButton.style.backgroundColor = "transparent";
+                for (let i = 0; i < optionInfo.htmls.length; i++) {
+                    const [element, display] = optionInfo.htmls[i];
+                    element.style.display = display;
                 }
-            });
-        }
-        navButtons.push([name, navButton]);
-        navBar.appendChild(navButton);
-    }
-    for (let i = 0; i < navButtons.length; i++) {
-        const [name, navButton] = navButtons[i];
-        navButton.addEventListener("click", () => {
-            optionNames[name] = !optionNames[name];
-            for (let i = 0; i < navButtons.length; i++) {
-                const [key, navButton1] = navButtons[i];
-                if (key !== name) {
-                    optionNames[key] = false;
-                    navButton1.style.transition = "background-color 0.3s ease-in-out";
-                    navButton1.style.backgroundColor = "transparent";
-                }
-            }
-            const selectAllContainers = [
-                ...document.getElementsByClassName("select-all-button-container"),
-                ...document.getElementsByClassName("avoid-select-all-button-container"),
-            ];
-            for (let i = 0; i < selectAllContainers.length; i++) {
-                const container = selectAllContainers[i];
-                container.remove();
-            }
-            for (let i = 0; i < tableBody.childNodes.length; i++) {
-                tableBody.removeChild(tableBody.childNodes[i]);
-            }
-            switch (name) {
-                case "Filter":
-                    createFilter(optionsModalContentScrollWrapper, tableBody);
-                    break;
-                default:
-                    createTryAvoidOptions(optionsModalContentScrollWrapper, tableBody);
-                    break;
-            }
-            navButton.style.transition = "background-color 0.3s ease-in-out";
-            navButton.style.backgroundColor = "#222222";
-            setTimeout(() => {
-                if (isScrollable(optionsModalContentScrollWrapper, "horizontal")) {
-                    let pre_left = null;
-                    while (optionsModalContentScrollWrapper.scrollLeft !== pre_left) {
-                        optionsModalContentScrollWrapper.scrollTo({
-                            left: optionsModalContentScrollWrapper.scrollLeft + 10000,
-                        });
-                        pre_left = optionsModalContentScrollWrapper.scrollLeft;
-                    }
-                    optionsModalContentScrollWrapper.scrollTo({
-                        left: optionsModalContentScrollWrapper.scrollLeft / 2,
-                    });
-                    optionsModalContentScrollWrapper.style.overflowX = "scroll";
+                navButton.style.transition = "background-color 0.3s ease-in-out";
+                if (makePopup) {
+                    navButton.style.backgroundColor = "rgba(34, 34, 34, 0.9)";
                 }
                 else {
-                    optionsModalContentScrollWrapper.style.overflowX = "hidden";
+                    navButton.style.backgroundColor = "rgba(34, 34, 34, 1)";
                 }
-                if (isScrollable(optionsModalContentScrollWrapper, "vertical")) {
-                    optionsModalContentScrollWrapper.style.overflowY = "scroll";
-                }
-                else {
-                    optionsModalContentScrollWrapper.style.overflowY = "hidden";
-                }
-            }, 100);
-        });
+            });
+        }
+        optionsModal.appendChild(navBar);
+        const firstButton = navBar.children[0];
+        firstButton.click();
     }
-    optionsModal.appendChild(navBar);
-    const firstButton = navBar.children[0];
-    firstButton.click();
 }
 export function createTryAvoidOptions(optionsModalContentScrollWrapper, tableBody) {
     const categoryName = "Try Avoid Dupes";
     const selectAllButtonContainer = document.createElement("div");
     selectAllButtonContainer.className = "avoid-select-all-button-container";
-    selectAllButtonContainer.style.display = "flex";
+    selectAllButtonContainer.style.display = "none";
     selectAllButtonContainer.style.alignItems = "flex-start";
     selectAllButtonContainer.style.justifyContent = "center";
     selectAllButtonContainer.style.borderColor = "transparent";
@@ -593,11 +608,12 @@ export function createTryAvoidOptions(optionsModalContentScrollWrapper, tableBod
     }
     giveHoverAnimation(selectAllButton);
     selectAllButtonContainer.appendChild(selectAllButton);
-    optionsModalContentScrollWrapper.insertBefore(selectAllButtonContainer, optionsModalContentScrollWrapper.childNodes[0]);
+    optionsModalContentScrollWrapper.appendChild(selectAllButtonContainer);
     const avoidModal = document.createElement("section");
     avoidModal.className = "avoid-modal";
     const avoidContent = document.createElement("div");
     const tableRow = document.createElement("tr");
+    tableRow.style.display = "none";
     const tableData = document.createElement("td");
     tableData.appendChild(avoidModal);
     avoidModal.appendChild(avoidContent);
@@ -652,15 +668,21 @@ export function createTryAvoidOptions(optionsModalContentScrollWrapper, tableBod
             }
         }
     });
+    return [
+        [tableRow, ""],
+        [selectAllButtonContainer, "flex"],
+    ];
 }
 export function createFilter(optionsModalContentScrollWrapper, tableBody) {
     const filterTableRow = document.createElement("tr");
+    filterTableRow.style.display = "none";
     const filterTableData = document.createElement("td");
     const filterModal = document.createElement("section");
     filterModal.className = "filter-modal";
     const filterModalContent = document.createElement("div");
     filterModalContent.className = "filter-modal-content";
     const filterSelectAllContainer = document.createElement("div");
+    filterSelectAllContainer.style.display = "none";
     filterSelectAllContainer.className = "select-all-button-container";
     const filterSelectAll = document.createElement("div");
     filterSelectAll.className = "select-all-button";
@@ -671,7 +693,7 @@ export function createFilter(optionsModalContentScrollWrapper, tableBody) {
         filterSelectAll.innerHTML = "Select All";
     }
     filterSelectAllContainer.appendChild(filterSelectAll);
-    optionsModalContentScrollWrapper.insertBefore(filterSelectAllContainer, optionsModalContentScrollWrapper.childNodes[0]);
+    optionsModalContentScrollWrapper.appendChild(filterSelectAllContainer);
     filterModal.appendChild(filterModalContent);
     filterTableData.appendChild(filterModal);
     filterTableRow.appendChild(filterTableData);
@@ -689,7 +711,9 @@ export function createFilter(optionsModalContentScrollWrapper, tableBody) {
     for (const nKey in GROUPS) {
         const key = nKey;
         const group = GROUPS[key];
-        const groupSelectContainer = document.createElement("td");
+        const groupSelectdata = document.createElement("td");
+        const groupSelectContainer = document.createElement("div");
+        groupSelectContainer.className = "group-select-container";
         const groupSelectButton = document.createElement("div");
         groupSelectButton.className = "group-select";
         if (Options.Filter.GroupTrue(key)) {
@@ -706,10 +730,10 @@ export function createFilter(optionsModalContentScrollWrapper, tableBody) {
             let column2 = null;
             if (group.ops.length > 1) {
                 column2 = document.createElement("td");
-                groupSelectContainer.colSpan = 2;
+                groupSelectdata.colSpan = 2;
             }
             else if (group.ops.length === 1) {
-                groupSelectContainer.colSpan = 1;
+                groupSelectdata.colSpan = 1;
             }
             else {
                 makeGroupSelectButton = false;
@@ -718,11 +742,12 @@ export function createFilter(optionsModalContentScrollWrapper, tableBody) {
             for (let i = 0; i < group.ops.length; i++) {
                 const op = group.ops[i];
                 const opButton = document.createElement("div");
-                const opImage = document.createElement("img");
-                opImage.draggable = false;
-                opImage.src = op.icons[0];
-                opImage.alt = op.name;
-                opButton.appendChild(opImage);
+                opButton.className = "filter-button";
+                const opIcon = document.createElement("img");
+                opIcon.draggable = false;
+                opIcon.src = op.icons[0];
+                opIcon.alt = op.name;
+                opButton.appendChild(opIcon);
                 opButton.innerHTML += op.name;
                 if (Options.Filter.OPTrue(key, op.name)) {
                     opButton.children.item(0).style.filter = "";
@@ -814,7 +839,8 @@ export function createFilter(optionsModalContentScrollWrapper, tableBody) {
             });
             htmlSelectGroupButtons.push([key, groupSelectButton]);
             groupSelectContainer.appendChild(groupSelectButton);
-            filterSelectGroup.appendChild(groupSelectContainer);
+            groupSelectdata.appendChild(groupSelectContainer);
+            filterSelectGroup.appendChild(groupSelectdata);
         }
     }
     if (htmlSelectGroupButtons.length > 0) {
@@ -860,6 +886,10 @@ export function createFilter(optionsModalContentScrollWrapper, tableBody) {
     else {
         filterModalContent.removeChild(filterModalContent.childNodes[2]);
     }
+    return [
+        [filterTableRow, ""],
+        [filterSelectAllContainer, ""],
+    ];
 }
 Options.parseCookie();
 //#endregion
