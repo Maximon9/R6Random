@@ -1,7 +1,7 @@
 import { GROUPS } from "./ops.js";
 import { Equipment } from "./utils/Siege/equipment.js";
 import { OP } from "./utils/Siege/op.js";
-import Options, { createOptions } from "./utils/Siege/options.js";
+import Options, { changeOptionsDisplay, createOptions, optionsInfo, } from "./utils/Siege/options.js";
 import { BarrelAttachment, GripAttachment, SightAttachment, UnderBarrelAttachment, } from "./utils/Siege/weaponInfo/attachment.js";
 import { Weapon } from "./utils/Siege/weaponInfo/weapon.js";
 import { whiteBackground } from "./utils/img.js";
@@ -198,9 +198,9 @@ function equipmentMatchesList(equipment, equipments) {
     }
     return false;
 }
-export let optionsInfo = undefined;
 function applyVisuals(op) {
-    optionsInfo = { htmls: createOptions(1), on: false };
+    optionsInfo.htmls = createOptions(1);
+    optionsInfo.on = false;
     addOptionButton();
     if (op !== undefined) {
         const opModal = document.createElement("section");
@@ -297,27 +297,17 @@ function addOptionButton() {
         giveHoverAnimation(optionsButton, new HoverOptions({ transitionSec: 0.15, click: true, animateOnTouch: true }));
         if (Options.isTouchScreen) {
             setTimeout(() => {
-                displayOptions();
+                changeOptionsDisplay("show");
                 giveHoverAnimation(optionsButton, new HoverOptions({ transitionSec: 0.15, click: true, animateOnTouch: false }));
             }, 200);
         }
         else {
-            displayOptions();
+            changeOptionsDisplay("show");
         }
     });
     optionsContainer.appendChild(optionsButton);
     options.appendChild(optionsContainer);
     document.body.insertBefore(options, document.body.childNodes[0]);
-}
-function displayOptions() {
-    if (optionsInfo !== undefined) {
-        document.body.style.overflow = "hidden";
-        for (let i = 0; i < optionsInfo.htmls.length; i++) {
-            const [element, display] = optionsInfo.htmls[0];
-            element.style.display = display;
-            optionsInfo.on = true;
-        }
-    }
 }
 function tryAddWeaponVisuals(key, weaponContainer, weapon) {
     if (weapon !== undefined && weapon.name !== undefined) {

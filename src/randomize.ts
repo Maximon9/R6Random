@@ -2,11 +2,14 @@
 import type { AllGroups, AllOPNames, ParsedGroupKeys } from "./ops.js";
 import type { OptionNames } from "./utils/Siege/options.js";
 import type { WeaponAttackments, WeaponAttackmentsInfo } from "./types/weapon.js";
-import type { OptionInfoType } from "./types/options.js";
 import { GROUPS } from "./ops.js";
 import { Equipment, EquipmentInfo } from "./utils/Siege/equipment.js";
 import { OP } from "./utils/Siege/op.js";
-import Options, { createOptions } from "./utils/Siege/options.js";
+import Options, {
+    changeOptionsDisplay,
+    createOptions,
+    optionsInfo,
+} from "./utils/Siege/options.js";
 import {
     BarrelAttachment,
     GripAttachment,
@@ -19,7 +22,6 @@ import { giveHoverAnimation, HoverOptions } from "./utils/html.js";
 import Animator, { AnimationCurves } from "./utils/animation/animation.js";
 import { lerp } from "./utils/math.js";
 import InputSystem from "./input.js";
-import { on } from "events";
 
 InputSystem.start();
 
@@ -267,9 +269,9 @@ function equipmentMatchesList(
     return false;
 }
 
-export let optionsInfo: OptionInfoType | undefined = undefined;
 function applyVisuals(op: OP | undefined) {
-    optionsInfo = { htmls: createOptions(1), on: false };
+    optionsInfo.htmls = createOptions(1);
+    optionsInfo.on = false;
     addOptionButton();
     if (op !== undefined) {
         const opModal = document.createElement("section");
@@ -383,14 +385,14 @@ function addOptionButton() {
         );
         if (Options.isTouchScreen) {
             setTimeout(() => {
-                displayOptions();
+                changeOptionsDisplay("show");
                 giveHoverAnimation(
                     optionsButton,
                     new HoverOptions({ transitionSec: 0.15, click: true, animateOnTouch: false })
                 );
             }, 200);
         } else {
-            displayOptions();
+            changeOptionsDisplay("show");
         }
     });
 
@@ -398,17 +400,6 @@ function addOptionButton() {
     options.appendChild(optionsContainer);
 
     document.body.insertBefore(options, document.body.childNodes[0]);
-}
-
-function displayOptions() {
-    if (optionsInfo !== undefined) {
-        document.body.style.overflow = "hidden";
-        for (let i = 0; i < optionsInfo.htmls.length; i++) {
-            const [element, display] = optionsInfo.htmls[0];
-            element.style.display = display;
-            optionsInfo.on = true;
-        }
-    }
 }
 
 function tryAddWeaponVisuals(

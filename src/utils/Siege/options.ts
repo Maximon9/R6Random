@@ -551,6 +551,28 @@ export function createOptions(insert: number, makePopup: boolean = true): [HTMLE
     });
     return htmls;
 }
+export let optionsInfo: OptionInfoType = {} as OptionInfoType;
+export function changeOptionsDisplay(type: "show" | "hide") {
+    if (type === "show") {
+        if (optionsInfo !== undefined) {
+            document.body.style.overflow = "hidden";
+            for (let i = 0; i < optionsInfo.htmls.length; i++) {
+                const [element, display] = optionsInfo.htmls[0];
+                element.style.display = display;
+                optionsInfo.on = true;
+            }
+        }
+    } else {
+        if (optionsInfo !== undefined) {
+            document.body.style.overflow = "auto";
+            for (let i = 0; i < optionsInfo.htmls.length; i++) {
+                const [element, _] = optionsInfo.htmls[0];
+                element.style.display = "none";
+                optionsInfo.on = false;
+            }
+        }
+    }
+}
 
 export let optionInfos: OptionInfosType | undefined = undefined;
 export function createOptionsNavBar(optionsModal: HTMLElement, makePopup: boolean) {
