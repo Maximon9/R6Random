@@ -42,6 +42,11 @@ export class HoverOptions {
     }
 }
 
+function giveScaler(element: HTMLElement, scaler: number, transitionSec: number) {
+    element.style.transition = `scale ${transitionSec}s ease-in-out`;
+    element.style.scale = `${scaler}%`;
+}
+
 export function giveHoverAnimation(
     element: HTMLElement,
     options: HoverOptions = new HoverOptions()
@@ -57,19 +62,16 @@ export function giveHoverAnimation(
                         options.imageElement.src = enterImg;
                     }
                 }
-                element.style.transition = `transform ${options.transitionSec}s ease-in-out`;
-                element.style.transform = `scale(${options.scale + 10}%)`;
+                giveScaler(element, options.scale + 10, options.transitionSec);
                 setNormalScale = false;
             }
         } else {
-            element.style.transition = `transform ${options.transitionSec}s ease-in-out`;
-            element.style.transform = `scale(${options.scale + 10}%)`;
+            giveScaler(element, options.scale + 10, options.transitionSec);
             setNormalScale = false;
         }
     }
     if (setNormalScale) {
-        element.style.transition = `transform ${options.transitionSec}s ease-in-out`;
-        element.style.transform = `scale(${options.scale}%)`;
+        giveScaler(element, options.scale, options.transitionSec);
         if (options.onMouseLeave !== undefined) {
             options.onMouseLeave();
         }
@@ -82,8 +84,7 @@ export function giveHoverAnimation(
                     options.imageElement.src = enterImg;
                 }
             }
-            element.style.transition = `transform ${options.transitionSec}s ease-in-out`;
-            element.style.transform = `scale(${options.scale + 10}%)`;
+            giveScaler(element, options.scale + 10, options.transitionSec);
             if (options.onMouseEnter !== undefined) {
                 options.onMouseEnter();
             }
@@ -95,8 +96,7 @@ export function giveHoverAnimation(
                     options.imageElement.src = leaveImg;
                 }
             }
-            element.style.transition = `transform ${options.transitionSec}s ease-in-out`;
-            element.style.transform = `scale(${options.scale}%)`;
+            giveScaler(element, options.scale, options.transitionSec);
             if (options.onMouseLeave !== undefined) {
                 options.onMouseLeave();
             }

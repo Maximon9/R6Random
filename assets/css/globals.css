@@ -21,15 +21,18 @@ body {
     background-color: #444444;
 }
 
+.options-modal::-webkit-scrollbar,
 .options-modal-content-scroll-wrapper::-webkit-scrollbar,
 body::-webkit-scrollbar {
     width: 12px;
     background-color: #444;
 }
+.options-modal::-webkit-scrollbar-thumb,
 .options-modal-content-scroll-wrapper::-webkit-scrollbar-thumb,
 body::-webkit-scrollbar-thumb {
     background-color: #2b2b2b;
 }
+.options-modal::-webkit-scrollbar-track,
 .options-modal-content-scroll-wrapper::-webkit-scrollbar-track,
 body::-webkit-scrollbar-track {
     background-color: #444;
@@ -247,13 +250,11 @@ body {
     margin-right: auto;
     background: transparent;
     border: #535353 outset 0.4vmax;
-    padding-left: 2vmax;
-    padding-right: 2vmax;
+    padding: 0.3em;
     color: white;
-    font-size: 3vmax;
+    font-size: 2lh;
     height: fit-content;
     width: fit-content;
-    line-height: 7.5vmax;
     text-align: center;
 }
 .options-modal {
@@ -335,7 +336,9 @@ body {
     font-size: 4vmax;
 }
 .group-select {
-    font-size: 2vmax;
+    height: 3em;
+    width: 6em;
+    font-size: 0.3lh;
     border: #535353 outset 0.4vmax;
 }
 
@@ -351,15 +354,15 @@ body {
     margin-left: auto;
     margin-right: auto;
     text-align: center;
-    width: 8vmax;
-    font-size: 1.7vmax;
+    width: 4.5em;
+    font-size: 1.5vmax;
     border: #535353 outset 0.4vmax;
     line-height: normal;
 }
-.filter-modal-content table tbody img {
+.filter-modal-content table tbody tr td div img {
     width: 100%;
     height: 100%;
-    margin: 0 auto;
+    margin: auto;
     display: block;
 }
 

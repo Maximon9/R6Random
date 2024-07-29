@@ -63,7 +63,7 @@ const animator = new Animator({
         ["control", 5 / 6 - num, 5 / 6 + num],
         ["achor", 1, 1]
     ) */,
-    loop: true,
+    infinite: true,
     pingPong: true,
 });
 animator.animationType.graph.padding = [50, 50];

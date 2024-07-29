@@ -1,5 +1,5 @@
 //#region Main
-import Animator, { AnimationCurve, AnimationType } from "./utils/animation/animation.js";
+import Animator, { AnimationCurve, AnimationCurves } from "./utils/animation/animation.js";
 import { clamp, lerp } from "./utils/math.js";
 import { Vector2 } from "./utils/vector.js";
 import { Circle, Renderer2D } from "./utils/animation/renderer.js";
@@ -77,7 +77,7 @@ const animator = new Animator({
         ["control", 5 / 6 - num, 5 / 6 + num],
         ["achor", 1, 1]
     ) */,
-    loop: true,
+    infinite: true,
     pingPong: true,
 });
 animator.animationType.graph.padding = [50, 50];

@@ -5,7 +5,7 @@ import type { WeaponAttackments, WeaponAttackmentsInfo } from "./types/weapon.js
 import { GROUPS } from "./ops.js";
 import { Equipment, EquipmentInfo } from "./utils/Siege/equipment.js";
 import { OP } from "./utils/Siege/op.js";
-import Options from "./utils/Siege/options.js";
+import Options, { createOptions } from "./utils/Siege/options.js";
 import {
     BarrelAttachment,
     GripAttachment,
@@ -15,7 +15,8 @@ import {
 import { Weapon, WeaponInfo } from "./utils/Siege/weaponInfo/weapon.js";
 import { whiteBackground } from "./utils/img.js";
 import { giveHoverAnimation, HoverOptions } from "./utils/html.js";
-import Animator from "./utils/animation/animation.js";
+import Animator, { AnimationCurves } from "./utils/animation/animation.js";
+import { lerp } from "./utils/math.js";
 
 function roll() {
     let op: OP | undefined = undefined;
@@ -261,8 +262,6 @@ function equipmentMatchesList(
     return false;
 }
 
-roll();
-
 function applyVisuals(op: OP | undefined) {
     addOptionButton();
     if (op !== undefined) {
@@ -352,28 +351,53 @@ function addOptionButton() {
     options.className = "options";
 
     const optionsContainer = document.createElement("div");
-    /* const animation = new Animator({
-        animate: () => {},
-        autoStartAnimation: true,
-        condition: 60,
-    }); */
-    // optionsContainer.addEventListener("mouseenter", () => {
-
-    // });
-    // optionsContainer.addEventListener("mouseleave", () => {});
+    const animation = new Animator({
+        time: 0.2,
+        animate: (t: number) => {
+            const y = lerp(t, -5, 0);
+            optionsButton.style.translate = `0 ${y}vmax`;
+        },
+        animationCurve: AnimationCurves.easeInOut,
+    });
+    optionsContainer.addEventListener("mouseenter", () => {
+        animation.stop();
+        animation.startType = "start";
+        animation.start();
+    });
+    optionsContainer.addEventListener("mouseleave", () => {
+        animation.stop();
+        animation.startType = "end";
+        animation.start();
+    });
 
     const optionsButton = document.createElement("div");
     optionsButton.innerHTML += "Options";
+    optionsButton.style.translate = "0 -5vmax";
     giveHoverAnimation(optionsButton, new HoverOptions({ transitionSec: 0.15 }));
+    optionsButton.addEventListener("click", () => {
+        giveHoverAnimation(
+            optionsButton,
+            new HoverOptions({ transitionSec: 0.15, click: true, animateOnTouch: true })
+        );
+        if (Options.isTouchScreen) {
+            setTimeout(() => {
+                document.body.style.overflow = "hidden";
+                createOptions();
+                giveHoverAnimation(
+                    optionsButton,
+                    new HoverOptions({ transitionSec: 0.15, click: true, animateOnTouch: false })
+                );
+            }, 200);
+        } else {
+            document.body.style.overflow = "hidden";
+            createOptions();
+        }
+    });
 
     optionsContainer.appendChild(optionsButton);
     options.appendChild(optionsContainer);
 
     document.body.insertBefore(options, document.body.childNodes[0]);
-}
-
-function update() {
-    requestAnimationFrame(update);
 }
 
 function tryAddWeaponVisuals(
@@ -505,4 +529,5 @@ function setRootVariable(key: string, value: string) {
         return root.style.setProperty(key, value);
     }
 }
+roll();
 //#endregion

@@ -1,4 +1,5 @@
 //#region Main
+/* 2512 */
 import type { AnimationPointType } from "../../types/animation.js";
 import { clamp } from "../math.js";
 import { Vector2 } from "../vector.js";
@@ -221,7 +222,7 @@ export class AnimationCurve {
         }
     }
 }
-export class AnimationType {
+export class AnimationCurves {
     static get linear(): AnimationCurve {
         return new AnimationCurve(["achor", 0, 0], ["achor", 1, 1]);
     }
@@ -298,14 +299,17 @@ export default class Animator {
     animationArgs: any[];
     animationType: AnimationCurve;
     timeType: TimeType;
-    loop: boolean;
+    infinite: boolean;
     #hasPinged: boolean = false;
     pingPong: boolean;
     autoStartAnimation: boolean;
+    restartTimer: boolean;
+    startType: "start" | "end";
     running: boolean;
+    #timer: number;
     #deltaTime: number = 0;
     #lastTimestamp: number = 0;
-    #timer: number = 0;
+    #sign: -1 | 1 = 1;
     constructor(
         info: {
             time?: number;
@@ -314,9 +318,11 @@ export default class Animator {
             animationArgs?: any[];
             animationCurve?: AnimationCurve;
             timeType?: TimeType;
-            loop?: boolean;
+            infinite?: boolean;
             pingPong?: boolean;
             autoStartAnimation?: boolean;
+            restartTimer?: boolean;
+            start?: "start" | "end";
         } = {}
     ) {
         this.running = false;
@@ -327,11 +333,18 @@ export default class Animator {
             this.animate = info.animate;
         }
         this.animationArgs = info.animationArgs ?? [];
-        this.animationType = info.animationCurve ?? AnimationType.linear;
+        this.animationType = info.animationCurve ?? AnimationCurves.linear;
         this.timeType = info.timeType ?? "s";
-        this.loop = info.loop ?? false;
+        this.infinite = info.infinite ?? false;
         this.pingPong = info.pingPong ?? false;
         this.autoStartAnimation = info.autoStartAnimation ?? false;
+        this.restartTimer = info.restartTimer ?? true;
+        this.startType = info.start ?? "start";
+        if (this.startType === "start") {
+            this.#timer = 0;
+        } else {
+            this.#timer = 1;
+        }
 
         if (info.time !== undefined) {
             if (typeof info.time === "number" && this.timeType === "ms") {
@@ -355,50 +368,97 @@ export default class Animator {
             requestAnimationFrame(this.#step);
         }
     }
+    stop() {
+        if (this.running) {
+            this.running = false;
+        }
+    }
     #step = (timestamp: number) => {
+        if (!this.running) {
+            return;
+        }
         this.#deltaTime = (timestamp - this.#lastTimestamp) / 1000;
         this.#lastTimestamp = timestamp;
         if (this.animate === undefined) {
             this.running = false;
-        } else {
-            if (this.time > 0) {
-                if (this.pingPong) {
-                    if (this.#hasPinged) {
-                        this.#timer -= this.#deltaTime / this.time;
-                    } else {
-                        this.#timer += this.#deltaTime / this.time;
-                    }
+        } else if (this.time > 0) {
+            if (this.startType === "start") {
+                if (this.#hasPinged) {
+                    this.#sign = -1;
+                } else {
+                    this.#sign = 1;
+                }
+            } else {
+                if (this.#hasPinged) {
+                    this.#sign = 1;
+                } else {
+                    this.#sign = -1;
+                }
+            }
+            this.#timer += this.#sign * (this.#deltaTime / this.time);
+            if (this.pingPong) {
+                console.log(this.#timer);
+                if (this.startType === "start") {
                     if (this.#timer >= 1 && !this.#hasPinged) {
                         this.#hasPinged = true;
                     } else if (this.#timer <= 0 && this.#hasPinged) {
-                        if (!this.loop) {
+                        if (!this.infinite) {
                             this.running = false;
                         }
                         this.#hasPinged = false;
                     }
                 } else {
-                    this.#timer += this.#deltaTime / this.time;
-                    if (this.#timer >= 1) {
-                        if (this.loop) {
-                            this.#timer -= 1;
-                        } else {
+                    if (this.#timer <= 0 && !this.#hasPinged) {
+                        this.#hasPinged = true;
+                    } else if (this.#timer >= 1 && this.#hasPinged) {
+                        if (!this.infinite) {
                             this.running = false;
+                        }
+                        this.#hasPinged = false;
+                    }
+                }
+            } else {
+                if (this.startType === "start") {
+                    if (this.#timer >= 1) {
+                        if (!this.infinite) {
+                            this.running = false;
+                        } else {
+                            if (this.restartTimer) {
+                                this.#timer -= 1;
+                            } else {
+                                this.startType = "end";
+                            }
+                        }
+                    }
+                } else {
+                    if (this.#timer <= 0) {
+                        if (!this.infinite) {
+                            this.running = false;
+                        } else {
+                            if (this.restartTimer) {
+                                this.#timer += 1;
+                            } else {
+                                this.startType = "start";
+                            }
                         }
                     }
                 }
-                if (this.running) {
-                    const animationTime = this.animationType.fetchTime(this.#timer);
-                    this.animate(animationTime, ...this.animationArgs);
-                }
-            } else {
-                this.running = false;
             }
-        }
-        if (this.running) {
-            requestAnimationFrame(this.#step);
+            const animationTime = this.animationType.fetchTime(this.#timer);
+            this.animate(animationTime, ...this.animationArgs);
         } else {
-            if (!this.pingPong) {
-                this.#timer -= 1;
+            this.running = false;
+        }
+        requestAnimationFrame(this.#step);
+        if (!this.running) {
+            if (!this.#hasPinged) {
+                if (!this.restartTimer) {
+                    if (this.startType === "start") {
+                        this.startType = "end";
+                    } else {
+                        this.startType = "start";
+                    }
+                }
             }
         }
     };
