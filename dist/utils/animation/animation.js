@@ -328,9 +328,11 @@ export default class Animator {
         }
     }
     start() {
-        this.running = true;
-        this.#lastTimestamp = window.performance.now();
-        requestAnimationFrame(this.#step);
+        if (!this.running) {
+            this.running = true;
+            this.#lastTimestamp = window.performance.now();
+            requestAnimationFrame(this.#step);
+        }
     }
     #step = (timestamp) => {
         this.#deltaTime = (timestamp - this.#lastTimestamp) / 1000;
@@ -361,7 +363,7 @@ export default class Animator {
                     this.#timer += this.#deltaTime / this.time;
                     if (this.#timer >= 1) {
                         if (this.loop) {
-                            this.#timer = 0;
+                            this.#timer -= 1;
                         }
                         else {
                             this.running = false;
@@ -379,6 +381,11 @@ export default class Animator {
         }
         if (this.running) {
             requestAnimationFrame(this.#step);
+        }
+        else {
+            if (!this.pingPong) {
+                this.#timer -= 1;
+            }
         }
     };
 }

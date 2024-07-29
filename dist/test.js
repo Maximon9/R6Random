@@ -1,5 +1,5 @@
 //#region Main
-import Animator, { AnimationType } from "./utils/animation/animation.js";
+import Animator, { AnimationCurve } from "./utils/animation/animation.js";
 import { lerp } from "./utils/math.js";
 import { Circle, Renderer2D } from "./utils/animation/renderer.js";
 /* function isNumber(str: string) {
@@ -45,7 +45,7 @@ const circle = new Circle({
 });
 let num = 0.2;
 const animator = new Animator({
-    time: 2,
+    time: 1,
     animate: (time) => {
         circle.transform.position = [
             lerp(time, 0 + circle.radius + 10, Renderer2D.canvas.clientWidth - circle.radius - 10),
@@ -53,9 +53,10 @@ const animator = new Animator({
         ];
         Renderer2D.render();
     },
-    animationCurve: AnimationType.step(3, "end") /* new AnimationCurve(
+    animationCurve: new AnimationCurve(["achor", 0, 0], ["control", 1 / 6 + num, 1 / 6 - num], ["control", 1 / 3 + num, 1 / 3 - num], ["achor", 0.5, 0.5], ["control", 2 / 3 - num, 2 / 3 + num], ["control", 5 / 6 - num, 5 / 6 + num], ["achor", 1, 1]) /* new AnimationCurve(
         ["achor", 0, 0],
         ["control", 1 / 6 + num, 1 / 6 - num],
+        ["control", 0.25 + num + num, 0.25 - num - num],
         ["control", 1 / 3 + num, 1 / 3 - num],
         ["achor", 0.5, 0.5],
         ["control", 2 / 3 - num, 2 / 3 + num],
