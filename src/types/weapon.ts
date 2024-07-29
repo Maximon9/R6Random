@@ -8,7 +8,7 @@ import type {
     SightAttachmentInfo,
     UnderBarrelAttachment,
     UnderBarrelAttachmentInfo,
-} from "../utils/weaponInfo/attachment.js";
+} from "../utils/Siege/weaponInfo/attachment.js";
 
 export type WeaponAttackmentsInfo = {
     sights?: SightAttachmentInfo[];

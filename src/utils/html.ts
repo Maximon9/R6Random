@@ -1,4 +1,4 @@
-import Options from "./options.js";
+import Options from "./Siege/options.js";
 
 export class HoverOptions {
     imageElement?: HTMLImageElement;

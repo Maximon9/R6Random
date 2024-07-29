@@ -1,11 +1,11 @@
 //#region Main
-import type { OPInfoParameters, OPParameters } from "../types/op.js";
+import type { OPInfoParameters, OPParameters } from "../../types/op.js";
 import type { WeaponInfo } from "./weaponInfo/weapon.js";
 import type { EquipmentInfo } from "./equipment.js";
-import type { WeaponAttackments } from "../types/weapon.js";
+import type { WeaponAttackments } from "../../types/weapon.js";
 import { Equipment } from "./equipment.js";
 import { Weapon } from "./weaponInfo/weapon.js";
-import { whiteBackground } from "./img.js";
+import { whiteBackground } from "../img.js";
 import {
     BarrelAttachment,
     GripAttachment,

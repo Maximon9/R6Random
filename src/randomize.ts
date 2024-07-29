@@ -1,21 +1,21 @@
 //#region Main
 import type { AllGroups, AllOPNames, ParsedGroupKeys } from "./ops.js";
-import type { OptionNames } from "./utils/options.js";
+import type { OptionNames } from "./utils/Siege/options.js";
 import type { WeaponAttackments, WeaponAttackmentsInfo } from "./types/weapon.js";
 import { GROUPS } from "./ops.js";
-import { Equipment, EquipmentInfo } from "./utils/equipment.js";
-import { OP } from "./utils/op.js";
-import Options from "./utils/options.js";
+import { Equipment, EquipmentInfo } from "./utils/Siege/equipment.js";
+import { OP } from "./utils/Siege/op.js";
+import Options from "./utils/Siege/options.js";
 import {
     BarrelAttachment,
     GripAttachment,
     SightAttachment,
     UnderBarrelAttachment,
-} from "./utils/weaponInfo/attachment.js";
-import { Weapon, WeaponInfo } from "./utils/weaponInfo/weapon.js";
+} from "./utils/Siege/weaponInfo/attachment.js";
+import { Weapon, WeaponInfo } from "./utils/Siege/weaponInfo/weapon.js";
 import { whiteBackground } from "./utils/img.js";
 import { giveHoverAnimation, HoverOptions } from "./utils/html.js";
-import Animator from "./utils/animation.js";
+import Animator from "./utils/animation/animation.js";
 
 function roll() {
     let op: OP | undefined = undefined;
@@ -352,11 +352,11 @@ function addOptionButton() {
     options.className = "options";
 
     const optionsContainer = document.createElement("div");
-    const animation = new Animator({
+    /* const animation = new Animator({
         animate: () => {},
         autoStartAnimation: true,
         condition: 60,
-    });
+    }); */
     // optionsContainer.addEventListener("mouseenter", () => {
 
     // });

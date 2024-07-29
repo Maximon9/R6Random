@@ -1,6 +1,6 @@
 //#region Main
-import type { AttachmentInfoParameters, AttachmentParameters } from "../../types/attachment.js";
-import { whiteBackground } from "../img.js";
+import type { AttachmentInfoParameters, AttachmentParameters } from "../../../types/attachment.js";
+import { whiteBackground } from "../../img.js";
 
 export class AttachmentInfo<Name extends string = string> {
     name: Name;

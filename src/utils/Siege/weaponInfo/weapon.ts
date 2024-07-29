@@ -4,8 +4,8 @@ import type {
     WeaponAttackmentsInfo,
     WeaponInfoParameters,
     WeaponParameters,
-} from "../../types/weapon.js";
-import { whiteBackground } from "../img.js";
+} from "../../../types/weapon.js";
+import { whiteBackground } from "../../img.js";
 
 export class WeaponInfo<Name extends string = string> {
     name: Name;

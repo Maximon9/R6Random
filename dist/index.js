@@ -1,8 +1,8 @@
 import { GROUPS } from "./ops.js";
 import { giveHoverAnimation, HoverOptions } from "./utils/html.js";
 import { whiteBackground } from "./utils/img.js";
-import Options, { CategoryOptionsRev } from "./utils/options.js";
-import IDKButImHardRN from "./utils/time.js";
+import Options, { CategoryOptionsRev } from "./utils/Siege/options.js";
+import IDKButImHardRN from "./utils/animation/time.js";
 function isScrollable(element, dir) {
     if (dir === "vertical") {
         return element.scrollHeight > element.clientHeight;

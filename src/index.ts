@@ -3,8 +3,8 @@ import type { AllOPNames } from "./ops.js";
 import { GROUPS } from "./ops.js";
 import { giveHoverAnimation, HoverOptions } from "./utils/html.js";
 import { whiteBackground } from "./utils/img.js";
-import Options, { CategoryOptions, CategoryOptionsRev } from "./utils/options.js";
-import IDKButImHardRN from "./utils/time.js";
+import Options, { CategoryOptions, CategoryOptionsRev } from "./utils/Siege/options.js";
+import IDKButImHardRN from "./utils/animation/time.js";
 function isScrollable(element: HTMLElement, dir: "vertical" | "horizontal"): boolean {
     if (dir === "vertical") {
         return element.scrollHeight > element.clientHeight;

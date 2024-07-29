@@ -1,6 +1,6 @@
 //#region Main
-import type { GroupParameters } from "../types/group.js";
-import { whiteBackground } from "./img.js";
+import type { GroupParameters } from "../../types/group.js";
+import { whiteBackground } from "../img.js";
 import { OPInfo } from "./op.js";
 
 export class GroupInfo<Names extends string = string> {

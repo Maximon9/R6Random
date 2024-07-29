@@ -1,12 +1,11 @@
 import { GROUPS } from "./ops.js";
-import { Equipment } from "./utils/equipment.js";
-import { OP } from "./utils/op.js";
-import Options from "./utils/options.js";
-import { BarrelAttachment, GripAttachment, SightAttachment, UnderBarrelAttachment, } from "./utils/weaponInfo/attachment.js";
-import { Weapon } from "./utils/weaponInfo/weapon.js";
+import { Equipment } from "./utils/Siege/equipment.js";
+import { OP } from "./utils/Siege/op.js";
+import Options from "./utils/Siege/options.js";
+import { BarrelAttachment, GripAttachment, SightAttachment, UnderBarrelAttachment, } from "./utils/Siege/weaponInfo/attachment.js";
+import { Weapon } from "./utils/Siege/weaponInfo/weapon.js";
 import { whiteBackground } from "./utils/img.js";
 import { giveHoverAnimation, HoverOptions } from "./utils/html.js";
-import Animator from "./utils/animation.js";
 function roll() {
     let op = undefined;
     const key = sessionStorage.getItem("group");
@@ -273,11 +272,11 @@ function addOptionButton() {
     const options = document.createElement("div");
     options.className = "options";
     const optionsContainer = document.createElement("div");
-    const animation = new Animator({
-        animate: () => { },
+    /* const animation = new Animator({
+        animate: () => {},
         autoStartAnimation: true,
         condition: 60,
-    });
+    }); */
     // optionsContainer.addEventListener("mouseenter", () => {
     // });
     // optionsContainer.addEventListener("mouseleave", () => {});

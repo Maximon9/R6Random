@@ -1,6 +1,6 @@
 //#region Main
-import type { Equipment, EquipmentInfo } from "../utils/equipment.js";
-import type { Weapon, WeaponInfo } from "../utils/weaponInfo/weapon.js";
+import type { Equipment, EquipmentInfo } from "../utils/Siege/equipment.js";
+import type { Weapon, WeaponInfo } from "../utils/Siege/weaponInfo/weapon.js";
 
 export type OPInfoParameters<Name extends string> = {
     name?: Name;
