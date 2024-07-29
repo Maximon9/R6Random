@@ -1,3 +1,4 @@
+//#region Main
 import Animator, { AnimationCurve, AnimationType } from "./utils/animation/animation.js";
 import { clamp, lerp } from "./utils/math.js";
 import { Vector2 } from "./utils/vector.js";
@@ -31,7 +32,6 @@ function startGameLoop() {
     requestAnimationFrame(gameloop);
 }
 
-let timer = 0;
 let deltaTime = 0;
 const gameloop = (timestamp: number) => {
     deltaTime = (timestamp - lastTimestamp) / 1000;
@@ -41,40 +41,25 @@ const gameloop = (timestamp: number) => {
     Renderer2D.render();
 };
 
-/* const circle = new Circle({
+const circle = new Circle({
     zIndex: 1,
     fillColor: "#00ff00",
     borderColor: "#000000",
     radius: 40,
-    borderWidth: 4,
-}); */
-/* const circle1 = new Circle({
-    fillColor: "#0000ff",
-    borderColor: "#000000",
-    radius: 40,
-    borderWidth: 4,
+    borderWidth: 2,
 });
-const circle2 = new Circle({
-    fillColor: "#ff0000",
-    borderColor: "#000000",
-    radius: 40,
-    borderWidth: 4,
-}); */
 
 let num = 0.2;
-new AnimationCurve(
-    ["achor", 0, 0],
-    ["control", 1 / 6 + num, 1 / 6 - num],
-    ["control", 1 / 3 + num, 1 / 3 - num],
-    ["achor", 0.5, 0.5],
-    ["control", 2 / 3 - num, 2 / 3 + num],
-    ["control", 5 / 6 - num, 5 / 6 + num],
-    ["achor", 1, 1]
-).fetchTime(0.5);
 const animator = new Animator({
-    condition: 60,
-    animate: () => {},
-    animationType: new AnimationCurve(
+    time: 2,
+    animate: (time: number) => {
+        circle.transform.position = [
+            lerp(time, 0 + circle.radius + 10, Renderer2D.canvas.clientWidth - circle.radius - 10),
+            Renderer2D.canvas.clientHeight - circle.radius - 50,
+        ];
+        Renderer2D.render();
+    },
+    animationCurve: AnimationType.step(3, "end") /* new AnimationCurve(
         ["achor", 0, 0],
         ["control", 1 / 6 + num, 1 / 6 - num],
         ["control", 1 / 3 + num, 1 / 3 - num],
@@ -82,41 +67,32 @@ const animator = new Animator({
         ["control", 2 / 3 - num, 2 / 3 + num],
         ["control", 5 / 6 - num, 5 / 6 + num],
         ["achor", 1, 1]
-    ),
+    ) */,
+    loop: true,
+    pingPong: true,
 });
 animator.animationType.graph.padding = [50, 50];
 animator.animationType.graph.size = [300, 300];
 animator.animationType.graph.anchor = [0.5, 0.5];
 function start() {
-    // renderer2D.append(circle);
-    // renderer2D.append(circle1);
-    // renderer2D.append(circle2);
     Renderer2D.append(animator.animationType.graph);
-    /* circle.transform.position = [
-        Math.floor(renderer2D.canvas.clientWidth / 3),
-        Math.floor(renderer2D.canvas.clientHeight / 3),
-    ]; */
+    Renderer2D.append(circle);
+    circle.transform.position = [
+        0 + circle.radius + 10,
+        Renderer2D.canvas.clientHeight - circle.radius - 50,
+    ];
     animator.animationType.graph.transform.position = [
         Math.floor(Renderer2D.canvas.clientWidth / 2),
         Math.floor(Renderer2D.canvas.clientHeight / 2),
     ];
-    /*     circle1.position = [
-        Math.floor(renderer2D.canvas.clientWidth / 2),
-        Math.floor(renderer2D.canvas.clientHeight / 2),
-    ];
-    circle2.position = [
-        Math.floor(renderer2D.canvas.clientWidth / 2),
-        Math.floor(renderer2D.canvas.clientHeight / 2),
-    ]; */
+    animator.start();
 }
 
+let timer = 0;
 function update() {
-    /* circle.transform.position = [
-        Math.floor(renderer2D.canvas.clientWidth / 3),
-        Math.floor(renderer2D.canvas.clientHeight / 3),
-    ]; */
     animator.animationType.graph.transform.position = [
         Math.floor(Renderer2D.canvas.clientWidth / 2),
         Math.floor(Renderer2D.canvas.clientHeight / 2),
     ];
 }
+//#endregion

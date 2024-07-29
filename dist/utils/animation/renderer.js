@@ -66,11 +66,103 @@ export class BaseDrawable {
     }
 }
 export class AnimationGraph extends BaseDrawable {
+    #otherPoints = [];
+    get otherPoints() {
+        return this.#otherPoints.map((point) => {
+            return new Vector2(this.#size.x * point.x - this.realAnchor.x, -(this.#size.y * point.y - this.realAnchor.y));
+        });
+    }
+    set otherPoints(v) {
+        this.#otherPoints = v.map((point) => {
+            if (point instanceof Vector2) {
+                return point;
+            }
+            else {
+                return new Vector2(point[0], point[1]);
+            }
+        });
+    }
     #points;
     get points() {
-        return this.#points.map((point) => {
-            return new AnimationPoint(point.type, this.#size.x * point.x - this.realAnchor.x, -(this.#size.y * point.y - this.realAnchor.y));
+        let smallestAnchor = undefined;
+        for (let i = 0; i < this.#points.length; i++) {
+            const point = this.#points[i];
+            if (point.type === "achor") {
+                if (smallestAnchor === undefined) {
+                    smallestAnchor = point;
+                }
+                else {
+                    if (point.x < smallestAnchor.x || point.y < smallestAnchor.y) {
+                        smallestAnchor = point;
+                    }
+                }
+            }
+        }
+        if (smallestAnchor === undefined) {
+            for (let i = 0; i < this.#points.length; i++) {
+                const point = this.#points[i];
+                if (point.type === "achor") {
+                    if (smallestAnchor !== undefined) {
+                        smallestAnchor = point;
+                        break;
+                    }
+                }
+            }
+        }
+        const smallX = smallestAnchor?.x ?? 0;
+        const smallY = smallestAnchor?.y ?? 0;
+        let points = this.#points.map((point) => {
+            const newPoint = new AnimationPoint(point.type, point.x, point.y);
+            if (smallX !== 0) {
+                newPoint.x = newPoint.x / -smallX + 1;
+            }
+            if (smallY !== 0) {
+                newPoint.y = newPoint.y / -smallY + 1;
+            }
+            return newPoint;
         });
+        let biggestAnchor = undefined;
+        for (let i = points.length - 1; i >= 0; i--) {
+            const point = points[i];
+            if (point.type === "achor") {
+                if (biggestAnchor === undefined) {
+                    biggestAnchor = point;
+                }
+                else {
+                    if (point.x > biggestAnchor.x || point.y > biggestAnchor.y) {
+                        biggestAnchor = point;
+                    }
+                }
+            }
+        }
+        if (biggestAnchor === undefined) {
+            for (let i = points.length - 1; i >= 0; i--) {
+                const point = this.#points[i];
+                if (point.type === "achor") {
+                    if (biggestAnchor !== undefined) {
+                        biggestAnchor = point;
+                        break;
+                    }
+                }
+            }
+        }
+        const bigX = biggestAnchor?.x ?? 0;
+        const bigY = biggestAnchor?.y ?? 0;
+        points = points.map((point) => {
+            const newPoint = new AnimationPoint(point.type, point.x, point.y);
+            if (bigX !== 0) {
+                newPoint.x /= bigX;
+                newPoint.x *= this.#size.x;
+                newPoint.x -= this.realAnchor.x;
+            }
+            if (bigY !== 0) {
+                newPoint.y /= bigY;
+                newPoint.y *= -this.#size.y;
+                newPoint.y += this.realAnchor.y;
+            }
+            return newPoint;
+        });
+        return points;
     }
     set points(v) {
         this.#points = v.map((point) => {
@@ -200,6 +292,24 @@ export class AnimationGraph extends BaseDrawable {
             });
             circle.render(ctx);
         }
+        const otherPoints = this.otherPoints;
+        for (let i = 0; i < otherPoints.length; i++) {
+            const point = this.otherPoints[i];
+            const circle = new Circle({
+                fillColor: "#00ff00",
+                borderColor: "rgba(0, 0, 0, 0)",
+                borderWidth: 0,
+                radius: 20,
+                position: [
+                    this.transform.position.x + point.x,
+                    this.transform.position.y + point.y,
+                ],
+                rotation: this.transform.rotation,
+                scale: this.transform.scale,
+                scew: this.transform.scew,
+            });
+            circle.render(ctx);
+        }
     }
 }
 export class Circle extends BaseDrawable {
@@ -261,6 +371,7 @@ class _Renderer2D {
             });
         }
         if (this.ctx !== undefined && this.canvas !== undefined) {
+            this.ctx.setTransform(1, 0, 0, 1, 0, 0);
             this.ctx.clearRect(0, 0, this.canvas.clientWidth, this.canvas.clientHeight);
         }
         for (let i = 0; i < this.#drawables.length; i++) {

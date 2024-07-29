@@ -1,3 +1,4 @@
+import { Vector2Type } from "../types/vector.js";
 import { lerp as m_Lerp, clamp as m_Clamp } from "./math.js";
 
 export class Vector2 {
@@ -8,7 +9,7 @@ export class Vector2 {
         this.y = y;
     }
 
-    lerp(t: number, to: [number, number] | Vector2) {
+    lerp(t: number, to: Vector2Type | Vector2) {
         let x;
         let y;
         if (to instanceof Vector2) {
@@ -22,7 +23,7 @@ export class Vector2 {
         this.y = m_Lerp(t, this.y, y);
         return this;
     }
-    static Lerp(t: number, a: Vector2, b: [number, number] | Vector2) {
+    static Lerp(t: number, a: Vector2, b: Vector2Type | Vector2) {
         let x;
         let y;
         if (b instanceof Vector2) {
@@ -37,7 +38,7 @@ export class Vector2 {
         return a;
     }
 
-    clamp(from: [number, number] | Vector2, to: [number, number] | Vector2) {
+    clamp(from: Vector2Type | Vector2, to: Vector2Type | Vector2) {
         let x;
         let y;
         let x1;
@@ -60,11 +61,7 @@ export class Vector2 {
         this.y = m_Clamp(this.y, y, y1);
         return this;
     }
-    static Clamp(
-        vector: Vector2,
-        from: [number, number] | Vector2,
-        to: [number, number] | Vector2
-    ) {
+    static Clamp(vector: Vector2, from: Vector2Type | Vector2, to: Vector2Type | Vector2) {
         let x;
         let y;
         let x1;
@@ -87,18 +84,191 @@ export class Vector2 {
         vector.y = m_Clamp(vector.y, y, y1);
         return vector;
     }
-    add(vector: Vector2) {
-        this.x += vector.x;
-        this.y += vector.y;
+
+    add(value: Vector2 | Vector2Type | number) {
+        switch (true) {
+            case typeof value === "number":
+                this.x += value;
+                this.y += value;
+                break;
+            case Array.isArray(value):
+                this.x += value[0];
+                this.y += value[1];
+                break;
+            default:
+                this.x += value.x;
+                this.y += value.y;
+                break;
+        }
         return this;
     }
-    static Add(vector: Vector2, to: Vector2) {
-        vector.x += to.x;
-        vector.y += to.y;
+    static Add(vector: Vector2, value: Vector2 | Vector2Type | number) {
+        switch (true) {
+            case typeof value === "number":
+                vector.x += value;
+                vector.y += value;
+                break;
+            case Array.isArray(value):
+                vector.x += value[0];
+                vector.y += value[1];
+                break;
+            default:
+                vector.x += value.x;
+                vector.y += value.y;
+                break;
+        }
         return vector;
     }
 
-    toArray(): [number, number] {
+    sub(value: Vector2 | Vector2Type | number) {
+        switch (true) {
+            case typeof value === "number":
+                this.x -= value;
+                this.y -= value;
+                break;
+            case Array.isArray(value):
+                this.x -= value[0];
+                this.y -= value[1];
+                break;
+            default:
+                this.x -= value.x;
+                this.y -= value.y;
+                break;
+        }
+        return this;
+    }
+    static Sub(vector: Vector2, value: Vector2 | Vector2Type | number) {
+        switch (true) {
+            case typeof value === "number":
+                vector.x += value;
+                vector.y += value;
+                break;
+            case Array.isArray(value):
+                vector.x += value[0];
+                vector.y += value[1];
+                break;
+            default:
+                vector.x += value.x;
+                vector.y += value.y;
+                break;
+        }
+        return vector;
+    }
+
+    mul(value: Vector2 | Vector2Type | number) {
+        switch (true) {
+            case typeof value === "number":
+                this.x *= value;
+                this.y *= value;
+                break;
+            case Array.isArray(value):
+                this.x *= value[0];
+                this.y *= value[1];
+                break;
+            default:
+                this.x *= value.x;
+                this.y *= value.y;
+                break;
+        }
+        return this;
+    }
+    static Mul(vector: Vector2, value: Vector2 | Vector2Type | number) {
+        switch (true) {
+            case typeof value === "number":
+                vector.x *= value;
+                vector.y *= value;
+                break;
+            case Array.isArray(value):
+                vector.x *= value[0];
+                vector.y *= value[1];
+                break;
+            default:
+                vector.x *= value.x;
+                vector.y *= value.y;
+                break;
+        }
+        return vector;
+    }
+
+    div(value: Vector2 | Vector2Type | number) {
+        switch (true) {
+            case typeof value === "number":
+                this.x /= value;
+                this.y /= value;
+                break;
+            case Array.isArray(value):
+                this.x /= value[0];
+                this.y /= value[1];
+                break;
+            default:
+                this.x /= value.x;
+                this.y /= value.y;
+                break;
+        }
+        return this;
+    }
+    static Div(vector: Vector2, value: Vector2 | Vector2Type | number) {
+        switch (true) {
+            case typeof value === "number":
+                vector.x /= value;
+                vector.y /= value;
+                break;
+            case Array.isArray(value):
+                vector.x /= value[0];
+                vector.y /= value[1];
+                break;
+            default:
+                vector.x /= value.x;
+                vector.y /= value.y;
+                break;
+        }
+        return vector;
+    }
+
+    pow(value: Vector2 | Vector2Type | number) {
+        switch (true) {
+            case typeof value === "number":
+                this.x = Math.pow(this.x, value);
+                this.y = Math.pow(this.y, value);
+                break;
+            case Array.isArray(value):
+                this.x = Math.pow(this.x, value[0]);
+                this.y = Math.pow(this.y, value[1]);
+                break;
+            default:
+                this.y = Math.pow(this.x, value.y);
+                this.x = Math.pow(this.y, value.x);
+                break;
+        }
+        return this;
+    }
+    static Pow(vector: Vector2, value: Vector2 | Vector2Type | number) {
+        switch (true) {
+            case typeof value === "number":
+                vector.x = Math.pow(vector.x, value);
+                vector.y = Math.pow(vector.y, value);
+                break;
+            case Array.isArray(value):
+                vector.x = Math.pow(vector.x, value[0]);
+                vector.y = Math.pow(vector.y, value[1]);
+                break;
+            default:
+                vector.x = Math.pow(vector.x, value.x);
+                vector.y = Math.pow(vector.y, value.y);
+                break;
+        }
+        return vector;
+    }
+
+    equils(vector: Vector2 | Vector2Type) {
+        if (vector instanceof Vector2) {
+            return this.x === vector.x && this.y === vector.y;
+        } else {
+            return this.x === vector[0] && this.y === vector[1];
+        }
+    }
+
+    toArray(): Vector2Type {
         return [this.x, this.y];
     }
 }
