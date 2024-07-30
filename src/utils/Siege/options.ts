@@ -7,8 +7,12 @@ import type {
     ParsedGroupKeys,
     ParsedGroupKeysRev,
 } from "../../ops.js";
+import type { StartType } from "../../types/animation.js";
 import { GROUPS, GroupParseKeys, GroupParseKeysRev, OPParseKeys } from "../../ops.js";
-import { giveHoverAnimation, HoverOptions } from "../html.js";
+import Animator, { AnimationCurves } from "../animation/animation.js";
+import { giveElementAnimation, runAnimation } from "../html.js";
+import { lerp } from "../math.js";
+import { time } from "console";
 
 export const OptionCategories = {
     "Try Avoid Dupes": "0" as const,
@@ -460,6 +464,20 @@ export function createOptions(insert: number, makePopup: boolean = true): [HTMLE
         exitButton.className = "exit-options";
         exitButton.innerHTML += "&times;";
 
+        const animationKey = "exit-option-hover";
+        giveElementAnimation(
+            animationKey,
+            exitButton,
+            new Animator({
+                time: 0.15,
+                animate: (t: number) => {
+                    const value = lerp(t, 100, 110);
+                    exitButton.style.scale = `${value}%`;
+                },
+                animationCurve: AnimationCurves.easeInOut,
+            })
+        );
+
         optionsModal.style.display = "none";
         optionsModal.style.zIndex = "5";
         optionsModal.style.position = "fixed";
@@ -662,12 +680,27 @@ export function createTryAvoidOptions(
 
     const selectAllButton = document.createElement("div");
     selectAllButton.className = "avoid-select-all-button";
+    selectAllButton.style.scale = "90%";
     if (Options.categoryTrue(categoryName)) {
         selectAllButton.innerHTML = "Deselect All";
     } else {
         selectAllButton.innerHTML = "Select All";
     }
-    giveHoverAnimation(selectAllButton);
+
+    const animationKey = "avoid-select-all-hover";
+    giveElementAnimation(
+        animationKey,
+        selectAllButton,
+        new Animator({
+            time: 0.15,
+            animate: (t: number) => {
+                const value = lerp(t, 90, 100);
+                selectAllButton.style.scale = `${value}%`;
+            },
+            animationCurve: AnimationCurves.easeInOut,
+        })
+    );
+
     selectAllButtonContainer.appendChild(selectAllButton);
     optionsModalContentScrollWrapper.appendChild(selectAllButtonContainer);
 
@@ -686,30 +719,66 @@ export function createTryAvoidOptions(
     tableRow.appendChild(tableData);
     tableBody.appendChild(tableRow);
 
-    const optionButtons: [keyof (typeof CategoryOptions)["0"], HTMLDivElement][] = [];
+    const optionButtons: [string, keyof (typeof CategoryOptions)["0"], HTMLDivElement][] = [];
     for (const parseKey in CategoryOptionsRev["0"]) {
         const optionButton = document.createElement("div");
         const key = CategoryOptionsRev["0"][parseKey as keyof (typeof CategoryOptionsRev)["0"]];
         optionButton.innerHTML = key;
         if (Options.optionTrue(categoryName, key)) {
             optionButton.style.color = "#ffffff";
-            giveHoverAnimation(optionButton);
+            optionButton.style.scale = "90%";
         } else {
             optionButton.style.color = "#999999";
-            giveHoverAnimation(optionButton, new HoverOptions({ scale: 70 }));
+            optionButton.style.scale = "70%";
         }
+
+        const clickHoverAnimationKey = `${key}-hover-click`;
+        const clockHoverAnimator = new Animator({
+            time: 0.15,
+            animate: (t: number, _: StartType, click: boolean) => {
+                let value: number;
+                if (Options.optionTrue(categoryName, key)) {
+                    optionButton.style.color = "#ffffff";
+                } else {
+                    optionButton.style.color = "#999999";
+                }
+                if (click) {
+                    value = lerp(t, 100, 80);
+                } else {
+                    if (Options.optionTrue(categoryName, key)) {
+                        value = lerp(t, 90, 100);
+                    } else {
+                        value = lerp(t, 70, 80);
+                    }
+                }
+                selectAllButton.style.scale = `${value}%`;
+            },
+            animationCurve: AnimationCurves.easeInOut,
+        });
+        giveElementAnimation(clickHoverAnimationKey, selectAllButton, clockHoverAnimator);
         optionButton.addEventListener("click", () => {
+            clockHoverAnimator.setArgs(true);
+            let start: StartType;
             if (Options.optionTrue(categoryName, key)) {
                 Options.disableOption(categoryName, key);
                 optionButton.style.color = "#999999";
-                giveHoverAnimation(optionButton, new HoverOptions({ click: true, scale: 70 }));
+                start = "end";
             } else {
                 Options.enableOption(categoryName, key);
                 optionButton.style.color = "#ffffff";
-                giveHoverAnimation(optionButton, new HoverOptions({ click: true }));
+                start = "start";
             }
+            runAnimation(clickHoverAnimationKey, start);
         });
-        optionButtons.push([key, optionButton]);
+        optionButton.addEventListener("mouseenter", () => {
+            clockHoverAnimator.setArgs(false);
+            runAnimation(clickHoverAnimationKey, "start");
+        });
+        optionButton.addEventListener("mouseenter", () => {
+            clockHoverAnimator.setArgs(false);
+            runAnimation(clickHoverAnimationKey, "end");
+        });
+        optionButtons.push([clickHoverAnimationKey, key, optionButton]);
         avoidContent.appendChild(optionButton);
     }
 
@@ -722,20 +791,18 @@ export function createTryAvoidOptions(
             selectAllButton.innerHTML = "Deselect All";
         }
         for (let i = 0; i < optionButtons.length; i++) {
-            const [key, optionButton] = optionButtons[i];
-            if (Options.optionTrue(categoryName, key)) {
-                optionButton.style.color = "#ffffff";
-                giveHoverAnimation(optionButton);
-            } else {
-                optionButton.style.color = "#999999";
-                giveHoverAnimation(optionButton, new HoverOptions({ scale: 70 }));
-            }
+            const [animationKey, key, optionButton] = optionButtons[i];
+            runAnimation(animationKey, "end");
         }
     });
     return [
         [tableRow, ""],
         [selectAllButtonContainer, "flex"],
     ];
+}
+
+export function exitOptions() {
+    changeOptionsDisplay("hide");
 }
 
 export function createFilter(
@@ -783,9 +850,9 @@ export function createFilter(
     const filterSelectOPs = document.createElement("tr");
     filterTableBody.appendChild(filterSelectOPs);
 
-    const htmlSelectGroupButtons: [keyof typeof GROUPS, HTMLDivElement][] = [];
+    const htmlSelectGroupButtons: [string, keyof typeof GROUPS, HTMLDivElement][] = [];
     const htmlSelectOpButtons: {
-        [k in keyof typeof GROUPS]?: [AllOPNames, HTMLDivElement][];
+        [k in keyof typeof GROUPS]?: [string, AllOPNames, HTMLDivElement][];
     } = {};
     for (const nKey in GROUPS) {
         const key = nKey as keyof typeof GROUPS;
@@ -828,26 +895,50 @@ export function createFilter(
                 opButton.appendChild(opIcon);
                 opButton.innerHTML += op.name;
                 if (Options.Filter.OPTrue(key, op.name)) {
-                    (opButton.children.item(0) as HTMLImageElement).style.filter = "";
-                    giveHoverAnimation(opButton);
+                    opIcon.style.filter = "";
+                    opIcon.style.scale = "90%";
                 } else {
-                    (opButton.children.item(0) as HTMLImageElement).style.filter =
-                        "grayscale(100%)";
-                    giveHoverAnimation(opButton, new HoverOptions({ scale: 70 }));
+                    opIcon.style.filter = "grayscale(100%)";
+                    opIcon.style.scale = "70%";
                 }
+
+                const animationKey = `${op.name}-hover-click`;
+                const animator = new Animator({
+                    time: 0.15,
+                    animate: (t: number, _, click: boolean) => {
+                        let value: number;
+                        if (Options.Filter.OPTrue(key, op.name)) {
+                            opIcon.style.filter = "";
+                        } else {
+                            opIcon.style.filter = "grayscale(100%)";
+                        }
+                        if (click) {
+                            value = lerp(t, 100, 80);
+                        } else {
+                            if (Options.Filter.OPTrue(key, op.name)) {
+                                value = lerp(t, 90, 100);
+                            } else {
+                                value = lerp(t, 70, 80);
+                            }
+                        }
+                        opButton.style.scale = `${value}%`;
+                    },
+                    animationCurve: AnimationCurves.easeInOut,
+                });
+                giveElementAnimation(animationKey, opButton, animator);
                 opButton.addEventListener("click", () => {
+                    animator.setArgs(true);
                     if (Options.Filter.OPTrue(key, op.name)) {
                         Options.Filter.deselectOP(key, op.name);
                         (opButton.children.item(0) as HTMLImageElement).style.filter =
                             "grayscale(100%)";
-                        giveHoverAnimation(opButton, new HoverOptions({ click: true, scale: 70 }));
                     } else {
                         Options.Filter.selectOP(key, op.name);
                         (opButton.children.item(0) as HTMLImageElement).style.filter = "";
-                        giveHoverAnimation(opButton, new HoverOptions({ click: true }));
                     }
+                    runAnimation(animationKey);
                     for (let i = 0; i < htmlSelectGroupButtons.length; i++) {
-                        const [key, element] = htmlSelectGroupButtons[i];
+                        const [_, key, element] = htmlSelectGroupButtons[i];
                         if (Options.Filter.GroupTrue(key)) {
                             element.innerHTML = "Deselect All " + key;
                         } else {
@@ -860,7 +951,7 @@ export function createFilter(
                         filterSelectAll.innerHTML = "Select All";
                     }
                 });
-                item.push([op.name, opButton]);
+                item.push([animationKey, op.name, opButton]);
                 if (column2 == null) {
                     column1.appendChild(opButton);
                 } else {
@@ -877,7 +968,16 @@ export function createFilter(
             }
         }
         if (makeGroupSelectButton) {
-            giveHoverAnimation(groupSelectButton);
+            const groupAnimationKey = key + "-click";
+            giveElementAnimation(
+                groupAnimationKey,
+                groupSelectButton,
+                new Animator({
+                    time: 0.15,
+                    animate: () => {},
+                    animationCurve: AnimationCurves.easeInOut,
+                })
+            );
             groupSelectButton.addEventListener("click", () => {
                 if (Options.Filter.GroupTrue(key)) {
                     Options.Filter.delectGroup(key);
@@ -894,19 +994,18 @@ export function createFilter(
                 const item = htmlSelectOpButtons[key];
                 if (item !== undefined) {
                     for (let i = 0; i < item.length; i++) {
-                        const [name, button] = item[i];
+                        const [animationKey, name, _] = item[i];
+                        let scale: number;
                         if (Options.Filter.OPTrue(key, name)) {
-                            (button.children.item(0) as HTMLImageElement).style.filter = "";
-                            giveHoverAnimation(button);
+                            scale = 90;
                         } else {
-                            (button.children.item(0) as HTMLImageElement).style.filter =
-                                "grayscale(100%)";
-                            giveHoverAnimation(button, new HoverOptions({ scale: 70 }));
+                            scale = 70;
                         }
+                        runAnimation(animationKey);
                     }
                 }
             });
-            htmlSelectGroupButtons.push([key, groupSelectButton]);
+            htmlSelectGroupButtons.push([groupAnimationKey, key, groupSelectButton]);
             groupSelectContainer.appendChild(groupSelectButton);
             groupSelectdata.appendChild(groupSelectContainer);
             filterSelectGroup.appendChild(groupSelectdata);
@@ -922,7 +1021,7 @@ export function createFilter(
                 filterSelectAll.innerHTML = "Deselect All";
             }
             for (let i = 0; i < htmlSelectGroupButtons.length; i++) {
-                const [key, element] = htmlSelectGroupButtons[i];
+                const [_, key, element] = htmlSelectGroupButtons[i];
                 if (Options.Filter.GroupTrue(key)) {
                     element.innerHTML = "Deselect All " + key;
                 } else {
@@ -934,20 +1033,29 @@ export function createFilter(
                 const item = htmlSelectOpButtons[key];
                 if (item !== undefined) {
                     for (let i = 0; i < item.length; i++) {
-                        const [name, button] = item[i];
+                        const [animationKey, name, _] = item[i];
+                        let scale: number;
                         if (Options.Filter.OPTrue(key, name)) {
-                            (button.children.item(0) as HTMLImageElement).style.filter = "";
-                            giveHoverAnimation(button);
+                            scale = 90;
                         } else {
-                            (button.children.item(0) as HTMLImageElement).style.filter =
-                                "grayscale(100%)";
-                            giveHoverAnimation(button, new HoverOptions({ scale: 70 }));
+                            scale = 70;
                         }
+                        runAnimation(animationKey);
                     }
                 }
             }
         });
-        giveHoverAnimation(filterSelectAll);
+        // filterSelectAll;
+        const filterAnimationKey = "filter-select-all-hover";
+        const filterHoverAnimator = new Animator({
+            time: 0.15,
+            animate: (t: number) => {
+                const value = lerp(t, 90, 100);
+                filterSelectAll.style.scale = `${value}%`;
+            },
+            animationCurve: AnimationCurves.easeInOut,
+        });
+        giveElementAnimation(filterAnimationKey, filterSelectAll, filterHoverAnimator);
     } else {
         filterModalContent.removeChild(filterModalContent.childNodes[2]);
     }

@@ -287,13 +287,14 @@ export class AnimationCurves {
 export default class Animator {
     time;
     animate;
-    animationArgs;
+    args;
     animationType;
     timeType;
     infinite;
     #hasPinged = false;
     pingPong;
     autoStartAnimation;
+    changeStart;
     restartTimer;
     startType;
     running;
@@ -309,12 +310,13 @@ export default class Animator {
         if (info.animate !== undefined) {
             this.animate = info.animate;
         }
-        this.animationArgs = info.animationArgs ?? [];
+        this.args = info.args ?? [];
         this.animationType = info.animationCurve ?? AnimationCurves.linear;
         this.timeType = info.timeType ?? "s";
         this.infinite = info.infinite ?? false;
         this.pingPong = info.pingPong ?? false;
         this.autoStartAnimation = info.autoStartAnimation ?? false;
+        this.changeStart = info.changeStart ?? true;
         this.restartTimer = info.restartTimer ?? true;
         this.startType = info.start ?? "start";
         if (this.startType === "start") {
@@ -338,6 +340,9 @@ export default class Animator {
             this.start();
         }
     }
+    setArgs(...args) {
+        this.args = args;
+    }
     start() {
         if (!this.running) {
             this.running = true;
@@ -349,9 +354,18 @@ export default class Animator {
         if (this.running) {
             this.running = false;
         }
+        if (this.changeStart) {
+            if (this.startType === "start") {
+                this.startType = "end";
+            }
+            else {
+                this.startType = "start";
+            }
+        }
     }
     #step = (timestamp) => {
         if (!this.running) {
+            this.setArgs();
             return;
         }
         this.#deltaTime = (timestamp - this.#lastTimestamp) / 1000;
@@ -435,7 +449,7 @@ export default class Animator {
                 }
             }
             const animationTime = this.animationType.fetchTime(this.#timer);
-            this.animate(animationTime, ...this.animationArgs);
+            this.animate(animationTime, ...this.args);
         }
         else {
             this.running = false;

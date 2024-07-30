@@ -1,6 +1,8 @@
+import { StartType } from "../types/animation.js";
+import Animator, { AnimationCurves } from "./animation/animation.js";
 import Options from "./Siege/options.js";
 
-export class HoverOptions {
+/* export class HoverOptions {
     imageElement?: HTMLImageElement;
     enterImg?: string;
     leaveImg?: string;
@@ -40,14 +42,44 @@ export class HoverOptions {
         this.click = options.click ?? false;
         this.scale = options.scale ?? 90;
     }
-}
+} */
 
-function giveScaler(element: HTMLElement, scaler: number, transitionSec: number) {
+/* function giveScaler(
+    element: HTMLElement,
+    preScaler: number,
+    scaler: number,
+    transitionSec: number
+) {
+    const animation = new Animator({
+        time: transitionSec,
+        animate: (t: number) => {},
+        animationCurve: AnimationCurves.easeInOut,
+    });
     element.style.transition = `scale ${transitionSec}s ease-in-out`;
     element.style.scale = `${scaler}%`;
+} */
+
+const animationCache: { [k: string]: { element: HTMLElement; animator: Animator } } = {};
+
+export function runAnimation(key: string, start?: StartType) {
+    const cache = animationCache[key];
+    if (cache === undefined) {
+        return;
+    }
+    cache.animator.stop();
+    if (start !== undefined) {
+        cache.animator.startType = start;
+    }
+    cache.animator.start();
+}
+export function giveElementAnimation(key: string, element: HTMLElement, animator: Animator) {
+    let cache = animationCache[key];
+    if (cache === undefined) {
+        cache = animationCache[key] = { element, animator };
+    }
 }
 
-export function giveHoverAnimation(
+/* export function giveHoverAnimation(
     element: HTMLElement,
     options: HoverOptions = new HoverOptions()
 ) {
@@ -62,16 +94,16 @@ export function giveHoverAnimation(
                         options.imageElement.src = enterImg;
                     }
                 }
-                giveScaler(element, options.scale + 10, options.transitionSec);
+                giveScaler(element, options.scale, options.scale + 10, options.transitionSec);
                 setNormalScale = false;
             }
         } else {
-            giveScaler(element, options.scale + 10, options.transitionSec);
+            giveScaler(element, options.scale, options.scale + 10, options.transitionSec);
             setNormalScale = false;
         }
     }
     if (setNormalScale) {
-        giveScaler(element, options.scale, options.transitionSec);
+        giveScaler(element, options.scale, options.scale + 10, options.transitionSec);
         if (options.onMouseLeave !== undefined) {
             options.onMouseLeave();
         }
@@ -84,7 +116,7 @@ export function giveHoverAnimation(
                     options.imageElement.src = enterImg;
                 }
             }
-            giveScaler(element, options.scale + 10, options.transitionSec);
+            giveScaler(element, options.scale, options.scale + 10, options.transitionSec);
             if (options.onMouseEnter !== undefined) {
                 options.onMouseEnter();
             }
@@ -96,7 +128,7 @@ export function giveHoverAnimation(
                     options.imageElement.src = leaveImg;
                 }
             }
-            giveScaler(element, options.scale, options.transitionSec);
+            giveScaler(element, options.scale, options.scale + 10, options.transitionSec);
             if (options.onMouseLeave !== undefined) {
                 options.onMouseLeave();
             }
@@ -106,4 +138,4 @@ export function giveHoverAnimation(
         element.addEventListener("mouseenter", mouseEnter);
         element.addEventListener("mouseleave", mouseLeave);
     }
-}
+} */

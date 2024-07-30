@@ -1,11 +1,10 @@
 import { GROUPS } from "./ops.js";
 import { Equipment } from "./utils/Siege/equipment.js";
 import { OP } from "./utils/Siege/op.js";
-import Options, { changeOptionsDisplay, createOptions, optionsInfo, } from "./utils/Siege/options.js";
+import Options, { changeOptionsDisplay, createOptions, exitOptions, optionsInfo, } from "./utils/Siege/options.js";
 import { BarrelAttachment, GripAttachment, SightAttachment, UnderBarrelAttachment, } from "./utils/Siege/weaponInfo/attachment.js";
 import { Weapon } from "./utils/Siege/weaponInfo/weapon.js";
 import { whiteBackground } from "./utils/img.js";
-import { giveHoverAnimation, HoverOptions } from "./utils/html.js";
 import Animator, { AnimationCurves } from "./utils/animation/animation.js";
 import { lerp } from "./utils/math.js";
 import InputSystem from "./input.js";
@@ -201,6 +200,22 @@ function equipmentMatchesList(equipment, equipments) {
 function applyVisuals(op) {
     optionsInfo.htmls = createOptions(1);
     optionsInfo.on = false;
+    for (let i = 0; i < optionsInfo.htmls.length; i++) {
+        const [element, _] = optionsInfo.htmls[i];
+        if (element.className === "exit-options") {
+            element.addEventListener("click", () => {
+                giveHoverAnimation(element, new HoverOptions({ transitionSec: 0.15, click: true, animateOnTouch: true }));
+                if (Options.isTouchScreen) {
+                    setTimeout(() => {
+                        exitOptions();
+                    }, 200);
+                }
+                else {
+                    exitOptions();
+                }
+            });
+        }
+    }
     addOptionButton();
     if (op !== undefined) {
         const opModal = document.createElement("section");
@@ -226,7 +241,7 @@ function applyVisuals(op) {
             const icon = document.createElement("img");
             icon.src = op.icon ?? whiteBackground;
             icon.alt = "OP Icon";
-            icon.style.width = "6vmax";
+            icon.style.width = "3.5vmax";
             iconContent.append(icon);
             iconContent.innerHTML += op.name;
             iconContainer.appendChild(iconContent);
@@ -274,31 +289,22 @@ function addOptionButton() {
     const animation = new Animator({
         time: 0.2,
         animate: (t) => {
-            const y = lerp(t, -5, 0);
-            optionsButton.style.translate = `0 ${y}vmax`;
+            const y = lerp(t, -20, 0);
+            optionsButton.style.scale = `0 ${y}vmax`;
         },
         animationCurve: AnimationCurves.easeInOut,
     });
-    optionsContainer.addEventListener("mouseenter", () => {
-        animation.stop();
-        animation.startType = "start";
-        animation.start();
-    });
-    optionsContainer.addEventListener("mouseleave", () => {
-        animation.stop();
-        animation.startType = "end";
-        animation.start();
-    });
     const optionsButton = document.createElement("div");
     optionsButton.innerHTML += "Options";
-    optionsButton.style.translate = "0 -5vmax";
     giveHoverAnimation(optionsButton, new HoverOptions({ transitionSec: 0.15 }));
     optionsButton.addEventListener("click", () => {
         giveHoverAnimation(optionsButton, new HoverOptions({ transitionSec: 0.15, click: true, animateOnTouch: true }));
         if (Options.isTouchScreen) {
             setTimeout(() => {
                 changeOptionsDisplay("show");
-                giveHoverAnimation(optionsButton, new HoverOptions({ transitionSec: 0.15, click: true, animateOnTouch: false }));
+                animation.stop();
+                animation.startType = "end";
+                animation.start();
             }, 200);
         }
         else {

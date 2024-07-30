@@ -1,6 +1,6 @@
 //#region Main
 /* 2512 */
-import type { AnimationPointType } from "../../types/animation.js";
+import type { AnimationPointType, StartType } from "../../types/animation.js";
 import { clamp } from "../math.js";
 import { Vector2 } from "../vector.js";
 import { AnimationPoint } from "./animationPoint.js";
@@ -248,7 +248,7 @@ export class AnimationCurves {
     static get easeOut(): AnimationCurve {
         return new AnimationCurve(["achor", 0, 0], ["control", 0.58, 1], ["achor", 1, 1]);
     }
-    static step(interval: number, type: "start" | "end" = "start"): AnimationCurve {
+    static step(interval: number, type: StartType = "start"): AnimationCurve {
         const animationCurve = new AnimationCurve();
         let switchToBottom = false;
         if (type === "start") {
@@ -296,15 +296,16 @@ export class AnimationCurves {
 export default class Animator {
     time: number;
     animate?: (time: number, ...args: any[]) => void;
-    animationArgs: any[];
+    args: any[];
     animationType: AnimationCurve;
     timeType: TimeType;
     infinite: boolean;
     #hasPinged: boolean = false;
     pingPong: boolean;
     autoStartAnimation: boolean;
+    changeStart: boolean;
     restartTimer: boolean;
-    startType: "start" | "end";
+    startType: StartType;
     running: boolean;
     #timer: number;
     #deltaTime: number = 0;
@@ -313,16 +314,16 @@ export default class Animator {
     constructor(
         info: {
             time?: number;
-            conditionArgs?: any[];
-            animate?: (time: number, ...args: any[]) => void;
-            animationArgs?: any[];
+            animate?: (time: number, start: StartType, ...args: any[]) => void;
+            args?: any[];
             animationCurve?: AnimationCurve;
             timeType?: TimeType;
             infinite?: boolean;
             pingPong?: boolean;
             autoStartAnimation?: boolean;
             restartTimer?: boolean;
-            start?: "start" | "end";
+            changeStart?: boolean;
+            start?: StartType;
         } = {}
     ) {
         this.running = false;
@@ -332,12 +333,13 @@ export default class Animator {
         if (info.animate !== undefined) {
             this.animate = info.animate;
         }
-        this.animationArgs = info.animationArgs ?? [];
+        this.args = info.args ?? [];
         this.animationType = info.animationCurve ?? AnimationCurves.linear;
         this.timeType = info.timeType ?? "s";
         this.infinite = info.infinite ?? false;
         this.pingPong = info.pingPong ?? false;
         this.autoStartAnimation = info.autoStartAnimation ?? false;
+        this.changeStart = info.changeStart ?? true;
         this.restartTimer = info.restartTimer ?? true;
         this.startType = info.start ?? "start";
         if (this.startType === "start") {
@@ -361,6 +363,10 @@ export default class Animator {
         }
     }
 
+    setArgs(...args: any[]) {
+        this.args = args;
+    }
+
     start() {
         if (!this.running) {
             this.running = true;
@@ -372,9 +378,17 @@ export default class Animator {
         if (this.running) {
             this.running = false;
         }
+        if (this.changeStart) {
+            if (this.startType === "start") {
+                this.startType = "end";
+            } else {
+                this.startType = "start";
+            }
+        }
     }
     #step = (timestamp: number) => {
         if (!this.running) {
+            this.setArgs();
             return;
         }
         this.#deltaTime = (timestamp - this.#lastTimestamp) / 1000;
@@ -445,7 +459,7 @@ export default class Animator {
                 }
             }
             const animationTime = this.animationType.fetchTime(this.#timer);
-            this.animate(animationTime, ...this.animationArgs);
+            this.animate(animationTime, ...this.args);
         } else {
             this.running = false;
         }

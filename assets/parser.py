@@ -101,21 +101,33 @@ class Config(TypedDict):
 class __Parser:
 
     def __init__(this) -> None:
+        """
+        import {GroupInfo} from "./utils/Siege/group.js";
+        import {OPInfo} from "./utils/Siege/op.js";
+        import { EquipmentInfo } from "./utils/Siege/equipment.js";
+        import { WeaponInfo } from "./utils/Siege/weaponInfo/weapon.js";
+        import {
+            BarrelAttachmentInfo,
+            GripAttachmentInfo,
+            SightAttachmentInfo,
+            UnderBarrelAttachmentInfo,
+        } from "./utils/Siege/weaponInfo/attachment.js";
+        """
         this.imports: Imports = {
             "GroupInfo": {
-                "import_": 'import {GroupInfo} from "./utils/group.js";',
+                "import_": 'import {GroupInfo} from "./utils/Siege/group.js";',
                 "active": False,
             },
             "OPInfo": {
-                "import_": 'import {OPInfo} from "./utils/op.js";',
+                "import_": 'import {OPInfo} from "./utils/Siege/op.js";',
                 "active": False,
             },
             "EquipmentInfo": {
-                "import_": 'import {EquipmentInfo} from "./utils/equipment.js";',
+                "import_": 'import {EquipmentInfo} from "./utils/Siege/equipment.js";',
                 "active": False,
             },
             "WeaponInfo": {
-                "import_": 'import {WeaponInfo} from "./utils/weaponInfo/weapon.js";',
+                "import_": 'import {WeaponInfo} from "./utils/Siege/weaponInfo/weapon.js";',
                 "active": False,
             },
             "AttachmentInfo": {"import_": this.__fetch_attachments, "active": False},
@@ -198,9 +210,9 @@ class __Parser:
                 else:
                     import_string += f"{key}"
         if has_many:
-            import_string += '\n} from "./utils/weaponInfo/attachment.js";'
+            import_string += '\n} from "./utils/Siege/weaponInfo/attachment.js";'
         else:
-            import_string += '} from "./utils/weaponInfo/attachment.js";'
+            import_string += '} from "./utils/Siege/weaponInfo/attachment.js";'
 
         return import_string
 
