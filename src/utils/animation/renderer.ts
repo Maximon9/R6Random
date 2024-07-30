@@ -110,32 +110,28 @@ export class AnimationGraph extends BaseDrawable {
 
     #points!: AnimationPoint[];
     public get points(): AnimationPoint[] {
-        let smallestAnchor: Vector2 | undefined = undefined;
+        let smallestPoint: Vector2 | undefined = undefined;
         for (let i = 0; i < this.#points.length; i++) {
             const point = this.#points[i];
-            if (point.type === "achor") {
-                if (smallestAnchor === undefined) {
-                    smallestAnchor = point;
-                } else {
-                    if (point.x < smallestAnchor.x || point.y < smallestAnchor.y) {
-                        smallestAnchor = point;
-                    }
+            if (smallestPoint === undefined) {
+                smallestPoint = point;
+            } else {
+                if (point.x < smallestPoint.x) {
+                    smallestPoint = point;
                 }
             }
         }
-        if (smallestAnchor === undefined) {
+        if (smallestPoint === undefined) {
             for (let i = 0; i < this.#points.length; i++) {
                 const point = this.#points[i];
-                if (point.type === "achor") {
-                    if (smallestAnchor !== undefined) {
-                        smallestAnchor = point;
-                        break;
-                    }
+                if (smallestPoint !== undefined) {
+                    smallestPoint = point;
+                    break;
                 }
             }
         }
-        const smallX = smallestAnchor?.x ?? 0;
-        const smallY = smallestAnchor?.y ?? 0;
+        const smallX = smallestPoint?.x ?? 0;
+        const smallY = smallestPoint?.y ?? 0;
         let points = this.#points.map((point) => {
             const newPoint = new AnimationPoint(point.type, point.x, point.y);
             if (smallX !== 0) {
@@ -146,32 +142,28 @@ export class AnimationGraph extends BaseDrawable {
             }
             return newPoint;
         });
-        let biggestAnchor: Vector2 | undefined = undefined;
+        let biggestPoint: Vector2 | undefined = undefined;
         for (let i = points.length - 1; i >= 0; i--) {
             const point = points[i];
-            if (point.type === "achor") {
-                if (biggestAnchor === undefined) {
-                    biggestAnchor = point;
-                } else {
-                    if (point.x > biggestAnchor.x || point.y > biggestAnchor.y) {
-                        biggestAnchor = point;
-                    }
+            if (biggestPoint === undefined) {
+                biggestPoint = point;
+            } else {
+                if (point.x > biggestPoint.x) {
+                    biggestPoint = point;
                 }
             }
         }
-        if (biggestAnchor === undefined) {
+        if (biggestPoint === undefined) {
             for (let i = points.length - 1; i >= 0; i--) {
                 const point = this.#points[i];
-                if (point.type === "achor") {
-                    if (biggestAnchor !== undefined) {
-                        biggestAnchor = point;
-                        break;
-                    }
+                if (biggestPoint !== undefined) {
+                    biggestPoint = point;
+                    break;
                 }
             }
         }
-        const bigX = biggestAnchor?.x ?? 0;
-        const bigY = biggestAnchor?.y ?? 0;
+        const bigX = biggestPoint?.x ?? 0;
+        const bigY = biggestPoint?.y ?? 0;
         points = points.map((point) => {
             const newPoint = new AnimationPoint(point.type, point.x, point.y);
             if (bigX !== 0) {
@@ -435,19 +427,19 @@ class _Renderer2D {
     }
 
     render() {
-        if (this.sorted === false) {
-            this.#drawables.sort((a: BaseDrawable, b: BaseDrawable) => {
-                return a.zIndex - b.zIndex;
-            });
-        }
         if (this.ctx !== undefined && this.canvas !== undefined) {
+            if (this.sorted === false) {
+                this.#drawables.sort((a: BaseDrawable, b: BaseDrawable) => {
+                    return a.zIndex - b.zIndex;
+                });
+            }
             this.ctx.setTransform(1, 0, 0, 1, 0, 0);
             this.ctx.clearRect(0, 0, this.canvas.clientWidth, this.canvas.clientHeight);
-        }
-        for (let i = 0; i < this.#drawables.length; i++) {
-            const drawable = this.#drawables[i];
-            if (this.ctx !== undefined) {
-                drawable.render(this.ctx);
+            for (let i = 0; i < this.#drawables.length; i++) {
+                const drawable = this.#drawables[i];
+                if (this.ctx !== undefined) {
+                    drawable.render(this.ctx);
+                }
             }
         }
     }

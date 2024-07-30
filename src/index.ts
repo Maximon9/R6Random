@@ -24,7 +24,7 @@ function main() {
 function createGroupButtons() {
     let switcher: IDKButImHardRN;
     if (Options.isTouchScreen) {
-        switcher = new IDKButImHardRN(changeLink, 300);
+        switcher = new IDKButImHardRN(changeLink, 700);
     } else {
         switcher = new IDKButImHardRN(changeLink, 0);
     }
@@ -35,7 +35,16 @@ function createGroupButtons() {
     const groupModalTitleRow = document.createElement("tr");
     const groupModalRow = document.createElement("tr");
     const grouKeys = Object.keys(GROUPS) as (keyof typeof GROUPS)[];
-    const htmlGroups: [string, string, HTMLTableCellElement][] = [];
+    const htmlGroups: [
+        string,
+        string,
+        HTMLTableCellElement,
+        HTMLImageElement,
+        {
+            normalIcon?: string;
+            hoverIcon?: string;
+        }
+    ][] = [];
     for (let i = 0; i < grouKeys.length; i++) {
         const key = grouKeys[i];
         const group = GROUPS[key];
@@ -59,25 +68,29 @@ function createGroupButtons() {
         htmlGroupImg.className = "group-button";
 
         const htmlImages = group.fetch_html_images();
-        const animationKey = `-button-hover`;
-        giveElementAnimation(
-            animationKey,
-            htmlGroup,
-            new Animator({
-                time: 0.15,
-                animate: (t: number, start: StartType) => {
-                    if (start === "start") {
-                        htmlGroupImg.src = htmlImages.hoverIcon ?? whiteBackground;
-                    } else {
-                        htmlGroupImg.src = htmlImages.normalIcon ?? whiteBackground;
-                    }
-                    const value = lerp(t, 90, 100);
-                    htmlGroup.style.scale = `${value}%`;
-                },
-                animationCurve: AnimationCurves.easeInOut,
-            })
-        );
-        htmlGroups.push([animationKey, key, htmlGroup]);
+        const animationKey = `${key}-button-hover`;
+        const animator = new Animator({
+            time: 0.15,
+            animate: (t: number, start: StartType) => {
+                const value = lerp(t, 90, 100);
+                htmlGroup.style.scale = `${value}%`;
+            },
+            animationCurve: AnimationCurves.easeInOut,
+        });
+        giveElementAnimation(animationKey, htmlGroup, animator);
+        if (!Options.isTouchScreen) {
+            htmlGroup.addEventListener("mouseenter", () => {
+                animator.setArgs(false);
+                htmlGroupImg.src = htmlImages.hoverIcon ?? whiteBackground;
+                runAnimation(animationKey, "start");
+            });
+            htmlGroup.addEventListener("mouseleave", () => {
+                animator.setArgs(false);
+                htmlGroupImg.src = htmlImages.normalIcon ?? whiteBackground;
+                runAnimation(animationKey, "end");
+            });
+        }
+        htmlGroups.push([animationKey, key, htmlGroup, htmlGroupImg, htmlImages]);
 
         const first_icon = htmlImages.normalIcon ?? htmlImages.hoverIcon;
         if (first_icon != undefined) {
@@ -89,10 +102,11 @@ function createGroupButtons() {
         groupModalRow.appendChild(htmlGroup);
     }
     for (let i = 0; i < htmlGroups.length; i++) {
-        const [animationKey, key, htmlGroup] = htmlGroups[i];
+        const [animationKey, key, htmlGroup, htmlGroupImg, htmlImages] = htmlGroups[i];
         htmlGroup.addEventListener("click", () => {
+            htmlGroupImg.src = htmlImages.hoverIcon ?? whiteBackground;
             groupButtonClicked(key);
-            runAnimation(animationKey);
+            runAnimation(animationKey, "start");
             for (let i = 0; i < htmlGroups.length; i++) {
                 const [animationKey1, key1, _] = htmlGroups[i];
                 if (key1 !== key) {

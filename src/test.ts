@@ -1,7 +1,6 @@
 //#region Main
 import Animator, { AnimationCurve, AnimationCurves } from "./utils/animation/animation.js";
-import { clamp, lerp } from "./utils/math.js";
-import { Vector2 } from "./utils/vector.js";
+import { lerp } from "./utils/math.js";
 import { Circle, Renderer2D } from "./utils/animation/renderer.js";
 
 /* function isNumber(str: string) {
@@ -59,7 +58,15 @@ const animator = new Animator({
         ];
         Renderer2D.render();
     },
-    animationCurve: new AnimationCurve(
+    animationCurve: /* AnimationCurves.step(4) */ /* new AnimationCurve(
+        ["achor", 0, 0],
+        ["control", 1 / 6 + num, 1 / 6 - num],
+        ["control", 1 / 3 + num, 1 / 3 - num],
+        ["achor", 0.5, 0.5],
+        ["control", 2 / 3 - num, 2 / 3 + num],
+        ["control", 5 / 6 - num, 5 / 6 + num],
+        ["achor", 1, 1]
+    ) */ new AnimationCurve(
         ["achor", 0, 0],
         ["control", 1 / 6 + num, 1 / 6 - num],
         ["control", 1 / 3 + num, 1 / 3 - num],
@@ -68,6 +75,14 @@ const animator = new Animator({
         ["control", 5 / 6 - num, 5 / 6 + num],
         ["achor", 1, 1]
     ) /* new AnimationCurve(
+        ["achor", 0, 0],
+        ["control", 1 / 6 - num, 1 / 6 + num],
+        ["control", 1 / 3 - num, 1 / 3 + num],
+        ["achor", 0.5, 0.5],
+        ["control", 2 / 3 + num, 2 / 3 - num],
+        ["control", 5 / 6 + num, 5 / 6 - num],
+        ["achor", 1, 1]
+    ) */ /* new AnimationCurve(
         ["achor", 0, 0],
         ["control", 1 / 6 + num, 1 / 6 - num],
         ["control", 0.25 + num + num, 0.25 - num - num],

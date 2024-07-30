@@ -12,7 +12,6 @@ import { GROUPS, GroupParseKeys, GroupParseKeysRev, OPParseKeys } from "../../op
 import Animator, { AnimationCurves } from "../animation/animation.js";
 import { giveElementAnimation, runAnimation } from "../html.js";
 import { lerp } from "../math.js";
-import { time } from "console";
 
 export const OptionCategories = {
     "Try Avoid Dupes": "0" as const,

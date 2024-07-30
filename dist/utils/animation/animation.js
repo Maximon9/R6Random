@@ -40,33 +40,29 @@ export class AnimationCurve {
         return false;
     }
     #fetchAllBezierCurves() {
-        let smallestAnchor = undefined;
+        let smallestPoint = undefined;
         for (let i = 0; i < this.#points.length; i++) {
             const point = this.#points[i];
-            if (point.type === "achor") {
-                if (smallestAnchor === undefined) {
-                    smallestAnchor = point;
-                }
-                else {
-                    if (point.x < smallestAnchor.x || point.y < smallestAnchor.y) {
-                        smallestAnchor = point;
-                    }
+            if (smallestPoint === undefined) {
+                smallestPoint = point;
+            }
+            else {
+                if (point.x < smallestPoint.x) {
+                    smallestPoint = point;
                 }
             }
         }
-        if (smallestAnchor === undefined) {
+        if (smallestPoint === undefined) {
             for (let i = 0; i < this.#points.length; i++) {
                 const point = this.#points[i];
-                if (point.type === "achor") {
-                    if (smallestAnchor !== undefined) {
-                        smallestAnchor = point;
-                        break;
-                    }
+                if (smallestPoint !== undefined) {
+                    smallestPoint = point;
+                    break;
                 }
             }
         }
-        const smallX = smallestAnchor?.x ?? 0;
-        const smallY = smallestAnchor?.y ?? 0;
+        const smallX = smallestPoint?.x ?? 0;
+        const smallY = smallestPoint?.y ?? 0;
         let points = this.#points.map((point) => {
             const newPoint = new AnimationPoint(point.type, point.x, point.y);
             if (smallX !== 0) {
@@ -77,33 +73,29 @@ export class AnimationCurve {
             }
             return newPoint;
         });
-        let biggestAnchor = undefined;
+        let biggestPoint = undefined;
         for (let i = points.length - 1; i >= 0; i--) {
             const point = points[i];
-            if (point.type === "achor") {
-                if (biggestAnchor === undefined) {
-                    biggestAnchor = point;
-                }
-                else {
-                    if (point.x > biggestAnchor.x || point.y > biggestAnchor.y) {
-                        biggestAnchor = point;
-                    }
+            if (biggestPoint === undefined) {
+                biggestPoint = point;
+            }
+            else {
+                if (point.x > biggestPoint.x) {
+                    biggestPoint = point;
                 }
             }
         }
-        if (biggestAnchor === undefined) {
+        if (biggestPoint === undefined) {
             for (let i = points.length - 1; i >= 0; i--) {
                 const point = this.#points[i];
-                if (point.type === "achor") {
-                    if (biggestAnchor !== undefined) {
-                        biggestAnchor = point;
-                        break;
-                    }
+                if (biggestPoint !== undefined) {
+                    biggestPoint = point;
+                    break;
                 }
             }
         }
-        const bigX = biggestAnchor?.x ?? 0;
-        const bigY = biggestAnchor?.y ?? 0;
+        const bigX = biggestPoint?.x ?? 0;
+        const bigY = biggestPoint?.y ?? 0;
         points = points.map((point) => {
             const newPoint = new AnimationPoint(point.type, point.x, point.y);
             if (bigX !== 0) {
@@ -253,7 +245,6 @@ export class AnimationCurves {
                         animationCurve.addPoint(["achor", i, 1]);
                     }
                     animationCurve.addPoint(["achor", i + 1, 1]);
-                    console.log(["achor", i + 1, 1]);
                     if (i === interval - 1) {
                         animationCurve.addPoint(["achor", i + 1, 0]);
                     }
@@ -365,7 +356,9 @@ export default class Animator {
     }
     #step = (timestamp) => {
         if (!this.running) {
-            this.setArgs();
+            if (this.args.length > 0) {
+                this.setArgs();
+            }
             return;
         }
         this.#deltaTime = (timestamp - this.#lastTimestamp) / 1000;
@@ -392,7 +385,6 @@ export default class Animator {
             }
             this.#timer += this.#sign * (this.#deltaTime / this.time);
             if (this.pingPong) {
-                console.log(this.#timer);
                 if (this.startType === "start") {
                     if (this.#timer >= 1 && !this.#hasPinged) {
                         this.#hasPinged = true;
