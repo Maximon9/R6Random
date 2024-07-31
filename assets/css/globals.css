@@ -63,7 +63,7 @@ body::-webkit-scrollbar-track {
 }
 
 .exit-options {
-    height: 4.1vmax;
+    height: 4.5vmax;
     line-height: 5vmax;
     font-size: 10vmax;
     align-items: center;
@@ -95,6 +95,7 @@ body::-webkit-scrollbar-track {
     height: 4.5vmax;
     width: 4.5vmax;
     font-size: 5vmax;
+    margin: 1.5vmax 1.5vmax 0 0;
 }
 .icon-container {
     width: 100%;

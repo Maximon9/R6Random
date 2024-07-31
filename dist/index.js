@@ -1,7 +1,6 @@
 import { GROUPS } from "./ops.js";
 import { whiteBackground } from "./utils/img.js";
 import Options, { createOptions } from "./utils/Siege/options.js";
-import IDKButImHardRN from "./utils/animation/time.js";
 import InputSystem from "./input.js";
 import { HTMLAnimator } from "./utils/animation/animation.js";
 InputSystem.start();
@@ -16,10 +15,6 @@ function main() {
     createOptions(3, false);
 }
 function createGroupButtons() {
-    let switcher = new IDKButImHardRN(changeLink);
-    if (Options.isTouchScreen) {
-        switcher.changeTime(700);
-    }
     const groupModal = document.createElement("section");
     groupModal.className = "group-modal";
     const groupModalTable = document.createElement("table");
@@ -91,8 +86,9 @@ function createGroupButtons() {
                 }
             }
             animator.setKeyFrames([{ scale: "100%" }]);
-            animator.play();
-            switcher.run("op.html");
+            animator.play()?.addEventListener("finish", () => {
+                changeLink("op.html");
+            });
         });
     }
     if (htmlGroups.length > 0) {

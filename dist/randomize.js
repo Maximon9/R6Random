@@ -7,7 +7,6 @@ import { Weapon } from "./utils/Siege/weaponInfo/weapon.js";
 import { whiteBackground } from "./utils/img.js";
 import { HTMLAnimator } from "./utils/animation/animation.js";
 import InputSystem from "./input.js";
-import IDKButImHardRN from "./utils/animation/time.js";
 InputSystem.start();
 function roll() {
     let op = undefined;
@@ -198,24 +197,6 @@ function equipmentMatchesList(equipment, equipments) {
     return false;
 }
 function applyVisuals(op) {
-    let switcher = new IDKButImHardRN(exitOptions);
-    if (Options.isTouchScreen) {
-        switcher.changeTime(700);
-    }
-    optionsInfo.htmls = createOptions(1);
-    optionsInfo.on = false;
-    for (let i = 0; i < optionsInfo.htmls.length; i++) {
-        const { element, animator } = optionsInfo.htmls[i];
-        if (element.className === "exit-options") {
-            element.addEventListener("click", () => {
-                if (animator !== undefined) {
-                    animator.setKeyFrames([{ scale: "110%" }]);
-                    animator.play();
-                }
-                switcher.run();
-            });
-        }
-    }
     addOptionButton();
     if (op !== undefined) {
         const opModal = document.createElement("section");
@@ -283,10 +264,6 @@ function applyVisuals(op) {
     }
 }
 function addOptionButton() {
-    let switcher = new IDKButImHardRN(changeOptionsDisplay);
-    if (Options.isTouchScreen) {
-        switcher.changeTime(400);
-    }
     const options = document.createElement("div");
     options.className = "options";
     const optionsContainer = document.createElement("div");
@@ -304,10 +281,28 @@ function addOptionButton() {
         });
     }
     optionsButton.addEventListener("click", () => {
-        switcher.run("show");
         animator.setKeyFrames([{ scale: "110%" }]);
-        animator.play();
+        animator.play()?.addEventListener("finish", () => {
+            optionsButton.style.display = "none";
+            changeOptionsDisplay("show");
+        });
     });
+    optionsInfo.htmls = createOptions(1);
+    optionsInfo.on = false;
+    for (let i = 0; i < optionsInfo.htmls.length; i++) {
+        const { element, animator } = optionsInfo.htmls[i];
+        if (element.className === "exit-options") {
+            element.addEventListener("click", () => {
+                if (animator !== undefined) {
+                    animator.setKeyFrames([{ scale: "110%" }]);
+                    animator.play()?.addEventListener("finish", () => {
+                        optionsButton.style.display = "";
+                        exitOptions();
+                    });
+                }
+            });
+        }
+    }
     optionsContainer.appendChild(optionsButton);
     options.appendChild(optionsContainer);
     document.body.insertBefore(options, document.body.childNodes[0]);
@@ -414,18 +409,6 @@ function tryAddAttachmentVisuals(weaponData, attachments) {
             }
             weaponData.appendChild(attachmentsDiv);
         }
-    }
-}
-const root = document.querySelector(":root");
-function getRootVariable(key) {
-    if (root !== null) {
-        const rs = getComputedStyle(root);
-        return rs.getPropertyValue(key);
-    }
-}
-function setRootVariable(key, value) {
-    if (root !== null) {
-        return root.style.setProperty(key, value);
     }
 }
 roll();

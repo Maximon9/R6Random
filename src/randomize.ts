@@ -271,24 +271,6 @@ function equipmentMatchesList(
 }
 
 function applyVisuals(op: OP | undefined) {
-    let switcher = new IDKButImHardRN(exitOptions);
-    if (Options.isTouchScreen) {
-        switcher.changeTime(700);
-    }
-    optionsInfo.htmls = createOptions(1);
-    optionsInfo.on = false;
-    for (let i = 0; i < optionsInfo.htmls.length; i++) {
-        const { element, animator } = optionsInfo.htmls[i];
-        if (element.className === "exit-options") {
-            element.addEventListener("click", () => {
-                if (animator !== undefined) {
-                    animator.setKeyFrames([{ scale: "110%" }]);
-                    animator.play();
-                }
-                switcher.run();
-            });
-        }
-    }
     addOptionButton();
     if (op !== undefined) {
         const opModal = document.createElement("section");
@@ -368,10 +350,6 @@ function applyVisuals(op: OP | undefined) {
 }
 
 function addOptionButton() {
-    let switcher = new IDKButImHardRN(changeOptionsDisplay);
-    if (Options.isTouchScreen) {
-        switcher.changeTime(400);
-    }
     const options = document.createElement("div");
     options.className = "options";
 
@@ -393,10 +371,29 @@ function addOptionButton() {
     }
 
     optionsButton.addEventListener("click", () => {
-        switcher.run("show");
         animator.setKeyFrames([{ scale: "110%" }]);
-        animator.play();
+        animator.play()?.addEventListener("finish", () => {
+            optionsButton.style.display = "none";
+            changeOptionsDisplay("show");
+        });
     });
+
+    optionsInfo.htmls = createOptions(1);
+    optionsInfo.on = false;
+    for (let i = 0; i < optionsInfo.htmls.length; i++) {
+        const { element, animator } = optionsInfo.htmls[i];
+        if (element.className === "exit-options") {
+            element.addEventListener("click", () => {
+                if (animator !== undefined) {
+                    animator.setKeyFrames([{ scale: "110%" }]);
+                    animator.play()?.addEventListener("finish", () => {
+                        optionsButton.style.display = "";
+                        exitOptions();
+                    });
+                }
+            });
+        }
+    }
 
     optionsContainer.appendChild(optionsButton);
     options.appendChild(optionsContainer);
@@ -523,19 +520,5 @@ function tryAddAttachmentVisuals(weaponData: HTMLDivElement, attachments?: Weapo
     }
 }
 
-const root = document.querySelector(":root") as HTMLElement;
-
-function getRootVariable(key: string) {
-    if (root !== null) {
-        const rs = getComputedStyle(root);
-        return rs.getPropertyValue(key);
-    }
-}
-
-function setRootVariable(key: string, value: string) {
-    if (root !== null) {
-        return root.style.setProperty(key, value);
-    }
-}
 roll();
 //#endregion
