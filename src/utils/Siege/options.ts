@@ -778,7 +778,11 @@ export function createTryAvoidOptions(
                 optionButton.style.scale;
                 scalerInfo.scaler = 90;
             }
-            animator.setKeyFrames([{ scale: `${scalerInfo.scaler + 10}%` }]);
+            if (Options.isTouchScreen) {
+                animator.setKeyFrames([{ scale: `${scalerInfo.scaler}%` }]);
+            } else {
+                animator.setKeyFrames([{ scale: `${scalerInfo.scaler + 10}%` }]);
+            }
             animator.setOptions({ duration: 150, fill: "both" });
             animator.play();
         });
@@ -938,6 +942,7 @@ export function createFilter(
         }
 
         let makeGroupSelectButton = true;
+
         if (group.ops.length > 0) {
             htmlSelectFiliterButtons[key] = [];
             const item = htmlSelectFiliterButtons[key]!;
@@ -1012,7 +1017,11 @@ export function createFilter(
                     } else {
                         groupSelectButton.innerHTML = "Select All " + key;
                     }
-                    animator.setKeyFrames([{ scale: `${scalerInfo.scaler + 10}%` }]);
+                    if (Options.isTouchScreen) {
+                        animator.setKeyFrames([{ scale: `${scalerInfo.scaler}%` }]);
+                    } else {
+                        animator.setKeyFrames([{ scale: `${scalerInfo.scaler + 10}%` }]);
+                    }
                     animator.setOptions({ duration: 150, fill: "both" });
                     animator.play();
                 });
@@ -1034,6 +1043,7 @@ export function createFilter(
                 filterSelectOPs.appendChild(column2);
             }
         }
+
         if (makeGroupSelectButton) {
             groupSelectButton.addEventListener("click", () => {
                 groupAnimator.play();
@@ -1085,6 +1095,7 @@ export function createFilter(
             filterSelectGroup.appendChild(groupSelectdata);
         }
     }
+
     if (htmlSelectGroupButtons.length > 0) {
         selectAllButton.addEventListener("click", () => {
             if (Options.Filter.AllTrue) {

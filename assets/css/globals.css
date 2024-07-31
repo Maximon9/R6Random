@@ -289,13 +289,14 @@ body::-webkit-scrollbar-track {
     margin-right: auto;
     background: transparent;
     border: #535353 outset 0.4vmax;
-    padding: 0.3em;
+    padding: 1.4vmax;
     color: white;
-    font-size: 2lh;
+    font-size: 2.5vmax;
     height: fit-content;
     width: fit-content;
     text-align: center;
 }
+
 .options-modal {
     display: block;
     background: #444444;
@@ -384,11 +385,11 @@ body::-webkit-scrollbar-track {
     align-items: center;
 }
 .group-select {
-    line-height: 2.5em;
-    height: 2.5em;
+    line-height: 1vmax;
+    height: 1vmax;
     width: 100%;
-    padding: 0 0.2lh 0 0.2lh;
-    font-size: 1.2lh;
+    padding: 2vmax;
+    font-size: 2vmax;
     border: #535353 outset 0.4vmax;
 }
 

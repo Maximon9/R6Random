@@ -719,7 +719,12 @@ export function createTryAvoidOptions(optionsModalContentScrollWrapper, tableBod
                 optionButton.style.scale;
                 scalerInfo.scaler = 90;
             }
-            animator.setKeyFrames([{ scale: `${scalerInfo.scaler + 10}%` }]);
+            if (Options.isTouchScreen) {
+                animator.setKeyFrames([{ scale: `${scalerInfo.scaler}%` }]);
+            }
+            else {
+                animator.setKeyFrames([{ scale: `${scalerInfo.scaler + 10}%` }]);
+            }
             animator.setOptions({ duration: 150, fill: "both" });
             animator.play();
         });
@@ -932,7 +937,12 @@ export function createFilter(optionsModalContentScrollWrapper, tableBody) {
                     else {
                         groupSelectButton.innerHTML = "Select All " + key;
                     }
-                    animator.setKeyFrames([{ scale: `${scalerInfo.scaler + 10}%` }]);
+                    if (Options.isTouchScreen) {
+                        animator.setKeyFrames([{ scale: `${scalerInfo.scaler}%` }]);
+                    }
+                    else {
+                        animator.setKeyFrames([{ scale: `${scalerInfo.scaler + 10}%` }]);
+                    }
                     animator.setOptions({ duration: 150, fill: "both" });
                     animator.play();
                 });
