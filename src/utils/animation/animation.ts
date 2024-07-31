@@ -7,6 +7,56 @@ import { AnimationPoint } from "./animationPoint.js";
 import { AnimationGraph } from "./renderer.js";
 export type TimeType = "s" | "ms";
 
+type TurnIntoCSSPropery<String extends string> = String extends string
+    ? String extends ""
+        ? String
+        : Uncapitalize<String> extends `${infer A}${infer B}${infer C}`
+        ? B extends Uppercase<B>
+            ? `${Lowercase<A>}-${TurnIntoCSSPropery<`${Lowercase<B>}${C}`>}`
+            : `${A}${TurnIntoCSSPropery<`${B}${C}`>}`
+        : String
+    : String;
+
+type Wrapper<String extends string> = String extends string
+    ? String extends ""
+        ? String
+        : String extends `${infer A}${infer B}${infer C}`
+        ? B extends `-`
+            ? `${A}${Wrapper<Capitalize<C>>}`
+            : `${A}${Wrapper<`${B}${C}`>}`
+        : String
+    : String;
+type TurnIntoCSSJSPropery<String extends string> = Wrapper<Uncapitalize<String>>;
+
+type keyFrameOtherData = {
+    composite?: CompositeOperationOrAuto | CompositeOperationOrAuto[];
+    easing?: string;
+    // offset?: number | (number | null)[];
+};
+
+type CSSPropertyKeys = TurnIntoCSSPropery<
+    Exclude<
+        keyof CSSStyleDeclaration,
+        | number
+        | Symbol
+        | "length"
+        | "parentRule"
+        | "setProperty"
+        | "removeProperty"
+        | "item"
+        | "getPropertyValue"
+        | "getPropertyPriority"
+    >
+>;
+type JSCSSPropertyKeys = TurnIntoCSSJSPropery<CSSPropertyKeys>;
+const key: CSSPropertyKeys = "accent-color";
+
+type keyFrameData = keyFrameOtherData & CSSStyleDeclaration;
+
+export type KeyFrame = {
+    [k in keyof keyFrameOtherData | CSSPropertyKeys]?: keyFrameData[TurnIntoCSSJSPropery<k>];
+};
+
 export class AnimationCurve {
     #points: AnimationPoint[];
     graph: AnimationGraph;
@@ -50,20 +100,24 @@ export class AnimationCurve {
         let smallestPoint: Vector2 | undefined = undefined;
         for (let i = 0; i < this.#points.length; i++) {
             const point = this.#points[i];
-            if (smallestPoint === undefined) {
-                smallestPoint = point;
-            } else {
-                if (point.x < smallestPoint.x) {
+            if (point.type === "achor") {
+                if (smallestPoint === undefined) {
                     smallestPoint = point;
+                } else {
+                    if (point.x < smallestPoint.x) {
+                        smallestPoint = point;
+                    }
                 }
             }
         }
         if (smallestPoint === undefined) {
             for (let i = 0; i < this.#points.length; i++) {
                 const point = this.#points[i];
-                if (smallestPoint !== undefined) {
-                    smallestPoint = point;
-                    break;
+                if (point.type === "achor") {
+                    if (smallestPoint !== undefined) {
+                        smallestPoint = point;
+                        break;
+                    }
                 }
             }
         }
@@ -82,20 +136,24 @@ export class AnimationCurve {
         let biggestPoint: Vector2 | undefined = undefined;
         for (let i = points.length - 1; i >= 0; i--) {
             const point = points[i];
-            if (biggestPoint === undefined) {
-                biggestPoint = point;
-            } else {
-                if (point.x > biggestPoint.x) {
+            if (point.type === "achor") {
+                if (biggestPoint === undefined) {
                     biggestPoint = point;
+                } else {
+                    if (point.x > biggestPoint.x) {
+                        biggestPoint = point;
+                    }
                 }
             }
         }
         if (biggestPoint === undefined) {
             for (let i = points.length - 1; i >= 0; i--) {
                 const point = this.#points[i];
-                if (biggestPoint !== undefined) {
-                    biggestPoint = point;
-                    break;
+                if (point.type === "achor") {
+                    if (biggestPoint !== undefined) {
+                        biggestPoint = point;
+                        break;
+                    }
                 }
             }
         }
@@ -284,13 +342,12 @@ export class AnimationCurves {
         return animationCurve;
     }
 }
-
-export default class Animator {
+export class Animator {
     time: number;
+    timeType: TimeType;
     animate?: (time: number, ...args: any[]) => void;
     args: any[];
     animationType: AnimationCurve;
-    timeType: TimeType;
     infinite: boolean;
     #hasPinged: boolean = false;
     pingPong: boolean;
@@ -470,4 +527,67 @@ export default class Animator {
         }
     };
 }
+
+export class HTMLAnimator<
+    T extends HTMLElementTagNameMap[keyof HTMLElementTagNameMap] = HTMLElementTagNameMap[keyof HTMLElementTagNameMap]
+> {
+    #element!: T;
+
+    public get element(): T {
+        return this.#element;
+    }
+
+    #animation?: Animation;
+    #keyframes?: KeyFrame[];
+    #options?: number | KeyframeAnimationOptions;
+
+    public get animation(): Animation | undefined {
+        return this.#animation;
+    }
+
+    constructor(
+        element: T,
+        options: {
+            keyframes?: KeyFrame[];
+            options?: number | KeyframeAnimationOptions;
+        } = {}
+    ) {
+        this.setElement(element);
+        this.setKeyFrames(options.keyframes);
+        this.setOptions(options.options);
+    }
+
+    play = (): Animation | undefined => {
+        if (this.#element !== undefined) {
+            return (this.#animation = this.#element.animate(
+                (this.#keyframes ?? null) as PropertyIndexedKeyframes | Keyframe[] | null,
+                this.#options
+            ));
+        }
+    };
+
+    pause = () => {
+        if (this.#animation !== undefined) {
+            this.#animation.pause();
+        }
+    };
+
+    setElement = (element?: T) => {
+        if (element !== undefined) {
+            this.#element = element;
+        }
+    };
+    setKeyFrames = (keyframes?: KeyFrame[]) => {
+        if (keyframes !== undefined) {
+            this.#keyframes = keyframes;
+        }
+    };
+    setOptions = (options?: number | KeyframeAnimationOptions) => {
+        if (options !== undefined) {
+            this.#options = options;
+        }
+    };
+}
+
+HTMLElement;
 //#endregion

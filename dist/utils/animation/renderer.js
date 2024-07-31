@@ -87,21 +87,25 @@ export class AnimationGraph extends BaseDrawable {
         let smallestPoint = undefined;
         for (let i = 0; i < this.#points.length; i++) {
             const point = this.#points[i];
-            if (smallestPoint === undefined) {
-                smallestPoint = point;
-            }
-            else {
-                if (point.x < smallestPoint.x) {
+            if (point.type === "achor") {
+                if (smallestPoint === undefined) {
                     smallestPoint = point;
+                }
+                else {
+                    if (point.x < smallestPoint.x) {
+                        smallestPoint = point;
+                    }
                 }
             }
         }
         if (smallestPoint === undefined) {
             for (let i = 0; i < this.#points.length; i++) {
                 const point = this.#points[i];
-                if (smallestPoint !== undefined) {
-                    smallestPoint = point;
-                    break;
+                if (point.type === "achor") {
+                    if (smallestPoint !== undefined) {
+                        smallestPoint = point;
+                        break;
+                    }
                 }
             }
         }
@@ -120,21 +124,25 @@ export class AnimationGraph extends BaseDrawable {
         let biggestPoint = undefined;
         for (let i = points.length - 1; i >= 0; i--) {
             const point = points[i];
-            if (biggestPoint === undefined) {
-                biggestPoint = point;
-            }
-            else {
-                if (point.x > biggestPoint.x) {
+            if (point.type === "achor") {
+                if (biggestPoint === undefined) {
                     biggestPoint = point;
+                }
+                else {
+                    if (point.x > biggestPoint.x) {
+                        biggestPoint = point;
+                    }
                 }
             }
         }
         if (biggestPoint === undefined) {
             for (let i = points.length - 1; i >= 0; i--) {
                 const point = this.#points[i];
-                if (biggestPoint !== undefined) {
-                    biggestPoint = point;
-                    break;
+                if (point.type === "achor") {
+                    if (biggestPoint !== undefined) {
+                        biggestPoint = point;
+                        break;
+                    }
                 }
             }
         }

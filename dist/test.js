@@ -1,5 +1,5 @@
 //#region Main
-import Animator, { AnimationCurve } from "./utils/animation/animation.js";
+import { Animator, AnimationCurve } from "./utils/animation/animation.js";
 import { lerp } from "./utils/math.js";
 import { Circle, Renderer2D } from "./utils/animation/renderer.js";
 /* function isNumber(str: string) {

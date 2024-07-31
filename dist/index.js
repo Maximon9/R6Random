@@ -1,12 +1,9 @@
-//#region Main
 import { GROUPS } from "./ops.js";
-import { giveElementAnimation, runAnimation } from "./utils/html.js";
 import { whiteBackground } from "./utils/img.js";
 import Options, { createOptions } from "./utils/Siege/options.js";
 import IDKButImHardRN from "./utils/animation/time.js";
 import InputSystem from "./input.js";
-import Animator, { AnimationCurves } from "./utils/animation/animation.js";
-import { lerp } from "./utils/math.js";
+import { HTMLAnimator } from "./utils/animation/animation.js";
 InputSystem.start();
 function main() {
     document.body.oncontextmenu = (event) => {
@@ -19,12 +16,9 @@ function main() {
     createOptions(3, false);
 }
 function createGroupButtons() {
-    let switcher;
+    let switcher = new IDKButImHardRN(changeLink);
     if (Options.isTouchScreen) {
-        switcher = new IDKButImHardRN(changeLink, 700);
-    }
-    else {
-        switcher = new IDKButImHardRN(changeLink, 0);
+        switcher.changeTime(700);
     }
     const groupModal = document.createElement("section");
     groupModal.className = "group-modal";
@@ -53,29 +47,27 @@ function createGroupButtons() {
         htmlGroupImg.draggable = false;
         htmlGroupImg.className = "group-button";
         const htmlImages = group.fetch_html_images();
-        const animationKey = `${key}-button-hover`;
-        const animator = new Animator({
-            time: 0.15,
-            animate: (t, start) => {
-                const value = lerp(t, 90, 100);
-                htmlGroup.style.scale = `${value}%`;
+        const animator = new HTMLAnimator(htmlGroup, {
+            options: {
+                duration: 150,
+                fill: "both",
+                easing: "ease-in-out",
             },
-            animationCurve: AnimationCurves.easeInOut,
         });
-        giveElementAnimation(animationKey, htmlGroup, animator);
         if (!Options.isTouchScreen) {
             htmlGroup.addEventListener("mouseenter", () => {
-                animator.setArgs(false);
                 htmlGroupImg.src = htmlImages.hoverIcon ?? whiteBackground;
-                runAnimation(animationKey, "start");
+                animator.setKeyFrames([{ scale: "100%" }]);
+                animator.play();
             });
             htmlGroup.addEventListener("mouseleave", () => {
-                animator.setArgs(false);
                 htmlGroupImg.src = htmlImages.normalIcon ?? whiteBackground;
-                runAnimation(animationKey, "end");
+                animator.setKeyFrames([{ scale: "90%" }]);
+                animator.play();
             });
         }
-        htmlGroups.push([animationKey, key, htmlGroup, htmlGroupImg, htmlImages]);
+        new HTMLAnimator(document.createElement("td"));
+        htmlGroups.push([animator, key, htmlGroup, htmlGroupImg, htmlImages]);
         const first_icon = htmlImages.normalIcon ?? htmlImages.hoverIcon;
         if (first_icon != undefined) {
             htmlGroupImg.src = first_icon;
@@ -86,17 +78,20 @@ function createGroupButtons() {
         groupModalRow.appendChild(htmlGroup);
     }
     for (let i = 0; i < htmlGroups.length; i++) {
-        const [animationKey, key, htmlGroup, htmlGroupImg, htmlImages] = htmlGroups[i];
+        const [animator, key, htmlGroup, htmlGroupImg, htmlImages] = htmlGroups[i];
         htmlGroup.addEventListener("click", () => {
             htmlGroupImg.src = htmlImages.hoverIcon ?? whiteBackground;
             groupButtonClicked(key);
-            runAnimation(animationKey, "start");
             for (let i = 0; i < htmlGroups.length; i++) {
-                const [animationKey1, key1, _] = htmlGroups[i];
+                const [animator1, key1, _, htmlGroupImg, htmlImages1] = htmlGroups[i];
                 if (key1 !== key) {
-                    runAnimation(animationKey1, "end");
+                    htmlGroupImg.src = htmlImages1.normalIcon ?? whiteBackground;
+                    animator1.setKeyFrames([{ scale: "90%" }]);
+                    animator1.play();
                 }
             }
+            animator.setKeyFrames([{ scale: "100%" }]);
+            animator.play();
             switcher.run("op.html");
         });
     }

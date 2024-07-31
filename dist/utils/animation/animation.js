@@ -2,6 +2,7 @@ import { clamp } from "../math.js";
 import { Vector2 } from "../vector.js";
 import { AnimationPoint } from "./animationPoint.js";
 import { AnimationGraph } from "./renderer.js";
+const key = "accent-color";
 export class AnimationCurve {
     #points;
     graph;
@@ -43,21 +44,25 @@ export class AnimationCurve {
         let smallestPoint = undefined;
         for (let i = 0; i < this.#points.length; i++) {
             const point = this.#points[i];
-            if (smallestPoint === undefined) {
-                smallestPoint = point;
-            }
-            else {
-                if (point.x < smallestPoint.x) {
+            if (point.type === "achor") {
+                if (smallestPoint === undefined) {
                     smallestPoint = point;
+                }
+                else {
+                    if (point.x < smallestPoint.x) {
+                        smallestPoint = point;
+                    }
                 }
             }
         }
         if (smallestPoint === undefined) {
             for (let i = 0; i < this.#points.length; i++) {
                 const point = this.#points[i];
-                if (smallestPoint !== undefined) {
-                    smallestPoint = point;
-                    break;
+                if (point.type === "achor") {
+                    if (smallestPoint !== undefined) {
+                        smallestPoint = point;
+                        break;
+                    }
                 }
             }
         }
@@ -76,21 +81,25 @@ export class AnimationCurve {
         let biggestPoint = undefined;
         for (let i = points.length - 1; i >= 0; i--) {
             const point = points[i];
-            if (biggestPoint === undefined) {
-                biggestPoint = point;
-            }
-            else {
-                if (point.x > biggestPoint.x) {
+            if (point.type === "achor") {
+                if (biggestPoint === undefined) {
                     biggestPoint = point;
+                }
+                else {
+                    if (point.x > biggestPoint.x) {
+                        biggestPoint = point;
+                    }
                 }
             }
         }
         if (biggestPoint === undefined) {
             for (let i = points.length - 1; i >= 0; i--) {
                 const point = this.#points[i];
-                if (biggestPoint !== undefined) {
-                    biggestPoint = point;
-                    break;
+                if (point.type === "achor") {
+                    if (biggestPoint !== undefined) {
+                        biggestPoint = point;
+                        break;
+                    }
                 }
             }
         }
@@ -275,12 +284,12 @@ export class AnimationCurves {
         return animationCurve;
     }
 }
-export default class Animator {
+export class Animator {
     time;
+    timeType;
     animate;
     args;
     animationType;
-    timeType;
     infinite;
     #hasPinged = false;
     pingPong;
@@ -461,5 +470,48 @@ export default class Animator {
         }
     };
 }
+export class HTMLAnimator {
+    #element;
+    get element() {
+        return this.#element;
+    }
+    #animation;
+    #keyframes;
+    #options;
+    get animation() {
+        return this.#animation;
+    }
+    constructor(element, options = {}) {
+        this.setElement(element);
+        this.setKeyFrames(options.keyframes);
+        this.setOptions(options.options);
+    }
+    play = () => {
+        if (this.#element !== undefined) {
+            return (this.#animation = this.#element.animate((this.#keyframes ?? null), this.#options));
+        }
+    };
+    pause = () => {
+        if (this.#animation !== undefined) {
+            this.#animation.pause();
+        }
+    };
+    setElement = (element) => {
+        if (element !== undefined) {
+            this.#element = element;
+        }
+    };
+    setKeyFrames = (keyframes) => {
+        if (keyframes !== undefined) {
+            this.#keyframes = keyframes;
+        }
+    };
+    setOptions = (options) => {
+        if (options !== undefined) {
+            this.#options = options;
+        }
+    };
+}
+HTMLElement;
 //#endregion
 //# sourceMappingURL=animation.js.map

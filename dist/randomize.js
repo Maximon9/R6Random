@@ -5,9 +5,9 @@ import Options, { changeOptionsDisplay, createOptions, exitOptions, optionsInfo,
 import { BarrelAttachment, GripAttachment, SightAttachment, UnderBarrelAttachment, } from "./utils/Siege/weaponInfo/attachment.js";
 import { Weapon } from "./utils/Siege/weaponInfo/weapon.js";
 import { whiteBackground } from "./utils/img.js";
-import Animator, { AnimationCurves } from "./utils/animation/animation.js";
-import { lerp } from "./utils/math.js";
+import { HTMLAnimator } from "./utils/animation/animation.js";
 import InputSystem from "./input.js";
+import IDKButImHardRN from "./utils/animation/time.js";
 InputSystem.start();
 function roll() {
     let op = undefined;
@@ -198,21 +198,21 @@ function equipmentMatchesList(equipment, equipments) {
     return false;
 }
 function applyVisuals(op) {
+    let switcher = new IDKButImHardRN(exitOptions);
+    if (Options.isTouchScreen) {
+        switcher.changeTime(700);
+    }
     optionsInfo.htmls = createOptions(1);
     optionsInfo.on = false;
     for (let i = 0; i < optionsInfo.htmls.length; i++) {
-        const [element, _] = optionsInfo.htmls[i];
+        const { element, animator } = optionsInfo.htmls[i];
         if (element.className === "exit-options") {
             element.addEventListener("click", () => {
-                giveHoverAnimation(element, new HoverOptions({ transitionSec: 0.15, click: true, animateOnTouch: true }));
-                if (Options.isTouchScreen) {
-                    setTimeout(() => {
-                        exitOptions();
-                    }, 200);
+                if (animator !== undefined) {
+                    animator.setKeyFrames([{ scale: "110%" }]);
+                    animator.play();
                 }
-                else {
-                    exitOptions();
-                }
+                switcher.run();
             });
         }
     }
@@ -283,33 +283,30 @@ function applyVisuals(op) {
     }
 }
 function addOptionButton() {
+    let switcher = new IDKButImHardRN(changeOptionsDisplay);
+    if (Options.isTouchScreen) {
+        switcher.changeTime(400);
+    }
     const options = document.createElement("div");
     options.className = "options";
     const optionsContainer = document.createElement("div");
-    const animation = new Animator({
-        time: 0.2,
-        animate: (t) => {
-            const y = lerp(t, -20, 0);
-            optionsButton.style.scale = `0 ${y}vmax`;
-        },
-        animationCurve: AnimationCurves.easeInOut,
-    });
     const optionsButton = document.createElement("div");
-    optionsButton.innerHTML += "Options";
-    giveHoverAnimation(optionsButton, new HoverOptions({ transitionSec: 0.15 }));
+    optionsButton.style.backgroundImage = "url(assets/images/OptionsIcon.svg)";
+    const animator = new HTMLAnimator(optionsButton, { options: { duration: 150, fill: "both" } });
+    if (!Options.isTouchScreen) {
+        optionsButton.addEventListener("mouseenter", () => {
+            animator.setKeyFrames([{ scale: "110%" }]);
+            animator.play();
+        });
+        optionsButton.addEventListener("mouseleave", () => {
+            animator.setKeyFrames([{ scale: "100%" }]);
+            animator.play();
+        });
+    }
     optionsButton.addEventListener("click", () => {
-        giveHoverAnimation(optionsButton, new HoverOptions({ transitionSec: 0.15, click: true, animateOnTouch: true }));
-        if (Options.isTouchScreen) {
-            setTimeout(() => {
-                changeOptionsDisplay("show");
-                animation.stop();
-                animation.startType = "end";
-                animation.start();
-            }, 200);
-        }
-        else {
-            changeOptionsDisplay("show");
-        }
+        switcher.run("show");
+        animator.setKeyFrames([{ scale: "110%" }]);
+        animator.play();
     });
     optionsContainer.appendChild(optionsButton);
     options.appendChild(optionsContainer);

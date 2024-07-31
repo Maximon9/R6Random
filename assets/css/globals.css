@@ -2,6 +2,7 @@
 
 html,
 body {
+    /* scroll-snap-type: proximity; */
     text-align: center;
     height: 100%;
     margin: 0;
@@ -25,19 +26,24 @@ body {
 
 .options-modal::-webkit-scrollbar,
 .options-modal-content-scroll-wrapper::-webkit-scrollbar,
+html::-webkit-scrollbar,
 body::-webkit-scrollbar {
     width: 12px;
     background-color: #444;
+    scroll-behavior: smooth;
 }
 .options-modal::-webkit-scrollbar-thumb,
 .options-modal-content-scroll-wrapper::-webkit-scrollbar-thumb,
+html::-webkit-scrollbar-thumb,
 body::-webkit-scrollbar-thumb {
     background-color: #2b2b2b;
 }
 .options-modal::-webkit-scrollbar-track,
 .options-modal-content-scroll-wrapper::-webkit-scrollbar-track,
+html::-webkit-scrollbar-track,
 body::-webkit-scrollbar-track {
     background-color: #444;
+    scroll-behavior: smooth;
 }
 
 @font-face {
@@ -51,6 +57,7 @@ body::-webkit-scrollbar-track {
 .group-select,
 .options div div,
 .options-modal table tbody tr td section div div,
+.avoid-select-all-button,
 .exit-options {
     cursor: pointer;
 }
@@ -71,21 +78,23 @@ body::-webkit-scrollbar-track {
     top: 0;
 }
 
-.options div {
-    width: 100%;
+.options {
     position: fixed;
     top: 0;
+    width: 100%;
+}
+.options div {
     display: flex;
     align-items: start;
-    justify-content: center;
-    height: 15vmax;
-    width: 30vmax;
+    justify-content: end;
+    width: 100%;
 }
 .options div div {
-    height: fit-content;
-    width: fit-content;
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 4.5vmax;
+    width: 4.5vmax;
     font-size: 5vmax;
-    translate: 0 -20vmax;
 }
 .icon-container {
     width: 100%;
