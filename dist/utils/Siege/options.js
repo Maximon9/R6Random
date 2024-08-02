@@ -422,7 +422,7 @@ export function isScrollable(element, dir) {
         return element.scrollWidth > element.clientWidth;
     }
 }
-export function createOptions(insert, makePopup = true) {
+export function createOptions(parentElement, insert, makePopup = true) {
     const optionsModal = document.createElement("section");
     const htmls = [];
     if (makePopup) {
@@ -467,12 +467,15 @@ export function createOptions(insert, makePopup = true) {
     optionsModal.className = "options-modal";
     const optionsLabel = document.createElement("h1");
     optionsLabel.innerHTML = "Options";
+    const optionsFooter = document.createElement("p");
+    optionsFooter.innerHTML = "Options are saved in cookies";
     const optionsModalContent = document.createElement("div");
     optionsModalContent.className = "options-modal-content";
     const optionsModalContentScrollWrapper = document.createElement("div");
     optionsModalContentScrollWrapper.className = "options-modal-content-scroll-wrapper";
     const table = document.createElement("table");
     const tableBody = document.createElement("tbody");
+    optionsLabel.appendChild(optionsFooter);
     optionsModal.appendChild(optionsLabel);
     optionInfos = {
         Filter: { htmls: createFilter(optionsModalContentScrollWrapper, tableBody), on: false },
@@ -486,7 +489,7 @@ export function createOptions(insert, makePopup = true) {
     optionsModal.appendChild(optionsModalContent);
     optionsModalContentScrollWrapper.appendChild(table);
     optionsModalContent.appendChild(optionsModalContentScrollWrapper);
-    document.body.insertBefore(optionsModal, document.body.childNodes[insert]);
+    parentElement.insertBefore(optionsModal, parentElement.childNodes[insert]);
     if (isScrollable(optionsModalContentScrollWrapper, "horizontal")) {
         let pre_left = null;
         while (optionsModalContentScrollWrapper.scrollLeft !== pre_left) {

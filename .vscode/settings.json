@@ -8,4 +8,5 @@
     ],
     "compressionator.searchForFolderNames": false,
     "prettier.printWidth": 100,
+    "liveServer.settings.CustomBrowser": "firefox"
 }

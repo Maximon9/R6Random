@@ -1,9 +1,13 @@
 import { GROUPS } from "./ops.js";
 import { whiteBackground } from "./utils/img.js";
 import Options, { createOptions } from "./utils/Siege/options.js";
-import InputSystem from "./input.js";
+import InputSystem from "./utils/input.js";
 import { HTMLAnimator } from "./utils/animation/animation.js";
+import { createFooter } from "./utils/Siege/footer.js";
 InputSystem.start();
+const mainContentWrapper = document
+    .getElementsByClassName("main-content-wrapper")
+    .item(0);
 function main() {
     document.body.oncontextmenu = (event) => {
         event.preventDefault();
@@ -12,7 +16,10 @@ function main() {
         return false;
     };
     createGroupButtons();
-    createOptions(3, false);
+    if (mainContentWrapper !== null) {
+        createOptions(mainContentWrapper, 4, false);
+        createFooter(mainContentWrapper);
+    }
 }
 function createGroupButtons() {
     const groupModal = document.createElement("section");
@@ -36,8 +43,8 @@ function createGroupButtons() {
         const htmlGroupDiv = document.createElement("div");
         htmlGroupDiv.style.marginLeft = "auto";
         htmlGroupDiv.style.marginRight = "auto";
-        htmlGroupDiv.style.width = "50%";
-        htmlGroupDiv.style.height = "50%";
+        htmlGroupDiv.style.width = "20vmax";
+        htmlGroupDiv.style.height = "20vmax";
         const htmlGroupImg = document.createElement("img");
         htmlGroupImg.draggable = false;
         htmlGroupImg.className = "group-button";
@@ -102,7 +109,7 @@ function createGroupButtons() {
     groupModalTBody.appendChild(groupModalRow);
     groupModalTable.appendChild(groupModalTBody);
     groupModal.appendChild(groupModalTable);
-    document.body.insertBefore(groupModal, document.body.childNodes[2]);
+    mainContentWrapper?.appendChild(groupModal);
 }
 function groupButtonClicked(key) {
     sessionStorage.setItem("group", key);

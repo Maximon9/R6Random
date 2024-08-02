@@ -291,40 +291,26 @@ export class Animator {
     args;
     animationType;
     infinite;
-    #hasPinged = false;
     pingPong;
     autoStartAnimation;
-    changeStart;
-    restartTimer;
-    startType;
-    running;
-    #timer;
+    #running;
+    get running() {
+        return this.#running;
+    }
+    #hasPinged = false;
+    #timer = 0;
     #deltaTime = 0;
     #lastTimestamp = 0;
     #sign = 1;
-    constructor(info = {}) {
-        this.running = false;
-        this.animate = info.animate ?? (() => { });
-        if (info.animate !== undefined) {
-        }
-        if (info.animate !== undefined) {
-            this.animate = info.animate;
-        }
+    constructor(animate, info = {}) {
+        this.#running = false;
+        this.animate = animate;
         this.args = info.args ?? [];
         this.animationType = info.animationCurve ?? AnimationCurves.linear;
         this.timeType = info.timeType ?? "s";
         this.infinite = info.infinite ?? false;
         this.pingPong = info.pingPong ?? false;
         this.autoStartAnimation = info.autoStartAnimation ?? false;
-        this.changeStart = info.changeStart ?? true;
-        this.restartTimer = info.restartTimer ?? true;
-        this.startType = info.start ?? "start";
-        if (this.startType === "start") {
-            this.#timer = 0;
-        }
-        else {
-            this.#timer = 1;
-        }
         if (info.time !== undefined) {
             if (typeof info.time === "number" && this.timeType === "ms") {
                 this.time = info.time / 1000;
@@ -334,139 +320,73 @@ export class Animator {
             }
         }
         else {
-            this.time = 1;
-        }
-        if (this.autoStartAnimation) {
-            this.start();
+            this.time = 0;
         }
     }
-    setArgs(...args) {
+    setArgs = (...args) => {
         this.args = args;
-    }
-    start() {
-        if (!this.running) {
-            this.running = true;
+    };
+    play = () => {
+        if (!this.#running) {
+            this.#running = true;
+            this.#timer = 0;
             this.#lastTimestamp = window.performance.now();
-            requestAnimationFrame(this.#step);
+            requestAnimationFrame(this.#udpate);
         }
-    }
-    stop() {
-        if (this.running) {
-            this.running = false;
+    };
+    pause = () => {
+        if (this.#running) {
+            this.#running = false;
         }
-        if (this.changeStart) {
-            if (this.startType === "start") {
-                this.startType = "end";
+    };
+    #udpate = (timestamp) => {
+        if (!this.#running) {
+            this.#hasPinged = false;
+            if (this.infinite) {
+                this.#running = true;
             }
             else {
-                this.startType = "start";
+                return;
             }
-        }
-    }
-    #step = (timestamp) => {
-        if (!this.running) {
-            if (this.args.length > 0) {
-                this.setArgs();
-            }
-            return;
         }
         this.#deltaTime = (timestamp - this.#lastTimestamp) / 1000;
         this.#lastTimestamp = timestamp;
         if (this.animate === undefined) {
-            this.running = false;
+            this.#running = false;
         }
-        else if (this.time > 0) {
-            if (this.startType === "start") {
-                if (this.#hasPinged) {
-                    this.#sign = -1;
-                }
-                else {
+        else {
+            if (this.time > 0) {
+                if (this.#timer === 0) {
                     this.#sign = 1;
                 }
-            }
-            else {
-                if (this.#hasPinged) {
-                    this.#sign = 1;
-                }
-                else {
-                    this.#sign = -1;
-                }
-            }
-            this.#timer += this.#sign * (this.#deltaTime / this.time);
-            if (this.pingPong) {
-                if (this.startType === "start") {
-                    if (this.#timer >= 1 && !this.#hasPinged) {
-                        this.#hasPinged = true;
-                    }
-                    else if (this.#timer <= 0 && this.#hasPinged) {
-                        if (!this.infinite) {
-                            this.running = false;
-                        }
-                        this.#hasPinged = false;
-                    }
-                }
-                else {
-                    if (this.#timer <= 0 && !this.#hasPinged) {
-                        this.#hasPinged = true;
-                    }
-                    else if (this.#timer >= 1 && this.#hasPinged) {
-                        if (!this.infinite) {
-                            this.running = false;
-                        }
-                        this.#hasPinged = false;
-                    }
-                }
-            }
-            else {
-                if (this.startType === "start") {
+                if (this.pingPong) {
+                    this.#timer += this.#sign * (this.#deltaTime / this.time);
                     if (this.#timer >= 1) {
-                        if (!this.infinite) {
-                            this.running = false;
-                        }
-                        else {
-                            if (this.restartTimer) {
-                                this.#timer -= 1;
-                            }
-                            else {
-                                this.startType = "end";
-                            }
-                        }
+                        this.#sign = -1;
+                        this.#hasPinged = true;
+                    }
+                    if (this.#timer <= 0 && this.#hasPinged) {
+                        this.#sign = 1;
+                        this.#running = false;
                     }
                 }
                 else {
-                    if (this.#timer <= 0) {
-                        if (!this.infinite) {
-                            this.running = false;
-                        }
-                        else {
-                            if (this.restartTimer) {
-                                this.#timer += 1;
-                            }
-                            else {
-                                this.startType = "start";
-                            }
-                        }
+                    this.#timer += this.#sign * (this.#deltaTime / this.time);
+                    if (this.#timer >= 1) {
+                        this.#running = false;
                     }
                 }
+            }
+            else {
+                this.#timer = 1;
+                this.#running = false;
             }
             const animationTime = this.animationType.fetchTime(this.#timer);
             this.animate(animationTime, ...this.args);
         }
-        else {
-            this.running = false;
-        }
-        requestAnimationFrame(this.#step);
-        if (!this.running) {
-            if (!this.#hasPinged) {
-                if (!this.restartTimer) {
-                    if (this.startType === "start") {
-                        this.startType = "end";
-                    }
-                    else {
-                        this.startType = "start";
-                    }
-                }
-            }
+        requestAnimationFrame(this.#udpate);
+        if (!this.#running && !this.pingPong) {
+            this.#timer -= 1;
         }
     };
 }

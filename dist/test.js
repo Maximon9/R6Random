@@ -44,32 +44,31 @@ const circle = new Circle({
     borderWidth: 2,
 });
 let num = 0.2;
-const animator = new Animator({
+const animator = new Animator((time) => {
+    circle.transform.position = [
+        lerp(time, 0 + circle.radius + 10, Renderer2D.canvas.clientWidth - circle.radius - 10),
+        Renderer2D.canvas.clientHeight - circle.radius - 50,
+    ];
+    Renderer2D.render();
+}, {
     time: 1,
-    animate: (time) => {
-        circle.transform.position = [
-            lerp(time, 0 + circle.radius + 10, Renderer2D.canvas.clientWidth - circle.radius - 10),
-            Renderer2D.canvas.clientHeight - circle.radius - 50,
-        ];
-        Renderer2D.render();
-    },
     animationCurve: /* AnimationCurves.step(4) */ /* new AnimationCurve(
-        ["achor", 0, 0],
-        ["control", 1 / 6 + num, 1 / 6 - num],
-        ["control", 1 / 3 + num, 1 / 3 - num],
-        ["achor", 0.5, 0.5],
-        ["control", 2 / 3 - num, 2 / 3 + num],
-        ["control", 5 / 6 - num, 5 / 6 + num],
-        ["achor", 1, 1]
-    ) */ new AnimationCurve(["achor", 0, 0], ["control", 1 / 6 + num, 1 / 6 - num], ["control", 1 / 3 + num, 1 / 3 - num], ["achor", 0.5, 0.5], ["control", 2 / 3 - num, 2 / 3 + num], ["control", 5 / 6 - num, 5 / 6 + num], ["achor", 1, 1]) /* new AnimationCurve(
-        ["achor", 0, 0],
-        ["control", 1 / 6 - num, 1 / 6 + num],
-        ["control", 1 / 3 - num, 1 / 3 + num],
-        ["achor", 0.5, 0.5],
-        ["control", 2 / 3 + num, 2 / 3 - num],
-        ["control", 5 / 6 + num, 5 / 6 - num],
-        ["achor", 1, 1]
-    ) */ /* new AnimationCurve(
+    ["achor", 0, 0],
+    ["control", 1 / 6 + num, 1 / 6 - num],
+    ["control", 1 / 3 + num, 1 / 3 - num],
+    ["achor", 0.5, 0.5],
+    ["control", 2 / 3 - num, 2 / 3 + num],
+    ["control", 5 / 6 - num, 5 / 6 + num],
+    ["achor", 1, 1]
+) */ new AnimationCurve(["achor", 0, 0], ["control", 1 / 6 + num, 1 / 6 - num], ["control", 1 / 3 + num, 1 / 3 - num], ["achor", 0.5, 0.5], ["control", 2 / 3 - num, 2 / 3 + num], ["control", 5 / 6 - num, 5 / 6 + num], ["achor", 1, 1]) /* new AnimationCurve(
+    ["achor", 0, 0],
+    ["control", 1 / 6 - num, 1 / 6 + num],
+    ["control", 1 / 3 - num, 1 / 3 + num],
+    ["achor", 0.5, 0.5],
+    ["control", 2 / 3 + num, 2 / 3 - num],
+    ["control", 5 / 6 + num, 5 / 6 - num],
+    ["achor", 1, 1]
+) */ /* new AnimationCurve(
         ["achor", 0, 0],
         ["control", 1 / 6 + num, 1 / 6 - num],
         ["control", 0.25 + num + num, 0.25 - num - num],
@@ -96,7 +95,7 @@ function start() {
         Math.floor(Renderer2D.canvas.clientWidth / 2),
         Math.floor(Renderer2D.canvas.clientHeight / 2),
     ];
-    animator.start();
+    animator.play();
 }
 let timer = 0;
 function update() {

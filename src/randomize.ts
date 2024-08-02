@@ -19,14 +19,18 @@ import {
 } from "./utils/Siege/weaponInfo/attachment.js";
 import { Weapon, WeaponInfo } from "./utils/Siege/weaponInfo/weapon.js";
 import { whiteBackground } from "./utils/img.js";
-import { Animator, AnimationCurves, HTMLAnimator } from "./utils/animation/animation.js";
-import { lerp } from "./utils/math.js";
-import InputSystem from "./input.js";
-import IDKButImHardRN from "./utils/animation/time.js";
+import { HTMLAnimator } from "./utils/animation/animation.js";
+import InputSystem from "./utils/input.js";
 
 InputSystem.start();
 
 function roll() {
+    document.body.oncontextmenu = (event: MouseEvent) => {
+        event.preventDefault();
+        event.stopPropagation(); // not necessary in my case, could leave in case stopImmediateProp isn't available?
+        event.stopImmediatePropagation();
+        return false;
+    };
     let op: OP | undefined = undefined;
     const key = sessionStorage.getItem("group") as ParsedGroupKeys | null;
     const roll = sessionStorage.getItem("roll") as "1" | null;
@@ -272,6 +276,7 @@ function equipmentMatchesList(
 
 function applyVisuals(op: OP | undefined) {
     addOptionButton();
+    addReRollButtons();
     if (op !== undefined) {
         const opModal = document.createElement("section");
         opModal.className = "op-modal";
@@ -378,7 +383,7 @@ function addOptionButton() {
         });
     });
 
-    optionsInfo.htmls = createOptions(1);
+    optionsInfo.htmls = createOptions(document.body, 1);
     optionsInfo.on = false;
     for (let i = 0; i < optionsInfo.htmls.length; i++) {
         const { element, animator } = optionsInfo.htmls[i];
@@ -399,6 +404,50 @@ function addOptionButton() {
     options.appendChild(optionsContainer);
 
     document.body.insertBefore(options, document.body.childNodes[0]);
+}
+function addReRollButtons() {
+    /*
+        <div class="options">
+            <div>
+                <div style="background-image: url('assets/images/OptionsIcon.svg')"></div>
+            </div>
+        </div>
+        <div class="reroll-buttons">
+            <div>
+                <div>
+                    <img
+                        src="assets//R6Images/GroupIcons/Attackers_Icon.svg"
+                        alt="Reroll Attackers"
+                    />
+                </div>
+                <div>
+                    <img
+                        src="assets//R6Images/GroupIcons/Defenders_Icon.svg"
+                        alt="Reroll Defenders"
+                    />
+                </div>
+            </div>
+        </div>
+    */
+    const rerollButtons = document.createElement("div");
+    rerollButtons.className = "reroll-buttons";
+
+    const rerollButtonsContainer = document.createElement("div");
+
+    for (const key in GROUPS) {
+        const group = GROUPS[key as keyof typeof GROUPS];
+        const rerollButton = document.createElement("div");
+
+        const rerollImage = document.createElement("img");
+        const htmlImages = group.fetch_html_images();
+        rerollImage.src = htmlImages.normalIcon ?? whiteBackground;
+        rerollImage.alt = `${key} Rerol Button`;
+
+        rerollButton.appendChild(rerollImage);
+        rerollButtonsContainer.appendChild(rerollButton);
+    }
+    rerollButtons.append(rerollButtonsContainer);
+    document.body.insertBefore(rerollButtons, document.body.childNodes[2]);
 }
 
 function tryAddWeaponVisuals(

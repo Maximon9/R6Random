@@ -6,9 +6,15 @@ import { BarrelAttachment, GripAttachment, SightAttachment, UnderBarrelAttachmen
 import { Weapon } from "./utils/Siege/weaponInfo/weapon.js";
 import { whiteBackground } from "./utils/img.js";
 import { HTMLAnimator } from "./utils/animation/animation.js";
-import InputSystem from "./input.js";
+import InputSystem from "./utils/input.js";
 InputSystem.start();
 function roll() {
+    document.body.oncontextmenu = (event) => {
+        event.preventDefault();
+        event.stopPropagation(); // not necessary in my case, could leave in case stopImmediateProp isn't available?
+        event.stopImmediatePropagation();
+        return false;
+    };
     let op = undefined;
     const key = sessionStorage.getItem("group");
     const roll = sessionStorage.getItem("roll");
@@ -198,6 +204,7 @@ function equipmentMatchesList(equipment, equipments) {
 }
 function applyVisuals(op) {
     addOptionButton();
+    addReRollButtons();
     if (op !== undefined) {
         const opModal = document.createElement("section");
         opModal.className = "op-modal";
@@ -287,7 +294,7 @@ function addOptionButton() {
             changeOptionsDisplay("show");
         });
     });
-    optionsInfo.htmls = createOptions(1);
+    optionsInfo.htmls = createOptions(document.body, 1);
     optionsInfo.on = false;
     for (let i = 0; i < optionsInfo.htmls.length; i++) {
         const { element, animator } = optionsInfo.htmls[i];
@@ -306,6 +313,46 @@ function addOptionButton() {
     optionsContainer.appendChild(optionsButton);
     options.appendChild(optionsContainer);
     document.body.insertBefore(options, document.body.childNodes[0]);
+}
+function addReRollButtons() {
+    /*
+        <div class="options">
+            <div>
+                <div style="background-image: url('assets/images/OptionsIcon.svg')"></div>
+            </div>
+        </div>
+        <div class="reroll-buttons">
+            <div>
+                <div>
+                    <img
+                        src="assets//R6Images/GroupIcons/Attackers_Icon.svg"
+                        alt="Reroll Attackers"
+                    />
+                </div>
+                <div>
+                    <img
+                        src="assets//R6Images/GroupIcons/Defenders_Icon.svg"
+                        alt="Reroll Defenders"
+                    />
+                </div>
+            </div>
+        </div>
+    */
+    const rerollButtons = document.createElement("div");
+    rerollButtons.className = "reroll-buttons";
+    const rerollButtonsContainer = document.createElement("div");
+    for (const key in GROUPS) {
+        const group = GROUPS[key];
+        const rerollButton = document.createElement("div");
+        const rerollImage = document.createElement("img");
+        const htmlImages = group.fetch_html_images();
+        rerollImage.src = htmlImages.normalIcon ?? whiteBackground;
+        rerollImage.alt = `${key} Rerol Button`;
+        rerollButton.appendChild(rerollImage);
+        rerollButtonsContainer.appendChild(rerollButton);
+    }
+    rerollButtons.append(rerollButtonsContainer);
+    document.body.insertBefore(rerollButtons, document.body.childNodes[2]);
 }
 function tryAddWeaponVisuals(key, weaponContainer, weapon) {
     if (weapon !== undefined && weapon.name !== undefined) {

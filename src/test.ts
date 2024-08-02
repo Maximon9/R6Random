@@ -49,16 +49,17 @@ const circle = new Circle({
 });
 
 let num = 0.2;
-const animator = new Animator({
-    time: 1,
-    animate: (time: number) => {
+const animator = new Animator(
+    (time: number) => {
         circle.transform.position = [
             lerp(time, 0 + circle.radius + 10, Renderer2D.canvas.clientWidth - circle.radius - 10),
             Renderer2D.canvas.clientHeight - circle.radius - 50,
         ];
         Renderer2D.render();
     },
-    animationCurve: /* AnimationCurves.step(4) */ /* new AnimationCurve(
+    {
+        time: 1,
+        animationCurve: /* AnimationCurves.step(4) */ /* new AnimationCurve(
         ["achor", 0, 0],
         ["control", 1 / 6 + num, 1 / 6 - num],
         ["control", 1 / 3 + num, 1 / 3 - num],
@@ -67,14 +68,14 @@ const animator = new Animator({
         ["control", 5 / 6 - num, 5 / 6 + num],
         ["achor", 1, 1]
     ) */ new AnimationCurve(
-        ["achor", 0, 0],
-        ["control", 1 / 6 + num, 1 / 6 - num],
-        ["control", 1 / 3 + num, 1 / 3 - num],
-        ["achor", 0.5, 0.5],
-        ["control", 2 / 3 - num, 2 / 3 + num],
-        ["control", 5 / 6 - num, 5 / 6 + num],
-        ["achor", 1, 1]
-    ) /* new AnimationCurve(
+            ["achor", 0, 0],
+            ["control", 1 / 6 + num, 1 / 6 - num],
+            ["control", 1 / 3 + num, 1 / 3 - num],
+            ["achor", 0.5, 0.5],
+            ["control", 2 / 3 - num, 2 / 3 + num],
+            ["control", 5 / 6 - num, 5 / 6 + num],
+            ["achor", 1, 1]
+        ) /* new AnimationCurve(
         ["achor", 0, 0],
         ["control", 1 / 6 - num, 1 / 6 + num],
         ["control", 1 / 3 - num, 1 / 3 + num],
@@ -92,9 +93,10 @@ const animator = new Animator({
         ["control", 5 / 6 - num, 5 / 6 + num],
         ["achor", 1, 1]
     ) */,
-    infinite: true,
-    pingPong: true,
-});
+        infinite: true,
+        pingPong: true,
+    }
+);
 animator.animationType.graph.padding = [50, 50];
 animator.animationType.graph.size = [300, 300];
 animator.animationType.graph.anchor = [0.5, 0.5];
@@ -109,7 +111,7 @@ function start() {
         Math.floor(Renderer2D.canvas.clientWidth / 2),
         Math.floor(Renderer2D.canvas.clientHeight / 2),
     ];
-    animator.start();
+    animator.play();
 }
 
 let timer = 0;
