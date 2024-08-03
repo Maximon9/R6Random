@@ -476,7 +476,6 @@ function addReRollButtons(rerollOptionsContainer: HTMLDivElement) {
         const [animator, key, htmlGroup, htmlGroupImg, htmlImages] = htmlGroups[i];
         htmlGroup.addEventListener("click", () => {
             htmlGroupImg.src = htmlImages.hoverIcon ?? whiteBackground;
-            groupButtonClicked(key);
             for (let i = 0; i < htmlGroups.length; i++) {
                 const [animator1, key1, _, htmlGroupImg, htmlImages1] = htmlGroups[i];
                 if (key1 !== key) {
@@ -487,6 +486,7 @@ function addReRollButtons(rerollOptionsContainer: HTMLDivElement) {
             }
             animator.setKeyFrames([{ scale: "100%" }]);
             animator.play()?.addEventListener("finish", () => {
+                groupButtonClicked(key);
                 changeLink("op.html");
             });
         });
