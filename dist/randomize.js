@@ -331,6 +331,7 @@ function addReRollButtons(rerollOptionsContainer) {
     for (const key in GROUPS) {
         const group = GROUPS[key];
         const rerollButton = document.createElement("div");
+        rerollButton.style.scale = "90%";
         const animator = new HTMLAnimator(rerollButton, {
             options: {
                 duration: 150,
