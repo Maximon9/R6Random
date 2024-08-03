@@ -21,6 +21,9 @@ import { Weapon, WeaponInfo } from "./utils/Siege/weaponInfo/weapon.js";
 import { whiteBackground } from "./utils/img.js";
 import { HTMLAnimator } from "./utils/animation/animation.js";
 import InputSystem from "./utils/input.js";
+import { createFooter } from "./utils/Siege/footer.js";
+import { AllHTMLAnimators } from "./types/options.js";
+import { changeLink, groupButtonClicked } from "./utils/html.js";
 
 InputSystem.start();
 
@@ -42,7 +45,9 @@ function roll() {
             if (op !== undefined) {
                 sessionStorage.setItem("op", JSON.stringify(op));
             }
+            console.log(sessionStorage.getItem("roll"));
             sessionStorage.removeItem("roll");
+            console.log(sessionStorage.getItem("roll"));
         } else {
             op = savedOP;
         }
@@ -275,8 +280,18 @@ function equipmentMatchesList(
 }
 
 function applyVisuals(op: OP | undefined) {
-    addOptionButton();
-    addReRollButtons();
+    const rerollOptionsWrapper = document.createElement("div");
+    rerollOptionsWrapper.className = "reroll-options-wrapper";
+
+    const rerollOptionsContainer = document.createElement("div");
+    rerollOptionsContainer.className = "reroll-options-container";
+
+    addOptionButton(rerollOptionsContainer);
+    addReRollButtons(rerollOptionsContainer);
+
+    rerollOptionsWrapper.appendChild(rerollOptionsContainer);
+    document.body.insertBefore(rerollOptionsWrapper, document.body.childNodes[2]);
+
     if (op !== undefined) {
         const opModal = document.createElement("section");
         opModal.className = "op-modal";
@@ -350,11 +365,12 @@ function applyVisuals(op: OP | undefined) {
         opModalContent.appendChild(opModalInfo);
         opModalContent.appendChild(weaponContainer);
         opModal.appendChild(opModalContent);
-        document.body.insertBefore(opModal, document.body.childNodes[2]);
+        document.body.appendChild(opModal);
+        createFooter(opModal);
     }
 }
 
-function addOptionButton() {
+function addOptionButton(rerollOptionsContainer: HTMLDivElement) {
     const options = document.createElement("div");
     options.className = "options";
 
@@ -402,52 +418,76 @@ function addOptionButton() {
 
     optionsContainer.appendChild(optionsButton);
     options.appendChild(optionsContainer);
+    rerollOptionsContainer.appendChild(options);
 
-    document.body.insertBefore(options, document.body.childNodes[0]);
+    document.body.insertBefore(rerollOptionsContainer, document.body.childNodes[0]);
 }
-function addReRollButtons() {
-    /*
-        <div class="options">
-            <div>
-                <div style="background-image: url('assets/images/OptionsIcon.svg')"></div>
-            </div>
-        </div>
-        <div class="reroll-buttons">
-            <div>
-                <div>
-                    <img
-                        src="assets//R6Images/GroupIcons/Attackers_Icon.svg"
-                        alt="Reroll Attackers"
-                    />
-                </div>
-                <div>
-                    <img
-                        src="assets//R6Images/GroupIcons/Defenders_Icon.svg"
-                        alt="Reroll Defenders"
-                    />
-                </div>
-            </div>
-        </div>
-    */
+function addReRollButtons(rerollOptionsContainer: HTMLDivElement) {
     const rerollButtons = document.createElement("div");
     rerollButtons.className = "reroll-buttons";
 
-    const rerollButtonsContainer = document.createElement("div");
-
+    const htmlGroups: [
+        AllHTMLAnimators,
+        string,
+        HTMLDivElement,
+        HTMLImageElement,
+        {
+            normalIcon?: string;
+            hoverIcon?: string;
+        }
+    ][] = [];
     for (const key in GROUPS) {
         const group = GROUPS[key as keyof typeof GROUPS];
         const rerollButton = document.createElement("div");
+        const animator = new HTMLAnimator(rerollButton, {
+            options: {
+                duration: 150,
+                fill: "both",
+                easing: "ease-in-out",
+            },
+        });
 
         const rerollImage = document.createElement("img");
         const htmlImages = group.fetch_html_images();
         rerollImage.src = htmlImages.normalIcon ?? whiteBackground;
         rerollImage.alt = `${key} Rerol Button`;
 
+        if (!Options.isTouchScreen) {
+            rerollButton.addEventListener("mouseenter", () => {
+                rerollImage.src = htmlImages.hoverIcon ?? whiteBackground;
+                animator.setKeyFrames([{ scale: "100%" }]);
+                animator.play();
+            });
+            rerollButton.addEventListener("mouseleave", () => {
+                rerollImage.src = htmlImages.normalIcon ?? whiteBackground;
+                animator.setKeyFrames([{ scale: "90%" }]);
+                animator.play();
+            });
+        }
+        htmlGroups.push([animator, key, rerollButton, rerollImage, htmlImages]);
         rerollButton.appendChild(rerollImage);
-        rerollButtonsContainer.appendChild(rerollButton);
+        rerollButtons.appendChild(rerollButton);
     }
-    rerollButtons.append(rerollButtonsContainer);
-    document.body.insertBefore(rerollButtons, document.body.childNodes[2]);
+    for (let i = 0; i < htmlGroups.length; i++) {
+        const [animator, key, htmlGroup, htmlGroupImg, htmlImages] = htmlGroups[i];
+        htmlGroup.addEventListener("click", () => {
+            htmlGroupImg.src = htmlImages.hoverIcon ?? whiteBackground;
+            groupButtonClicked(key);
+            for (let i = 0; i < htmlGroups.length; i++) {
+                const [animator1, key1, _, htmlGroupImg, htmlImages1] = htmlGroups[i];
+                if (key1 !== key) {
+                    htmlGroupImg.src = htmlImages1.normalIcon ?? whiteBackground;
+                    animator1.setKeyFrames([{ scale: "90%" }]);
+                    animator1.play();
+                }
+            }
+            animator.setKeyFrames([{ scale: "100%" }]);
+            animator.play()?.addEventListener("finish", () => {
+                changeLink("op.html");
+            });
+        });
+    }
+    rerollOptionsContainer.appendChild(rerollButtons);
 }
 
 function tryAddWeaponVisuals(

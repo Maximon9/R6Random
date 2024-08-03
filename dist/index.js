@@ -4,6 +4,7 @@ import Options, { createOptions } from "./utils/Siege/options.js";
 import InputSystem from "./utils/input.js";
 import { HTMLAnimator } from "./utils/animation/animation.js";
 import { createFooter } from "./utils/Siege/footer.js";
+import { changeLink, groupButtonClicked } from "./utils/html.js";
 InputSystem.start();
 const mainContentWrapper = document
     .getElementsByClassName("main-content-wrapper")
@@ -68,7 +69,6 @@ function createGroupButtons() {
                 animator.play();
             });
         }
-        new HTMLAnimator(document.createElement("td"));
         htmlGroups.push([animator, key, htmlGroup, htmlGroupImg, htmlImages]);
         const first_icon = htmlImages.normalIcon ?? htmlImages.hoverIcon;
         if (first_icon != undefined) {
@@ -110,13 +110,6 @@ function createGroupButtons() {
     groupModalTable.appendChild(groupModalTBody);
     groupModal.appendChild(groupModalTable);
     mainContentWrapper?.appendChild(groupModal);
-}
-function groupButtonClicked(key) {
-    sessionStorage.setItem("group", key);
-    sessionStorage.setItem("roll", "1");
-}
-async function changeLink(link) {
-    window.location = link;
 }
 main();
 //#endregion

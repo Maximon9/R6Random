@@ -6,6 +6,7 @@ import Options, { createOptions } from "./utils/Siege/options.js";
 import InputSystem from "./utils/input.js";
 import { HTMLAnimator } from "./utils/animation/animation.js";
 import { createFooter } from "./utils/Siege/footer.js";
+import { changeLink, groupButtonClicked } from "./utils/html.js";
 
 InputSystem.start();
 
@@ -86,7 +87,6 @@ function createGroupButtons() {
                 animator.play();
             });
         }
-        new HTMLAnimator(document.createElement("td"));
         htmlGroups.push([animator, key, htmlGroup, htmlGroupImg, htmlImages]);
 
         const first_icon = htmlImages.normalIcon ?? htmlImages.hoverIcon;
@@ -129,15 +129,6 @@ function createGroupButtons() {
     groupModalTable.appendChild(groupModalTBody);
     groupModal.appendChild(groupModalTable);
     mainContentWrapper?.appendChild(groupModal);
-}
-
-function groupButtonClicked(key: string) {
-    sessionStorage.setItem("group", key);
-    sessionStorage.setItem("roll", "1");
-}
-
-async function changeLink(link: string) {
-    window.location = link as unknown as Location;
 }
 
 main();
