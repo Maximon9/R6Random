@@ -28,10 +28,6 @@ import { changeLink, groupButtonClicked } from "./utils/html.js";
 InputSystem.start();
 
 function roll() {
-    console.log(sessionStorage.getItem("group"));
-
-    console.log(sessionStorage.getItem("roll"));
-
     document.body.oncontextmenu = (event: MouseEvent) => {
         event.preventDefault();
         event.stopPropagation(); // not necessary in my case, could leave in case stopImmediateProp isn't available?
@@ -49,9 +45,7 @@ function roll() {
             if (op !== undefined) {
                 sessionStorage.setItem("op", JSON.stringify(op));
             }
-            console.log(sessionStorage.getItem("roll"));
             sessionStorage.removeItem("roll");
-            console.log(sessionStorage.getItem("roll"));
         } else {
             op = savedOP;
         }
