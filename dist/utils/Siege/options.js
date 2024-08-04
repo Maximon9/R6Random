@@ -40,9 +40,38 @@ export const CategoryOptionsRev = {
     },
 };
 export default class Options {
-    static get isTouchScreen() {
-        return window.matchMedia("(pointer: coarse)").matches;
-    }
+    /* static #IsUsingTouchScreen?: boolean;
+    static get usingTouchScreen(): boolean {
+        if (this.#IsUsingTouchScreen === undefined) {
+            window.addEventListener("touchstart", () => {
+                if (this.#IsUsingTouchScreen !== true) {
+                    this.#IsUsingTouchScreen = true;
+                }
+            });
+            window.addEventListener("mousemove", () => {
+                if (this.#IsUsingTouchScreen !== false) {
+                    this.#IsUsingTouchScreen = false;
+                }
+            });
+            window.addEventListener("mousedown", () => {
+                if (this.#IsUsingTouchScreen !== false) {
+                    this.#IsUsingTouchScreen = false;
+                }
+            });
+            window.addEventListener("mouseup", () => {
+                if (this.#IsUsingTouchScreen !== false) {
+                    this.#IsUsingTouchScreen = false;
+                }
+            });
+            if (this.#IsUsingTouchScreen === undefined) {
+                return window.matchMedia("(pointer: coarse)").matches;
+            } else {
+                return this.#IsUsingTouchScreen;
+            }
+        } else {
+            return this.#IsUsingTouchScreen;
+        }
+    } */
     static options = {};
     static Filter = class {
         static filter = {};
@@ -435,16 +464,18 @@ export function createOptions(parentElement, insert, makePopup = true) {
         const animator = new ElementAnimator(exitButton, {
             options: { duration: 150, fill: "both", easing: "ease-in-out" },
         });
-        if (!Options.isTouchScreen) {
-            exitButton.addEventListener("mouseenter", () => {
+        exitButton.addEventListener("pointerenter", (event) => {
+            if (event.pointerType !== "touch") {
                 animator.setKeyFrames([{ scale: "110%" }]);
                 animator.play();
-            });
-            exitButton.addEventListener("mouseleave", () => {
+            }
+        });
+        exitButton.addEventListener("pointerleave", (event) => {
+            if (event.pointerType !== "touch") {
                 animator.setKeyFrames([{ scale: "100%" }]);
                 animator.play();
-            });
-        }
+            }
+        });
         optionsModal.style.display = "none";
         optionsModal.style.zIndex = "5";
         optionsModal.style.position = "fixed";
@@ -578,8 +609,8 @@ export function createOptionsNavBar(optionsModal, makePopup) {
             const animator = new ElementAnimator(navButton, {
                 options: { duration: 300, fill: "both", easing: "ease-in-out" },
             });
-            if (!Options.isTouchScreen) {
-                navButton.addEventListener("mouseenter", () => {
+            navButton.addEventListener("pointerenter", (event) => {
+                if (event.pointerType !== "touch") {
                     if (!optionInfos[name].on) {
                         if (makePopup) {
                             animator.setKeyFrames([{ background: "rgba(51, 51, 51, 0.8)" }]);
@@ -589,20 +620,22 @@ export function createOptionsNavBar(optionsModal, makePopup) {
                         }
                     }
                     animator.play();
-                });
-                navButton.addEventListener("mouseleave", () => {
+                }
+            });
+            navButton.addEventListener("pointerleave", (event) => {
+                if (event.pointerType !== "touch") {
                     if (!optionInfos[name].on) {
                         animator.setKeyFrames([{ background: "transparent" }]);
                         animator.play();
                     }
-                });
-            }
+                }
+            });
             navButtons.push([name, animator, navButton]);
             navBar.appendChild(navButton);
         }
         for (let i = 0; i < navButtons.length; i++) {
             const [name, animator, navButton] = navButtons[i];
-            navButton.addEventListener("click", () => {
+            navButton.addEventListener("pointerup", () => {
                 const optionInfo = optionInfos[name];
                 optionInfo.on = true;
                 for (let i = 0; i < navButtons.length; i++) {
@@ -632,8 +665,37 @@ export function createOptionsNavBar(optionsModal, makePopup) {
             });
         }
         optionsModal.appendChild(navBar);
-        const firstButton = navBar.children[0];
-        firstButton.click();
+        for (let i = 0; i < navButtons.length; i++) {
+            if (i === 0) {
+                const [name, animator] = navButtons[i];
+                const optionInfo = optionInfos[name];
+                optionInfo.on = true;
+                for (let i = 0; i < navButtons.length; i++) {
+                    const [key, animator1, _] = navButtons[i];
+                    if (key !== name) {
+                        const optionInfo1 = optionInfos[key];
+                        optionInfo1.on = false;
+                        for (let i = 0; i < optionInfo1.htmls.length; i++) {
+                            const { element } = optionInfo1.htmls[i];
+                            element.style.display = "none";
+                        }
+                        animator1.setKeyFrames([{ background: "transparent" }]);
+                        animator1.play();
+                    }
+                }
+                for (let i = 0; i < optionInfo.htmls.length; i++) {
+                    const { element, display } = optionInfo.htmls[i];
+                    element.style.display = display ?? "";
+                }
+                if (makePopup) {
+                    animator.setKeyFrames([{ background: "rgba(34, 34, 34, 0.8)" }]);
+                }
+                else {
+                    animator.setKeyFrames([{ background: "rgba(34, 34, 34, 1)" }]);
+                }
+                animator.play();
+            }
+        }
     }
 }
 export function createTryAvoidOptions(optionsModalContentScrollWrapper, tableBody) {
@@ -656,20 +718,22 @@ export function createTryAvoidOptions(optionsModalContentScrollWrapper, tableBod
     }
     const selectAnimator = new ElementAnimator(selectAllButton);
     const selectScalerInfo = { scaler: 90 };
-    if (!Options.isTouchScreen) {
-        selectAllButton.addEventListener("mouseenter", () => {
+    selectAllButton.addEventListener("pointerenter", (event) => {
+        if (event.pointerType !== "touch") {
             selectScalerInfo.scaler = 100;
             selectAnimator.setKeyFrames([{ scale: `${selectScalerInfo.scaler}%` }]);
             selectAnimator.setOptions({ duration: 25, fill: "both" });
             selectAnimator.play();
-        });
-        selectAllButton.addEventListener("mouseleave", () => {
+        }
+    });
+    selectAllButton.addEventListener("pointerleave", (event) => {
+        if (event.pointerType !== "touch") {
             selectScalerInfo.scaler = 90;
             selectAnimator.setKeyFrames([{ scale: `${selectScalerInfo.scaler}%` }]);
             selectAnimator.setOptions({ duration: 125, fill: "both" });
             selectAnimator.play();
-        });
-    }
+        }
+    });
     selectAllButtonContainer.appendChild(selectAllButton);
     optionsModalContentScrollWrapper.appendChild(selectAllButtonContainer);
     const avoidModal = document.createElement("section");
@@ -697,19 +761,21 @@ export function createTryAvoidOptions(optionsModalContentScrollWrapper, tableBod
             optionButton.style.color = "#999999";
         }
         optionButton.style.scale = `${scalerInfo.scaler}%`;
-        if (!Options.isTouchScreen) {
-            optionButton.addEventListener("mouseenter", () => {
+        optionButton.addEventListener("pointerenter", (event) => {
+            if (event.pointerType !== "touch") {
                 animator.setKeyFrames([{ scale: `${scalerInfo.scaler + 10}%` }]);
                 animator.setOptions({ duration: 25, fill: "both" });
                 animator.play();
-            });
-            optionButton.addEventListener("mouseleave", () => {
+            }
+        });
+        optionButton.addEventListener("pointerleave", (event) => {
+            if (event.pointerType !== "touch") {
                 animator.setKeyFrames([{ scale: `${scalerInfo.scaler}%` }]);
                 animator.setOptions({ duration: 125, fill: "both" });
                 animator.play();
-            });
-        }
-        optionButton.addEventListener("click", () => {
+            }
+        });
+        optionButton.addEventListener("pointerup", (event) => {
             if (Options.optionTrue(categoryName, key)) {
                 Options.disableOption(categoryName, key);
                 optionButton.style.color = "#999999";
@@ -722,7 +788,7 @@ export function createTryAvoidOptions(optionsModalContentScrollWrapper, tableBod
                 optionButton.style.scale;
                 scalerInfo.scaler = 90;
             }
-            if (Options.isTouchScreen) {
+            if (event.pointerType === "touch") {
                 animator.setKeyFrames([{ scale: `${scalerInfo.scaler}%` }]);
             }
             else {
@@ -734,7 +800,7 @@ export function createTryAvoidOptions(optionsModalContentScrollWrapper, tableBod
         optionButtons.push([animator, key, optionButton, scalerInfo]);
         avoidContent.appendChild(optionButton);
     }
-    selectAllButton.addEventListener("click", () => {
+    selectAllButton.addEventListener("pointerup", () => {
         if (Options.categoryTrue(categoryName)) {
             Options.disableCategory(categoryName);
         }
@@ -798,20 +864,22 @@ export function createFilter(optionsModalContentScrollWrapper, tableBody) {
     }
     const selectAnimator = new ElementAnimator(selectAllButton);
     const selectScalerInfo = { scaler: 90 };
-    if (!Options.isTouchScreen) {
-        selectAllButton.addEventListener("mouseenter", () => {
+    selectAllButton.addEventListener("pointerenter", (event) => {
+        if (event.pointerType !== "touch") {
             selectScalerInfo.scaler = 100;
             selectAnimator.setKeyFrames([{ scale: `${selectScalerInfo.scaler}%` }]);
             selectAnimator.setOptions({ duration: 25, fill: "both" });
             selectAnimator.play();
-        });
-        selectAllButton.addEventListener("mouseleave", () => {
+        }
+    });
+    selectAllButton.addEventListener("pointerleave", (event) => {
+        if (event.pointerType !== "touch") {
             selectScalerInfo.scaler = 90;
             selectAnimator.setKeyFrames([{ scale: `${selectScalerInfo.scaler}%` }]);
             selectAnimator.setOptions({ duration: 125, fill: "both" });
             selectAnimator.play();
-        });
-    }
+        }
+    });
     filterSelectAllContainer.appendChild(selectAllButton);
     optionsModalContentScrollWrapper.appendChild(filterSelectAllContainer);
     filterModal.appendChild(filterModalContent);
@@ -845,20 +913,22 @@ export function createFilter(optionsModalContentScrollWrapper, tableBody) {
         }
         const groupAnimator = new ElementAnimator(groupSelectButton);
         const groupScalerInfo = { scaler: 90 };
-        if (!Options.isTouchScreen) {
-            groupSelectButton.addEventListener("mouseenter", () => {
+        groupSelectButton.addEventListener("pointerenter", (event) => {
+            if (event.pointerType !== "touch") {
                 groupScalerInfo.scaler = 100;
                 groupAnimator.setKeyFrames([{ scale: `${groupScalerInfo.scaler}%` }]);
                 groupAnimator.setOptions({ duration: 25, fill: "both" });
                 groupAnimator.play();
-            });
-            groupSelectButton.addEventListener("mouseleave", () => {
+            }
+        });
+        groupSelectButton.addEventListener("pointerleave", (event) => {
+            if (event.pointerType !== "touch") {
                 groupScalerInfo.scaler = 90;
                 groupAnimator.setKeyFrames([{ scale: `${groupScalerInfo.scaler}%` }]);
                 groupAnimator.setOptions({ duration: 125, fill: "both" });
                 groupAnimator.play();
-            });
-        }
+            }
+        });
         let makeGroupSelectButton = true;
         if (group.ops.length > 0) {
             htmlSelectFiliterButtons[key] = [];
@@ -902,19 +972,21 @@ export function createFilter(optionsModalContentScrollWrapper, tableBody) {
                     animator.setKeyFrames([{ scale: `${scalerInfo.scaler}%` }]);
                 }
                 filterButton.style.scale = `${scalerInfo.scaler}%`;
-                if (!Options.isTouchScreen) {
-                    filterButton.addEventListener("mouseenter", () => {
+                filterButton.addEventListener("pointerenter", (event) => {
+                    if (event.pointerType !== "touch") {
                         animator.setKeyFrames([{ scale: `${scalerInfo.scaler + 10}%` }]);
                         animator.setOptions({ duration: 25, fill: "both" });
                         animator.play();
-                    });
-                    filterButton.addEventListener("mouseleave", () => {
+                    }
+                });
+                filterButton.addEventListener("pointerleave", (event) => {
+                    if (event.pointerType !== "touch") {
                         animator.setKeyFrames([{ scale: `${scalerInfo.scaler}%` }]);
                         animator.setOptions({ duration: 125, fill: "both" });
                         animator.play();
-                    });
-                }
-                filterButton.addEventListener("click", () => {
+                    }
+                });
+                filterButton.addEventListener("pointerup", (event) => {
                     if (Options.Filter.OPTrue(key, op.name)) {
                         Options.Filter.deselectOP(key, op.name);
                         filterButton.children.item(0).style.filter =
@@ -940,7 +1012,7 @@ export function createFilter(optionsModalContentScrollWrapper, tableBody) {
                     else {
                         groupSelectButton.innerHTML = "Select All " + key;
                     }
-                    if (Options.isTouchScreen) {
+                    if (event.pointerType === "touch") {
                         animator.setKeyFrames([{ scale: `${scalerInfo.scaler}%` }]);
                     }
                     else {
@@ -970,7 +1042,7 @@ export function createFilter(optionsModalContentScrollWrapper, tableBody) {
             }
         }
         if (makeGroupSelectButton) {
-            groupSelectButton.addEventListener("click", () => {
+            groupSelectButton.addEventListener("pointerup", () => {
                 groupAnimator.play();
                 if (Options.Filter.GroupTrue(key)) {
                     Options.Filter.delectGroup(key);
@@ -1025,7 +1097,7 @@ export function createFilter(optionsModalContentScrollWrapper, tableBody) {
         }
     }
     if (htmlSelectGroupButtons.length > 0) {
-        selectAllButton.addEventListener("click", () => {
+        selectAllButton.addEventListener("pointerup", () => {
             if (Options.Filter.AllTrue) {
                 Options.Filter.deselectAll();
             }

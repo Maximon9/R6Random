@@ -231,6 +231,8 @@ function applyVisuals(op) {
             iconContent.style.height = "fit-content";
             iconContent.style.fontSize = "2vmax";
             iconContent.style.display = "flex";
+            iconContent.style.justifyContent = "center";
+            iconContent.style.alignItems = "center";
             iconContent.style.flexDirection = "column";
             const icon = document.createElement("img");
             icon.src = op.icon ?? whiteBackground;
@@ -286,17 +288,19 @@ function addOptionButton(rerollOptionsContainer) {
     const animator = new ElementAnimator(optionsButton, {
         options: { duration: 150, fill: "both" },
     });
-    if (!Options.isTouchScreen) {
-        optionsButton.addEventListener("mouseenter", () => {
+    optionsButton.addEventListener("pointerenter", (event) => {
+        if (event.pointerType !== "touch") {
             animator.setKeyFrames([{ scale: "110%" }]);
             animator.play();
-        });
-        optionsButton.addEventListener("mouseleave", () => {
+        }
+    });
+    optionsButton.addEventListener("pointerleave", (event) => {
+        if (event.pointerType !== "touch") {
             animator.setKeyFrames([{ scale: "100%" }]);
             animator.play();
-        });
-    }
-    optionsButton.addEventListener("click", () => {
+        }
+    });
+    optionsButton.addEventListener("pointerup", () => {
         animator.setKeyFrames([{ scale: "110%" }]);
         animator.play()?.addEventListener("finish", () => {
             optionsButton.style.display = "none";
@@ -308,7 +312,7 @@ function addOptionButton(rerollOptionsContainer) {
     for (let i = 0; i < optionsInfo.htmls.length; i++) {
         const { element, animator } = optionsInfo.htmls[i];
         if (element.className === "exit-options") {
-            element.addEventListener("click", () => {
+            element.addEventListener("pointerup", () => {
                 if (animator !== undefined) {
                     animator.setKeyFrames([{ scale: "110%" }]);
                     animator.play()?.addEventListener("finish", () => {
@@ -348,8 +352,8 @@ function addReRollButtons(rerollOptionsContainer) {
             buttonIsOut: false,
             hasTouched: false,
         };
-        if (!Options.isTouchScreen) {
-            rerollButton.addEventListener("mouseenter", () => {
+        rerollButton.addEventListener("pointerenter", (event) => {
+            if (event.pointerType !== "touch") {
                 rerollImage.src = htmlImages.hoverIcon ?? whiteBackground;
                 animator.setKeyFrames([{ scale: "100%" }]);
                 animator.setOptions({
@@ -358,8 +362,10 @@ function addReRollButtons(rerollOptionsContainer) {
                     easing: "ease-in-out",
                 });
                 animator.play();
-            });
-            rerollButton.addEventListener("mouseleave", () => {
+            }
+        });
+        rerollButton.addEventListener("pointerleave", (event) => {
+            if (event.pointerType !== "touch") {
                 rerollImage.src = htmlImages.normalIcon ?? whiteBackground;
                 animator.setKeyFrames([{ scale: "90%" }]);
                 animator.setOptions({
@@ -368,8 +374,8 @@ function addReRollButtons(rerollOptionsContainer) {
                     easing: "ease-in-out",
                 });
                 animator.play();
-            });
-        }
+            }
+        });
         const htmlGroupData = {
             animator,
             animationData,
@@ -406,7 +412,7 @@ function addReRollButtons(rerollOptionsContainer) {
     };
     for (let i = 0; i < htmlGroups.length; i++) {
         const { animator, key, htmlGroup, htmlImg, htmlImages, dice } = htmlGroups[i];
-        htmlGroup.addEventListener("click", (event) => {
+        htmlGroup.addEventListener("pointerup", (event) => {
             event.stopImmediatePropagation();
             event.stopPropagation();
             unsetHTMLGroups(key);
@@ -457,10 +463,10 @@ function addReRollButtons(rerollOptionsContainer) {
         animator.play();
         dice?.animator.play();
     };
-    if (Options.isTouchScreen) {
-        rerollButtons.addEventListener("click", (event) => {
-            event.stopImmediatePropagation();
-            event.stopPropagation();
+    rerollButtons.addEventListener("pointerup", (event) => {
+        event.stopImmediatePropagation();
+        event.stopPropagation();
+        if (event.pointerType === "touch") {
             loopOverHTMLGroups((htmlGroup) => {
                 const { animationData } = htmlGroup;
                 if (animationData !== undefined) {
@@ -474,26 +480,30 @@ function addReRollButtons(rerollOptionsContainer) {
                     }
                 }
             });
-        });
-        document.body.addEventListener("click", (event) => {
-            event.stopImmediatePropagation();
-            event.stopPropagation();
+        }
+    });
+    document.body.addEventListener("pointerup", (event) => {
+        event.stopImmediatePropagation();
+        event.stopPropagation();
+        if (event.pointerType === "touch") {
             loopOverHTMLGroups((htmlGroup) => {
                 htmlGroup.animationData === undefined
                     ? undefined
                     : (htmlGroup.animationData.hasTouched = false);
                 unsetTranslations(htmlGroup);
             });
-        });
-    }
-    else {
-        rerollButtons.addEventListener("mouseenter", () => {
+        }
+    });
+    rerollButtons.addEventListener("pointerenter", (event) => {
+        if (event.pointerType !== "touch") {
             loopOverHTMLGroups(setTranslations);
-        });
-        rerollButtons.addEventListener("mouseleave", () => {
+        }
+    });
+    rerollButtons.addEventListener("pointerleave", (event) => {
+        if (event.pointerType !== "touch") {
             loopOverHTMLGroups(unsetTranslations);
-        });
-    }
+        }
+    });
     rerollContainer.appendChild(rerollButtons);
     rerollOptionsContainer.appendChild(rerollContainer);
 }

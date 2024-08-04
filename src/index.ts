@@ -67,18 +67,20 @@ function createGroupButtons() {
                 easing: "ease-in-out",
             },
         });
-        if (!Options.isTouchScreen) {
-            htmlGroup.addEventListener("mouseenter", () => {
+        htmlGroup.addEventListener("pointerenter", (event) => {
+            if (event.pointerType !== "touch") {
                 htmlGroupImg.src = htmlImages.hoverIcon ?? whiteBackground;
                 animator.setKeyFrames([{ scale: "100%" }]);
                 animator.play();
-            });
-            htmlGroup.addEventListener("mouseleave", () => {
+            }
+        });
+        htmlGroup.addEventListener("pointerleave", (event) => {
+            if (event.pointerType !== "touch") {
                 htmlGroupImg.src = htmlImages.normalIcon ?? whiteBackground;
                 animator.setKeyFrames([{ scale: "90%" }]);
                 animator.play();
-            });
-        }
+            }
+        });
         htmlGroups.push({ animator, key, htmlGroup, htmlImg: htmlGroupImg, htmlImages });
 
         const first_icon = htmlImages.normalIcon ?? htmlImages.hoverIcon;
@@ -102,7 +104,7 @@ function createGroupButtons() {
     };
     for (let i = 0; i < htmlGroups.length; i++) {
         const { animator, key, htmlGroup, htmlImg, htmlImages } = htmlGroups[i];
-        htmlGroup.addEventListener("click", () => {
+        htmlGroup.addEventListener("pointerup", () => {
             unsetHTMLGroups(key);
             htmlImg.src = htmlImages.hoverIcon ?? whiteBackground;
             animator.setKeyFrames([{ scale: "100%" }]);
