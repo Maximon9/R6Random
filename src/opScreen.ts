@@ -22,11 +22,14 @@ import { whiteBackground } from "./utils/img.js";
 import { ElementAnimator } from "./utils/animation/animation.js";
 import InputSystem from "./utils/input.js";
 import { createFooter } from "./utils/Siege/footer.js";
-import { changeLink, groupButtonClicked } from "./utils/html.js";
+import { groupButtonClicked } from "./utils/html.js";
 import Dice, { getRandomItemFromArray } from "./utils/randomize.js";
 import { HTMLGroup } from "./types/html.js";
 
 InputSystem.start();
+
+let opModal: HTMLElement | undefined = undefined;
+let rerollOptionsWrapper: HTMLDivElement | undefined = undefined;
 
 function roll() {
     document.body.oncontextmenu = (event: MouseEvent) => {
@@ -42,6 +45,7 @@ function roll() {
         const group = GROUPS[key];
         let savedOP = tryFetchSavedOP();
         if (roll !== null && Boolean(Number(roll))) {
+            opModal?.remove();
             op = randomizeOP(key, group, savedOP);
             if (op !== undefined) {
                 sessionStorage.setItem("op", JSON.stringify(op));
@@ -275,20 +279,22 @@ function equipmentMatchesList(
 }
 
 function applyVisuals(op: OP | undefined) {
-    const rerollOptionsWrapper = document.createElement("div");
-    rerollOptionsWrapper.className = "reroll-options-wrapper";
+    console.log(rerollOptionsWrapper);
+    if (rerollOptionsWrapper === undefined) {
+        rerollOptionsWrapper = document.createElement("div");
+        rerollOptionsWrapper.className = "reroll-options-wrapper";
 
-    const rerollOptionsContainer = document.createElement("div");
-    rerollOptionsContainer.className = "reroll-options-container";
+        const rerollOptionsContainer = document.createElement("div");
+        rerollOptionsContainer.className = "reroll-options-container";
 
-    addOptionButton(rerollOptionsContainer);
-    addReRollButtons(rerollOptionsContainer);
+        addOptionButton(rerollOptionsContainer);
+        addReRollButtons(rerollOptionsContainer);
 
-    rerollOptionsWrapper.appendChild(rerollOptionsContainer);
-    document.body.insertBefore(rerollOptionsWrapper, document.body.childNodes[2]);
-
+        rerollOptionsWrapper.appendChild(rerollOptionsContainer);
+        document.body.insertBefore(rerollOptionsWrapper, document.body.childNodes[2]);
+    }
     if (op !== undefined) {
-        const opModal = document.createElement("section");
+        opModal = document.createElement("section");
         opModal.className = "op-modal";
 
         const opModalContent = document.createElement("div");
@@ -531,7 +537,7 @@ function addReRollButtons(rerollOptionsContainer: HTMLDivElement) {
                 animator.setKeyFrames([{ scale: "100%" }]);
                 animator.play()?.addEventListener("finish", () => {
                     groupButtonClicked(key);
-                    changeLink("op.html");
+                    roll();
                 });
             }
         });
