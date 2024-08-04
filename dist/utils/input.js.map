@@ -1,1 +1,0 @@
-{"version":3,"file":"input.js","sourceRoot":"","sources":["../../src/utils/input.ts"],"names":[],"mappings":"AAAA,MAAM,CAAC,OAAO,OAAO,WAAW;IAC5B,MAAM,CAAC,KAAK;QACR,QAAQ,CAAC,gBAAgB,CAAC,OAAO,EAAE,CAAC,KAAK,EAAE,EAAE;YACzC,OAAO,CAAC,GAAG,CAAC,KAAK,CAAC,IAAI,CAAC,CAAC;QAC5B,CAAC,CAAC,CAAC;IACP,CAAC;CACJ"}
