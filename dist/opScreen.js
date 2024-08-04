@@ -235,7 +235,6 @@ function applyVisuals(op) {
             iconContent.style.alignItems = "center";
             iconContent.style.flexDirection = "column";
             const icon = document.createElement("img");
-            icon.draggable = false;
             icon.src = op.icon ?? whiteBackground;
             icon.alt = "OP Icon";
             icon.style.width = "3.5vmax";
@@ -289,14 +288,14 @@ function addOptionButton(rerollOptionsContainer) {
     const animator = new ElementAnimator(optionsButton, {
         options: { duration: 150, fill: "both" },
     });
-    optionsButton.addEventListener("mouseenter", () => {
-        if (!Options.usingTouchScreen) {
+    optionsButton.addEventListener("pointerenter", (event) => {
+        if (event.pointerType !== "touch") {
             animator.setKeyFrames([{ scale: "110%" }]);
             animator.play();
         }
     });
-    optionsButton.addEventListener("mouseleave", () => {
-        if (!Options.usingTouchScreen) {
+    optionsButton.addEventListener("pointerleave", (event) => {
+        if (event.pointerType !== "touch") {
             animator.setKeyFrames([{ scale: "100%" }]);
             animator.play();
         }
@@ -358,8 +357,8 @@ function addReRollButtons(rerollOptionsContainer) {
             buttonIsOut: false,
             hasTouched: false,
         };
-        rerollButton.addEventListener("mouseenter", () => {
-            if (!Options.usingTouchScreen) {
+        rerollButton.addEventListener("pointerenter", (event) => {
+            if (event.pointerType !== "touch") {
                 rerollImage.src = htmlImages.hoverIcon ?? whiteBackground;
                 animator.setKeyFrames([{ scale: "100%" }]);
                 animator.setOptions({
@@ -370,8 +369,8 @@ function addReRollButtons(rerollOptionsContainer) {
                 animator.play();
             }
         });
-        rerollButton.addEventListener("mouseleave", () => {
-            if (!Options.usingTouchScreen) {
+        rerollButton.addEventListener("pointerleave", (event) => {
+            if (event.pointerType !== "touch") {
                 rerollImage.src = htmlImages.normalIcon ?? whiteBackground;
                 animator.setKeyFrames([{ scale: "90%" }]);
                 animator.setOptions({
@@ -506,13 +505,13 @@ function addReRollButtons(rerollOptionsContainer) {
             }
         }
     });
-    rerollButtons.addEventListener("mouseenter", () => {
-        if (!Options.usingTouchScreen) {
+    rerollButtons.addEventListener("pointerenter", (event) => {
+        if (event.pointerType !== "touch") {
             loopOverHTMLGroups(setTranslations);
         }
     });
-    rerollButtons.addEventListener("mouseleave", () => {
-        if (!Options.usingTouchScreen) {
+    rerollButtons.addEventListener("pointerleave", (event) => {
+        if (event.pointerType !== "touch") {
             loopOverHTMLGroups(unsetTranslations);
         }
     });

@@ -40,8 +40,8 @@ export const CategoryOptionsRev = {
     },
 };
 export default class Options {
-    static #IsUsingTouchScreen;
-    static get usingTouchScreen() {
+    /* static #IsUsingTouchScreen?: boolean;
+    static get usingTouchScreen(): boolean {
         if (this.#IsUsingTouchScreen === undefined) {
             window.addEventListener("touchstart", () => {
                 if (this.#IsUsingTouchScreen !== true) {
@@ -65,15 +65,13 @@ export default class Options {
             });
             if (this.#IsUsingTouchScreen === undefined) {
                 return window.matchMedia("(pointer: coarse)").matches;
-            }
-            else {
+            } else {
                 return this.#IsUsingTouchScreen;
             }
-        }
-        else {
+        } else {
             return this.#IsUsingTouchScreen;
         }
-    }
+    } */
     static options = {};
     static Filter = class {
         static filter = {};
@@ -466,14 +464,14 @@ export function createOptions(parentElement, insert, makePopup = true) {
         const animator = new ElementAnimator(exitButton, {
             options: { duration: 150, fill: "both", easing: "ease-in-out" },
         });
-        exitButton.addEventListener("mouseenter", () => {
-            if (!Options.usingTouchScreen) {
+        exitButton.addEventListener("pointerenter", (event) => {
+            if (event.pointerType !== "touch") {
                 animator.setKeyFrames([{ scale: "110%" }]);
                 animator.play();
             }
         });
-        exitButton.addEventListener("mouseleave", () => {
-            if (!Options.usingTouchScreen) {
+        exitButton.addEventListener("pointerleave", (event) => {
+            if (event.pointerType !== "touch") {
                 animator.setKeyFrames([{ scale: "100%" }]);
                 animator.play();
             }
@@ -611,8 +609,8 @@ export function createOptionsNavBar(optionsModal, makePopup) {
             const animator = new ElementAnimator(navButton, {
                 options: { duration: 300, fill: "both", easing: "ease-in-out" },
             });
-            navButton.addEventListener("mouseenter", () => {
-                if (!Options.usingTouchScreen) {
+            navButton.addEventListener("pointerenter", (event) => {
+                if (event.pointerType !== "touch") {
                     if (!optionInfos[name].on) {
                         if (makePopup) {
                             animator.setKeyFrames([{ background: "rgba(51, 51, 51, 0.8)" }]);
@@ -624,8 +622,8 @@ export function createOptionsNavBar(optionsModal, makePopup) {
                     animator.play();
                 }
             });
-            navButton.addEventListener("mouseleave", () => {
-                if (!Options.usingTouchScreen) {
+            navButton.addEventListener("pointerleave", (event) => {
+                if (event.pointerType !== "touch") {
                     if (!optionInfos[name].on) {
                         animator.setKeyFrames([{ background: "transparent" }]);
                         animator.play();
@@ -722,16 +720,16 @@ export function createTryAvoidOptions(optionsModalContentScrollWrapper, tableBod
     }
     const selectAnimator = new ElementAnimator(selectAllButton);
     const selectScalerInfo = { scaler: 90 };
-    selectAllButton.addEventListener("mouseenter", () => {
-        if (!Options.usingTouchScreen) {
+    selectAllButton.addEventListener("pointerenter", (event) => {
+        if (event.pointerType !== "touch") {
             selectScalerInfo.scaler = 100;
             selectAnimator.setKeyFrames([{ scale: `${selectScalerInfo.scaler}%` }]);
             selectAnimator.setOptions({ duration: 25, fill: "both" });
             selectAnimator.play();
         }
     });
-    selectAllButton.addEventListener("mouseleave", () => {
-        if (!Options.usingTouchScreen) {
+    selectAllButton.addEventListener("pointerleave", (event) => {
+        if (event.pointerType !== "touch") {
             selectScalerInfo.scaler = 90;
             selectAnimator.setKeyFrames([{ scale: `${selectScalerInfo.scaler}%` }]);
             selectAnimator.setOptions({ duration: 125, fill: "both" });
@@ -765,15 +763,15 @@ export function createTryAvoidOptions(optionsModalContentScrollWrapper, tableBod
             optionButton.style.color = "#999999";
         }
         optionButton.style.scale = `${scalerInfo.scaler}%`;
-        optionButton.addEventListener("mouseenter", () => {
-            if (!Options.usingTouchScreen) {
+        optionButton.addEventListener("pointerenter", (event) => {
+            if (event.pointerType !== "touch") {
                 animator.setKeyFrames([{ scale: `${scalerInfo.scaler + 10}%` }]);
                 animator.setOptions({ duration: 25, fill: "both" });
                 animator.play();
             }
         });
-        optionButton.addEventListener("mouseleave", () => {
-            if (!Options.usingTouchScreen) {
+        optionButton.addEventListener("pointerleave", (event) => {
+            if (event.pointerType !== "touch") {
                 animator.setKeyFrames([{ scale: `${scalerInfo.scaler}%` }]);
                 animator.setOptions({ duration: 125, fill: "both" });
                 animator.play();
@@ -872,16 +870,16 @@ export function createFilter(optionsModalContentScrollWrapper, tableBody) {
     }
     const selectAnimator = new ElementAnimator(selectAllButton);
     const selectScalerInfo = { scaler: 90 };
-    selectAllButton.addEventListener("mouseenter", () => {
-        if (!Options.usingTouchScreen) {
+    selectAllButton.addEventListener("pointerenter", (event) => {
+        if (event.pointerType !== "touch") {
             selectScalerInfo.scaler = 100;
             selectAnimator.setKeyFrames([{ scale: `${selectScalerInfo.scaler}%` }]);
             selectAnimator.setOptions({ duration: 25, fill: "both" });
             selectAnimator.play();
         }
     });
-    selectAllButton.addEventListener("mouseleave", () => {
-        if (!Options.usingTouchScreen) {
+    selectAllButton.addEventListener("pointerleave", (event) => {
+        if (event.pointerType !== "touch") {
             selectScalerInfo.scaler = 90;
             selectAnimator.setKeyFrames([{ scale: `${selectScalerInfo.scaler}%` }]);
             selectAnimator.setOptions({ duration: 125, fill: "both" });
@@ -921,16 +919,16 @@ export function createFilter(optionsModalContentScrollWrapper, tableBody) {
         }
         const groupAnimator = new ElementAnimator(groupSelectButton);
         const groupScalerInfo = { scaler: 90 };
-        groupSelectButton.addEventListener("mouseenter", () => {
-            if (!Options.usingTouchScreen) {
+        groupSelectButton.addEventListener("pointerenter", (event) => {
+            if (event.pointerType !== "touch") {
                 groupScalerInfo.scaler = 100;
                 groupAnimator.setKeyFrames([{ scale: `${groupScalerInfo.scaler}%` }]);
                 groupAnimator.setOptions({ duration: 25, fill: "both" });
                 groupAnimator.play();
             }
         });
-        groupSelectButton.addEventListener("mouseleave", () => {
-            if (!Options.usingTouchScreen) {
+        groupSelectButton.addEventListener("pointerleave", (event) => {
+            if (event.pointerType !== "touch") {
                 groupScalerInfo.scaler = 90;
                 groupAnimator.setKeyFrames([{ scale: `${groupScalerInfo.scaler}%` }]);
                 groupAnimator.setOptions({ duration: 125, fill: "both" });
@@ -980,15 +978,15 @@ export function createFilter(optionsModalContentScrollWrapper, tableBody) {
                     animator.setKeyFrames([{ scale: `${scalerInfo.scaler}%` }]);
                 }
                 filterButton.style.scale = `${scalerInfo.scaler}%`;
-                filterButton.addEventListener("mouseenter", () => {
-                    if (!Options.usingTouchScreen) {
+                filterButton.addEventListener("pointerenter", (event) => {
+                    if (event.pointerType !== "touch") {
                         animator.setKeyFrames([{ scale: `${scalerInfo.scaler + 10}%` }]);
                         animator.setOptions({ duration: 25, fill: "both" });
                         animator.play();
                     }
                 });
-                filterButton.addEventListener("mouseleave", () => {
-                    if (!Options.usingTouchScreen) {
+                filterButton.addEventListener("pointerleave", (event) => {
+                    if (event.pointerType !== "touch") {
                         animator.setKeyFrames([{ scale: `${scalerInfo.scaler}%` }]);
                         animator.setOptions({ duration: 125, fill: "both" });
                         animator.play();

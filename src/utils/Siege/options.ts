@@ -62,7 +62,7 @@ export type OptionNames = keyof (typeof CategoryOptions)["0"];
 export type OptionValues = keyof (typeof CategoryOptionsRev)["0"];
 
 export default class Options {
-    static #IsUsingTouchScreen?: boolean;
+    /* static #IsUsingTouchScreen?: boolean;
     static get usingTouchScreen(): boolean {
         if (this.#IsUsingTouchScreen === undefined) {
             window.addEventListener("touchstart", () => {
@@ -93,7 +93,7 @@ export default class Options {
         } else {
             return this.#IsUsingTouchScreen;
         }
-    }
+    } */
     static options: { "0"?: { [k in OptionValues]?: boolean } } = {};
     static Filter = class {
         static filter: {
@@ -502,14 +502,14 @@ export function createOptions(
         const animator = new ElementAnimator(exitButton, {
             options: { duration: 150, fill: "both", easing: "ease-in-out" },
         });
-        exitButton.addEventListener("mouseenter", () => {
-            if (!Options.usingTouchScreen) {
+        exitButton.addEventListener("pointerenter", (event) => {
+            if (event.pointerType !== "touch") {
                 animator.setKeyFrames([{ scale: "110%" }]);
                 animator.play();
             }
         });
-        exitButton.addEventListener("mouseleave", () => {
-            if (!Options.usingTouchScreen) {
+        exitButton.addEventListener("pointerleave", (event) => {
+            if (event.pointerType !== "touch") {
                 animator.setKeyFrames([{ scale: "100%" }]);
                 animator.play();
             }
@@ -657,8 +657,8 @@ export function createOptionsNavBar(optionsModal: HTMLElement, makePopup: boolea
             const animator = new ElementAnimator(navButton, {
                 options: { duration: 300, fill: "both", easing: "ease-in-out" },
             });
-            navButton.addEventListener("mouseenter", () => {
-                if (!Options.usingTouchScreen) {
+            navButton.addEventListener("pointerenter", (event) => {
+                if (event.pointerType !== "touch") {
                     if (!optionInfos![name].on) {
                         if (makePopup) {
                             animator.setKeyFrames([{ background: "rgba(51, 51, 51, 0.8)" }]);
@@ -669,8 +669,8 @@ export function createOptionsNavBar(optionsModal: HTMLElement, makePopup: boolea
                     animator.play();
                 }
             });
-            navButton.addEventListener("mouseleave", () => {
-                if (!Options.usingTouchScreen) {
+            navButton.addEventListener("pointerleave", (event) => {
+                if (event.pointerType !== "touch") {
                     if (!optionInfos![name].on) {
                         animator.setKeyFrames([{ background: "transparent" }]);
                         animator.play();
@@ -773,16 +773,16 @@ export function createTryAvoidOptions(
     }
     const selectAnimator = new ElementAnimator(selectAllButton);
     const selectScalerInfo = { scaler: 90 };
-    selectAllButton.addEventListener("mouseenter", () => {
-        if (!Options.usingTouchScreen) {
+    selectAllButton.addEventListener("pointerenter", (event) => {
+        if (event.pointerType !== "touch") {
             selectScalerInfo.scaler = 100;
             selectAnimator.setKeyFrames([{ scale: `${selectScalerInfo.scaler}%` }]);
             selectAnimator.setOptions({ duration: 25, fill: "both" });
             selectAnimator.play();
         }
     });
-    selectAllButton.addEventListener("mouseleave", () => {
-        if (!Options.usingTouchScreen) {
+    selectAllButton.addEventListener("pointerleave", (event) => {
+        if (event.pointerType !== "touch") {
             selectScalerInfo.scaler = 90;
             selectAnimator.setKeyFrames([{ scale: `${selectScalerInfo.scaler}%` }]);
             selectAnimator.setOptions({ duration: 125, fill: "both" });
@@ -828,15 +828,15 @@ export function createTryAvoidOptions(
         }
         optionButton.style.scale = `${scalerInfo.scaler}%`;
 
-        optionButton.addEventListener("mouseenter", () => {
-            if (!Options.usingTouchScreen) {
+        optionButton.addEventListener("pointerenter", (event) => {
+            if (event.pointerType !== "touch") {
                 animator.setKeyFrames([{ scale: `${scalerInfo.scaler + 10}%` }]);
                 animator.setOptions({ duration: 25, fill: "both" });
                 animator.play();
             }
         });
-        optionButton.addEventListener("mouseleave", () => {
-            if (!Options.usingTouchScreen) {
+        optionButton.addEventListener("pointerleave", (event) => {
+            if (event.pointerType !== "touch") {
                 animator.setKeyFrames([{ scale: `${scalerInfo.scaler}%` }]);
                 animator.setOptions({ duration: 125, fill: "both" });
                 animator.play();
@@ -941,16 +941,16 @@ export function createFilter(
     }
     const selectAnimator = new ElementAnimator(selectAllButton);
     const selectScalerInfo = { scaler: 90 };
-    selectAllButton.addEventListener("mouseenter", () => {
-        if (!Options.usingTouchScreen) {
+    selectAllButton.addEventListener("pointerenter", (event) => {
+        if (event.pointerType !== "touch") {
             selectScalerInfo.scaler = 100;
             selectAnimator.setKeyFrames([{ scale: `${selectScalerInfo.scaler}%` }]);
             selectAnimator.setOptions({ duration: 25, fill: "both" });
             selectAnimator.play();
         }
     });
-    selectAllButton.addEventListener("mouseleave", () => {
-        if (!Options.usingTouchScreen) {
+    selectAllButton.addEventListener("pointerleave", (event) => {
+        if (event.pointerType !== "touch") {
             selectScalerInfo.scaler = 90;
             selectAnimator.setKeyFrames([{ scale: `${selectScalerInfo.scaler}%` }]);
             selectAnimator.setOptions({ duration: 125, fill: "both" });
@@ -1009,16 +1009,16 @@ export function createFilter(
         }
         const groupAnimator = new ElementAnimator(groupSelectButton);
         const groupScalerInfo = { scaler: 90 };
-        groupSelectButton.addEventListener("mouseenter", () => {
-            if (!Options.usingTouchScreen) {
+        groupSelectButton.addEventListener("pointerenter", (event) => {
+            if (event.pointerType !== "touch") {
                 groupScalerInfo.scaler = 100;
                 groupAnimator.setKeyFrames([{ scale: `${groupScalerInfo.scaler}%` }]);
                 groupAnimator.setOptions({ duration: 25, fill: "both" });
                 groupAnimator.play();
             }
         });
-        groupSelectButton.addEventListener("mouseleave", () => {
-            if (!Options.usingTouchScreen) {
+        groupSelectButton.addEventListener("pointerleave", (event) => {
+            if (event.pointerType !== "touch") {
                 groupScalerInfo.scaler = 90;
                 groupAnimator.setKeyFrames([{ scale: `${groupScalerInfo.scaler}%` }]);
                 groupAnimator.setOptions({ duration: 125, fill: "both" });
@@ -1066,15 +1066,15 @@ export function createFilter(
                     animator.setKeyFrames([{ scale: `${scalerInfo.scaler}%` }]);
                 }
                 filterButton.style.scale = `${scalerInfo.scaler}%`;
-                filterButton.addEventListener("mouseenter", () => {
-                    if (!Options.usingTouchScreen) {
+                filterButton.addEventListener("pointerenter", (event) => {
+                    if (event.pointerType !== "touch") {
                         animator.setKeyFrames([{ scale: `${scalerInfo.scaler + 10}%` }]);
                         animator.setOptions({ duration: 25, fill: "both" });
                         animator.play();
                     }
                 });
-                filterButton.addEventListener("mouseleave", () => {
-                    if (!Options.usingTouchScreen) {
+                filterButton.addEventListener("pointerleave", (event) => {
+                    if (event.pointerType !== "touch") {
                         animator.setKeyFrames([{ scale: `${scalerInfo.scaler}%` }]);
                         animator.setOptions({ duration: 125, fill: "both" });
                         animator.play();

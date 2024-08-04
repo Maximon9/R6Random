@@ -1,7 +1,7 @@
 //#region Main
 import { GROUPS } from "./ops.js";
 import { whiteBackground } from "./utils/img.js";
-import Options, { createOptions } from "./utils/Siege/options.js";
+import { createOptions } from "./utils/Siege/options.js";
 import InputSystem from "./utils/input.js";
 import { ElementAnimator } from "./utils/animation/animation.js";
 import { createFooter } from "./utils/Siege/footer.js";
@@ -58,15 +58,15 @@ function createGroupButtons() {
                 easing: "ease-in-out",
             },
         });
-        htmlGroup.addEventListener("mouseenter", () => {
-            if (!Options.usingTouchScreen) {
+        htmlGroup.addEventListener("pointerenter", (event) => {
+            if (event.pointerType !== "touch") {
                 htmlGroupImg.src = htmlImages.hoverIcon ?? whiteBackground;
                 animator.setKeyFrames([{ scale: "100%" }]);
                 animator.play();
             }
         });
-        htmlGroup.addEventListener("mouseleave", () => {
-            if (!Options.usingTouchScreen) {
+        htmlGroup.addEventListener("pointerleave", (event) => {
+            if (event.pointerType !== "touch") {
                 htmlGroupImg.src = htmlImages.normalIcon ?? whiteBackground;
                 animator.setKeyFrames([{ scale: "90%" }]);
                 animator.play();
