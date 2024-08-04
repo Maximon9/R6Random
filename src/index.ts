@@ -110,7 +110,7 @@ function createGroupButtons() {
                 animator.setKeyFrames([{ scale: "100%" }]);
                 animator.play()?.addEventListener("finish", () => {
                     groupButtonClicked(key);
-                    changeLink("op.html");
+                    changeLink("./op");
                 });
             }
         });

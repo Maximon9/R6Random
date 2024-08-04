@@ -3,10 +3,6 @@ import { Animator, AnimationCurve, AnimationCurves } from "./utils/animation/ani
 import { lerp } from "./utils/math.js";
 import { Circle, Renderer2D } from "./utils/animation/renderer.js";
 
-/* function isNumber(str: string) {
-    return /^\d+$/.test(str);
-} */
-
 window.addEventListener("load", () => {
     const canvas = document.getElementsByClassName("canvas").item(0) as HTMLCanvasElement;
     if (canvas !== null) {
@@ -20,25 +16,10 @@ window.addEventListener("load", () => {
         if (ctx !== null) {
             Renderer2D.setCanvas(canvas);
             Renderer2D.setContext(ctx);
-            startGameLoop();
+            start();
         }
     }
 });
-let lastTimestamp = 0;
-function startGameLoop() {
-    start();
-    lastTimestamp = window.performance.now();
-    requestAnimationFrame(gameloop);
-}
-
-let deltaTime = 0;
-const gameloop = (timestamp: number) => {
-    deltaTime = (timestamp - lastTimestamp) / 1000;
-    lastTimestamp = timestamp;
-    requestAnimationFrame(gameloop);
-    update();
-    Renderer2D.render();
-};
 
 const circle = new Circle({
     zIndex: 1,
@@ -55,6 +36,7 @@ const animator = new Animator(
             lerp(time, 0 + circle.radius + 10, Renderer2D.canvas.clientWidth - circle.radius - 10),
             Renderer2D.canvas.clientHeight - circle.radius - 50,
         ];
+        update();
         Renderer2D.render();
     },
     {
