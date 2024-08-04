@@ -1,12 +1,9 @@
 import type Dice from "../utils/randomize.js";
 import type { AllHTMLAnimators } from "./options.js";
 
-export type HTMLGroup = {
+export type HTMLGroup<A extends { [k: string]: boolean } = { [k: string]: boolean }> = {
     animator: AllHTMLAnimators;
-    animationData?: {
-        buttonIsOut: boolean;
-        hasTouched: boolean;
-    };
+    animationData?: A;
     key: string;
     htmlGroup: HTMLDivElement;
     htmlImg: HTMLImageElement;

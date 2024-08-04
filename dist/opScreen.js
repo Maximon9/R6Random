@@ -325,9 +325,11 @@ function addOptionButton(rerollOptionsContainer) {
     document.body.insertBefore(rerollOptionsContainer, document.body.childNodes[0]);
 }
 function addReRollButtons(rerollOptionsContainer) {
+    const rerollContainer = document.createElement("div");
+    rerollContainer.className = "reroll-container";
     const rerollButtons = document.createElement("div");
-    rerollButtons.style.zIndex = "1";
     rerollButtons.className = "reroll-buttons";
+    rerollButtons.style.zIndex = "1";
     const htmlGroups = [];
     const groupKeys = Object.keys(GROUPS);
     for (let i = 0; i < groupKeys.length; i++) {
@@ -348,28 +350,24 @@ function addReRollButtons(rerollOptionsContainer) {
         };
         if (!Options.isTouchScreen) {
             rerollButton.addEventListener("mouseenter", () => {
-                if (animationData.buttonIsOut) {
-                    rerollImage.src = htmlImages.hoverIcon ?? whiteBackground;
-                    animator.setKeyFrames([{ scale: "100%", translate: "0 0" }]);
-                    animator.setOptions({
-                        duration: 150,
-                        fill: "both",
-                        easing: "ease-in-out",
-                    });
-                    animator.play();
-                }
+                rerollImage.src = htmlImages.hoverIcon ?? whiteBackground;
+                animator.setKeyFrames([{ scale: "100%" }]);
+                animator.setOptions({
+                    duration: 150,
+                    fill: "both",
+                    easing: "ease-in-out",
+                });
+                animator.play();
             });
             rerollButton.addEventListener("mouseleave", () => {
-                if (animationData.buttonIsOut) {
-                    rerollImage.src = htmlImages.normalIcon ?? whiteBackground;
-                    animator.setKeyFrames([{ scale: "90%", translate: "0 0" }]);
-                    animator.setOptions({
-                        duration: 150,
-                        fill: "both",
-                        easing: "ease-in-out",
-                    });
-                    animator.play();
-                }
+                rerollImage.src = htmlImages.normalIcon ?? whiteBackground;
+                animator.setKeyFrames([{ scale: "90%" }]);
+                animator.setOptions({
+                    duration: 150,
+                    fill: "both",
+                    easing: "ease-in-out",
+                });
+                animator.play();
             });
         }
         const htmlGroupData = {
@@ -391,7 +389,6 @@ function addReRollButtons(rerollOptionsContainer) {
             htmlGroupData.dice = dice;
         }
     }
-    rerollButtons.style.overflowX = "hidden";
     const unsetHTMLGroups = (name, unsetPosition = false) => {
         for (let i = 0; i < htmlGroups.length; i++) {
             const { animator, key, htmlImg, htmlImages } = htmlGroups[i];
@@ -408,19 +405,17 @@ function addReRollButtons(rerollOptionsContainer) {
         }
     };
     for (let i = 0; i < htmlGroups.length; i++) {
-        const { animator, animationData, key, htmlGroup, htmlImg, htmlImages, dice } = htmlGroups[i];
+        const { animator, key, htmlGroup, htmlImg, htmlImages, dice } = htmlGroups[i];
         htmlGroup.addEventListener("click", (event) => {
             event.stopImmediatePropagation();
             event.stopPropagation();
-            if (animationData !== undefined && animationData.buttonIsOut) {
-                unsetHTMLGroups(key);
-                htmlImg.src = htmlImages.hoverIcon ?? whiteBackground;
-                animator.setKeyFrames([{ scale: "100%" }]);
-                animator.play()?.addEventListener("finish", () => {
-                    groupButtonClicked(key);
-                    changeLink("op.html");
-                });
-            }
+            unsetHTMLGroups(key);
+            htmlImg.src = htmlImages.hoverIcon ?? whiteBackground;
+            animator.setKeyFrames([{ scale: "100%" }]);
+            animator.play()?.addEventListener("finish", () => {
+                groupButtonClicked(key);
+                changeLink("op.html");
+            });
         });
     }
     const loopOverHTMLGroups = (func) => {
@@ -429,44 +424,37 @@ function addReRollButtons(rerollOptionsContainer) {
         }
     };
     const setTranslations = (htmlGroup) => {
-        const { animator, animationData, dice } = htmlGroup;
+        const { animator, dice } = htmlGroup;
         animator.setKeyFrames([{ translate: "0 0" }]);
         animator.setOptions({
-            duration: 200,
+            duration: 150,
             fill: "both",
             easing: "ease-in-out",
         });
         dice?.animator.setKeyFrames([{ translate: "0 0" }]);
         dice?.animator.setOptions({
-            duration: 200,
+            duration: 150,
             fill: "both",
             easing: "ease-in-out",
         });
-        animator.play().onfinish = () => {
-            animationData === undefined ? undefined : (animationData.buttonIsOut = true);
-            rerollButtons.style.overflowX = "auto";
-        };
+        animator.play();
         dice?.animator.play();
     };
     const unsetTranslations = (htmlGroup) => {
-        const { animator, animationData, dice } = htmlGroup;
-        animationData === undefined ? undefined : (animationData.buttonIsOut = false);
+        const { animator, dice } = htmlGroup;
         animator.setKeyFrames([{ translate: "10vmax 0" }]);
         animator.setOptions({
-            duration: 300,
+            duration: 150,
             fill: "both",
             easing: "ease-in-out",
         });
         dice?.animator.setKeyFrames([{ translate: "5vmax 0" }]);
         dice?.animator.setOptions({
-            duration: 300,
+            duration: 150,
             fill: "both",
             easing: "ease-in-out",
         });
-        animator.play().onfinish = () => {
-            animationData === undefined ? undefined : (animationData.buttonIsOut = true);
-            rerollButtons.style.overflowX = "auto";
-        };
+        animator.play();
         dice?.animator.play();
     };
     if (Options.isTouchScreen) {
@@ -506,7 +494,8 @@ function addReRollButtons(rerollOptionsContainer) {
             loopOverHTMLGroups(unsetTranslations);
         });
     }
-    rerollOptionsContainer.appendChild(rerollButtons);
+    rerollContainer.appendChild(rerollButtons);
+    rerollOptionsContainer.appendChild(rerollContainer);
 }
 function tryAddWeaponVisuals(key, weaponContainer, weapon) {
     if (weapon !== undefined && weapon.name !== undefined) {
