@@ -326,6 +326,7 @@ function addOptionButton(rerollOptionsContainer) {
 }
 function addReRollButtons(rerollOptionsContainer) {
     const rerollButtons = document.createElement("div");
+    rerollButtons.style.zIndex = "1";
     rerollButtons.className = "reroll-buttons";
     const htmlGroups = [];
     const groupKeys = Object.keys(GROUPS);
@@ -333,6 +334,7 @@ function addReRollButtons(rerollOptionsContainer) {
         const key = groupKeys[i];
         const group = GROUPS[key];
         const rerollButton = document.createElement("div");
+        rerollButton.style.zIndex = "2";
         rerollButton.style.scale = "90%";
         rerollButton.style.translate = "10vmax 0";
         const animator = new ElementAnimator(rerollButton);
@@ -342,6 +344,7 @@ function addReRollButtons(rerollOptionsContainer) {
         rerollImage.alt = `${key} Rerol Button`;
         const animationData = {
             buttonIsOut: false,
+            hasTouched: false,
         };
         if (!Options.isTouchScreen) {
             rerollButton.addEventListener("mouseenter", () => {
@@ -383,74 +386,126 @@ function addReRollButtons(rerollOptionsContainer) {
         if (i < groupKeys.length - 1) {
             const dice = new Dice();
             dice.svg.style.translate = "5vmax 0";
+            dice.svg.style.zIndex = "2";
             rerollButtons.appendChild(dice.svg);
             htmlGroupData.dice = dice;
         }
     }
-    const unsetHTMLGroups = (name) => {
+    rerollButtons.style.overflowX = "hidden";
+    const unsetHTMLGroups = (name, unsetPosition = false) => {
         for (let i = 0; i < htmlGroups.length; i++) {
             const { animator, key, htmlImg, htmlImages } = htmlGroups[i];
             if (name !== key) {
                 htmlImg.src = htmlImages.normalIcon ?? whiteBackground;
-                animator.setKeyFrames([{ scale: "90%" }]);
+                if (unsetPosition) {
+                    animator.setKeyFrames([{ scale: "90%", translate: "10vmax 0" }]);
+                }
+                else {
+                    animator.setKeyFrames([{ scale: "90%" }]);
+                }
                 animator.play();
             }
         }
     };
     for (let i = 0; i < htmlGroups.length; i++) {
-        const { animator, key, htmlGroup, htmlImg, htmlImages } = htmlGroups[i];
-        htmlGroup.addEventListener("click", () => {
-            htmlImg.src = htmlImages.hoverIcon ?? whiteBackground;
-            unsetHTMLGroups(key);
-            animator.setKeyFrames([{ scale: "100%" }]);
-            animator.play()?.addEventListener("finish", () => {
-                groupButtonClicked(key);
-                changeLink("op.html");
+        const { animator, animationData, key, htmlGroup, htmlImg, htmlImages, dice } = htmlGroups[i];
+        htmlGroup.addEventListener("click", (event) => {
+            event.stopImmediatePropagation();
+            event.stopPropagation();
+            if (animationData !== undefined && animationData.buttonIsOut) {
+                unsetHTMLGroups(key);
+                htmlImg.src = htmlImages.hoverIcon ?? whiteBackground;
+                animator.setKeyFrames([{ scale: "100%" }]);
+                animator.play()?.addEventListener("finish", () => {
+                    groupButtonClicked(key);
+                    changeLink("op.html");
+                });
+            }
+        });
+    }
+    const loopOverHTMLGroups = (func) => {
+        for (let i = 0; i < htmlGroups.length; i++) {
+            func(htmlGroups[i], i);
+        }
+    };
+    const setTranslations = (htmlGroup) => {
+        const { animator, animationData, dice } = htmlGroup;
+        animator.setKeyFrames([{ translate: "0 0" }]);
+        animator.setOptions({
+            duration: 200,
+            fill: "both",
+            easing: "ease-in-out",
+        });
+        dice?.animator.setKeyFrames([{ translate: "0 0" }]);
+        dice?.animator.setOptions({
+            duration: 200,
+            fill: "both",
+            easing: "ease-in-out",
+        });
+        animator.play().onfinish = () => {
+            animationData === undefined ? undefined : (animationData.buttonIsOut = true);
+            rerollButtons.style.overflowX = "auto";
+        };
+        dice?.animator.play();
+    };
+    const unsetTranslations = (htmlGroup) => {
+        const { animator, animationData, dice } = htmlGroup;
+        animationData === undefined ? undefined : (animationData.buttonIsOut = false);
+        animator.setKeyFrames([{ translate: "10vmax 0" }]);
+        animator.setOptions({
+            duration: 300,
+            fill: "both",
+            easing: "ease-in-out",
+        });
+        dice?.animator.setKeyFrames([{ translate: "5vmax 0" }]);
+        dice?.animator.setOptions({
+            duration: 300,
+            fill: "both",
+            easing: "ease-in-out",
+        });
+        animator.play().onfinish = () => {
+            animationData === undefined ? undefined : (animationData.buttonIsOut = true);
+            rerollButtons.style.overflowX = "auto";
+        };
+        dice?.animator.play();
+    };
+    if (Options.isTouchScreen) {
+        rerollButtons.addEventListener("click", (event) => {
+            event.stopImmediatePropagation();
+            event.stopPropagation();
+            loopOverHTMLGroups((htmlGroup) => {
+                const { animationData } = htmlGroup;
+                if (animationData !== undefined) {
+                    if (animationData.hasTouched) {
+                        animationData.hasTouched = false;
+                        unsetTranslations(htmlGroup);
+                    }
+                    else {
+                        animationData.hasTouched = true;
+                        setTranslations(htmlGroup);
+                    }
+                }
+            });
+        });
+        document.body.addEventListener("click", (event) => {
+            event.stopImmediatePropagation();
+            event.stopPropagation();
+            loopOverHTMLGroups((htmlGroup) => {
+                htmlGroup.animationData === undefined
+                    ? undefined
+                    : (htmlGroup.animationData.hasTouched = false);
+                unsetTranslations(htmlGroup);
             });
         });
     }
-    rerollButtons.addEventListener("mouseenter", () => {
-        for (let i = 0; i < htmlGroups.length; i++) {
-            const { animator, animationData, dice } = htmlGroups[i];
-            animator.setKeyFrames([{ translate: "0 0" }]);
-            animator.setOptions({
-                duration: 200,
-                fill: "both",
-                easing: "ease-in-out",
-            });
-            dice?.animator.setKeyFrames([{ translate: "0 0" }]);
-            dice?.animator.setOptions({
-                duration: 200,
-                fill: "both",
-                easing: "ease-in-out",
-            });
-            animator.play().onfinish = () => {
-                animationData.buttonIsOut = true;
-            };
-            dice?.animator.play();
-        }
-    });
-    rerollButtons.addEventListener("mouseleave", () => {
-        for (let i = 0; i < htmlGroups.length; i++) {
-            const { animator, animationData, dice, htmlImg, htmlImages } = htmlGroups[i];
-            animationData.buttonIsOut = false;
-            htmlImg.src = htmlImages.normalIcon ?? whiteBackground;
-            animator.setKeyFrames([{ scale: "90%", translate: "15vmax 0" }]);
-            animator.setOptions({
-                duration: 300,
-                fill: "both",
-                easing: "ease-in-out",
-            });
-            dice?.animator.setKeyFrames([{ translate: "5vmax 0" }]);
-            dice?.animator.setOptions({
-                duration: 300,
-                fill: "both",
-                easing: "ease-in-out",
-            });
-            animator.play();
-            dice?.animator.play();
-        }
-    });
+    else {
+        rerollButtons.addEventListener("mouseenter", () => {
+            loopOverHTMLGroups(setTranslations);
+        });
+        rerollButtons.addEventListener("mouseleave", () => {
+            loopOverHTMLGroups(unsetTranslations);
+        });
+    }
     rerollOptionsContainer.appendChild(rerollButtons);
 }
 function tryAddWeaponVisuals(key, weaponContainer, weapon) {

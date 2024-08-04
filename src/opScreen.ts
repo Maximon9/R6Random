@@ -25,6 +25,7 @@ import { createFooter } from "./utils/Siege/footer.js";
 import { AllHTMLAnimators } from "./types/options.js";
 import { changeLink, groupButtonClicked } from "./utils/html.js";
 import Dice, { getRandomItemFromArray } from "./utils/randomize.js";
+import { HTMLGroup } from "./types/html.js";
 
 InputSystem.start();
 
@@ -421,27 +422,16 @@ function addOptionButton(rerollOptionsContainer: HTMLDivElement) {
 }
 function addReRollButtons(rerollOptionsContainer: HTMLDivElement) {
     const rerollButtons = document.createElement("div");
+    rerollButtons.style.zIndex = "1";
     rerollButtons.className = "reroll-buttons";
 
-    const htmlGroups: {
-        animator: AllHTMLAnimators;
-        animationData: {
-            buttonIsOut: boolean;
-        };
-        key: string;
-        htmlGroup: HTMLDivElement;
-        htmlImg: HTMLImageElement;
-        htmlImages: {
-            normalIcon?: string;
-            hoverIcon?: string;
-        };
-        dice?: Dice;
-    }[] = [];
+    const htmlGroups: HTMLGroup[] = [];
     const groupKeys = Object.keys(GROUPS);
     for (let i = 0; i < groupKeys.length; i++) {
         const key = groupKeys[i];
         const group = GROUPS[key as keyof typeof GROUPS];
         const rerollButton = document.createElement("div");
+        rerollButton.style.zIndex = "2";
         rerollButton.style.scale = "90%";
         rerollButton.style.translate = "10vmax 0";
         const animator = new ElementAnimator(rerollButton);
@@ -453,8 +443,10 @@ function addReRollButtons(rerollOptionsContainer: HTMLDivElement) {
 
         const animationData: {
             buttonIsOut: boolean;
+            hasTouched: boolean;
         } = {
             buttonIsOut: false,
+            hasTouched: false,
         };
 
         if (!Options.isTouchScreen) {
@@ -484,20 +476,7 @@ function addReRollButtons(rerollOptionsContainer: HTMLDivElement) {
             });
         }
 
-        const htmlGroupData: {
-            animator: AllHTMLAnimators;
-            animationData: {
-                buttonIsOut: boolean;
-            };
-            key: string;
-            htmlGroup: HTMLDivElement;
-            htmlImg: HTMLImageElement;
-            htmlImages: {
-                normalIcon?: string;
-                hoverIcon?: string;
-            };
-            dice?: Dice;
-        } = {
+        const htmlGroupData: HTMLGroup = {
             animator,
             animationData,
             key,
@@ -512,79 +491,130 @@ function addReRollButtons(rerollOptionsContainer: HTMLDivElement) {
         if (i < groupKeys.length - 1) {
             const dice = new Dice();
             dice.svg.style.translate = "5vmax 0";
+            dice.svg.style.zIndex = "2";
             rerollButtons.appendChild(dice.svg);
             htmlGroupData.dice = dice;
         }
     }
-    const unsetHTMLGroups = (name: string) => {
+    rerollButtons.style.overflowX = "hidden";
+    const unsetHTMLGroups = (name: string, unsetPosition: boolean = false) => {
         for (let i = 0; i < htmlGroups.length; i++) {
             const { animator, key, htmlImg, htmlImages } = htmlGroups[i];
             if (name !== key) {
                 htmlImg.src = htmlImages.normalIcon ?? whiteBackground;
-                animator.setKeyFrames([{ scale: "90%" }]);
+                if (unsetPosition) {
+                    animator.setKeyFrames([{ scale: "90%", translate: "10vmax 0" }]);
+                } else {
+                    animator.setKeyFrames([{ scale: "90%" }]);
+                }
                 animator.play();
             }
         }
     };
     for (let i = 0; i < htmlGroups.length; i++) {
-        const { animator, key, htmlGroup, htmlImg, htmlImages } = htmlGroups[i];
-        htmlGroup.addEventListener("click", () => {
-            htmlImg.src = htmlImages.hoverIcon ?? whiteBackground;
-            unsetHTMLGroups(key);
-            animator.setKeyFrames([{ scale: "100%" }]);
-            animator.play()?.addEventListener("finish", () => {
-                groupButtonClicked(key);
-                changeLink("op.html");
-            });
+        const { animator, animationData, key, htmlGroup, htmlImg, htmlImages, dice } =
+            htmlGroups[i];
+        htmlGroup.addEventListener("click", (event) => {
+            event.stopImmediatePropagation();
+            event.stopPropagation();
+            if (animationData !== undefined && animationData.buttonIsOut) {
+                unsetHTMLGroups(key);
+                htmlImg.src = htmlImages.hoverIcon ?? whiteBackground;
+                animator.setKeyFrames([{ scale: "100%" }]);
+                animator.play()?.addEventListener("finish", () => {
+                    groupButtonClicked(key);
+                    changeLink("op.html");
+                });
+            }
         });
     }
 
-    rerollButtons.addEventListener("mouseenter", () => {
+    const loopOverHTMLGroups = (func: (htmlGroup: HTMLGroup, index: number) => void) => {
         for (let i = 0; i < htmlGroups.length; i++) {
-            const { animator, animationData, dice } = htmlGroups[i];
-            animator.setKeyFrames([{ translate: "0 0" }]);
-            animator.setOptions({
-                duration: 200,
-                fill: "both",
-                easing: "ease-in-out",
-            });
-
-            dice?.animator.setKeyFrames([{ translate: "0 0" }]);
-            dice?.animator.setOptions({
-                duration: 200,
-                fill: "both",
-                easing: "ease-in-out",
-            });
-
-            animator.play()!.onfinish = () => {
-                animationData.buttonIsOut = true;
-            };
-            dice?.animator.play();
+            func(htmlGroups[i], i);
         }
-    });
-    rerollButtons.addEventListener("mouseleave", () => {
-        for (let i = 0; i < htmlGroups.length; i++) {
-            const { animator, animationData, dice, htmlImg, htmlImages } = htmlGroups[i];
-            animationData.buttonIsOut = false;
-            htmlImg.src = htmlImages.normalIcon ?? whiteBackground;
-            animator.setKeyFrames([{ scale: "90%", translate: "15vmax 0" }]);
-            animator.setOptions({
-                duration: 300,
-                fill: "both",
-                easing: "ease-in-out",
-            });
+    };
+    const setTranslations = (htmlGroup: HTMLGroup) => {
+        const { animator, animationData, dice } = htmlGroup;
+        animator.setKeyFrames([{ translate: "0 0" }]);
+        animator.setOptions({
+            duration: 200,
+            fill: "both",
+            easing: "ease-in-out",
+        });
 
-            dice?.animator.setKeyFrames([{ translate: "5vmax 0" }]);
-            dice?.animator.setOptions({
-                duration: 300,
-                fill: "both",
-                easing: "ease-in-out",
-            });
+        dice?.animator.setKeyFrames([{ translate: "0 0" }]);
+        dice?.animator.setOptions({
+            duration: 200,
+            fill: "both",
+            easing: "ease-in-out",
+        });
 
-            animator.play();
-            dice?.animator.play();
-        }
-    });
+        animator.play()!.onfinish = () => {
+            animationData === undefined ? undefined : (animationData.buttonIsOut = true);
+            rerollButtons.style.overflowX = "auto";
+        };
+        dice?.animator.play();
+    };
+    const unsetTranslations = (htmlGroup: HTMLGroup) => {
+        const { animator, animationData, dice } = htmlGroup;
+        animationData === undefined ? undefined : (animationData.buttonIsOut = false);
+        animator.setKeyFrames([{ translate: "10vmax 0" }]);
+        animator.setOptions({
+            duration: 300,
+            fill: "both",
+            easing: "ease-in-out",
+        });
+
+        dice?.animator.setKeyFrames([{ translate: "5vmax 0" }]);
+        dice?.animator.setOptions({
+            duration: 300,
+            fill: "both",
+            easing: "ease-in-out",
+        });
+
+        animator.play()!.onfinish = () => {
+            animationData === undefined ? undefined : (animationData.buttonIsOut = true);
+            rerollButtons.style.overflowX = "auto";
+        };
+        dice?.animator.play();
+    };
+
+    if (Options.isTouchScreen) {
+        rerollButtons.addEventListener("click", (event) => {
+            event.stopImmediatePropagation();
+            event.stopPropagation();
+            loopOverHTMLGroups((htmlGroup: HTMLGroup) => {
+                const { animationData } = htmlGroup;
+                if (animationData !== undefined) {
+                    if (animationData.hasTouched) {
+                        animationData.hasTouched = false;
+                        unsetTranslations(htmlGroup);
+                    } else {
+                        animationData.hasTouched = true;
+                        setTranslations(htmlGroup);
+                    }
+                }
+            });
+        });
+        document.body.addEventListener("click", (event) => {
+            event.stopImmediatePropagation();
+            event.stopPropagation();
+            loopOverHTMLGroups((htmlGroup: HTMLGroup) => {
+                htmlGroup.animationData === undefined
+                    ? undefined
+                    : (htmlGroup.animationData.hasTouched = false);
+                unsetTranslations(htmlGroup);
+            });
+        });
+    } else {
+        rerollButtons.addEventListener("mouseenter", () => {
+            loopOverHTMLGroups(setTranslations);
+        });
+        rerollButtons.addEventListener("mouseleave", () => {
+            loopOverHTMLGroups(unsetTranslations);
+        });
+    }
 
     rerollOptionsContainer.appendChild(rerollButtons);
 }

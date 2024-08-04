@@ -69,7 +69,7 @@ function createGroupButtons() {
                 animator.play();
             });
         }
-        htmlGroups.push([animator, key, htmlGroup, htmlGroupImg, htmlImages]);
+        htmlGroups.push({ animator, key, htmlGroup, htmlImg: htmlGroupImg, htmlImages });
         const first_icon = htmlImages.normalIcon ?? htmlImages.hoverIcon;
         if (first_icon != undefined) {
             htmlGroupImg.src = first_icon;
@@ -79,18 +79,21 @@ function createGroupButtons() {
         htmlGroup.appendChild(htmlGroupDiv);
         groupModalRow.appendChild(htmlGroup);
     }
-    for (let i = 0; i < htmlGroups.length; i++) {
-        const [animator, key, htmlGroup, htmlGroupImg, htmlImages] = htmlGroups[i];
-        htmlGroup.addEventListener("click", () => {
-            htmlGroupImg.src = htmlImages.hoverIcon ?? whiteBackground;
-            for (let i = 0; i < htmlGroups.length; i++) {
-                const [animator1, key1, _, htmlGroupImg, htmlImages1] = htmlGroups[i];
-                if (key1 !== key) {
-                    htmlGroupImg.src = htmlImages1.normalIcon ?? whiteBackground;
-                    animator1.setKeyFrames([{ scale: "90%" }]);
-                    animator1.play();
-                }
+    const unsetHTMLGroups = (name) => {
+        for (let i = 0; i < htmlGroups.length; i++) {
+            const { animator, key, htmlImg, htmlImages } = htmlGroups[i];
+            if (name !== key) {
+                htmlImg.src = htmlImages.normalIcon ?? whiteBackground;
+                animator.setKeyFrames([{ scale: "90%" }]);
+                animator.play();
             }
+        }
+    };
+    for (let i = 0; i < htmlGroups.length; i++) {
+        const { animator, key, htmlGroup, htmlImg, htmlImages } = htmlGroups[i];
+        htmlGroup.addEventListener("click", () => {
+            unsetHTMLGroups(key);
+            htmlImg.src = htmlImages.hoverIcon ?? whiteBackground;
             animator.setKeyFrames([{ scale: "100%" }]);
             animator.play()?.addEventListener("finish", () => {
                 groupButtonClicked(key);

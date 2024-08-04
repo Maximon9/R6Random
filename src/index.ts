@@ -7,6 +7,7 @@ import InputSystem from "./utils/input.js";
 import { ElementAnimator } from "./utils/animation/animation.js";
 import { createFooter } from "./utils/Siege/footer.js";
 import { changeLink, groupButtonClicked } from "./utils/html.js";
+import { HTMLGroup } from "./types/html.js";
 
 InputSystem.start();
 
@@ -35,16 +36,7 @@ function createGroupButtons() {
     const groupModalTitleRow = document.createElement("tr");
     const groupModalRow = document.createElement("tr");
     const grouKeys = Object.keys(GROUPS) as (keyof typeof GROUPS)[];
-    const htmlGroups: [
-        AllHTMLAnimators,
-        string,
-        HTMLTableCellElement,
-        HTMLImageElement,
-        {
-            normalIcon?: string;
-            hoverIcon?: string;
-        }
-    ][] = [];
+    const htmlGroups: HTMLGroup[] = [];
     for (let i = 0; i < grouKeys.length; i++) {
         const key = grouKeys[i];
         const group = GROUPS[key];
@@ -87,7 +79,7 @@ function createGroupButtons() {
                 animator.play();
             });
         }
-        htmlGroups.push([animator, key, htmlGroup, htmlGroupImg, htmlImages]);
+        htmlGroups.push({ animator, key, htmlGroup, htmlImg: htmlGroupImg, htmlImages });
 
         const first_icon = htmlImages.normalIcon ?? htmlImages.hoverIcon;
         if (first_icon != undefined) {
@@ -98,18 +90,21 @@ function createGroupButtons() {
         htmlGroup.appendChild(htmlGroupDiv);
         groupModalRow.appendChild(htmlGroup);
     }
-    for (let i = 0; i < htmlGroups.length; i++) {
-        const [animator, key, htmlGroup, htmlGroupImg, htmlImages] = htmlGroups[i];
-        htmlGroup.addEventListener("click", () => {
-            htmlGroupImg.src = htmlImages.hoverIcon ?? whiteBackground;
-            for (let i = 0; i < htmlGroups.length; i++) {
-                const [animator1, key1, _, htmlGroupImg, htmlImages1] = htmlGroups[i];
-                if (key1 !== key) {
-                    htmlGroupImg.src = htmlImages1.normalIcon ?? whiteBackground;
-                    animator1.setKeyFrames([{ scale: "90%" }]);
-                    animator1.play();
-                }
+    const unsetHTMLGroups = (name: string) => {
+        for (let i = 0; i < htmlGroups.length; i++) {
+            const { animator, key, htmlImg, htmlImages } = htmlGroups[i];
+            if (name !== key) {
+                htmlImg.src = htmlImages.normalIcon ?? whiteBackground;
+                animator.setKeyFrames([{ scale: "90%" }]);
+                animator.play();
             }
+        }
+    };
+    for (let i = 0; i < htmlGroups.length; i++) {
+        const { animator, key, htmlGroup, htmlImg, htmlImages } = htmlGroups[i];
+        htmlGroup.addEventListener("click", () => {
+            unsetHTMLGroups(key);
+            htmlImg.src = htmlImages.hoverIcon ?? whiteBackground;
             animator.setKeyFrames([{ scale: "100%" }]);
             animator.play()?.addEventListener("finish", () => {
                 groupButtonClicked(key);
