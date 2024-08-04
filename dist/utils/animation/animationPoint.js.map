@@ -1,0 +1,1 @@
+{"version":3,"file":"animationPoint.js","sourceRoot":"","sources":["../../../src/utils/animation/animationPoint.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,OAAO,EAAE,MAAM,cAAc,CAAC;AAGvC,MAAM,OAAO,cAAe,SAAQ,OAAO;IACvC,IAAI,CAAY;IAChB,YAAY,IAAe,EAAE,IAAY,CAAC,EAAE,IAAY,CAAC;QACrD,KAAK,CAAC,CAAC,EAAE,CAAC,CAAC,CAAC;QACZ,IAAI,CAAC,IAAI,GAAG,IAAI,CAAC;IACrB,CAAC;CACJ"}
