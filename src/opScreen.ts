@@ -1,25 +1,43 @@
+//#region Main
+import type { AllGroups, AllOPNames, ParsedGroupKeys } from "./ops.js";
+import type { OptionNames } from "./utils/Siege/options.js";
+import type { WeaponAttackments, WeaponAttackmentsInfo } from "./types/weapon.js";
 import { GROUPS } from "./ops.js";
-import { Equipment } from "./utils/Siege/equipment.js";
+import { Equipment, EquipmentInfo } from "./utils/Siege/equipment.js";
 import { OP } from "./utils/Siege/op.js";
-import Options, { changeOptionsDisplay, createOptions, exitOptions, optionsInfo, } from "./utils/Siege/options.js";
-import { BarrelAttachment, GripAttachment, SightAttachment, UnderBarrelAttachment, } from "./utils/Siege/weaponInfo/attachment.js";
-import { Weapon } from "./utils/Siege/weaponInfo/weapon.js";
+import Options, {
+    changeOptionsDisplay,
+    createOptions,
+    exitOptions,
+    optionsInfo,
+} from "./utils/Siege/options.js";
+import {
+    BarrelAttachment,
+    GripAttachment,
+    SightAttachment,
+    UnderBarrelAttachment,
+} from "./utils/Siege/weaponInfo/attachment.js";
+import { Weapon, WeaponInfo } from "./utils/Siege/weaponInfo/weapon.js";
 import { whiteBackground } from "./utils/img.js";
-import { HTMLAnimator } from "./utils/animation/animation.js";
+import { ElementAnimator } from "./utils/animation/animation.js";
 import InputSystem from "./utils/input.js";
 import { createFooter } from "./utils/Siege/footer.js";
+import { AllHTMLAnimators } from "./types/options.js";
 import { changeLink, groupButtonClicked } from "./utils/html.js";
+import Dice, { getRandomItemFromArray } from "./utils/randomize.js";
+
 InputSystem.start();
+
 function roll() {
-    document.body.oncontextmenu = (event) => {
+    document.body.oncontextmenu = (event: MouseEvent) => {
         event.preventDefault();
         event.stopPropagation(); // not necessary in my case, could leave in case stopImmediateProp isn't available?
         event.stopImmediatePropagation();
         return false;
     };
-    let op = undefined;
-    const key = sessionStorage.getItem("group");
-    const roll = sessionStorage.getItem("roll");
+    let op: OP | undefined = undefined;
+    const key = sessionStorage.getItem("group") as ParsedGroupKeys | null;
+    const roll = sessionStorage.getItem("roll") as "1" | null;
     if (key !== null) {
         const group = GROUPS[key];
         let savedOP = tryFetchSavedOP();
@@ -29,42 +47,51 @@ function roll() {
                 sessionStorage.setItem("op", JSON.stringify(op));
             }
             sessionStorage.removeItem("roll");
-        }
-        else {
+        } else {
             op = savedOP;
         }
         applyVisuals(op);
     }
 }
-function tryFetchSavedOP() {
+
+function tryFetchSavedOP(): OP<AllOPNames> | undefined {
     let opString = sessionStorage.getItem("op");
     if (opString !== null && opString !== undefined) {
         const json = JSON.parse(opString);
-        return OP.createOPFromJSON(json);
+        return OP.createOPFromJSON(json) as OP<AllOPNames>;
     }
 }
-function randomizeOP(key, group, savedOP) {
-    let opInfo = undefined;
+
+function randomizeOP(
+    key: ParsedGroupKeys,
+    group: AllGroups,
+    savedOP?: OP<AllOPNames>
+): OP | undefined {
+    let opInfo: (typeof group.ops)[0] | undefined = undefined;
     if (group.ops.length > 0) {
         if (Options.Filter.GroupFalse(key)) {
             return undefined;
-        }
-        else {
-            let opInfos = [];
+        } else {
+            let opInfos: (typeof group.ops)[0][] = [];
             if (Options.optionTrue("Try Avoid Dupes", "OPs") && savedOP !== undefined) {
-                opInfos = group.ops.filter((opInfo) => Options.Filter.OPTrue(key, opInfo.name) === true &&
-                    opInfo.name !== savedOP?.name);
+                opInfos = group.ops.filter(
+                    (opInfo) =>
+                        Options.Filter.OPTrue(key, opInfo.name) === true &&
+                        opInfo.name !== savedOP?.name
+                );
                 if (opInfos.length <= 0) {
-                    opInfos = group.ops.filter((opInfo) => Options.Filter.OPTrue(key, opInfo.name) === true);
+                    opInfos = group.ops.filter(
+                        (opInfo) => Options.Filter.OPTrue(key, opInfo.name) === true
+                    );
                 }
+            } else {
+                opInfos = group.ops.filter(
+                    (opInfo) => Options.Filter.OPTrue(key, opInfo.name) === true
+                );
             }
-            else {
-                opInfos = group.ops.filter((opInfo) => Options.Filter.OPTrue(key, opInfo.name) === true);
-            }
-            opInfo = getRandomItemFromArray(opInfos);
+            opInfo = getRandomItemFromArray<(typeof opInfos)[0]>(opInfos);
         }
-    }
-    else {
+    } else {
         return undefined;
     }
     const op = new OP({
@@ -73,56 +100,88 @@ function randomizeOP(key, group, savedOP) {
         image: getRandomItemFromArray(opInfo.images),
     });
     if (opInfo.equipment.length > 0) {
-        const equipment = randomizeEquipment(opInfo.equipment, opInfo.equipmentCount, savedOP === undefined ? [] : savedOP.equipment ?? []);
+        const equipment = randomizeEquipment(
+            opInfo.equipment,
+            opInfo.equipmentCount,
+            savedOP === undefined ? [] : savedOP.equipment ?? []
+        );
         if (equipment !== undefined) {
             op.equipment = equipment;
         }
     }
     if (opInfo.primaryWeapons.length > 0) {
-        op.primaryWeapon = randomizeWeapon(opInfo.primaryWeapons, "Primary", savedOP?.primaryWeapon);
+        op.primaryWeapon = randomizeWeapon(
+            opInfo.primaryWeapons,
+            "Primary",
+            savedOP?.primaryWeapon
+        );
     }
     if (opInfo.secondaryWeapons.length > 0) {
-        op.secondaryWeapon = randomizeWeapon(opInfo.secondaryWeapons, "Secondary", savedOP?.secondaryWeapon);
+        op.secondaryWeapon = randomizeWeapon(
+            opInfo.secondaryWeapons,
+            "Secondary",
+            savedOP?.secondaryWeapon
+        );
     }
     return op;
 }
-function randomizeEquipment(opInfoEuipment, equipmentCount, savedEquipment) {
-    const equipmentInfos = [];
-    let opInfoEuipmentCopy = [...opInfoEuipment];
+
+function randomizeEquipment(
+    opInfoEuipment: EquipmentInfo[],
+    equipmentCount: number,
+    savedEquipment: Equipment[]
+): Equipment[] | undefined {
+    const equipmentInfos: EquipmentInfo[] = [];
+    let opInfoEuipmentCopy: EquipmentInfo[] = [...opInfoEuipment];
     if (opInfoEuipmentCopy.length >= equipmentCount) {
         for (let i = 0; i < equipmentCount; i++) {
-            opInfoEuipmentCopy = opInfoEuipmentCopy.filter((equipment) => !equipmentMatchesList(equipment, equipmentInfos));
+            opInfoEuipmentCopy = opInfoEuipmentCopy.filter(
+                (equipment) => !equipmentMatchesList(equipment, equipmentInfos)
+            );
             let randomEquipment = getRandomItemFromArray(opInfoEuipmentCopy);
-            while (Options.optionTrue("Try Avoid Dupes", "Equipment") &&
-                equipmentMatchesList(randomEquipment, savedEquipment)) {
-                opInfoEuipmentCopy = opInfoEuipmentCopy.filter((equipment) => !equipmentMatchesList(equipment, savedEquipment));
+            while (
+                Options.optionTrue("Try Avoid Dupes", "Equipment") &&
+                equipmentMatchesList(randomEquipment, savedEquipment)
+            ) {
+                opInfoEuipmentCopy = opInfoEuipmentCopy.filter(
+                    (equipment) => !equipmentMatchesList(equipment, savedEquipment)
+                );
                 if (opInfoEuipmentCopy.length > 0) {
                     randomEquipment = getRandomItemFromArray(opInfoEuipmentCopy);
-                }
-                else {
+                } else {
                     break;
                 }
             }
             equipmentInfos.push(randomEquipment);
         }
     }
-    const equipments = [];
+    const equipments: Equipment[] = [];
     for (let i = 0; i < equipmentInfos.length; i++) {
         const equipmentInfo = equipmentInfos[i];
-        equipments.push(new Equipment({
-            name: equipmentInfo.name,
-            image: getRandomItemFromArray(equipmentInfo.images),
-        }));
+        equipments.push(
+            new Equipment({
+                name: equipmentInfo.name,
+                image: getRandomItemFromArray(equipmentInfo.images),
+            })
+        );
     }
     if (equipments.length > 0) {
         return equipments;
     }
 }
-function randomizeWeapon(weaponInfos, type, savedWeapon) {
+function randomizeWeapon(
+    weaponInfos: WeaponInfo[],
+    type: "Primary" | "Secondary",
+    savedWeapon?: Weapon
+): Weapon {
     let weaponInfosCopy = [...weaponInfos];
-    if (Options.optionTrue("Try Avoid Dupes", (type + " Weapons")) &&
-        savedWeapon !== undefined) {
-        weaponInfosCopy = weaponInfosCopy.filter((weaponInfo) => weaponInfo.name !== savedWeapon.name);
+    if (
+        Options.optionTrue("Try Avoid Dupes", (type + " Weapons") as OptionNames) &&
+        savedWeapon !== undefined
+    ) {
+        weaponInfosCopy = weaponInfosCopy.filter(
+            (weaponInfo) => weaponInfo.name !== savedWeapon.name
+        );
         if (weaponInfosCopy.length <= 0) {
             weaponInfosCopy = [...weaponInfos];
         }
@@ -134,18 +193,27 @@ function randomizeWeapon(weaponInfos, type, savedWeapon) {
         attachments: randomizeAttachments(weaponInfo.attachments, type, savedWeapon?.attachments),
     });
 }
-function randomizeAttachments(attachmentInfos, type, savedAttachments) {
-    const attachments = {};
-    let key;
+
+function randomizeAttachments(
+    attachmentInfos: WeaponAttackmentsInfo,
+    type: "Primary" | "Secondary",
+    savedAttachments?: WeaponAttackments
+): WeaponAttackments {
+    const attachments: WeaponAttackments = {};
+    let key: keyof WeaponAttackmentsInfo;
     for (key in attachmentInfos) {
         const name = fetchMatchingAttachmentName(key);
         if (name !== undefined) {
             const ats = attachmentInfos[key];
             if (ats !== undefined && ats.length > 0) {
                 let atsCopy = [...ats];
-                if (Options.optionTrue("Try Avoid Dupes", (type + " " + key)) &&
-                    savedAttachments !== undefined) {
-                    atsCopy = atsCopy.filter((attachmentInfo) => attachmentInfo.name !== savedAttachments[name]?.name);
+                if (
+                    Options.optionTrue("Try Avoid Dupes", (type + " " + key) as OptionNames) &&
+                    savedAttachments !== undefined
+                ) {
+                    atsCopy = atsCopy.filter(
+                        (attachmentInfo) => attachmentInfo.name !== savedAttachments[name]?.name
+                    );
                     if (atsCopy.length <= 0) {
                         atsCopy = [...ats];
                     }
@@ -182,8 +250,8 @@ function randomizeAttachments(attachmentInfos, type, savedAttachments) {
     }
     return attachments;
 }
-function fetchMatchingAttachmentName(key) {
-    const attachmentNames = ["sight", "barrel", "grip", "underBarrel"];
+function fetchMatchingAttachmentName(key: string): keyof WeaponAttackments | undefined {
+    const attachmentNames = ["sight", "barrel", "grip", "underBarrel"] as const;
     for (let index = 0; index < attachmentNames.length; index++) {
         const name = attachmentNames[index];
         if (key.includes(name)) {
@@ -192,10 +260,11 @@ function fetchMatchingAttachmentName(key) {
     }
     return undefined;
 }
-function getRandomItemFromArray(array) {
-    return array[Math.floor(Math.random() * array.length)];
-}
-function equipmentMatchesList(equipment, equipments) {
+
+function equipmentMatchesList(
+    equipment: EquipmentInfo | Equipment,
+    equipments: (EquipmentInfo | Equipment)[]
+) {
     for (let i = 0; i < equipments.length; i++) {
         const check = equipments[i];
         if (equipment.name === check.name) {
@@ -204,30 +273,40 @@ function equipmentMatchesList(equipment, equipments) {
     }
     return false;
 }
-function applyVisuals(op) {
+
+function applyVisuals(op: OP | undefined) {
     const rerollOptionsWrapper = document.createElement("div");
     rerollOptionsWrapper.className = "reroll-options-wrapper";
+
     const rerollOptionsContainer = document.createElement("div");
     rerollOptionsContainer.className = "reroll-options-container";
+
     addOptionButton(rerollOptionsContainer);
     addReRollButtons(rerollOptionsContainer);
+
     rerollOptionsWrapper.appendChild(rerollOptionsContainer);
     document.body.insertBefore(rerollOptionsWrapper, document.body.childNodes[2]);
+
     if (op !== undefined) {
         const opModal = document.createElement("section");
         opModal.className = "op-modal";
+
         const opModalContent = document.createElement("div");
         opModalContent.className = "op-modal-content";
+
         const opModalInfo = document.createElement("div");
         opModalInfo.className = "op-modal-info";
+
         if (op.name !== undefined) {
             const opData = document.createElement("div");
             opData.className = "op-data";
             const image = document.createElement("div");
             image.className = "op-image";
             image.style.backgroundImage = `url("${op.image ?? whiteBackground}")`;
+
             const iconContainer = document.createElement("div");
             iconContainer.className = "icon-container";
+
             const iconContent = document.createElement("div");
             iconContent.style.width = "fit-content";
             iconContent.style.height = "fit-content";
@@ -245,9 +324,11 @@ function applyVisuals(op) {
             opData.appendChild(image);
             opModalInfo.appendChild(opData);
         }
+
         const equipmentContent = document.createElement("div");
         equipmentContent.className = "equipment-content";
         equipmentContent.innerHTML += "Equipment";
+
         const equipmentWrapper = document.createElement("div");
         equipmentWrapper.className = "equipment-wrapper";
         const equipment = op?.equipment;
@@ -260,6 +341,7 @@ function applyVisuals(op) {
                     const equipmentImage = document.createElement("div");
                     equipmentImage.className = "equipment-image";
                     equipmentImage.style.backgroundImage = `url("${eq.image ?? whiteBackground}")`;
+
                     equipmentData.appendChild(equipmentImage);
                     equipmentData.innerHTML += eq.name;
                     equipmentWrapper.appendChild(equipmentData);
@@ -268,10 +350,13 @@ function applyVisuals(op) {
             equipmentContent.appendChild(equipmentWrapper);
             opModalInfo.appendChild(equipmentContent);
         }
+
         const weaponContainer = document.createElement("div");
         weaponContainer.className = "weapons-container";
+
         tryAddWeaponVisuals("Primary", weaponContainer, op.primaryWeapon);
         tryAddWeaponVisuals("Secondary", weaponContainer, op.secondaryWeapon);
+
         opModalContent.appendChild(opModalInfo);
         opModalContent.appendChild(weaponContainer);
         opModal.appendChild(opModalContent);
@@ -279,13 +364,19 @@ function applyVisuals(op) {
         createFooter(opModal);
     }
 }
-function addOptionButton(rerollOptionsContainer) {
+
+function addOptionButton(rerollOptionsContainer: HTMLDivElement) {
     const options = document.createElement("div");
     options.className = "options";
+
     const optionsContainer = document.createElement("div");
+
     const optionsButton = document.createElement("div");
     optionsButton.style.backgroundImage = "url(assets/images/OptionsIcon.svg)";
-    const animator = new HTMLAnimator(optionsButton, { options: { duration: 150, fill: "both" } });
+
+    const animator = new ElementAnimator(optionsButton, {
+        options: { duration: 150, fill: "both" },
+    });
     if (!Options.isTouchScreen) {
         optionsButton.addEventListener("mouseenter", () => {
             animator.setKeyFrames([{ scale: "110%" }]);
@@ -296,6 +387,7 @@ function addOptionButton(rerollOptionsContainer) {
             animator.play();
         });
     }
+
     optionsButton.addEventListener("click", () => {
         animator.setKeyFrames([{ scale: "110%" }]);
         animator.play()?.addEventListener("finish", () => {
@@ -303,6 +395,7 @@ function addOptionButton(rerollOptionsContainer) {
             changeOptionsDisplay("show");
         });
     });
+
     optionsInfo.htmls = createOptions(document.body, 1);
     optionsInfo.on = false;
     for (let i = 0; i < optionsInfo.htmls.length; i++) {
@@ -319,58 +412,125 @@ function addOptionButton(rerollOptionsContainer) {
             });
         }
     }
+
     optionsContainer.appendChild(optionsButton);
     options.appendChild(optionsContainer);
     rerollOptionsContainer.appendChild(options);
+
     document.body.insertBefore(rerollOptionsContainer, document.body.childNodes[0]);
 }
-function addReRollButtons(rerollOptionsContainer) {
+function addReRollButtons(rerollOptionsContainer: HTMLDivElement) {
     const rerollButtons = document.createElement("div");
     rerollButtons.className = "reroll-buttons";
-    const htmlGroups = [];
-    for (const key in GROUPS) {
-        const group = GROUPS[key];
+
+    const htmlGroups: {
+        animator: AllHTMLAnimators;
+        animationData: {
+            buttonIsOut: boolean;
+        };
+        key: string;
+        htmlGroup: HTMLDivElement;
+        htmlImg: HTMLImageElement;
+        htmlImages: {
+            normalIcon?: string;
+            hoverIcon?: string;
+        };
+        dice?: Dice;
+    }[] = [];
+    const groupKeys = Object.keys(GROUPS);
+    for (let i = 0; i < groupKeys.length; i++) {
+        const key = groupKeys[i];
+        const group = GROUPS[key as keyof typeof GROUPS];
         const rerollButton = document.createElement("div");
         rerollButton.style.scale = "90%";
-        const animator = new HTMLAnimator(rerollButton, {
-            options: {
-                duration: 150,
-                fill: "both",
-                easing: "ease-in-out",
-            },
-        });
+        rerollButton.style.translate = "10vmax 0";
+        const animator = new ElementAnimator(rerollButton);
+
         const rerollImage = document.createElement("img");
         const htmlImages = group.fetch_html_images();
         rerollImage.src = htmlImages.normalIcon ?? whiteBackground;
         rerollImage.alt = `${key} Rerol Button`;
+
+        const animationData: {
+            buttonIsOut: boolean;
+        } = {
+            buttonIsOut: false,
+        };
+
         if (!Options.isTouchScreen) {
             rerollButton.addEventListener("mouseenter", () => {
-                rerollImage.src = htmlImages.hoverIcon ?? whiteBackground;
-                animator.setKeyFrames([{ scale: "100%" }]);
-                animator.play();
+                if (animationData.buttonIsOut) {
+                    rerollImage.src = htmlImages.hoverIcon ?? whiteBackground;
+                    animator.setKeyFrames([{ scale: "100%", translate: "0 0" }]);
+                    animator.setOptions({
+                        duration: 150,
+                        fill: "both",
+                        easing: "ease-in-out",
+                    });
+                    animator.play();
+                }
             });
             rerollButton.addEventListener("mouseleave", () => {
-                rerollImage.src = htmlImages.normalIcon ?? whiteBackground;
-                animator.setKeyFrames([{ scale: "90%" }]);
-                animator.play();
+                if (animationData.buttonIsOut) {
+                    rerollImage.src = htmlImages.normalIcon ?? whiteBackground;
+                    animator.setKeyFrames([{ scale: "90%", translate: "0 0" }]);
+                    animator.setOptions({
+                        duration: 150,
+                        fill: "both",
+                        easing: "ease-in-out",
+                    });
+                    animator.play();
+                }
             });
         }
-        htmlGroups.push([animator, key, rerollButton, rerollImage, htmlImages]);
+
+        const htmlGroupData: {
+            animator: AllHTMLAnimators;
+            animationData: {
+                buttonIsOut: boolean;
+            };
+            key: string;
+            htmlGroup: HTMLDivElement;
+            htmlImg: HTMLImageElement;
+            htmlImages: {
+                normalIcon?: string;
+                hoverIcon?: string;
+            };
+            dice?: Dice;
+        } = {
+            animator,
+            animationData,
+            key,
+            htmlGroup: rerollButton,
+            htmlImg: rerollImage,
+            htmlImages,
+        };
+
+        htmlGroups.push(htmlGroupData);
         rerollButton.appendChild(rerollImage);
         rerollButtons.appendChild(rerollButton);
+        if (i < groupKeys.length - 1) {
+            const dice = new Dice();
+            dice.svg.style.translate = "5vmax 0";
+            rerollButtons.appendChild(dice.svg);
+            htmlGroupData.dice = dice;
+        }
     }
-    for (let i = 0; i < htmlGroups.length; i++) {
-        const [animator, key, htmlGroup, htmlGroupImg, htmlImages] = htmlGroups[i];
-        htmlGroup.addEventListener("click", () => {
-            htmlGroupImg.src = htmlImages.hoverIcon ?? whiteBackground;
-            for (let i = 0; i < htmlGroups.length; i++) {
-                const [animator1, key1, _, htmlGroupImg, htmlImages1] = htmlGroups[i];
-                if (key1 !== key) {
-                    htmlGroupImg.src = htmlImages1.normalIcon ?? whiteBackground;
-                    animator1.setKeyFrames([{ scale: "90%" }]);
-                    animator1.play();
-                }
+    const unsetHTMLGroups = (name: string) => {
+        for (let i = 0; i < htmlGroups.length; i++) {
+            const { animator, key, htmlImg, htmlImages } = htmlGroups[i];
+            if (name !== key) {
+                htmlImg.src = htmlImages.normalIcon ?? whiteBackground;
+                animator.setKeyFrames([{ scale: "90%" }]);
+                animator.play();
             }
+        }
+    };
+    for (let i = 0; i < htmlGroups.length; i++) {
+        const { animator, key, htmlGroup, htmlImg, htmlImages } = htmlGroups[i];
+        htmlGroup.addEventListener("click", () => {
+            htmlImg.src = htmlImages.hoverIcon ?? whiteBackground;
+            unsetHTMLGroups(key);
             animator.setKeyFrames([{ scale: "100%" }]);
             animator.play()?.addEventListener("finish", () => {
                 groupButtonClicked(key);
@@ -378,24 +538,83 @@ function addReRollButtons(rerollOptionsContainer) {
             });
         });
     }
+
+    rerollButtons.addEventListener("mouseenter", () => {
+        for (let i = 0; i < htmlGroups.length; i++) {
+            const { animator, animationData, dice } = htmlGroups[i];
+            animator.setKeyFrames([{ translate: "0 0" }]);
+            animator.setOptions({
+                duration: 200,
+                fill: "both",
+                easing: "ease-in-out",
+            });
+
+            dice?.animator.setKeyFrames([{ translate: "0 0" }]);
+            dice?.animator.setOptions({
+                duration: 200,
+                fill: "both",
+                easing: "ease-in-out",
+            });
+
+            animator.play()!.onfinish = () => {
+                animationData.buttonIsOut = true;
+            };
+            dice?.animator.play();
+        }
+    });
+    rerollButtons.addEventListener("mouseleave", () => {
+        for (let i = 0; i < htmlGroups.length; i++) {
+            const { animator, animationData, dice, htmlImg, htmlImages } = htmlGroups[i];
+            animationData.buttonIsOut = false;
+            htmlImg.src = htmlImages.normalIcon ?? whiteBackground;
+            animator.setKeyFrames([{ scale: "90%", translate: "15vmax 0" }]);
+            animator.setOptions({
+                duration: 300,
+                fill: "both",
+                easing: "ease-in-out",
+            });
+
+            dice?.animator.setKeyFrames([{ translate: "5vmax 0" }]);
+            dice?.animator.setOptions({
+                duration: 300,
+                fill: "both",
+                easing: "ease-in-out",
+            });
+
+            animator.play();
+            dice?.animator.play();
+        }
+    });
+
     rerollOptionsContainer.appendChild(rerollButtons);
 }
-function tryAddWeaponVisuals(key, weaponContainer, weapon) {
+
+function tryAddWeaponVisuals(
+    key: "Primary" | "Secondary",
+    weaponContainer: HTMLDivElement,
+    weapon?: Weapon
+) {
     if (weapon !== undefined && weapon.name !== undefined) {
         const content = document.createElement("div");
         content.className = "weapon-content";
+
         const weaponSection = document.createElement("div");
         weaponSection.className = "weapon-section";
+
         const title = document.createElement("div");
         title.innerHTML += key;
         title.style.fontSize = "2.5vmax";
+
         const weaponImage = document.createElement("div");
         weaponImage.style.backgroundImage = `url("${weapon.image ?? whiteBackground}")`;
         weaponImage.className = "weapon-image";
+
         const weaponData = document.createElement("div");
         weaponData.className = "weapon-data";
+
         weaponData.appendChild(weaponImage);
         weaponData.innerHTML += weapon.name;
+
         weaponSection.appendChild(title);
         weaponSection.appendChild(weaponData);
         content.appendChild(weaponSection);
@@ -403,15 +622,15 @@ function tryAddWeaponVisuals(key, weaponContainer, weapon) {
         weaponContainer.appendChild(content);
     }
 }
-function tryAddAttachmentVisuals(weaponData, attachments) {
+function tryAddAttachmentVisuals(weaponData: HTMLDivElement, attachments?: WeaponAttackments) {
     if (attachments !== undefined) {
         if (Object.keys(attachments).length > 0) {
-            const sectionInfo = {};
-            const sectionOrder = { 0: [], 1: [] };
+            const sectionInfo: { "0"?: HTMLDivElement; "1"?: HTMLDivElement } = {};
+            const sectionOrder: { "0": HTMLDivElement[]; "1": HTMLDivElement[] } = { 0: [], 1: [] };
             const attachmentsDiv = document.createElement("div");
             attachmentsDiv.className = "attachments";
             for (const nKey in attachments) {
-                const key = nKey;
+                const key = nKey as keyof WeaponAttackments;
                 const attachment = attachments[key];
                 let sectionZero = sectionInfo["0"];
                 let sectionOne = sectionInfo["1"];
@@ -429,8 +648,7 @@ function tryAddAttachmentVisuals(weaponData, attachments) {
                             attachmentData = sectionOrder["0"][1] = document.createElement("div");
                             break;
                     }
-                }
-                else {
+                } else {
                     if (sectionOne === undefined) {
                         sectionOne = sectionInfo[1] = document.createElement("div");
                         sectionOne.className = "attachment-section";
@@ -447,17 +665,22 @@ function tryAddAttachmentVisuals(weaponData, attachments) {
                 if (attachmentData !== undefined && attachment?.name !== undefined) {
                     attachmentData.className = "attachment-section-data";
                     attachmentData.style.fontSize = "1.5vmax";
+
                     const image = document.createElement("div");
                     image.className = "attachment-image";
                     image.style.backgroundImage = `url("${attachment.image ?? whiteBackground}")`;
+
                     const attachmentDataWrapper = document.createElement("div");
                     attachmentDataWrapper.className = "attachment-section-data-wrapper";
+
                     const attachmentName = document.createElement("div");
                     attachmentName.className = "attachment-name";
                     attachmentName.innerHTML = attachment.name;
+
                     const attachmentTitle = document.createElement("div");
                     attachmentTitle.style.fontSize = "1.2em";
                     attachmentTitle.innerHTML += key;
+
                     attachmentDataWrapper.appendChild(image);
                     attachmentDataWrapper.appendChild(attachmentName);
                     attachmentData.appendChild(attachmentTitle);
@@ -465,7 +688,7 @@ function tryAddAttachmentVisuals(weaponData, attachments) {
                 }
             }
             for (const nKey in sectionInfo) {
-                const key = nKey;
+                const key = nKey as keyof typeof sectionInfo;
                 const attachmentSection = sectionInfo[key];
                 if (attachmentSection !== undefined) {
                     const divsOrder = sectionOrder[key];
@@ -484,6 +707,6 @@ function tryAddAttachmentVisuals(weaponData, attachments) {
         }
     }
 }
+
 roll();
 //#endregion
-//# sourceMappingURL=randomize.js.map

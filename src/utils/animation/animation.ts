@@ -459,8 +459,10 @@ export class Animator {
     };
 }
 
-export class HTMLAnimator<
-    T extends HTMLElementTagNameMap[keyof HTMLElementTagNameMap] = HTMLElementTagNameMap[keyof HTMLElementTagNameMap]
+export class ElementAnimator<
+    T extends HTMLElementTagNameMap[keyof HTMLElementTagNameMap] | SVGSVGElement =
+        | HTMLElementTagNameMap[keyof HTMLElementTagNameMap]
+        | SVGSVGElement
 > {
     #element!: T;
 

@@ -12,7 +12,7 @@ import type {
     ParsedGroupKeys,
     ParsedGroupKeysRev,
 } from "../../ops.js";
-import { HTMLAnimator } from "../animation/animation.js";
+import { ElementAnimator } from "../animation/animation.js";
 import { GROUPS, GroupParseKeys, GroupParseKeysRev, OPParseKeys } from "../../ops.js";
 // import { tryGiveHoverAnimation } from "../html.js";
 
@@ -470,7 +470,7 @@ export function createOptions(
         exitButton.className = "exit-options";
         exitButton.innerHTML += "&times;";
 
-        const animator = new HTMLAnimator(exitButton, {
+        const animator = new ElementAnimator(exitButton, {
             options: { duration: 150, fill: "both", easing: "ease-in-out" },
         });
         if (!Options.isTouchScreen) {
@@ -623,7 +623,7 @@ export function createOptionsNavBar(optionsModal: HTMLElement, makePopup: boolea
             }
             navButton.innerHTML = name;
             navButton.style.background = "transparent";
-            const animator = new HTMLAnimator(navButton, {
+            const animator = new ElementAnimator(navButton, {
                 options: { duration: 300, fill: "both", easing: "ease-in-out" },
             });
             if (!Options.isTouchScreen) {
@@ -706,7 +706,7 @@ export function createTryAvoidOptions(
     } else {
         selectAllButton.innerHTML = "Select All";
     }
-    const selectAnimator = new HTMLAnimator(selectAllButton);
+    const selectAnimator = new ElementAnimator(selectAllButton);
     const selectScalerInfo = { scaler: 90 };
     if (!Options.isTouchScreen) {
         selectAllButton.addEventListener("mouseenter", () => {
@@ -742,7 +742,7 @@ export function createTryAvoidOptions(
     tableBody.appendChild(tableRow);
 
     const optionButtons: [
-        HTMLAnimator<HTMLDivElement>,
+        ElementAnimator<HTMLDivElement>,
         keyof (typeof CategoryOptions)["0"],
         HTMLDivElement,
         { scaler: number }
@@ -751,7 +751,7 @@ export function createTryAvoidOptions(
         const optionButton = document.createElement("div");
         const key = CategoryOptionsRev["0"][parseKey as keyof (typeof CategoryOptionsRev)["0"]];
         optionButton.innerHTML = key;
-        const animator = new HTMLAnimator(optionButton);
+        const animator = new ElementAnimator(optionButton);
         const scalerInfo = { scaler: 90 };
         if (Options.optionTrue(categoryName, key)) {
             optionButton.style.color = "#ffffff";
@@ -866,7 +866,7 @@ export function createFilter(
     } else {
         selectAllButton.innerHTML = "Select All";
     }
-    const selectAnimator = new HTMLAnimator(selectAllButton);
+    const selectAnimator = new ElementAnimator(selectAllButton);
     const selectScalerInfo = { scaler: 90 };
     if (!Options.isTouchScreen) {
         selectAllButton.addEventListener("mouseenter", () => {
@@ -932,7 +932,7 @@ export function createFilter(
         } else {
             groupSelectButton.innerHTML = "Select All " + key;
         }
-        const groupAnimator = new HTMLAnimator(groupSelectButton);
+        const groupAnimator = new ElementAnimator(groupSelectButton);
         const groupScalerInfo = { scaler: 90 };
         if (!Options.isTouchScreen) {
             groupSelectButton.addEventListener("mouseenter", () => {
@@ -978,7 +978,7 @@ export function createFilter(
                 } else {
                     filterIcon.style.filter = "grayscale(100%)";
                 }
-                const animator = new HTMLAnimator(filterButton);
+                const animator = new ElementAnimator(filterButton);
                 const scalerInfo = { scaler: 90 };
                 if (Options.Filter.OPTrue(key, op.name)) {
                     filterIcon.style.filter = "";

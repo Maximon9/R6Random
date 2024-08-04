@@ -2,7 +2,7 @@ import { GROUPS } from "./ops.js";
 import { whiteBackground } from "./utils/img.js";
 import Options, { createOptions } from "./utils/Siege/options.js";
 import InputSystem from "./utils/input.js";
-import { HTMLAnimator } from "./utils/animation/animation.js";
+import { ElementAnimator } from "./utils/animation/animation.js";
 import { createFooter } from "./utils/Siege/footer.js";
 import { changeLink, groupButtonClicked } from "./utils/html.js";
 InputSystem.start();
@@ -50,7 +50,7 @@ function createGroupButtons() {
         htmlGroupImg.draggable = false;
         htmlGroupImg.className = "group-button";
         const htmlImages = group.fetch_html_images();
-        const animator = new HTMLAnimator(htmlGroup, {
+        const animator = new ElementAnimator(htmlGroup, {
             options: {
                 duration: 150,
                 fill: "both",

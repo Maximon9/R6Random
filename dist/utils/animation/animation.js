@@ -390,7 +390,7 @@ export class Animator {
         }
     };
 }
-export class HTMLAnimator {
+export class ElementAnimator {
     #element;
     get element() {
         return this.#element;

@@ -1,9 +1,10 @@
-import type { HTMLAnimator } from "../utils/animation/animation.js";
+import type { ElementAnimator } from "../utils/animation/animation.js";
 
-type FetchHTMLAnimators<T extends HTMLElementTagNameMap[keyof HTMLElementTagNameMap]> =
-    T extends HTMLElementTagNameMap[keyof HTMLElementTagNameMap]
-        ? HTMLAnimator<T>
-        : HTMLAnimator<HTMLElement>;
+type FetchHTMLAnimators<
+    T extends HTMLElementTagNameMap[keyof HTMLElementTagNameMap] | SVGSVGElement
+> = T extends HTMLElementTagNameMap[keyof HTMLElementTagNameMap] | SVGSVGElement
+    ? ElementAnimator<T>
+    : ElementAnimator<HTMLElement>;
 
 export type AllHTMLAnimators = FetchHTMLAnimators<
     HTMLElementTagNameMap[keyof HTMLElementTagNameMap]
