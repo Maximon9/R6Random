@@ -62,7 +62,7 @@ export type OptionNames = keyof (typeof CategoryOptions)["0"];
 export type OptionValues = keyof (typeof CategoryOptionsRev)["0"];
 
 export default class Options {
-    /* static #IsUsingTouchScreen?: boolean;
+    static #IsUsingTouchScreen?: boolean;
     static get usingTouchScreen(): boolean {
         if (this.#IsUsingTouchScreen === undefined) {
             window.addEventListener("touchstart", () => {
@@ -93,7 +93,7 @@ export default class Options {
         } else {
             return this.#IsUsingTouchScreen;
         }
-    } */
+    }
     static options: { "0"?: { [k in OptionValues]?: boolean } } = {};
     static Filter = class {
         static filter: {
@@ -502,14 +502,14 @@ export function createOptions(
         const animator = new ElementAnimator(exitButton, {
             options: { duration: 150, fill: "both", easing: "ease-in-out" },
         });
-        exitButton.addEventListener("pointerenter", (event) => {
-            if (event.pointerType !== "touch") {
+        exitButton.addEventListener("mouseenter", () => {
+            if (!Options.usingTouchScreen) {
                 animator.setKeyFrames([{ scale: "110%" }]);
                 animator.play();
             }
         });
-        exitButton.addEventListener("pointerleave", (event) => {
-            if (event.pointerType !== "touch") {
+        exitButton.addEventListener("mouseleave", () => {
+            if (!Options.usingTouchScreen) {
                 animator.setKeyFrames([{ scale: "100%" }]);
                 animator.play();
             }
@@ -657,8 +657,8 @@ export function createOptionsNavBar(optionsModal: HTMLElement, makePopup: boolea
             const animator = new ElementAnimator(navButton, {
                 options: { duration: 300, fill: "both", easing: "ease-in-out" },
             });
-            navButton.addEventListener("pointerenter", (event) => {
-                if (event.pointerType !== "touch") {
+            navButton.addEventListener("mouseenter", () => {
+                if (!Options.usingTouchScreen) {
                     if (!optionInfos![name].on) {
                         if (makePopup) {
                             animator.setKeyFrames([{ background: "rgba(51, 51, 51, 0.8)" }]);
@@ -669,8 +669,8 @@ export function createOptionsNavBar(optionsModal: HTMLElement, makePopup: boolea
                     animator.play();
                 }
             });
-            navButton.addEventListener("pointerleave", (event) => {
-                if (event.pointerType !== "touch") {
+            navButton.addEventListener("mouseleave", () => {
+                if (!Options.usingTouchScreen) {
                     if (!optionInfos![name].on) {
                         animator.setKeyFrames([{ background: "transparent" }]);
                         animator.play();
@@ -682,34 +682,36 @@ export function createOptionsNavBar(optionsModal: HTMLElement, makePopup: boolea
         }
         for (let i = 0; i < navButtons.length; i++) {
             const [name, animator, navButton] = navButtons[i];
-            navButton.addEventListener("pointerup", () => {
-                const optionInfo = optionInfos![name];
-                optionInfo.on = true;
-                for (let i = 0; i < navButtons.length; i++) {
-                    const [key, animator1, _] = navButtons[i];
-                    if (key !== name) {
-                        const optionInfo1 = optionInfos![
-                            key as keyof typeof optionInfos
-                        ] as OptionInfoType;
-                        optionInfo1.on = false;
-                        for (let i = 0; i < optionInfo1.htmls.length; i++) {
-                            const { element } = optionInfo1.htmls[i];
-                            element.style.display = "none";
+            navButton.addEventListener("pointerup", (event) => {
+                if (event.button === 0) {
+                    const optionInfo = optionInfos![name];
+                    optionInfo.on = true;
+                    for (let i = 0; i < navButtons.length; i++) {
+                        const [key, animator1, _] = navButtons[i];
+                        if (key !== name) {
+                            const optionInfo1 = optionInfos![
+                                key as keyof typeof optionInfos
+                            ] as OptionInfoType;
+                            optionInfo1.on = false;
+                            for (let i = 0; i < optionInfo1.htmls.length; i++) {
+                                const { element } = optionInfo1.htmls[i];
+                                element.style.display = "none";
+                            }
+                            animator1.setKeyFrames([{ background: "transparent" }]);
+                            animator1.play();
                         }
-                        animator1.setKeyFrames([{ background: "transparent" }]);
-                        animator1.play();
                     }
+                    for (let i = 0; i < optionInfo.htmls.length; i++) {
+                        const { element, display } = optionInfo.htmls[i];
+                        element.style.display = display ?? "";
+                    }
+                    if (makePopup) {
+                        animator.setKeyFrames([{ background: "rgba(34, 34, 34, 0.8)" }]);
+                    } else {
+                        animator.setKeyFrames([{ background: "rgba(34, 34, 34, 1)" }]);
+                    }
+                    animator.play();
                 }
-                for (let i = 0; i < optionInfo.htmls.length; i++) {
-                    const { element, display } = optionInfo.htmls[i];
-                    element.style.display = display ?? "";
-                }
-                if (makePopup) {
-                    animator.setKeyFrames([{ background: "rgba(34, 34, 34, 0.8)" }]);
-                } else {
-                    animator.setKeyFrames([{ background: "rgba(34, 34, 34, 1)" }]);
-                }
-                animator.play();
             });
         }
         optionsModal.appendChild(navBar);
@@ -771,16 +773,16 @@ export function createTryAvoidOptions(
     }
     const selectAnimator = new ElementAnimator(selectAllButton);
     const selectScalerInfo = { scaler: 90 };
-    selectAllButton.addEventListener("pointerenter", (event) => {
-        if (event.pointerType !== "touch") {
+    selectAllButton.addEventListener("mouseenter", () => {
+        if (!Options.usingTouchScreen) {
             selectScalerInfo.scaler = 100;
             selectAnimator.setKeyFrames([{ scale: `${selectScalerInfo.scaler}%` }]);
             selectAnimator.setOptions({ duration: 25, fill: "both" });
             selectAnimator.play();
         }
     });
-    selectAllButton.addEventListener("pointerleave", (event) => {
-        if (event.pointerType !== "touch") {
+    selectAllButton.addEventListener("mouseleave", () => {
+        if (!Options.usingTouchScreen) {
             selectScalerInfo.scaler = 90;
             selectAnimator.setKeyFrames([{ scale: `${selectScalerInfo.scaler}%` }]);
             selectAnimator.setOptions({ duration: 125, fill: "both" });
@@ -826,15 +828,15 @@ export function createTryAvoidOptions(
         }
         optionButton.style.scale = `${scalerInfo.scaler}%`;
 
-        optionButton.addEventListener("pointerenter", (event) => {
-            if (event.pointerType !== "touch") {
+        optionButton.addEventListener("mouseenter", () => {
+            if (!Options.usingTouchScreen) {
                 animator.setKeyFrames([{ scale: `${scalerInfo.scaler + 10}%` }]);
                 animator.setOptions({ duration: 25, fill: "both" });
                 animator.play();
             }
         });
-        optionButton.addEventListener("pointerleave", (event) => {
-            if (event.pointerType !== "touch") {
+        optionButton.addEventListener("mouseleave", () => {
+            if (!Options.usingTouchScreen) {
                 animator.setKeyFrames([{ scale: `${scalerInfo.scaler}%` }]);
                 animator.setOptions({ duration: 125, fill: "both" });
                 animator.play();
@@ -842,62 +844,66 @@ export function createTryAvoidOptions(
         });
 
         optionButton.addEventListener("pointerup", (event) => {
-            if (Options.optionTrue(categoryName, key)) {
-                Options.disableOption(categoryName, key);
-                optionButton.style.color = "#999999";
-                optionButton.style.scale;
-                scalerInfo.scaler = 70;
-            } else {
-                Options.enableOption(categoryName, key);
-                optionButton.style.color = "#ffffff";
-                optionButton.style.scale;
-                scalerInfo.scaler = 90;
+            if (event.button === 0) {
+                if (Options.optionTrue(categoryName, key)) {
+                    Options.disableOption(categoryName, key);
+                    optionButton.style.color = "#999999";
+                    optionButton.style.scale;
+                    scalerInfo.scaler = 70;
+                } else {
+                    Options.enableOption(categoryName, key);
+                    optionButton.style.color = "#ffffff";
+                    optionButton.style.scale;
+                    scalerInfo.scaler = 90;
+                }
+                if (event.pointerType === "touch") {
+                    animator.setKeyFrames([{ scale: `${scalerInfo.scaler}%` }]);
+                } else {
+                    animator.setKeyFrames([{ scale: `${scalerInfo.scaler + 10}%` }]);
+                }
+                animator.setOptions({ duration: 150, fill: "both" });
+                animator.play();
             }
-            if (event.pointerType === "touch") {
-                animator.setKeyFrames([{ scale: `${scalerInfo.scaler}%` }]);
-            } else {
-                animator.setKeyFrames([{ scale: `${scalerInfo.scaler + 10}%` }]);
-            }
-            animator.setOptions({ duration: 150, fill: "both" });
-            animator.play();
         });
         optionButtons.push([animator, key, optionButton, scalerInfo]);
         avoidContent.appendChild(optionButton);
     }
 
-    selectAllButton.addEventListener("pointerup", () => {
-        if (Options.categoryTrue(categoryName)) {
-            Options.disableCategory(categoryName);
-        } else {
-            Options.enableCategory(categoryName);
-        }
-        for (let i = 0; i < optionButtons.length; i++) {
-            const [animator, key, optionButton, scalerInfo] = optionButtons[i];
-            if (Options.optionTrue(categoryName, key)) {
-                optionButton.style.color = "#ffffff";
-                optionButton.style.scale;
-                scalerInfo.scaler = 90;
-            } else {
-                optionButton.style.color = "#999999";
-                optionButton.style.scale;
-                scalerInfo.scaler = 70;
-            }
-            animator.setKeyFrames([{ scale: `${scalerInfo.scaler}%` }]);
-            animator.setOptions({ duration: 150, fill: "both" });
-            animator.play();
-        }
-        selectAnimator.setKeyFrames([{ scale: `110%` }]);
-        selectAnimator.setOptions({ duration: 25, fill: "both" });
-        selectAnimator.play()?.addEventListener("finish", () => {
+    selectAllButton.addEventListener("pointerup", (event) => {
+        if (event.button === 0) {
             if (Options.categoryTrue(categoryName)) {
-                selectAllButton.innerHTML = "Deselect All";
+                Options.disableCategory(categoryName);
             } else {
-                selectAllButton.innerHTML = "Select All";
+                Options.enableCategory(categoryName);
             }
-            selectAnimator.setKeyFrames([{ scale: `${selectScalerInfo.scaler}%` }]);
-            selectAnimator.setOptions({ duration: 125, fill: "both" });
-            selectAnimator.play();
-        });
+            for (let i = 0; i < optionButtons.length; i++) {
+                const [animator, key, optionButton, scalerInfo] = optionButtons[i];
+                if (Options.optionTrue(categoryName, key)) {
+                    optionButton.style.color = "#ffffff";
+                    optionButton.style.scale;
+                    scalerInfo.scaler = 90;
+                } else {
+                    optionButton.style.color = "#999999";
+                    optionButton.style.scale;
+                    scalerInfo.scaler = 70;
+                }
+                animator.setKeyFrames([{ scale: `${scalerInfo.scaler}%` }]);
+                animator.setOptions({ duration: 150, fill: "both" });
+                animator.play();
+            }
+            selectAnimator.setKeyFrames([{ scale: `110%` }]);
+            selectAnimator.setOptions({ duration: 25, fill: "both" });
+            selectAnimator.play()?.addEventListener("finish", () => {
+                if (Options.categoryTrue(categoryName)) {
+                    selectAllButton.innerHTML = "Deselect All";
+                } else {
+                    selectAllButton.innerHTML = "Select All";
+                }
+                selectAnimator.setKeyFrames([{ scale: `${selectScalerInfo.scaler}%` }]);
+                selectAnimator.setOptions({ duration: 125, fill: "both" });
+                selectAnimator.play();
+            });
+        }
     });
     return [{ element: tableRow }, { element: selectAllButtonContainer, display: "flex" }];
 }
@@ -935,16 +941,16 @@ export function createFilter(
     }
     const selectAnimator = new ElementAnimator(selectAllButton);
     const selectScalerInfo = { scaler: 90 };
-    selectAllButton.addEventListener("pointerenter", (event) => {
-        if (event.pointerType !== "touch") {
+    selectAllButton.addEventListener("mouseenter", () => {
+        if (!Options.usingTouchScreen) {
             selectScalerInfo.scaler = 100;
             selectAnimator.setKeyFrames([{ scale: `${selectScalerInfo.scaler}%` }]);
             selectAnimator.setOptions({ duration: 25, fill: "both" });
             selectAnimator.play();
         }
     });
-    selectAllButton.addEventListener("pointerleave", (event) => {
-        if (event.pointerType !== "touch") {
+    selectAllButton.addEventListener("mouseleave", () => {
+        if (!Options.usingTouchScreen) {
             selectScalerInfo.scaler = 90;
             selectAnimator.setKeyFrames([{ scale: `${selectScalerInfo.scaler}%` }]);
             selectAnimator.setOptions({ duration: 125, fill: "both" });
@@ -1003,16 +1009,16 @@ export function createFilter(
         }
         const groupAnimator = new ElementAnimator(groupSelectButton);
         const groupScalerInfo = { scaler: 90 };
-        groupSelectButton.addEventListener("pointerenter", (event) => {
-            if (event.pointerType !== "touch") {
+        groupSelectButton.addEventListener("mouseenter", () => {
+            if (!Options.usingTouchScreen) {
                 groupScalerInfo.scaler = 100;
                 groupAnimator.setKeyFrames([{ scale: `${groupScalerInfo.scaler}%` }]);
                 groupAnimator.setOptions({ duration: 25, fill: "both" });
                 groupAnimator.play();
             }
         });
-        groupSelectButton.addEventListener("pointerleave", (event) => {
-            if (event.pointerType !== "touch") {
+        groupSelectButton.addEventListener("mouseleave", () => {
+            if (!Options.usingTouchScreen) {
                 groupScalerInfo.scaler = 90;
                 groupAnimator.setKeyFrames([{ scale: `${groupScalerInfo.scaler}%` }]);
                 groupAnimator.setOptions({ duration: 125, fill: "both" });
@@ -1060,15 +1066,15 @@ export function createFilter(
                     animator.setKeyFrames([{ scale: `${scalerInfo.scaler}%` }]);
                 }
                 filterButton.style.scale = `${scalerInfo.scaler}%`;
-                filterButton.addEventListener("pointerenter", (event) => {
-                    if (event.pointerType !== "touch") {
+                filterButton.addEventListener("mouseenter", () => {
+                    if (!Options.usingTouchScreen) {
                         animator.setKeyFrames([{ scale: `${scalerInfo.scaler + 10}%` }]);
                         animator.setOptions({ duration: 25, fill: "both" });
                         animator.play();
                     }
                 });
-                filterButton.addEventListener("pointerleave", (event) => {
-                    if (event.pointerType !== "touch") {
+                filterButton.addEventListener("mouseleave", () => {
+                    if (!Options.usingTouchScreen) {
                         animator.setKeyFrames([{ scale: `${scalerInfo.scaler}%` }]);
                         animator.setOptions({ duration: 125, fill: "both" });
                         animator.play();
@@ -1076,35 +1082,37 @@ export function createFilter(
                 });
 
                 filterButton.addEventListener("pointerup", (event) => {
-                    if (Options.Filter.OPTrue(key, op.name)) {
-                        Options.Filter.deselectOP(key, op.name);
-                        (filterButton.children.item(0) as HTMLImageElement).style.filter =
-                            "grayscale(100%)";
-                        scalerInfo.scaler = 70;
-                        animator.setKeyFrames([{ scale: `${scalerInfo.scaler}%` }]);
-                    } else {
-                        Options.Filter.selectOP(key, op.name);
-                        (filterButton.children.item(0) as HTMLImageElement).style.filter = "";
-                        scalerInfo.scaler = 90;
-                        animator.setKeyFrames([{ scale: `${scalerInfo.scaler}%` }]);
+                    if (event.button === 0) {
+                        if (Options.Filter.OPTrue(key, op.name)) {
+                            Options.Filter.deselectOP(key, op.name);
+                            (filterButton.children.item(0) as HTMLImageElement).style.filter =
+                                "grayscale(100%)";
+                            scalerInfo.scaler = 70;
+                            animator.setKeyFrames([{ scale: `${scalerInfo.scaler}%` }]);
+                        } else {
+                            Options.Filter.selectOP(key, op.name);
+                            (filterButton.children.item(0) as HTMLImageElement).style.filter = "";
+                            scalerInfo.scaler = 90;
+                            animator.setKeyFrames([{ scale: `${scalerInfo.scaler}%` }]);
+                        }
+                        if (Options.Filter.AllTrue) {
+                            selectAllButton.innerHTML = "Deselect All";
+                        } else {
+                            selectAllButton.innerHTML = "Select All";
+                        }
+                        if (Options.Filter.GroupTrue(key)) {
+                            groupSelectButton.innerHTML = "Deselect All " + key;
+                        } else {
+                            groupSelectButton.innerHTML = "Select All " + key;
+                        }
+                        if (event.pointerType === "touch") {
+                            animator.setKeyFrames([{ scale: `${scalerInfo.scaler}%` }]);
+                        } else {
+                            animator.setKeyFrames([{ scale: `${scalerInfo.scaler + 10}%` }]);
+                        }
+                        animator.setOptions({ duration: 150, fill: "both" });
+                        animator.play();
                     }
-                    if (Options.Filter.AllTrue) {
-                        selectAllButton.innerHTML = "Deselect All";
-                    } else {
-                        selectAllButton.innerHTML = "Select All";
-                    }
-                    if (Options.Filter.GroupTrue(key)) {
-                        groupSelectButton.innerHTML = "Deselect All " + key;
-                    } else {
-                        groupSelectButton.innerHTML = "Select All " + key;
-                    }
-                    if (event.pointerType === "touch") {
-                        animator.setKeyFrames([{ scale: `${scalerInfo.scaler}%` }]);
-                    } else {
-                        animator.setKeyFrames([{ scale: `${scalerInfo.scaler + 10}%` }]);
-                    }
-                    animator.setOptions({ duration: 150, fill: "both" });
-                    animator.play();
                 });
                 filterButton.appendChild(filterIcon);
                 filterButton.innerHTML += op.name;
@@ -1126,49 +1134,51 @@ export function createFilter(
         }
 
         if (makeGroupSelectButton) {
-            groupSelectButton.addEventListener("pointerup", () => {
-                groupAnimator.play();
-                if (Options.Filter.GroupTrue(key)) {
-                    Options.Filter.delectGroup(key);
-                } else {
-                    Options.Filter.selectGroup(key);
-                }
-                if (Options.Filter.AllTrue) {
-                    selectAllButton.innerHTML = "Deselect All";
-                } else {
-                    selectAllButton.innerHTML = "Select All";
-                }
-                const item = htmlSelectFiliterButtons[key];
-                if (item !== undefined) {
-                    for (let i = 0; i < item.length; i++) {
-                        const [name, animator, scalerInfo, element] = item[i];
-                        if (Options.Filter.OPTrue(key, name)) {
-                            (element.children.item(0) as HTMLImageElement).style.filter = "";
-                            scalerInfo.scaler = 90;
-                            animator.setKeyFrames([{ scale: `${scalerInfo.scaler}%` }]);
-                        } else {
-                            (element.children.item(0) as HTMLImageElement).style.filter =
-                                "grayscale(100%)";
-                            scalerInfo.scaler = 70;
-                            animator.setKeyFrames([{ scale: `${scalerInfo.scaler}%` }]);
-                        }
-                        animator.setKeyFrames([{ scale: `${scalerInfo.scaler}%` }]);
-                        animator.setOptions({ duration: 150, fill: "both" });
-                        animator.play();
-                    }
-                }
-                groupAnimator.setKeyFrames([{ scale: `110%` }]);
-                groupAnimator.setOptions({ duration: 25, fill: "both" });
-                groupAnimator.play()?.addEventListener("finish", () => {
-                    if (Options.Filter.GroupTrue(key)) {
-                        groupSelectButton.innerHTML = "Deselect All " + key;
-                    } else {
-                        groupSelectButton.innerHTML = "Select All " + key;
-                    }
-                    groupAnimator.setKeyFrames([{ scale: `${groupScalerInfo.scaler}%` }]);
-                    groupAnimator.setOptions({ duration: 125, fill: "both" });
+            groupSelectButton.addEventListener("pointerup", (event) => {
+                if (event.button === 0) {
                     groupAnimator.play();
-                });
+                    if (Options.Filter.GroupTrue(key)) {
+                        Options.Filter.delectGroup(key);
+                    } else {
+                        Options.Filter.selectGroup(key);
+                    }
+                    if (Options.Filter.AllTrue) {
+                        selectAllButton.innerHTML = "Deselect All";
+                    } else {
+                        selectAllButton.innerHTML = "Select All";
+                    }
+                    const item = htmlSelectFiliterButtons[key];
+                    if (item !== undefined) {
+                        for (let i = 0; i < item.length; i++) {
+                            const [name, animator, scalerInfo, element] = item[i];
+                            if (Options.Filter.OPTrue(key, name)) {
+                                (element.children.item(0) as HTMLImageElement).style.filter = "";
+                                scalerInfo.scaler = 90;
+                                animator.setKeyFrames([{ scale: `${scalerInfo.scaler}%` }]);
+                            } else {
+                                (element.children.item(0) as HTMLImageElement).style.filter =
+                                    "grayscale(100%)";
+                                scalerInfo.scaler = 70;
+                                animator.setKeyFrames([{ scale: `${scalerInfo.scaler}%` }]);
+                            }
+                            animator.setKeyFrames([{ scale: `${scalerInfo.scaler}%` }]);
+                            animator.setOptions({ duration: 150, fill: "both" });
+                            animator.play();
+                        }
+                    }
+                    groupAnimator.setKeyFrames([{ scale: `110%` }]);
+                    groupAnimator.setOptions({ duration: 25, fill: "both" });
+                    groupAnimator.play()?.addEventListener("finish", () => {
+                        if (Options.Filter.GroupTrue(key)) {
+                            groupSelectButton.innerHTML = "Deselect All " + key;
+                        } else {
+                            groupSelectButton.innerHTML = "Select All " + key;
+                        }
+                        groupAnimator.setKeyFrames([{ scale: `${groupScalerInfo.scaler}%` }]);
+                        groupAnimator.setOptions({ duration: 125, fill: "both" });
+                        groupAnimator.play();
+                    });
+                }
             });
             htmlSelectGroupButtons.push([key, groupAnimator, groupScalerInfo, groupSelectButton]);
             groupSelectContainer.appendChild(groupSelectButton);
@@ -1178,54 +1188,56 @@ export function createFilter(
     }
 
     if (htmlSelectGroupButtons.length > 0) {
-        selectAllButton.addEventListener("pointerup", () => {
-            if (Options.Filter.AllTrue) {
-                Options.Filter.deselectAll();
-            } else {
-                Options.Filter.selectAll();
-            }
-            for (let i = 0; i < htmlSelectGroupButtons.length; i++) {
-                const [key, _, __, element] = htmlSelectGroupButtons[i];
-                if (Options.Filter.GroupTrue(key)) {
-                    element.innerHTML = "Deselect All " + key;
+        selectAllButton.addEventListener("pointerup", (event) => {
+            if (event.button === 0) {
+                if (Options.Filter.AllTrue) {
+                    Options.Filter.deselectAll();
                 } else {
-                    element.innerHTML = "Select All " + key;
+                    Options.Filter.selectAll();
                 }
-            }
-            for (const nKey in htmlSelectFiliterButtons) {
-                const key = nKey as keyof typeof htmlSelectFiliterButtons;
-                const item = htmlSelectFiliterButtons[key];
-                if (item !== undefined) {
-                    for (let i = 0; i < item.length; i++) {
-                        const [name, animator, scalerInfo, element] = item[i];
-                        if (Options.Filter.OPTrue(key, name)) {
-                            (element.children.item(0) as HTMLImageElement).style.filter = "";
-                            scalerInfo.scaler = 90;
-                            animator.setKeyFrames([{ scale: `${scalerInfo.scaler}%` }]);
-                        } else {
-                            (element.children.item(0) as HTMLImageElement).style.filter =
-                                "grayscale(100%)";
-                            scalerInfo.scaler = 70;
-                            animator.setKeyFrames([{ scale: `${scalerInfo.scaler}%` }]);
-                        }
-                        animator.setKeyFrames([{ scale: `${scalerInfo.scaler}%` }]);
-                        animator.setOptions({ duration: 150, fill: "both" });
-                        animator.play();
+                for (let i = 0; i < htmlSelectGroupButtons.length; i++) {
+                    const [key, _, __, element] = htmlSelectGroupButtons[i];
+                    if (Options.Filter.GroupTrue(key)) {
+                        element.innerHTML = "Deselect All " + key;
+                    } else {
+                        element.innerHTML = "Select All " + key;
                     }
                 }
-            }
-            selectAnimator.setKeyFrames([{ scale: `110%` }]);
-            selectAnimator.setOptions({ duration: 25, fill: "both" });
-            selectAnimator.play()?.addEventListener("finish", () => {
-                if (Options.Filter.AllTrue) {
-                    selectAllButton.innerHTML = "Deselect All";
-                } else {
-                    selectAllButton.innerHTML = "Select All";
+                for (const nKey in htmlSelectFiliterButtons) {
+                    const key = nKey as keyof typeof htmlSelectFiliterButtons;
+                    const item = htmlSelectFiliterButtons[key];
+                    if (item !== undefined) {
+                        for (let i = 0; i < item.length; i++) {
+                            const [name, animator, scalerInfo, element] = item[i];
+                            if (Options.Filter.OPTrue(key, name)) {
+                                (element.children.item(0) as HTMLImageElement).style.filter = "";
+                                scalerInfo.scaler = 90;
+                                animator.setKeyFrames([{ scale: `${scalerInfo.scaler}%` }]);
+                            } else {
+                                (element.children.item(0) as HTMLImageElement).style.filter =
+                                    "grayscale(100%)";
+                                scalerInfo.scaler = 70;
+                                animator.setKeyFrames([{ scale: `${scalerInfo.scaler}%` }]);
+                            }
+                            animator.setKeyFrames([{ scale: `${scalerInfo.scaler}%` }]);
+                            animator.setOptions({ duration: 150, fill: "both" });
+                            animator.play();
+                        }
+                    }
                 }
-                selectAnimator.setKeyFrames([{ scale: `${selectScalerInfo.scaler}%` }]);
-                selectAnimator.setOptions({ duration: 125, fill: "both" });
-                selectAnimator.play();
-            });
+                selectAnimator.setKeyFrames([{ scale: `110%` }]);
+                selectAnimator.setOptions({ duration: 25, fill: "both" });
+                selectAnimator.play()?.addEventListener("finish", () => {
+                    if (Options.Filter.AllTrue) {
+                        selectAllButton.innerHTML = "Deselect All";
+                    } else {
+                        selectAllButton.innerHTML = "Select All";
+                    }
+                    selectAnimator.setKeyFrames([{ scale: `${selectScalerInfo.scaler}%` }]);
+                    selectAnimator.setOptions({ duration: 125, fill: "both" });
+                    selectAnimator.play();
+                });
+            }
         });
         // filterSelectAll;
     } else {

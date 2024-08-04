@@ -1,5 +1,4 @@
 //#region Main
-import type { AllHTMLAnimators } from "./types/options.js";
 import { GROUPS } from "./ops.js";
 import { whiteBackground } from "./utils/img.js";
 import Options, { createOptions } from "./utils/Siege/options.js";
@@ -67,15 +66,15 @@ function createGroupButtons() {
                 easing: "ease-in-out",
             },
         });
-        htmlGroup.addEventListener("pointerenter", (event) => {
-            if (event.pointerType !== "touch") {
+        htmlGroup.addEventListener("mouseenter", () => {
+            if (!Options.usingTouchScreen) {
                 htmlGroupImg.src = htmlImages.hoverIcon ?? whiteBackground;
                 animator.setKeyFrames([{ scale: "100%" }]);
                 animator.play();
             }
         });
-        htmlGroup.addEventListener("pointerleave", (event) => {
-            if (event.pointerType !== "touch") {
+        htmlGroup.addEventListener("mouseleave", () => {
+            if (!Options.usingTouchScreen) {
                 htmlGroupImg.src = htmlImages.normalIcon ?? whiteBackground;
                 animator.setKeyFrames([{ scale: "90%" }]);
                 animator.play();
@@ -104,14 +103,16 @@ function createGroupButtons() {
     };
     for (let i = 0; i < htmlGroups.length; i++) {
         const { animator, key, htmlGroup, htmlImg, htmlImages } = htmlGroups[i];
-        htmlGroup.addEventListener("pointerup", () => {
-            unsetHTMLGroups(key);
-            htmlImg.src = htmlImages.hoverIcon ?? whiteBackground;
-            animator.setKeyFrames([{ scale: "100%" }]);
-            animator.play()?.addEventListener("finish", () => {
-                groupButtonClicked(key);
-                changeLink("op.html");
-            });
+        htmlGroup.addEventListener("pointerup", (event) => {
+            if (event.button === 0) {
+                unsetHTMLGroups(key);
+                htmlImg.src = htmlImages.hoverIcon ?? whiteBackground;
+                animator.setKeyFrames([{ scale: "100%" }]);
+                animator.play()?.addEventListener("finish", () => {
+                    groupButtonClicked(key);
+                    changeLink("op.html");
+                });
+            }
         });
     }
     if (htmlGroups.length > 0) {

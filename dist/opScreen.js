@@ -235,6 +235,7 @@ function applyVisuals(op) {
             iconContent.style.alignItems = "center";
             iconContent.style.flexDirection = "column";
             const icon = document.createElement("img");
+            icon.draggable = false;
             icon.src = op.icon ?? whiteBackground;
             icon.alt = "OP Icon";
             icon.style.width = "3.5vmax";
@@ -288,37 +289,41 @@ function addOptionButton(rerollOptionsContainer) {
     const animator = new ElementAnimator(optionsButton, {
         options: { duration: 150, fill: "both" },
     });
-    optionsButton.addEventListener("pointerenter", (event) => {
-        if (event.pointerType !== "touch") {
+    optionsButton.addEventListener("mouseenter", () => {
+        if (!Options.usingTouchScreen) {
             animator.setKeyFrames([{ scale: "110%" }]);
             animator.play();
         }
     });
-    optionsButton.addEventListener("pointerleave", (event) => {
-        if (event.pointerType !== "touch") {
+    optionsButton.addEventListener("mouseleave", () => {
+        if (!Options.usingTouchScreen) {
             animator.setKeyFrames([{ scale: "100%" }]);
             animator.play();
         }
     });
-    optionsButton.addEventListener("pointerup", () => {
-        animator.setKeyFrames([{ scale: "110%" }]);
-        animator.play()?.addEventListener("finish", () => {
-            optionsButton.style.display = "none";
-            changeOptionsDisplay("show");
-        });
+    optionsButton.addEventListener("pointerup", (event) => {
+        if (event.button === 0) {
+            animator.setKeyFrames([{ scale: "110%" }]);
+            animator.play()?.addEventListener("finish", () => {
+                optionsButton.style.display = "none";
+                changeOptionsDisplay("show");
+            });
+        }
     });
     optionsInfo.htmls = createOptions(document.body, 1);
     optionsInfo.on = false;
     for (let i = 0; i < optionsInfo.htmls.length; i++) {
         const { element, animator } = optionsInfo.htmls[i];
         if (element.className === "exit-options") {
-            element.addEventListener("pointerup", () => {
-                if (animator !== undefined) {
-                    animator.setKeyFrames([{ scale: "110%" }]);
-                    animator.play()?.addEventListener("finish", () => {
-                        optionsButton.style.display = "";
-                        exitOptions();
-                    });
+            element.addEventListener("pointerup", (event) => {
+                if (event.button === 0) {
+                    if (animator !== undefined) {
+                        animator.setKeyFrames([{ scale: "110%" }]);
+                        animator.play()?.addEventListener("finish", () => {
+                            optionsButton.style.display = "";
+                            exitOptions();
+                        });
+                    }
                 }
             });
         }
@@ -345,6 +350,7 @@ function addReRollButtons(rerollOptionsContainer) {
         rerollButton.style.translate = "10vmax 0";
         const animator = new ElementAnimator(rerollButton);
         const rerollImage = document.createElement("img");
+        rerollImage.draggable = false;
         const htmlImages = group.fetch_html_images();
         rerollImage.src = htmlImages.normalIcon ?? whiteBackground;
         rerollImage.alt = `${key} Rerol Button`;
@@ -352,8 +358,8 @@ function addReRollButtons(rerollOptionsContainer) {
             buttonIsOut: false,
             hasTouched: false,
         };
-        rerollButton.addEventListener("pointerenter", (event) => {
-            if (event.pointerType !== "touch") {
+        rerollButton.addEventListener("mouseenter", () => {
+            if (!Options.usingTouchScreen) {
                 rerollImage.src = htmlImages.hoverIcon ?? whiteBackground;
                 animator.setKeyFrames([{ scale: "100%" }]);
                 animator.setOptions({
@@ -364,8 +370,8 @@ function addReRollButtons(rerollOptionsContainer) {
                 animator.play();
             }
         });
-        rerollButton.addEventListener("pointerleave", (event) => {
-            if (event.pointerType !== "touch") {
+        rerollButton.addEventListener("mouseleave", () => {
+            if (!Options.usingTouchScreen) {
                 rerollImage.src = htmlImages.normalIcon ?? whiteBackground;
                 animator.setKeyFrames([{ scale: "90%" }]);
                 animator.setOptions({
@@ -413,15 +419,17 @@ function addReRollButtons(rerollOptionsContainer) {
     for (let i = 0; i < htmlGroups.length; i++) {
         const { animator, key, htmlGroup, htmlImg, htmlImages, dice } = htmlGroups[i];
         htmlGroup.addEventListener("pointerup", (event) => {
-            event.stopImmediatePropagation();
-            event.stopPropagation();
-            unsetHTMLGroups(key);
-            htmlImg.src = htmlImages.hoverIcon ?? whiteBackground;
-            animator.setKeyFrames([{ scale: "100%" }]);
-            animator.play()?.addEventListener("finish", () => {
-                groupButtonClicked(key);
-                changeLink("op.html");
-            });
+            if (event.button === 0) {
+                event.stopImmediatePropagation();
+                event.stopPropagation();
+                unsetHTMLGroups(key);
+                htmlImg.src = htmlImages.hoverIcon ?? whiteBackground;
+                animator.setKeyFrames([{ scale: "100%" }]);
+                animator.play()?.addEventListener("finish", () => {
+                    groupButtonClicked(key);
+                    changeLink("op.html");
+                });
+            }
         });
     }
     const loopOverHTMLGroups = (func) => {
@@ -464,43 +472,47 @@ function addReRollButtons(rerollOptionsContainer) {
         dice?.animator.play();
     };
     rerollButtons.addEventListener("pointerup", (event) => {
-        event.stopImmediatePropagation();
-        event.stopPropagation();
-        if (event.pointerType === "touch") {
-            loopOverHTMLGroups((htmlGroup) => {
-                const { animationData } = htmlGroup;
-                if (animationData !== undefined) {
-                    if (animationData.hasTouched) {
-                        animationData.hasTouched = false;
-                        unsetTranslations(htmlGroup);
+        if (event.button === 0) {
+            event.stopImmediatePropagation();
+            event.stopPropagation();
+            if (event.pointerType === "touch") {
+                loopOverHTMLGroups((htmlGroup) => {
+                    const { animationData } = htmlGroup;
+                    if (animationData !== undefined) {
+                        if (animationData.hasTouched) {
+                            animationData.hasTouched = false;
+                            unsetTranslations(htmlGroup);
+                        }
+                        else {
+                            animationData.hasTouched = true;
+                            setTranslations(htmlGroup);
+                        }
                     }
-                    else {
-                        animationData.hasTouched = true;
-                        setTranslations(htmlGroup);
-                    }
-                }
-            });
+                });
+            }
         }
     });
     document.body.addEventListener("pointerup", (event) => {
-        event.stopImmediatePropagation();
-        event.stopPropagation();
-        if (event.pointerType === "touch") {
-            loopOverHTMLGroups((htmlGroup) => {
-                htmlGroup.animationData === undefined
-                    ? undefined
-                    : (htmlGroup.animationData.hasTouched = false);
-                unsetTranslations(htmlGroup);
-            });
+        if (event.button === 0) {
+            event.stopImmediatePropagation();
+            event.stopPropagation();
+            if (event.pointerType === "touch") {
+                loopOverHTMLGroups((htmlGroup) => {
+                    htmlGroup.animationData === undefined
+                        ? undefined
+                        : (htmlGroup.animationData.hasTouched = false);
+                    unsetTranslations(htmlGroup);
+                });
+            }
         }
     });
-    rerollButtons.addEventListener("pointerenter", (event) => {
-        if (event.pointerType !== "touch") {
+    rerollButtons.addEventListener("mouseenter", () => {
+        if (!Options.usingTouchScreen) {
             loopOverHTMLGroups(setTranslations);
         }
     });
-    rerollButtons.addEventListener("pointerleave", (event) => {
-        if (event.pointerType !== "touch") {
+    rerollButtons.addEventListener("mouseleave", () => {
+        if (!Options.usingTouchScreen) {
             loopOverHTMLGroups(unsetTranslations);
         }
     });
