@@ -91,7 +91,7 @@ body::-webkit-scrollbar-track {
 
 .reroll-options-wrapper {
     position: fixed;
-    width: fit-content;
+    width: 100%;
     right: 0;
     top: 0;
     bottom: 0;
@@ -104,7 +104,7 @@ body::-webkit-scrollbar-track {
     flex-direction: column;
     height: fit-content;
     min-height: 100%;
-    width: 10vmax;
+    width: 100%;
 }
 
 .options div {
@@ -126,11 +126,11 @@ body::-webkit-scrollbar-track {
 .reroll-container {
     flex-grow: 1;
     display: flex;
-    align-items: center;
+    align-items: end;
     justify-content: center;
     flex-direction: column;
     min-height: fit-content;
-    width: fit-content;
+    width: 100%;
     overflow: hidden;
 }
 .reroll-buttons {
@@ -140,7 +140,7 @@ body::-webkit-scrollbar-track {
     flex-direction: column;
     height: fit-content;
     width: fit-content;
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 .reroll-buttons div {
     height: fit-content;

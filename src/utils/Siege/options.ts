@@ -1,6 +1,6 @@
 //#region Main
 import type {
-    AllHTMLAnimators,
+    AllElementAnimators,
     OptionDisplayType,
     OptionInfosType,
     OptionInfoType,
@@ -500,7 +500,9 @@ export function createOptions(
         exitButton.innerHTML += "&times;";
 
         const animator = new ElementAnimator(exitButton, {
-            options: { duration: 150, fill: "both", easing: "ease-in-out" },
+            duration: 150,
+            fill: "both",
+            easing: "ease-in-out",
         });
         exitButton.addEventListener("pointerenter", (event) => {
             if (event.pointerType !== "touch") {
@@ -645,7 +647,7 @@ export function createOptionsNavBar(optionsModal: HTMLElement, makePopup: boolea
     if (optionInfos !== undefined) {
         const navBar = document.createElement("div");
         navBar.className = "nav-bar";
-        const navButtons: [keyof typeof optionInfos, AllHTMLAnimators, HTMLButtonElement][] = [];
+        const navButtons: [keyof typeof optionInfos, AllElementAnimators, HTMLButtonElement][] = [];
         for (const n in optionInfos) {
             const name = n as keyof typeof optionInfos;
             const navButton = document.createElement("button");
@@ -655,7 +657,9 @@ export function createOptionsNavBar(optionsModal: HTMLElement, makePopup: boolea
             navButton.innerHTML = name;
             navButton.style.background = "transparent";
             const animator = new ElementAnimator(navButton, {
-                options: { duration: 300, fill: "both", easing: "ease-in-out" },
+                duration: 300,
+                fill: "both",
+                easing: "ease-in-out",
             });
             navButton.addEventListener("pointerenter", (event) => {
                 if (event.pointerType !== "touch") {
@@ -979,14 +983,14 @@ export function createFilter(
 
     const htmlSelectGroupButtons: [
         keyof typeof GROUPS,
-        AllHTMLAnimators,
+        AllElementAnimators,
         scalerInfo: { scaler: number },
         HTMLDivElement
     ][] = [];
     const htmlSelectFiliterButtons: {
         [k in keyof typeof GROUPS]?: [
             AllOPNames,
-            AllHTMLAnimators,
+            AllElementAnimators,
             scalerInfo: { scaler: number },
             HTMLDivElement
         ][];

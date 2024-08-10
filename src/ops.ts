@@ -2445,6 +2445,42 @@ export const GROUPS = {
 					"assets/R6Images/OPImages/Nokk.webp",
 				],
 			}),
+			new OPInfo<"Nomad">({
+				name: "Nomad",
+				icons: [
+					"assets/R6Images/OPIcons/Nomad_Icon.png",
+				],
+				images: [
+					"assets/R6Images/OPImages/Nomad.webp",
+				],
+			}),
+			new OPInfo<"Osa">({
+				name: "Osa",
+				icons: [
+					"assets/R6Images/OPIcons/Osa_Icon.png",
+				],
+				images: [
+					"assets/R6Images/OPImages/Osa.webp",
+				],
+			}),
+			new OPInfo<"Ram">({
+				name: "Ram",
+				icons: [
+					"assets/R6Images/OPIcons/Ram_Icon.png",
+				],
+				images: [
+					"assets/R6Images/OPImages/Ram.webp",
+				],
+			}),
+			new OPInfo<"Sens">({
+				name: "Sens",
+				icons: [
+					"assets/R6Images/OPIcons/Sens_Icon.png",
+				],
+				images: [
+					"assets/R6Images/OPImages/Sens.webp",
+				],
+			}),
 			new OPInfo<"Sledge">({
 				name: "Sledge",
 				icons: [
@@ -2768,6 +2804,15 @@ export const GROUPS = {
 							],
 						}
 					}),
+				],
+			}),
+			new OPInfo<"Striker">({
+				name: "Striker",
+				icons: [
+					"assets/R6Images/OPIcons/Striker_Icon.png",
+				],
+				images: [
+					"assets/R6Images/OPImages/Striker.webp",
 				],
 			}),
 			new OPInfo<"Thatcher">({
@@ -4111,6 +4156,24 @@ export const GROUPS = {
 					}),
 				],
 			}),
+			new OPInfo<"Ying">({
+				name: "Ying",
+				icons: [
+					"assets/R6Images/OPIcons/Ying_Icon.png",
+				],
+				images: [
+					"assets/R6Images/OPImages/Ying.webp",
+				],
+			}),
+			new OPInfo<"Zero">({
+				name: "Zero",
+				icons: [
+					"assets/R6Images/OPIcons/Zero_Icon.png",
+				],
+				images: [
+					"assets/R6Images/OPImages/Zero.webp",
+				],
+			}),
 			new OPInfo<"Zofia">({
 				name: "Zofia",
 				icons: [
@@ -5219,11 +5282,18 @@ export const OPParseKeys = {
 		Maverick: "22" as const,
 		Montagne: "23" as const,
 		Nokk: "24" as const,
-		Sledge: "25" as const,
-		Thatcher: "26" as const,
-		Thermite: "27" as const,
-		Twitch: "28" as const,
-		Zofia: "29" as const,
+		Nomad: "25" as const,
+		Osa: "26" as const,
+		Ram: "27" as const,
+		Sens: "28" as const,
+		Sledge: "29" as const,
+		Striker: "30" as const,
+		Thatcher: "31" as const,
+		Thermite: "32" as const,
+		Twitch: "33" as const,
+		Ying: "34" as const,
+		Zero: "35" as const,
+		Zofia: "36" as const,
 	},
 	"1":{
 		Alibi: "0" as const,
@@ -5291,11 +5361,18 @@ export const OPParseKeysRev = {
 		"22": "Maverick" as const,
 		"23": "Montagne" as const,
 		"24": "Nokk" as const,
-		"25": "Sledge" as const,
-		"26": "Thatcher" as const,
-		"27": "Thermite" as const,
-		"28": "Twitch" as const,
-		"29": "Zofia" as const,
+		"25": "Nomad" as const,
+		"26": "Osa" as const,
+		"27": "Ram" as const,
+		"28": "Sens" as const,
+		"29": "Sledge" as const,
+		"30": "Striker" as const,
+		"31": "Thatcher" as const,
+		"32": "Thermite" as const,
+		"33": "Twitch" as const,
+		"34": "Ying" as const,
+		"35": "Zero" as const,
+		"36": "Zofia" as const,
 	},
 	"1":{
 		"0": "Alibi" as const,

@@ -462,7 +462,9 @@ export function createOptions(parentElement, insert, makePopup = true) {
         exitButton.className = "exit-options";
         exitButton.innerHTML += "&times;";
         const animator = new ElementAnimator(exitButton, {
-            options: { duration: 150, fill: "both", easing: "ease-in-out" },
+            duration: 150,
+            fill: "both",
+            easing: "ease-in-out",
         });
         exitButton.addEventListener("pointerenter", (event) => {
             if (event.pointerType !== "touch") {
@@ -607,7 +609,9 @@ export function createOptionsNavBar(optionsModal, makePopup) {
             navButton.innerHTML = name;
             navButton.style.background = "transparent";
             const animator = new ElementAnimator(navButton, {
-                options: { duration: 300, fill: "both", easing: "ease-in-out" },
+                duration: 300,
+                fill: "both",
+                easing: "ease-in-out",
             });
             navButton.addEventListener("pointerenter", (event) => {
                 if (event.pointerType !== "touch") {

@@ -6,7 +6,7 @@ type FetchHTMLAnimators<
     ? ElementAnimator<T>
     : ElementAnimator<HTMLElement>;
 
-export type AllHTMLAnimators = FetchHTMLAnimators<
+export type AllElementAnimators = FetchHTMLAnimators<
     HTMLElementTagNameMap[keyof HTMLElementTagNameMap]
 >;
 
@@ -15,7 +15,7 @@ export type OptionDisplayType<
 > = {
     element: T;
     display?: string;
-    animator?: AllHTMLAnimators;
+    animator?: AllElementAnimators;
 };
 export type OptionInfoType = { htmls: OptionDisplayType[]; on: boolean };
 export type OptionInfosType = {

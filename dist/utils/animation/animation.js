@@ -2,7 +2,6 @@ import { clamp } from "../math.js";
 import { Vector2 } from "../vector.js";
 import { AnimationPoint } from "./animationPoint.js";
 import { AnimationGraph } from "./renderer.js";
-const key = "accent-color";
 export class AnimationCurve {
     #points;
     graph;
@@ -285,108 +284,216 @@ export class AnimationCurves {
     }
 }
 export class Animator {
-    time;
-    timeType;
-    animate;
+    #animate;
+    options;
     args;
-    animationType;
-    infinite;
-    pingPong;
-    autoStartAnimation;
-    #running;
     get running() {
-        return this.#running;
+        const data = this.currentTimelineData;
+        return data === undefined ? false : data.timeline.running;
     }
-    #hasPinged = false;
-    #timer = 0;
-    #deltaTime = 0;
-    #lastTimestamp = 0;
-    #sign = 1;
-    constructor(animate, info = {}) {
-        this.#running = false;
-        this.animate = animate;
-        this.args = info.args ?? [];
-        this.animationType = info.animationCurve ?? AnimationCurves.linear;
-        this.timeType = info.timeType ?? "s";
-        this.infinite = info.infinite ?? false;
-        this.pingPong = info.pingPong ?? false;
-        this.autoStartAnimation = info.autoStartAnimation ?? false;
-        if (info.time !== undefined) {
-            if (typeof info.time === "number" && this.timeType === "ms") {
-                this.time = info.time / 1000;
+    #timelineData = [];
+    get currentTimelineData() {
+        if (this.#timelineData.length > 0) {
+            return this.#timelineData[this.#timelineData.length - 1];
+        }
+        else {
+            return undefined;
+        }
+    }
+    constructor(animate, options = {}) {
+        this.#animate = animate;
+        this.args = options.args ?? [];
+        this.options = {
+            time: 0,
+            animationCurve: AnimationCurves.linear,
+            infinite: false,
+            pingPong: false,
+        };
+        options.timeType = options.timeType ?? "s";
+        if (options.time !== undefined) {
+            if (typeof options.time === "number" && options.timeType === "ms") {
+                options.time = options.time / 1000;
             }
             else {
-                this.time = info.time;
+                options.time = options.time;
             }
         }
         else {
-            this.time = 0;
+            options.time = 0;
+        }
+        this.setOptions({
+            time: options.time,
+            animationCurve: options.animationCurve,
+            infinite: options.infinite,
+            pingPong: options.pingPong,
+        });
+    }
+    setOptions(options) {
+        let key;
+        for (key in options) {
+            const value = options[key];
+            if (value !== undefined) {
+                this.options[key] = value;
+            }
         }
     }
     setArgs = (...args) => {
         this.args = args;
     };
-    play = () => {
-        if (!this.#running) {
-            this.#running = true;
-            this.#timer = 0;
-            this.#lastTimestamp = window.performance.now();
-            requestAnimationFrame(this.#udpate);
+    changeAnimation(animate) {
+        this.#animate = animate;
+    }
+    play = (...args) => {
+        let animate = undefined;
+        let options = undefined;
+        for (let i = 0; i < args.length; i++) {
+            const arg = args[i];
+            if (typeof arg === "function") {
+                animate = arg;
+            }
+            else if (arg !== undefined) {
+                options = arg;
+            }
         }
+        if (animate === undefined) {
+            animate = this.#animate;
+        }
+        if (options === undefined) {
+            options = this.options;
+        }
+        const optionsTime = options?.time ?? 0;
+        console.log(optionsTime);
+        const timeline = {
+            time: optionsTime,
+            paused: false,
+            running: true,
+            timer: 0,
+            deltaTime: 0,
+            reverseTimer: false,
+            lastTimestamp: window.performance.now(),
+            sign: 1,
+        };
+        if (this.#timelineData.length > 0) {
+            for (let i = 0; i < this.#timelineData.length; i++) {
+                const d = this.#timelineData[i];
+                d.timeline.paused = true;
+            }
+            this.#timelineData.splice(0, this.#timelineData.length);
+        }
+        const data = { timeline, listeners: {} };
+        this.#timelineData.push(data);
+        requestAnimationFrame((timestamp) => {
+            this.#udpate(timestamp, animate, options, data);
+        });
+        return this;
     };
     pause = () => {
-        if (this.#running) {
-            this.#running = false;
+        if (this.currentTimelineData !== undefined && this.currentTimelineData.timeline.paused) {
+            this.currentTimelineData.timeline.paused = true;
         }
+        return this;
     };
-    #udpate = (timestamp) => {
-        if (!this.#running) {
-            this.#hasPinged = false;
-            if (this.infinite) {
-                this.#running = true;
+    #udpate = (timestamp, animate, options, data) => {
+        if (data.timeline.paused) {
+            this.#emit("pause", data);
+            return;
+        }
+        if (!data.timeline.running) {
+            data.timeline.reverseTimer = false;
+            if (options.infinite) {
+                data.timeline.running = true;
             }
             else {
+                this.#emit("finish", data);
                 return;
             }
         }
-        this.#deltaTime = (timestamp - this.#lastTimestamp) / 1000;
-        this.#lastTimestamp = timestamp;
-        if (this.animate === undefined) {
-            this.#running = false;
+        data.timeline.deltaTime = (timestamp - data.timeline.lastTimestamp) / 1000;
+        data.timeline.lastTimestamp = timestamp;
+        if (animate === undefined) {
+            data.timeline.running = false;
         }
         else {
-            if (this.time > 0) {
-                if (this.#timer === 0) {
-                    this.#sign = 1;
+            if (data.timeline.time > 0) {
+                if (data.timeline.timer === 0) {
+                    data.timeline.sign = 1;
                 }
-                if (this.pingPong) {
-                    this.#timer += this.#sign * (this.#deltaTime / this.time);
-                    if (this.#timer >= 1) {
-                        this.#sign = -1;
-                        this.#hasPinged = true;
+                if (options.pingPong) {
+                    data.timeline.timer +=
+                        data.timeline.sign * (data.timeline.deltaTime / data.timeline.time);
+                    if (data.timeline.timer >= 1) {
+                        data.timeline.sign = -1;
+                        data.timeline.reverseTimer = true;
                     }
-                    if (this.#timer <= 0 && this.#hasPinged) {
-                        this.#sign = 1;
-                        this.#running = false;
+                    if (data.timeline.timer <= 0 && data.timeline.reverseTimer) {
+                        data.timeline.sign = 1;
+                        data.timeline.running = false;
                     }
                 }
                 else {
-                    this.#timer += this.#sign * (this.#deltaTime / this.time);
-                    if (this.#timer >= 1) {
-                        this.#running = false;
+                    data.timeline.timer +=
+                        data.timeline.sign * (data.timeline.deltaTime / data.timeline.time);
+                    if (data.timeline.timer >= 1) {
+                        data.timeline.running = false;
                     }
                 }
             }
             else {
-                this.#timer = 1;
-                this.#running = false;
+                data.timeline.timer = 1;
+                data.timeline.running = false;
             }
-            const animationTime = this.animationType.fetchTime(this.#timer);
-            this.animate(animationTime, ...this.args);
+            const animationTime = options.animationCurve.fetchTime(data.timeline.timer);
+            animate(animationTime, ...this.args);
         }
-        requestAnimationFrame(this.#udpate);
-        if (!this.#running && !this.pingPong) {
-            this.#timer -= 1;
+        requestAnimationFrame((timestamp) => {
+            this.#udpate(timestamp, animate, options, data);
+        });
+        if (!data.timeline.running && !options.pingPong) {
+            data.timeline.timer -= 1;
+        }
+    };
+    addEventListener = (event, listener) => {
+        const data = this.currentTimelineData;
+        if (data !== undefined) {
+            if (data.listeners === undefined) {
+                data.listeners = {};
+            }
+            let eventListeners = data.listeners[event];
+            if (eventListeners === undefined) {
+                eventListeners = data.listeners[event] = [listener];
+            }
+            else {
+                eventListeners.push(listener);
+            }
+        }
+        return this;
+    };
+    removeListeners = (event, data) => {
+        data = data ?? this.currentTimelineData;
+        if (data !== undefined && data.listeners !== undefined) {
+            if (data.listeners[event] !== undefined) {
+                delete data.listeners[event];
+                if (Object.keys(data.listeners).length <= 0) {
+                    delete data.listeners;
+                }
+            }
+        }
+    };
+    removeAllListeners = (data) => {
+        data = data ?? this.currentTimelineData;
+        if (data !== undefined && data.listeners !== undefined) {
+            data.listeners = undefined;
+        }
+    };
+    #emit = (event, data) => {
+        data = data ?? this.currentTimelineData;
+        if (data !== undefined && data.listeners != undefined) {
+            const listeners = data.listeners[event];
+            if (listeners !== undefined) {
+                for (const key in listeners) {
+                    listeners[key]();
+                }
+            }
         }
     };
 }
@@ -401,14 +508,40 @@ export class ElementAnimator {
     get animation() {
         return this.#animation;
     }
-    constructor(element, options = {}) {
+    constructor(element, ...args) {
         this.setElement(element);
-        this.setKeyFrames(options.keyframes);
-        this.setOptions(options.options);
+        let keyframes = undefined;
+        let options = undefined;
+        for (let i = 0; i < args.length; i++) {
+            const value = args[i];
+            if (Array.isArray(value)) {
+                keyframes = value;
+            }
+            else {
+                options = value;
+            }
+        }
+        if (keyframes !== undefined) {
+            this.setKeyFrames(keyframes);
+        }
+        if (options !== undefined) {
+            this.setOptions(options);
+        }
     }
-    play = () => {
+    play = (...args) => {
+        let keyframes = (this.#keyframes ?? null);
+        let options = this.#options;
+        for (let i = 0; i < args.length; i++) {
+            const value = args[i];
+            if (Array.isArray(value)) {
+                keyframes = value;
+            }
+            else {
+                options = value;
+            }
+        }
         if (this.#element !== undefined) {
-            return (this.#animation = this.#element.animate((this.#keyframes ?? null), this.#options));
+            return (this.#animation = this.#element.animate(keyframes, options));
         }
     };
     pause = () => {
@@ -432,6 +565,5 @@ export class ElementAnimator {
         }
     };
 }
-HTMLElement;
 //#endregion
 //# sourceMappingURL=animation.js.map

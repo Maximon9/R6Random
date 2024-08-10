@@ -2436,6 +2436,42 @@ export const GROUPS = {
                 ],
             }),
             new OPInfo({
+                name: "Nomad",
+                icons: [
+                    "assets/R6Images/OPIcons/Nomad_Icon.png",
+                ],
+                images: [
+                    "assets/R6Images/OPImages/Nomad.webp",
+                ],
+            }),
+            new OPInfo({
+                name: "Osa",
+                icons: [
+                    "assets/R6Images/OPIcons/Osa_Icon.png",
+                ],
+                images: [
+                    "assets/R6Images/OPImages/Osa.webp",
+                ],
+            }),
+            new OPInfo({
+                name: "Ram",
+                icons: [
+                    "assets/R6Images/OPIcons/Ram_Icon.png",
+                ],
+                images: [
+                    "assets/R6Images/OPImages/Ram.webp",
+                ],
+            }),
+            new OPInfo({
+                name: "Sens",
+                icons: [
+                    "assets/R6Images/OPIcons/Sens_Icon.png",
+                ],
+                images: [
+                    "assets/R6Images/OPImages/Sens.webp",
+                ],
+            }),
+            new OPInfo({
                 name: "Sledge",
                 icons: [
                     "assets/R6Images/OPIcons/Sledge_Icon.png",
@@ -2758,6 +2794,15 @@ export const GROUPS = {
                             ],
                         }
                     }),
+                ],
+            }),
+            new OPInfo({
+                name: "Striker",
+                icons: [
+                    "assets/R6Images/OPIcons/Striker_Icon.png",
+                ],
+                images: [
+                    "assets/R6Images/OPImages/Striker.webp",
                 ],
             }),
             new OPInfo({
@@ -4102,6 +4147,24 @@ export const GROUPS = {
                 ],
             }),
             new OPInfo({
+                name: "Ying",
+                icons: [
+                    "assets/R6Images/OPIcons/Ying_Icon.png",
+                ],
+                images: [
+                    "assets/R6Images/OPImages/Ying.webp",
+                ],
+            }),
+            new OPInfo({
+                name: "Zero",
+                icons: [
+                    "assets/R6Images/OPIcons/Zero_Icon.png",
+                ],
+                images: [
+                    "assets/R6Images/OPImages/Zero.webp",
+                ],
+            }),
+            new OPInfo({
                 name: "Zofia",
                 icons: [
                     "assets/R6Images/OPIcons/Zofia_Icon.png",
@@ -5206,11 +5269,18 @@ export const OPParseKeys = {
         Maverick: "22",
         Montagne: "23",
         Nokk: "24",
-        Sledge: "25",
-        Thatcher: "26",
-        Thermite: "27",
-        Twitch: "28",
-        Zofia: "29",
+        Nomad: "25",
+        Osa: "26",
+        Ram: "27",
+        Sens: "28",
+        Sledge: "29",
+        Striker: "30",
+        Thatcher: "31",
+        Thermite: "32",
+        Twitch: "33",
+        Ying: "34",
+        Zero: "35",
+        Zofia: "36",
     },
     "1": {
         Alibi: "0",
@@ -5278,11 +5348,18 @@ export const OPParseKeysRev = {
         "22": "Maverick",
         "23": "Montagne",
         "24": "Nokk",
-        "25": "Sledge",
-        "26": "Thatcher",
-        "27": "Thermite",
-        "28": "Twitch",
-        "29": "Zofia",
+        "25": "Nomad",
+        "26": "Osa",
+        "27": "Ram",
+        "28": "Sens",
+        "29": "Sledge",
+        "30": "Striker",
+        "31": "Thatcher",
+        "32": "Thermite",
+        "33": "Twitch",
+        "34": "Ying",
+        "35": "Zero",
+        "36": "Zofia",
     },
     "1": {
         "0": "Alibi",

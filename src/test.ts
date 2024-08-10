@@ -1,5 +1,5 @@
 //#region Main
-import { Animator, AnimationCurve, AnimationCurves } from "./utils/animation/animation.js";
+import { Animator, AnimationCurve, ElementAnimator } from "./utils/animation/animation.js";
 import { lerp } from "./utils/math.js";
 import { Circle, Renderer2D } from "./utils/animation/renderer.js";
 
@@ -79,26 +79,129 @@ const animator = new Animator(
         pingPong: true,
     }
 );
-animator.animationType.graph.padding = [50, 50];
-animator.animationType.graph.size = [300, 300];
-animator.animationType.graph.anchor = [0.5, 0.5];
+animator.options.animationCurve.graph.padding = [50, 50];
+animator.options.animationCurve.graph.size = [300, 300];
+animator.options.animationCurve.graph.anchor = [0.5, 0.5];
+
+/* export class ElementAnimatorTest<
+    T extends HTMLElementTagNameMap[keyof HTMLElementTagNameMap] | SVGSVGElement =
+        | HTMLElementTagNameMap[keyof HTMLElementTagNameMap]
+        | SVGSVGElement,
+    KS extends string = string
+> {
+    #element!: T;
+
+    public get element(): T {
+        return this.#element;
+    }
+
+    #animations: AnimationsType<KS> = {};
+
+    constructor(element: T, animations?: ElementOptionsTest<KS>) {
+        this.setElement(element);
+
+        for (const key in animations) {
+            const animation = animations[key];
+            this.addAnimation(key, animation);
+        }
+    }
+
+    public addAnimation(key: KS, animation?: AnimationData) {
+        let keyframes: KeyFrame[] | undefined = undefined;
+        let options: AnimationOptions | undefined = undefined;
+        if (animation !== undefined) {
+            for (let i = 0; i < animation.length; i++) {
+                const animationData = animation[i];
+                if (Array.isArray(animationData)) {
+                    keyframes = animationData;
+                } else if (animationData !== undefined) {
+                    options = animationData;
+                }
+            }
+        }
+        if (key !== undefined) {
+            if (this.#animations[key] === undefined) {
+                this.#animations[key] = {
+                    keyframes,
+                    options,
+                };
+            }
+            (this.#animations[key].animation = this.#element.animate(
+                keyframes as RealKeyframes,
+                options
+            )).pause();
+        }
+    }
+    public removeAnimation(key: KS) {
+        if (this.#animations[key] !== undefined) {
+            delete this.#animations[key];
+        }
+    }
+
+    public animation(key: KS): Animation | undefined {
+        return this.#animations[key]?.animation;
+    }
+
+    play = (key: KS): Animation | undefined => {
+        const obj = this.#animations[key];
+        if (
+            obj !== undefined &&
+            obj.animation !== undefined &&
+            obj.keyframes !== undefined &&
+            obj.options !== undefined
+        ) {
+            (obj.animation.effect as KeyframeEffect).setKeyframes(obj.keyframes as RealKeyframes);
+            console.log((obj.animation.effect as KeyframeEffect).getKeyframes());
+            obj.animation.play();
+            return obj.animation;
+        }
+    };
+
+    pause = (key: KS): Animation | undefined => {
+        this.#animations[key]?.animation?.pause();
+        return this.#animations[key]?.animation;
+    };
+
+    setElement = (element?: T) => {
+        if (element !== undefined) {
+            this.#element = element;
+        }
+    };
+} */
+
 function start() {
-    Renderer2D.append(animator.animationType.graph);
+    Renderer2D.append(animator.options.animationCurve.graph);
     Renderer2D.append(circle);
     circle.transform.position = [
         0 + circle.radius + 10,
         Renderer2D.canvas.clientHeight - circle.radius - 50,
     ];
-    animator.animationType.graph.transform.position = [
+    animator.options.animationCurve.graph.transform.position = [
         Math.floor(Renderer2D.canvas.clientWidth / 2),
         Math.floor(Renderer2D.canvas.clientHeight / 2),
     ];
     animator.play();
+    Renderer2D.canvas.style.scale = "50%";
+    const cavasAnimator = new ElementAnimator(Renderer2D.canvas);
+
+    Renderer2D.canvas.addEventListener("pointerenter", () => {
+        cavasAnimator.play([{ scale: "60%" }], {
+            duration: 150,
+            fill: "both",
+            easing: "ease-in-out",
+        });
+    });
+    Renderer2D.canvas.addEventListener("pointerleave", () => {
+        cavasAnimator.play([{ scale: "50%" }], {
+            duration: 150,
+            fill: "both",
+            easing: "ease-in-out",
+        });
+    });
 }
 
-let timer = 0;
 function update() {
-    animator.animationType.graph.transform.position = [
+    animator.options.animationCurve.graph.transform.position = [
         Math.floor(Renderer2D.canvas.clientWidth / 2),
         Math.floor(Renderer2D.canvas.clientHeight / 2),
     ];

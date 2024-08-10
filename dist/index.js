@@ -52,11 +52,9 @@ function createGroupButtons() {
         htmlGroupImg.className = "group-button";
         const htmlImages = group.fetch_html_images();
         const animator = new ElementAnimator(htmlGroup, {
-            options: {
-                duration: 150,
-                fill: "both",
-                easing: "ease-in-out",
-            },
+            duration: 150,
+            fill: "both",
+            easing: "ease-in-out",
         });
         htmlGroup.addEventListener("pointerenter", (event) => {
             if (event.pointerType !== "touch") {
