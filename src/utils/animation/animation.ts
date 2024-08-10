@@ -325,13 +325,9 @@ export class Animator {
 
     constructor(
         animate: Animate,
-        options: {
-            time?: number;
+        options: Partial<AnimationOptions> & {
             timeType?: TimeType;
             args?: any[];
-            animationCurve?: AnimationCurve;
-            infinite?: boolean;
-            pingPong?: boolean;
             autoStartAnimation?: boolean;
         } = {}
     ) {
@@ -339,6 +335,7 @@ export class Animator {
         this.args = options.args ?? [];
         this.options = {
             time: 0,
+            fill: false,
             animationCurve: AnimationCurves.linear,
             infinite: false,
             pingPong: false,
@@ -355,6 +352,7 @@ export class Animator {
         }
         this.setOptions({
             time: options.time,
+            fill: options.fill,
             animationCurve: options.animationCurve,
             infinite: options.infinite,
             pingPong: options.pingPong,

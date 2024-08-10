@@ -94,6 +94,7 @@ export type TimelineData = {
 export type AnimationEvents = "finish" | "pause";
 export type AnimationOptions = {
     time: number;
+    fill: boolean;
     animationCurve: AnimationCurve;
     infinite: boolean;
     pingPong: boolean;

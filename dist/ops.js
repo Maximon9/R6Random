@@ -533,6 +533,9 @@ export const GROUPS = {
                 icons: [
                     "assets/R6Images/OPIcons/Brava_Icon.png",
                 ],
+                images: [
+                    "assets/R6Images/OPImages/Brava.webp",
+                ],
             }),
             new OPInfo({
                 name: "Buck",
@@ -901,11 +904,17 @@ export const GROUPS = {
                 icons: [
                     "assets/R6Images/OPIcons/Capitao_Icon.png",
                 ],
+                images: [
+                    "assets/R6Images/OPImages/Capitao.webp",
+                ],
             }),
             new OPInfo({
                 name: "Deimos",
                 icons: [
                     "assets/R6Images/OPIcons/Deimos_Icon.png",
+                ],
+                images: [
+                    "assets/R6Images/OPImages/Deimos.webp",
                 ],
             }),
             new OPInfo({
@@ -913,17 +922,26 @@ export const GROUPS = {
                 icons: [
                     "assets/R6Images/OPIcons/Dokkaebi_Icon.png",
                 ],
+                images: [
+                    "assets/R6Images/OPImages/Dokkaebi.webp",
+                ],
             }),
             new OPInfo({
                 name: "Finka",
                 icons: [
                     "assets/R6Images/OPIcons/Finka_Icon.png",
                 ],
+                images: [
+                    "assets/R6Images/OPImages/Finka.webp",
+                ],
             }),
             new OPInfo({
                 name: "Flores",
                 icons: [
                     "assets/R6Images/OPIcons/Flores_Icon.png",
+                ],
+                images: [
+                    "assets/R6Images/OPImages/Flores.webp",
                 ],
             }),
             new OPInfo({
