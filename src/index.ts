@@ -118,7 +118,7 @@ function createGroupButtons() {
             if (event.button === 0) {
                 unsetHTMLGroups(key);
                 htmlImg.src = htmlImages.hoverIcon ?? whiteBackground;
-                animator?.play()?.addEventListener("finish", () => {
+                animator?.play("start")?.addEventListener("finish", () => {
                     groupButtonClicked(key);
                     changeLink("./op");
                 });
