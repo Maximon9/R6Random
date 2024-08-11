@@ -520,6 +520,7 @@ img {
 }
 
 footer {
+    z-index: 10;
     padding: 1vmax;
     height: fit-content;
     text-align: center;

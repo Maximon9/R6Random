@@ -1,4 +1,5 @@
 import { ElementAnimator } from "./animation/animation.js";
+import { createElement } from "./html.js";
 import { clamp } from "./math.js";
 
 export default class Dice {
@@ -7,31 +8,28 @@ export default class Dice {
     svg: SVGSVGElement;
     animator: ElementAnimator<SVGSVGElement>;
     constructor() {
-        const dice = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        const dice = createElement("svg", "svg");
         dice.setAttribute("class", "dice");
         dice.setAttribute("viewBox", "0 0 28 28");
 
-        const defs = document.createElementNS("http://www.w3.org/2000/svg", "defs");
+        const defs = createElement("svg", "defs");
 
-        const linearGradient = document.createElementNS(
-            "http://www.w3.org/2000/svg",
-            "linearGradient"
-        );
+        const linearGradient = createElement("svg", "linearGradient");
         linearGradient.id = "diceGradient";
         linearGradient.setAttribute("x1", "50%");
         linearGradient.setAttribute("y1", "0%");
         linearGradient.setAttribute("x2", "50%");
         linearGradient.setAttribute("y2", "100%");
 
-        const stop1 = document.createElementNS("http://www.w3.org/2000/svg", "stop");
+        const stop1 = createElement("svg", "stop");
         stop1.setAttribute("stop-color", "#e4e4e4");
         stop1.setAttribute("offset", "30%");
 
-        const stop2 = document.createElementNS("http://www.w3.org/2000/svg", "stop");
+        const stop2 = createElement("svg", "stop");
         stop2.setAttribute("stop-color", "#e4e4e4");
         stop2.setAttribute("offset", "70%");
 
-        const paths = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        const paths = createElement("svg", "path");
         paths.id = "path";
         paths.setAttribute(
             "d",
@@ -39,7 +37,7 @@ export default class Dice {
         );
         paths.setAttribute("fill", "url(#diceGradient)");
 
-        this.#circlesContainer = document.createElementNS("http://www.w3.org/2000/svg", "g");
+        this.#circlesContainer = createElement("svg", "g");
         paths.id = "circles-container";
 
         linearGradient.appendChild(stop1);

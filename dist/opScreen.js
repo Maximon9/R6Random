@@ -8,19 +8,13 @@ import { whiteBackground } from "./utils/img.js";
 import { AnimationCurves, Animator, ElementAnimator } from "./utils/animation/animation.js";
 import InputSystem from "./utils/input.js";
 import { createFooter } from "./utils/Siege/footer.js";
-import { groupButtonClicked } from "./utils/html.js";
+import { createElement, groupButtonClicked } from "./utils/html.js";
 import Dice, { getRandomItemFromArray } from "./utils/randomize.js";
 import { lerp } from "./utils/math.js";
 InputSystem.start();
 let opModal = undefined;
 let rerollOptionsWrapper = undefined;
 function roll() {
-    document.body.oncontextmenu = (event) => {
-        event.preventDefault();
-        event.stopPropagation(); // not necessary in my case, could leave in case stopImmediateProp isn't available?
-        event.stopImmediatePropagation();
-        return false;
-    };
     let op = undefined;
     const key = sessionStorage.getItem("group");
     const roll = sessionStorage.getItem("roll");
@@ -208,9 +202,9 @@ function equipmentMatchesList(equipment, equipments) {
 }
 function applyVisuals(op) {
     if (rerollOptionsWrapper === undefined) {
-        rerollOptionsWrapper = document.createElement("div");
+        rerollOptionsWrapper = createElement("html", "div");
         rerollOptionsWrapper.className = "reroll-options-wrapper";
-        const rerollOptionsContainer = document.createElement("div");
+        const rerollOptionsContainer = createElement("html", "div");
         rerollOptionsContainer.className = "reroll-options-container";
         addOptionButton(rerollOptionsContainer);
         addReRollButtons(rerollOptionsContainer);
@@ -218,21 +212,21 @@ function applyVisuals(op) {
         document.body.insertBefore(rerollOptionsWrapper, document.body.childNodes[2]);
     }
     if (op !== undefined) {
-        opModal = document.createElement("section");
+        opModal = createElement("html", "section");
         opModal.className = "op-modal";
-        const opModalContent = document.createElement("div");
+        const opModalContent = createElement("html", "div");
         opModalContent.className = "op-modal-content";
-        const opModalInfo = document.createElement("div");
+        const opModalInfo = createElement("html", "div");
         opModalInfo.className = "op-modal-info";
         if (op.name !== undefined) {
-            const opData = document.createElement("div");
+            const opData = createElement("html", "div");
             opData.className = "op-data";
-            const image = document.createElement("div");
+            const image = createElement("html", "div");
             image.className = "op-image";
             image.style.backgroundImage = `url("${op.image ?? whiteBackground}")`;
-            const iconContainer = document.createElement("div");
+            const iconContainer = createElement("html", "div");
             iconContainer.className = "icon-container";
-            const iconContent = document.createElement("div");
+            const iconContent = createElement("html", "div");
             iconContent.style.width = "fit-content";
             iconContent.style.height = "fit-content";
             iconContent.style.fontSize = "2vmax";
@@ -240,7 +234,7 @@ function applyVisuals(op) {
             iconContent.style.justifyContent = "center";
             iconContent.style.alignItems = "center";
             iconContent.style.flexDirection = "column";
-            const icon = document.createElement("img");
+            const icon = createElement("html", "img");
             icon.src = op.icon ?? whiteBackground;
             icon.alt = "OP Icon";
             icon.style.width = "3.5vmax";
@@ -251,19 +245,19 @@ function applyVisuals(op) {
             opData.appendChild(image);
             opModalInfo.appendChild(opData);
         }
-        const equipmentContent = document.createElement("div");
+        const equipmentContent = createElement("html", "div");
         equipmentContent.className = "equipment-content";
         equipmentContent.innerHTML += "Equipment";
-        const equipmentWrapper = document.createElement("div");
+        const equipmentWrapper = createElement("html", "div");
         equipmentWrapper.className = "equipment-wrapper";
         const equipment = op?.equipment;
         if (equipment !== undefined) {
             for (let i = 0; i < equipment.length; i++) {
                 const eq = equipment[i];
                 if (eq.name !== undefined) {
-                    const equipmentData = document.createElement("div");
+                    const equipmentData = createElement("html", "div");
                     equipmentData.className = "equipment-data";
-                    const equipmentImage = document.createElement("div");
+                    const equipmentImage = createElement("html", "div");
                     equipmentImage.className = "equipment-image";
                     equipmentImage.style.backgroundImage = `url("${eq.image ?? whiteBackground}")`;
                     equipmentData.appendChild(equipmentImage);
@@ -274,7 +268,7 @@ function applyVisuals(op) {
             equipmentContent.appendChild(equipmentWrapper);
             opModalInfo.appendChild(equipmentContent);
         }
-        const weaponContainer = document.createElement("div");
+        const weaponContainer = createElement("html", "div");
         weaponContainer.className = "weapons-container";
         tryAddWeaponVisuals("Primary", weaponContainer, op.primaryWeapon);
         tryAddWeaponVisuals("Secondary", weaponContainer, op.secondaryWeapon);
@@ -286,10 +280,10 @@ function applyVisuals(op) {
     }
 }
 function addOptionButton(rerollOptionsContainer) {
-    const options = document.createElement("div");
+    const options = createElement("html", "div");
     options.className = "options";
-    const optionsContainer = document.createElement("div");
-    const optionsButton = document.createElement("div");
+    const optionsContainer = createElement("html", "div");
+    const optionsButton = createElement("html", "div");
     optionsButton.style.backgroundImage = "url(assets/images/OptionsIcon.svg)";
     const animator = new ElementAnimator(optionsButton, [{ scale: "110%" }], {
         duration: 150,
@@ -336,9 +330,9 @@ function addOptionButton(rerollOptionsContainer) {
     document.body.insertBefore(rerollOptionsContainer, document.body.childNodes[0]);
 }
 function addReRollButtons(rerollOptionsContainer) {
-    const rerollContainer = document.createElement("div");
+    const rerollContainer = createElement("html", "div");
     rerollContainer.className = "reroll-container";
-    const rerollButtons = document.createElement("div");
+    const rerollButtons = createElement("html", "div");
     rerollButtons.className = "reroll-buttons";
     rerollButtons.style.zIndex = "1";
     const htmlGroups = [];
@@ -346,7 +340,7 @@ function addReRollButtons(rerollOptionsContainer) {
     for (let i = 0; i < groupKeys.length; i++) {
         const key = groupKeys[i];
         const group = GROUPS[key];
-        const rerollButton = document.createElement("div");
+        const rerollButton = createElement("html", "div");
         rerollButton.style.zIndex = "2";
         rerollButton.style.scale = "90%";
         rerollButton.style.translate = "10vmax 0";
@@ -367,7 +361,7 @@ function addReRollButtons(rerollOptionsContainer) {
             animationCurve: AnimationCurves.easeInOut,
             args: [rerollButton],
         });
-        const rerollImage = document.createElement("img");
+        const rerollImage = createElement("html", "img");
         rerollImage.draggable = false;
         const htmlImages = group.fetch_html_images();
         rerollImage.src = htmlImages.normalIcon ?? whiteBackground;
@@ -522,17 +516,17 @@ function addReRollButtons(rerollOptionsContainer) {
 }
 function tryAddWeaponVisuals(key, weaponContainer, weapon) {
     if (weapon !== undefined && weapon.name !== undefined) {
-        const content = document.createElement("div");
+        const content = createElement("html", "div");
         content.className = "weapon-content";
-        const weaponSection = document.createElement("div");
+        const weaponSection = createElement("html", "div");
         weaponSection.className = "weapon-section";
-        const title = document.createElement("div");
+        const title = createElement("html", "div");
         title.innerHTML += key;
         title.style.fontSize = "2.5vmax";
-        const weaponImage = document.createElement("div");
+        const weaponImage = createElement("html", "div");
         weaponImage.style.backgroundImage = `url("${weapon.image ?? whiteBackground}")`;
         weaponImage.className = "weapon-image";
-        const weaponData = document.createElement("div");
+        const weaponData = createElement("html", "div");
         weaponData.className = "weapon-data";
         weaponData.appendChild(weaponImage);
         weaponData.innerHTML += weapon.name;
@@ -548,7 +542,7 @@ function tryAddAttachmentVisuals(weaponData, attachments) {
         if (Object.keys(attachments).length > 0) {
             const sectionInfo = {};
             const sectionOrder = { 0: [], 1: [] };
-            const attachmentsDiv = document.createElement("div");
+            const attachmentsDiv = createElement("html", "div");
             attachmentsDiv.className = "attachments";
             for (const nKey in attachments) {
                 const key = nKey;
@@ -558,44 +552,44 @@ function tryAddAttachmentVisuals(weaponData, attachments) {
                 let attachmentData = undefined;
                 if (key === "sight" || key === "barrel") {
                     if (sectionZero === undefined) {
-                        sectionZero = sectionInfo["0"] = document.createElement("div");
+                        sectionZero = sectionInfo["0"] = createElement("html", "div");
                         sectionZero.className = "attachment-section";
                     }
                     switch (key) {
                         case "sight":
-                            attachmentData = sectionOrder["0"][0] = document.createElement("div");
+                            attachmentData = sectionOrder["0"][0] = createElement("html", "div");
                             break;
                         default:
-                            attachmentData = sectionOrder["0"][1] = document.createElement("div");
+                            attachmentData = sectionOrder["0"][1] = createElement("html", "div");
                             break;
                     }
                 }
                 else {
                     if (sectionOne === undefined) {
-                        sectionOne = sectionInfo[1] = document.createElement("div");
+                        sectionOne = sectionInfo[1] = createElement("html", "div");
                         sectionOne.className = "attachment-section";
                     }
                     switch (key) {
                         case "grip":
-                            attachmentData = sectionOrder["1"][0] = document.createElement("div");
+                            attachmentData = sectionOrder["1"][0] = createElement("html", "div");
                             break;
                         default:
-                            attachmentData = sectionOrder["1"][1] = document.createElement("div");
+                            attachmentData = sectionOrder["1"][1] = createElement("html", "div");
                             break;
                     }
                 }
                 if (attachmentData !== undefined && attachment?.name !== undefined) {
                     attachmentData.className = "attachment-section-data";
                     attachmentData.style.fontSize = "1.5vmax";
-                    const image = document.createElement("div");
+                    const image = createElement("html", "div");
                     image.className = "attachment-image";
                     image.style.backgroundImage = `url("${attachment.image ?? whiteBackground}")`;
-                    const attachmentDataWrapper = document.createElement("div");
+                    const attachmentDataWrapper = createElement("html", "div");
                     attachmentDataWrapper.className = "attachment-section-data-wrapper";
-                    const attachmentName = document.createElement("div");
+                    const attachmentName = createElement("html", "div");
                     attachmentName.className = "attachment-name";
                     attachmentName.innerHTML = attachment.name;
-                    const attachmentTitle = document.createElement("div");
+                    const attachmentTitle = createElement("html", "div");
                     attachmentTitle.style.fontSize = "1.2em";
                     attachmentTitle.innerHTML += key;
                     attachmentDataWrapper.appendChild(image);

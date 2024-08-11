@@ -5,19 +5,13 @@ import { createOptions } from "./utils/Siege/options.js";
 import InputSystem from "./utils/input.js";
 import { AnimationCurves, Animator } from "./utils/animation/animation.js";
 import { createFooter } from "./utils/Siege/footer.js";
-import { changeLink, groupButtonClicked } from "./utils/html.js";
+import { changeLink, createElement, groupButtonClicked } from "./utils/html.js";
 import { lerp } from "./utils/math.js";
 InputSystem.start();
 const mainContentWrapper = document
     .getElementsByClassName("main-content-wrapper")
     .item(0);
 function main() {
-    document.body.oncontextmenu = (event) => {
-        event.preventDefault();
-        event.stopPropagation(); // not necessary in my case, could leave in case stopImmediateProp isn't available?
-        event.stopImmediatePropagation();
-        return false;
-    };
     createGroupButtons();
     if (mainContentWrapper !== null) {
         createOptions(mainContentWrapper, 4, false);
@@ -25,30 +19,30 @@ function main() {
     }
 }
 function createGroupButtons() {
-    const groupModal = document.createElement("section");
+    const groupModal = createElement("html", "section");
     groupModal.className = "group-modal";
-    const groupModalTable = document.createElement("table");
-    const groupModalTBody = document.createElement("tbody");
-    const groupModalTitleRow = document.createElement("tr");
-    const groupModalRow = document.createElement("tr");
+    const groupModalTable = createElement("html", "table");
+    const groupModalTBody = createElement("html", "tbody");
+    const groupModalTitleRow = createElement("html", "tr");
+    const groupModalRow = createElement("html", "tr");
     const grouKeys = Object.keys(GROUPS);
     const htmlGroups = [];
     for (let i = 0; i < grouKeys.length; i++) {
         const key = grouKeys[i];
         const group = GROUPS[key];
-        const htmlGroup = document.createElement("td");
+        const htmlGroup = createElement("html", "td");
         htmlGroup.style.color = "white";
         htmlGroup.style.fontSize = "2vmax";
         htmlGroup.style.textAlign = "center";
         htmlGroup.style.cursor = "pointer";
         htmlGroup.style.scale = "90%";
         htmlGroup.innerHTML += key;
-        const htmlGroupDiv = document.createElement("div");
+        const htmlGroupDiv = createElement("html", "div");
         htmlGroupDiv.style.marginLeft = "auto";
         htmlGroupDiv.style.marginRight = "auto";
         htmlGroupDiv.style.width = "20vmax";
         htmlGroupDiv.style.height = "20vmax";
-        const htmlGroupImg = document.createElement("img");
+        const htmlGroupImg = createElement("html", "img");
         htmlGroupImg.draggable = false;
         htmlGroupImg.className = "group-button";
         const htmlImages = group.fetch_html_images();
@@ -114,7 +108,7 @@ function createGroupButtons() {
         });
     }
     if (htmlGroups.length > 0) {
-        const groupModalTitleData = document.createElement("td");
+        const groupModalTitleData = createElement("html", "td");
         groupModalTitleData.colSpan = htmlGroups.length;
         groupModalTitleData.innerHTML = "Roll Here";
         groupModalTitleData.style.fontSize = "4vmax";
