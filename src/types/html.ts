@@ -3,10 +3,12 @@ import type Dice from "../utils/randomize.js";
 import type { AllElementAnimators } from "./options.js";
 
 export type HTMLGroup<
-    A extends AllElementAnimators | Animator = AllElementAnimators,
-    D extends { [k: string]: boolean } = { [k: string]: boolean }
+    D extends { [k: string]: boolean } = { [k: string]: boolean },
+    A extends Animator = Animator,
+    E extends AllElementAnimators = AllElementAnimators
 > = {
-    animator: A;
+    animator?: A;
+    elementAnimator?: E;
     animationData?: D;
     key: string;
     htmlGroup: HTMLDivElement;

@@ -3,9 +3,10 @@ import { GROUPS } from "./ops.js";
 import { whiteBackground } from "./utils/img.js";
 import { createOptions } from "./utils/Siege/options.js";
 import InputSystem from "./utils/input.js";
-import { ElementAnimator } from "./utils/animation/animation.js";
+import { AnimationCurves, Animator } from "./utils/animation/animation.js";
 import { createFooter } from "./utils/Siege/footer.js";
 import { changeLink, groupButtonClicked } from "./utils/html.js";
+import { lerp } from "./utils/math.js";
 InputSystem.start();
 const mainContentWrapper = document
     .getElementsByClassName("main-content-wrapper")
@@ -51,26 +52,35 @@ function createGroupButtons() {
         htmlGroupImg.draggable = false;
         htmlGroupImg.className = "group-button";
         const htmlImages = group.fetch_html_images();
-        const animator = new ElementAnimator(htmlGroup, {
-            duration: 150,
-            fill: "both",
-            easing: "ease-in-out",
+        const animator = new Animator((t, button) => {
+            const p = lerp(t, 90, 100);
+            button.style.scale = `${p}%`;
+        }, {
+            duration: 0.15,
+            fill: true,
+            animationCurve: AnimationCurves.easeInOut,
+            args: [htmlGroup],
         });
         htmlGroup.addEventListener("pointerenter", (event) => {
             if (event.pointerType !== "touch") {
                 htmlGroupImg.src = htmlImages.hoverIcon ?? whiteBackground;
-                animator.setKeyFrames([{ scale: "100%" }]);
-                animator.play();
+                animator.play("start");
             }
         });
         htmlGroup.addEventListener("pointerleave", (event) => {
             if (event.pointerType !== "touch") {
-                htmlGroupImg.src = htmlImages.normalIcon ?? whiteBackground;
-                animator.setKeyFrames([{ scale: "90%" }]);
-                animator.play();
+                animator.play("end")?.addEventListener("finish", () => {
+                    htmlGroupImg.src = htmlImages.normalIcon ?? whiteBackground;
+                });
             }
         });
-        htmlGroups.push({ animator, key, htmlGroup, htmlImg: htmlGroupImg, htmlImages });
+        htmlGroups.push({
+            animator,
+            key,
+            htmlGroup,
+            htmlImg: htmlGroupImg,
+            htmlImages,
+        });
         const first_icon = htmlImages.normalIcon ?? htmlImages.hoverIcon;
         if (first_icon != undefined) {
             htmlGroupImg.src = first_icon;
@@ -84,9 +94,9 @@ function createGroupButtons() {
         for (let i = 0; i < htmlGroups.length; i++) {
             const { animator, key, htmlImg, htmlImages } = htmlGroups[i];
             if (name !== key) {
-                htmlImg.src = htmlImages.normalIcon ?? whiteBackground;
-                animator.setKeyFrames([{ scale: "90%" }]);
-                animator.play();
+                animator?.play("end").addEventListener("finish", () => {
+                    htmlImg.src = htmlImages.normalIcon ?? whiteBackground;
+                });
             }
         }
     };
@@ -96,8 +106,7 @@ function createGroupButtons() {
             if (event.button === 0) {
                 unsetHTMLGroups(key);
                 htmlImg.src = htmlImages.hoverIcon ?? whiteBackground;
-                animator.setKeyFrames([{ scale: "100%" }]);
-                animator.play()?.addEventListener("finish", () => {
+                animator?.play()?.addEventListener("finish", () => {
                     groupButtonClicked(key);
                     changeLink("./op");
                 });

@@ -34,13 +34,13 @@ const animator = new Animator(
     (time: number) => {
         circle.transform.position = [
             lerp(time, 0 + circle.radius + 10, Renderer2D.canvas.clientWidth - circle.radius - 10),
-            Renderer2D.canvas.clientHeight - circle.radius - 50,
+            Renderer2D.canvas.clientHeight - circle.radius,
         ];
         update();
         Renderer2D.render();
     },
     {
-        time: 1,
+        duration: 1,
         animationCurve: /* AnimationCurves.step(4) */ /* new AnimationCurve(
         ["achor", 0, 0],
         ["control", 1 / 6 + num, 1 / 6 - num],
@@ -181,22 +181,20 @@ function start() {
         Math.floor(Renderer2D.canvas.clientHeight / 2),
     ];
     animator.play();
-    Renderer2D.canvas.style.scale = "50%";
-    const cavasAnimator = new ElementAnimator(Renderer2D.canvas);
+    const cavasAnimator = new Animator(
+        (t: number, canvas: HTMLCanvasElement) => {
+            console.log(t);
+            const p = lerp(t, 90, 100);
+            canvas.style.scale = `${p}%`;
+        },
+        { duration: 0.5, fill: true, args: [Renderer2D.canvas] }
+    );
 
     Renderer2D.canvas.addEventListener("pointerenter", () => {
-        cavasAnimator.play([{ scale: "60%" }], {
-            duration: 150,
-            fill: "both",
-            easing: "ease-in-out",
-        });
+        cavasAnimator.play();
     });
     Renderer2D.canvas.addEventListener("pointerleave", () => {
-        cavasAnimator.play([{ scale: "50%" }], {
-            duration: 150,
-            fill: "both",
-            easing: "ease-in-out",
-        });
+        cavasAnimator.play();
     });
 }
 

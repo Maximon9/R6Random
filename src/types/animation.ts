@@ -61,6 +61,8 @@ type GetAllTypesInArray<T extends any[]> = T extends [infer A, infer B, ...infer
     ? C extends []
         ? A | B
         : A | B | GetAllTypesInArray<C>
+    : T extends [infer A]
+    ? A
     : T;
 type DisectArrayType<
     T extends any[],
@@ -75,25 +77,22 @@ export type ElementAnimationsType<K extends string = string> = {
     [k in K]?: { animation?: Animation; keyframes?: KeyFrame[]; options?: ElementAnimationOptions };
 };
 
-export type Timeline = {
-    time: number;
+export type FrameData = {
     paused: boolean;
     running: boolean;
-    reverseTimer: boolean;
-    timer: number;
-    deltaTime: number;
-    lastTimestamp: number;
-    sign: -1 | 1;
+    listeners?: {
+        [k in AnimationEvents]?: (() => void)[];
+    };
 };
 export type TimelineData = {
-    timeline: Timeline;
+    timeline: FrameData;
     listeners?: {
         [k in AnimationEvents]?: (() => void)[];
     };
 };
 export type AnimationEvents = "finish" | "pause";
 export type AnimationOptions = {
-    time: number;
+    duration: number;
     fill: boolean;
     animationCurve: AnimationCurve;
     infinite: boolean;
@@ -101,6 +100,8 @@ export type AnimationOptions = {
 };
 export type Animate = (time: number, ...args: any[]) => void;
 
-export type AnimationData = DisectArrayType<[Animate, AnimationOptions]>;
+export type AnimatePos = "start" | "end";
+
+export type AnimationData = DisectArrayType<[Animate, AnimationOptions, AnimatePos]>;
 
 //#endregion

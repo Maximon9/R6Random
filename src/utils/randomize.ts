@@ -2,11 +2,11 @@ import { ElementAnimator } from "./animation/animation.js";
 import { clamp } from "./math.js";
 
 export default class Dice {
-    number: number;
+    #circlesContainer: SVGElement;
+    number!: number;
     svg: SVGSVGElement;
     animator: ElementAnimator<SVGSVGElement>;
     constructor() {
-        this.number = clamp(Math.ceil(Math.random() * 6), 1, 6);
         const dice = document.createElementNS("http://www.w3.org/2000/svg", "svg");
         dice.setAttribute("class", "dice");
         dice.setAttribute("viewBox", "0 0 28 28");
@@ -39,39 +39,51 @@ export default class Dice {
         );
         paths.setAttribute("fill", "url(#diceGradient)");
 
+        this.#circlesContainer = document.createElementNS("http://www.w3.org/2000/svg", "g");
+        paths.id = "circles-container";
+
         linearGradient.appendChild(stop1);
         linearGradient.appendChild(stop2);
         defs.appendChild(linearGradient);
         dice.appendChild(defs);
         dice.appendChild(paths);
+        dice.appendChild(this.#circlesContainer);
 
+        this.randomize();
+
+        this.svg = dice;
+        this.animator = new ElementAnimator(this.svg);
+    }
+
+    randomize() {
+        this.number = clamp(Math.ceil(Math.random() * 6), 1, 6);
+        this.#circlesContainer.innerHTML = "";
         switch (this.number) {
             case 1:
-                dice.innerHTML += '<circle id="C1" fill="#1C1C1F" cx="14" cy="14" r="2"></circle>';
+                this.#circlesContainer.innerHTML +=
+                    '<circle id="C1" fill="#1C1C1F" cx="14" cy="14" r="2"></circle>';
                 break;
             case 2:
-                dice.innerHTML +=
+                this.#circlesContainer.innerHTML +=
                     '<circle id="C1" fill="#1C1C1F" cx="7" cy="21" r="2"></circle><circle id="C2" fill="#1C1C1F" cx="21" cy="7" r="2"></circle>';
                 break;
             case 3:
-                dice.innerHTML +=
-                    '<circle id="C1" fill="#1C1C1F" cx="14" cy="14" r="2"></circle><circle id="C2" fill="#1C1C1F" cx="7" cy="21" r="2"></circle><circle id="C3" fill="#1C1C1F" cx="21" cy="7" r="2"></circle>';
+                this.#circlesContainer.innerHTML +=
+                    '<circle id="C1" fill="#1C1C1F" cx="7" cy="21" r="2"></circle><circle id="C2" fill="#1C1C1F" cx="14" cy="14" r="2"></circle><circle id="C3" fill="#1C1C1F" cx="21" cy="7" r="2"></circle>';
                 break;
             case 4:
-                dice.innerHTML +=
+                this.#circlesContainer.innerHTML +=
                     '<circle id="C1" fill="#1C1C1F" cx="7" cy="7" r="2"></circle><circle id="C2" fill="#1C1C1F" cx="7" cy="21" r="2"></circle><circle id="C3" fill="#1C1C1F" cx="21" cy="7" r="2"></circle><circle id="C4" fill="#1C1C1F" cx="21" cy="21" r="2"></circle>';
                 break;
             case 5:
-                dice.innerHTML +=
+                this.#circlesContainer.innerHTML +=
                     '<circle id="C1" fill="#1C1C1F" cx="7" cy="7" r="2"></circle><circle id="C2" fill="#1C1C1F" cx="7" cy="21" r="2"></circle><circle id="C3" fill="#1C1C1F" cx="14" cy="14" r="2"></circle><circle id="C4" fill="#1C1C1F" cx="21" cy="7" r="2"></circle><circle id="C5" fill="#1C1C1F" cx="21" cy="21" r="2"></circle>';
                 break;
             case 6:
-                dice.innerHTML +=
+                this.#circlesContainer.innerHTML +=
                     '<circle id="C1" fill="#1C1C1F" cx="8" cy="7" r="2"></circle><circle id="C2" fill="#1C1C1F" cx="8" cy="14" r="2"></circle><circle id="C3" fill="#1C1C1F" cx="8" cy="21" r="2"></circle><circle id="C4" fill="#1C1C1F" cx="20" cy="7" r="2"></circle><circle id="C5" fill="#1C1C1F" cx="20" cy="14" r="2"></circle><circle id="C6" fill="#1C1C1F" cx="20" cy="21" r="2"></circle>';
                 break;
         }
-        this.svg = dice;
-        this.animator = new ElementAnimator(this.svg);
     }
 }
 

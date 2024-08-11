@@ -438,12 +438,9 @@ function addReRollButtons(rerollOptionsContainer: HTMLDivElement) {
     rerollButtons.className = "reroll-buttons";
     rerollButtons.style.zIndex = "1";
 
-    const htmlGroups: HTMLGroup<
-        Animator,
-        {
-            hasTouched: boolean;
-        }
-    >[] = [];
+    const htmlGroups: HTMLGroup<{
+        hasTouched: boolean;
+    }>[] = [];
     const groupKeys = Object.keys(GROUPS);
     for (let i = 0; i < groupKeys.length; i++) {
         const key = groupKeys[i];
@@ -451,27 +448,25 @@ function addReRollButtons(rerollOptionsContainer: HTMLDivElement) {
         const rerollButton = document.createElement("div");
         rerollButton.style.zIndex = "2";
         rerollButton.style.scale = "90%";
-        rerollButton.style.translate = "-10vmax 0";
+        rerollButton.style.translate = "10vmax 0";
         const animationData = {
-            // scale: 90,
             hasTouched: false,
         };
+        const elementAnimator = new ElementAnimator(rerollButton, [{ translate: "0, 0" }], {
+            duration: 150,
+            fill: "both",
+            easing: "ease-in-out",
+        });
         const animator = new Animator(
-            (
-                t: number,
-                button: HTMLDivElement
-                /* data: {
-                    scale: number;
-                    hasTouched: boolean;
-                } */
-            ) => {
-                const p = lerp(t, 90, 150);
+            (t: number, button: HTMLDivElement) => {
+                const p = lerp(t, 90, 100);
                 button.style.scale = `${p}%`;
             },
             {
-                time: 1,
+                duration: 0.15,
+                fill: true,
                 animationCurve: AnimationCurves.easeInOut,
-                args: [rerollButton, animationData],
+                args: [rerollButton],
             }
         );
 
@@ -481,45 +476,25 @@ function addReRollButtons(rerollOptionsContainer: HTMLDivElement) {
         rerollImage.src = htmlImages.normalIcon ?? whiteBackground;
         rerollImage.alt = `${key} Rerol Button`;
 
-        /* const setScale = () => {
-            animationData.scale = Number(rerollButton.style.scale) * 100;
-        }; */
-
         rerollButton.addEventListener("pointerenter", (event) => {
             if (event.pointerType !== "touch") {
                 rerollImage.src = htmlImages.hoverIcon ?? whiteBackground;
-                animator.play();
+                animator.play("start");
             }
         });
         rerollButton.addEventListener("pointerleave", (event) => {
             if (event.pointerType !== "touch") {
-                animator
-                    .play(
-                        (
-                            t: number,
-                            button: HTMLDivElement
-                            /* data: {
-                                scale: number;
-                                hasTouched: boolean;
-                            } */
-                        ) => {
-                            const p = lerp(t, 150, 90);
-                            button.style.scale = `${p}%`;
-                        }
-                    )
-                    .addEventListener("finish", () => {
-                        rerollImage.src = htmlImages.normalIcon ?? whiteBackground;
-                    });
+                animator.play("end").addEventListener("finish", () => {
+                    rerollImage.src = htmlImages.normalIcon ?? whiteBackground;
+                });
             }
         });
 
-        const htmlGroupData: HTMLGroup<
-            Animator,
-            {
-                hasTouched: boolean;
-            }
-        > = {
+        const htmlGroupData: HTMLGroup<{
+            hasTouched: boolean;
+        }> = {
             animator,
+            elementAnimator,
             animationData,
             key,
             htmlGroup: rerollButton,
@@ -533,7 +508,7 @@ function addReRollButtons(rerollOptionsContainer: HTMLDivElement) {
         if (i < groupKeys.length - 1) {
             const dice = new Dice();
             dice.animator.setOptions({
-                duration: 150,
+                duration: 500,
                 fill: "both",
                 easing: "ease-in-out",
             });
@@ -547,11 +522,8 @@ function addReRollButtons(rerollOptionsContainer: HTMLDivElement) {
         for (let i = 0; i < htmlGroups.length; i++) {
             const { animator, key, htmlGroup, htmlImg, htmlImages } = htmlGroups[i];
             if (name !== key) {
-                htmlImg.src = htmlImages.normalIcon ?? whiteBackground;
-                animator.pause();
-                animator.play((t: number) => {
-                    const p = lerp(t, 100, 90);
-                    htmlGroup.style.scale = `${p}%`;
+                animator?.play("end").addEventListener("finish", () => {
+                    htmlImg.src = htmlImages.normalIcon ?? whiteBackground;
                 });
             }
         }
@@ -564,14 +536,13 @@ function addReRollButtons(rerollOptionsContainer: HTMLDivElement) {
                 event.stopPropagation();
                 unsetHTMLGroups(key);
                 htmlImg.src = htmlImages.hoverIcon ?? whiteBackground;
-                animator.removeListeners("finish");
-                animator.play().addEventListener("finish", () => {
+                animator?.play("start").addEventListener("finish", () => {
                     if (event.pointerType === "touch") {
-                        animator.removeListeners("finish");
-                        animator.play().addEventListener("finish", () => {
+                        animator.play("end").addEventListener("finish", () => {
                             htmlImg.src = htmlImages.normalIcon ?? whiteBackground;
                         });
                     }
+                    dice?.randomize();
                     groupButtonClicked(key);
                     roll();
                 });
@@ -579,14 +550,11 @@ function addReRollButtons(rerollOptionsContainer: HTMLDivElement) {
         });
     }
 
-    /* const loopOverHTMLGroups = (
+    const loopOverHTMLGroups = (
         func: (
-            htmlGroup: HTMLGroup<
-                Animator,
-                {
-                    hasTouched: boolean;
-                }
-            >,
+            htmlGroup: HTMLGroup<{
+                hasTouched: boolean;
+            }>,
             index: number
         ) => void
     ) => {
@@ -595,18 +563,15 @@ function addReRollButtons(rerollOptionsContainer: HTMLDivElement) {
         }
     };
     const setTranslations = (
-        htmlGroups: HTMLGroup<
-            Animator,
-            {
-                hasTouched: boolean;
-            }
-        >
+        htmlGroups: HTMLGroup<{
+            hasTouched: boolean;
+        }>
     ) => {
-        const { animator, htmlGroup, dice } = htmlGroups;
-        animator.pause();
-        animator.play((t: number) => {
-            const p = lerp(t, 0, -10);
-            htmlGroup.style.translate = `${p}vmax`;
+        const { elementAnimator, htmlGroup, dice } = htmlGroups;
+        elementAnimator?.play([{ translate: "0 0" }], {
+            duration: 150,
+            fill: "both",
+            easing: "ease-in-out",
         });
         dice?.animator.play([{ translate: "0 0" }], {
             duration: 150,
@@ -615,21 +580,18 @@ function addReRollButtons(rerollOptionsContainer: HTMLDivElement) {
         });
     };
     const unsetTranslations = (
-        htmlGroups: HTMLGroup<
-            Animator,
-            {
-                hasTouched: boolean;
-            }
-        >
+        htmlGroups: HTMLGroup<{
+            hasTouched: boolean;
+        }>
     ) => {
-        const { animator, htmlGroup, dice } = htmlGroups;
-        animator.pause();
-        animator.play((t: number) => {
-            const p = lerp(t, -10, 0);
-            htmlGroup.style.translate = `${p}vmax`;
+        const { elementAnimator, dice } = htmlGroups;
+        elementAnimator?.play([{ translate: "10vmax 0" }], {
+            duration: 500,
+            fill: "both",
+            easing: "ease-in-out",
         });
         dice?.animator.play([{ translate: "5vmax 0" }], {
-            duration: 1000,
+            duration: 500,
             fill: "both",
             easing: "ease-in-out",
         });
@@ -677,7 +639,7 @@ function addReRollButtons(rerollOptionsContainer: HTMLDivElement) {
         if (event.pointerType !== "touch") {
             loopOverHTMLGroups(unsetTranslations);
         }
-    }); */
+    });
 
     rerollContainer.appendChild(rerollButtons);
     rerollOptionsContainer.appendChild(rerollContainer);

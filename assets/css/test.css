@@ -23,8 +23,8 @@ body {
 }
 
 .canvas {
+    scale: 90%;
     width: 90%;
     height: 90%;
-    /* background: #333333; */
     border: #333333 outset 0.7vmax;
 }
