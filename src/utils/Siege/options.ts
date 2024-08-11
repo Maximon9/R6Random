@@ -15,8 +15,6 @@ import type {
 import { ElementAnimator } from "../animation/animation.js";
 import { GROUPS, GroupParseKeys, GroupParseKeysRev, OPParseKeys } from "../../ops.js";
 import { createElement } from "../html.js";
-// import { tryGiveHoverAnimation } from "../html.js";
-
 export const OptionCategories = {
     "Try Avoid Dupes": "0" as const,
 };
@@ -36,8 +34,8 @@ export const CategoryOptions = {
         "Secondary Weapons": "7" as const,
         "Secondary Sights": "8" as const,
         "Secondary Grips": "9" as const,
-        "Secondary Barrels": "10" as const,
-        "Secondary UnderBarrels": "11" as const,
+        "Secondary Barrels": "A" as const,
+        "Secondary UnderBarrels": "B" as const,
     },
 };
 export const CategoryOptionsRev = {
@@ -52,8 +50,8 @@ export const CategoryOptionsRev = {
         "7": "Secondary Weapons" as const,
         "8": "Secondary Sights" as const,
         "9": "Secondary Grips" as const,
-        "10": "Secondary Barrels" as const,
-        "11": "Secondary UnderBarrels" as const,
+        A: "Secondary Barrels" as const,
+        B: "Secondary UnderBarrels" as const,
     },
 };
 
@@ -61,40 +59,7 @@ export type CategoryNames = keyof typeof OptionCategories;
 export type CategoryValues = keyof typeof OptionCategoriesRev;
 export type OptionNames = keyof (typeof CategoryOptions)["0"];
 export type OptionValues = keyof (typeof CategoryOptionsRev)["0"];
-
 export default class Options {
-    /* static #IsUsingTouchScreen?: boolean;
-    static get usingTouchScreen(): boolean {
-        if (this.#IsUsingTouchScreen === undefined) {
-            window.addEventListener("touchstart", () => {
-                if (this.#IsUsingTouchScreen !== true) {
-                    this.#IsUsingTouchScreen = true;
-                }
-            });
-            window.addEventListener("mousemove", () => {
-                if (this.#IsUsingTouchScreen !== false) {
-                    this.#IsUsingTouchScreen = false;
-                }
-            });
-            window.addEventListener("mousedown", () => {
-                if (this.#IsUsingTouchScreen !== false) {
-                    this.#IsUsingTouchScreen = false;
-                }
-            });
-            window.addEventListener("mouseup", () => {
-                if (this.#IsUsingTouchScreen !== false) {
-                    this.#IsUsingTouchScreen = false;
-                }
-            });
-            if (this.#IsUsingTouchScreen === undefined) {
-                return window.matchMedia("(pointer: coarse)").matches;
-            } else {
-                return this.#IsUsingTouchScreen;
-            }
-        } else {
-            return this.#IsUsingTouchScreen;
-        }
-    } */
     static options: { "0"?: { [k in OptionValues]?: boolean } } = {};
     static Filter = class {
         static filter: {

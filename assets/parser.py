@@ -235,43 +235,35 @@ class __Parser:
             )
             ts_file.close()
 
-    """ 
-    export const GroupParseKeys: { [k: string]: string } = {};
-    GroupParseKeys[(GroupParseKeys["Attackers"] = "0")] = "Attackers";
-
-    export const OpParseKeys: { [k: string]: string } = {};
-    OpParseKeys[(OpParseKeys["Ash"] = "0")] = "Ash";
-    """
-
     def __make_parse_keys(
         this, data: StrDict[Union[list[str], str, StrDict]], parse_keys: str = ""
     ) -> str:
-        groups: list[tuple[str, int, StrDict]] = []
+        groups: list[tuple[str, str, StrDict]] = []
         parse_keys += "\n\nexport const GroupParseKeys = {"
-        i = 0
+        i = 48
         for key in data:
             value = data[key]
             if not "reference" in key.lower() and isinstance(value, dict):
-                parse_keys += f'\n\t{key}: "{i}" as const,'
-                groups.append((key, i, value))
+                char, index = this.__create_char_keys(i)
+                i = index
+                parse_keys += f'\n\t{key}: "{char}" as const,'
+                groups.append((key, char, value))
                 i += 1
         parse_keys += "\n};"
 
         parse_keys += "\nexport const GroupParseKeysRev = {"
-        i = 0
-        for key, num, _ in groups:
-            parse_keys += f'\n\t"{num}": "{key}" as const,'
-            i += 1
+        for key, char, _ in groups:
+            parse_keys += f'\n\t"{char}": "{key}" as const,'
         parse_keys += "\n};\n"
 
         parse_keys += "\n\nexport const OPParseKeys = {"
-        for _, num, data in groups:
-            parse_keys = this.__make_op_parse_keys(num, data, parse_keys)
+        for _, char, data in groups:
+            parse_keys = this.__make_op_parse_keys(char, data, parse_keys)
         parse_keys += "\n};"
 
         parse_keys += "\nexport const OPParseKeysRev = {"
-        for _, num, data in groups:
-            parse_keys = this.__make_op_parse_keys(num, data, parse_keys, True)
+        for _, char, data in groups:
+            parse_keys = this.__make_op_parse_keys(char, data, parse_keys, True)
         parse_keys += "\n};"
 
         parse_keys += "\n\nexport type ParsedGroupKeys = keyof typeof GroupParseKeys;"
@@ -284,14 +276,14 @@ class __Parser:
         """ type AllGroups = typeof GROUPS["Attackers"] & typeof GROUPS["Defenders"] """
         all_group_type_string = "\n\nexport type AllGroups = "
         for i in range(len(groups)):
-            (key, num, _) = groups[i]
+            (key, char, _) = groups[i]
             if i >= 0 and i < len(groups) - 1:
-                type_string += f'typeof OPParseKeys["{num}"] & '
-                rev_type_string += f'keyof typeof OPParseKeysRev["{num}"] | '
+                type_string += f'typeof OPParseKeys["{char}"] & '
+                rev_type_string += f'keyof typeof OPParseKeysRev["{char}"] | '
                 all_group_type_string += f'typeof GROUPS["{key}"] | '
             else:
-                type_string += f'typeof OPParseKeys["{num}"]'
-                rev_type_string += f'keyof typeof OPParseKeysRev["{num}"]'
+                type_string += f'typeof OPParseKeys["{char}"]'
+                rev_type_string += f'keyof typeof OPParseKeysRev["{char}"]'
                 all_group_type_string += f'typeof GROUPS["{key}"]'
         parse_keys += type_string + ";"
         parse_keys += "\nexport type AllOPNames = keyof CombinedOPParseKeys;\n"
@@ -309,17 +301,32 @@ class __Parser:
         rev: bool = False,
     ) -> str:
         parse_keys += f'\n\t"{group_name}":' + "{"
-        i = 0
+        i = 48
         for key in data:
             value = data[key]
             if isinstance(value, dict):
+                char, index = this.__create_char_keys(i)
+                i = index
                 if rev:
-                    parse_keys += f'\n\t\t"{i}": "{key}" as const,'
+                    parse_keys += f'\n\t\t"{char}": "{key}" as const,'
                 else:
-                    parse_keys += f'\n\t\t{key}: "{i}" as const,'
+                    parse_keys += f'\n\t\t{key}: "{char}" as const,'
                 i += 1
         parse_keys += "\n\t},"
         return parse_keys
+
+    def __create_char_keys(this, i: int) -> tuple[str, int]:
+        if i <= 122:
+            if i > 90:
+                if not i >= 97:
+                    i = 97
+            if i > 57 and i <= 90:
+                if not i >= 65:
+                    i = 65
+            char = chr(i)
+        else:
+            char = f"{i}"
+        return char, i
 
     def __parse_group(
         this,
@@ -871,6 +878,5 @@ class __Parser:
 
 
 Parser = __Parser()
-
 Parser.parse()
 # endregion

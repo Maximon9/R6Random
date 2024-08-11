@@ -1,7 +1,6 @@
 import { ElementAnimator } from "../animation/animation.js";
 import { GROUPS, GroupParseKeys, GroupParseKeysRev, OPParseKeys } from "../../ops.js";
 import { createElement } from "../html.js";
-// import { tryGiveHoverAnimation } from "../html.js";
 export const OptionCategories = {
     "Try Avoid Dupes": "0",
 };
@@ -20,8 +19,8 @@ export const CategoryOptions = {
         "Secondary Weapons": "7",
         "Secondary Sights": "8",
         "Secondary Grips": "9",
-        "Secondary Barrels": "10",
-        "Secondary UnderBarrels": "11",
+        "Secondary Barrels": "A",
+        "Secondary UnderBarrels": "B",
     },
 };
 export const CategoryOptionsRev = {
@@ -36,43 +35,11 @@ export const CategoryOptionsRev = {
         "7": "Secondary Weapons",
         "8": "Secondary Sights",
         "9": "Secondary Grips",
-        "10": "Secondary Barrels",
-        "11": "Secondary UnderBarrels",
+        A: "Secondary Barrels",
+        B: "Secondary UnderBarrels",
     },
 };
 export default class Options {
-    /* static #IsUsingTouchScreen?: boolean;
-    static get usingTouchScreen(): boolean {
-        if (this.#IsUsingTouchScreen === undefined) {
-            window.addEventListener("touchstart", () => {
-                if (this.#IsUsingTouchScreen !== true) {
-                    this.#IsUsingTouchScreen = true;
-                }
-            });
-            window.addEventListener("mousemove", () => {
-                if (this.#IsUsingTouchScreen !== false) {
-                    this.#IsUsingTouchScreen = false;
-                }
-            });
-            window.addEventListener("mousedown", () => {
-                if (this.#IsUsingTouchScreen !== false) {
-                    this.#IsUsingTouchScreen = false;
-                }
-            });
-            window.addEventListener("mouseup", () => {
-                if (this.#IsUsingTouchScreen !== false) {
-                    this.#IsUsingTouchScreen = false;
-                }
-            });
-            if (this.#IsUsingTouchScreen === undefined) {
-                return window.matchMedia("(pointer: coarse)").matches;
-            } else {
-                return this.#IsUsingTouchScreen;
-            }
-        } else {
-            return this.#IsUsingTouchScreen;
-        }
-    } */
     static options = {};
     static Filter = class {
         static filter = {};
