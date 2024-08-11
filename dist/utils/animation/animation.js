@@ -367,7 +367,29 @@ export class Animator {
                     animate = arg;
                 }
                 else if (arg !== undefined) {
-                    options = arg;
+                    if (options === undefined) {
+                        options = {};
+                    }
+                    const argKeys = Object.keys(arg);
+                    const ogKeys = Object.keys(this.options);
+                    const keys = (argKeys.length > ogKeys.length
+                        ? argKeys
+                        : ogKeys.length > argKeys.length
+                            ? ogKeys
+                            : ogKeys);
+                    for (let i = 0; i < keys.length; i++) {
+                        const key = keys[i];
+                        const argValue = arg[key];
+                        const ogValue = this.options[key];
+                        if (argValue !== undefined) {
+                            options[key] = argValue;
+                        }
+                        else {
+                            if (ogValue !== undefined) {
+                                options[key] = ogValue;
+                            }
+                        }
+                    }
                 }
             }
             if (animate === undefined) {
@@ -397,6 +419,7 @@ export class Animator {
                 this.#sign = 1;
                 this.#pos = "start";
             }
+            console.log(this.#pos);
             this.#sign *= -1;
         }
         else {
@@ -416,6 +439,8 @@ export class Animator {
         return this;
     };
     #udpate = (timestamp, animate, options, frameData) => {
+        let duration = options.duration ?? 0;
+        let animationCurve = options.animationCurve ?? AnimationCurves.linear;
         if (frameData.paused) {
             this.#emit("pause");
             // this.removeListeners("pause", data);
@@ -438,9 +463,9 @@ export class Animator {
             frameData.running = false;
         }
         else {
-            if (options.duration > 0) {
+            if (duration > 0) {
                 if (options.pingPong) {
-                    this.#timer += this.#sign * (this.#deltaTime / options.duration);
+                    this.#timer += this.#sign * (this.#deltaTime / duration);
                     if (this.#timer >= 1) {
                         this.#sign = -1;
                         if (this.#reverseTimer) {
@@ -461,7 +486,7 @@ export class Animator {
                     }
                 }
                 else {
-                    this.#timer += this.#sign * (this.#deltaTime / options.duration);
+                    this.#timer += this.#sign * (this.#deltaTime / duration);
                     if (this.#sign === 1) {
                         if (this.#timer >= 1) {
                             frameData.running = false;
@@ -478,7 +503,7 @@ export class Animator {
                 this.#timer = 1;
                 frameData.running = false;
             }
-            const animationTime = options.animationCurve.fetchTime(this.#timer);
+            const animationTime = animationCurve.fetchTime(this.#timer);
             animate(animationTime, ...this.#args);
         }
         requestAnimationFrame((timestamp) => {

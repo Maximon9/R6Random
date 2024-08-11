@@ -92,11 +92,11 @@ export type TimelineData = {
 };
 export type AnimationEvents = "finish" | "pause";
 export type AnimationOptions = {
-    duration: number;
-    fill: boolean;
-    animationCurve: AnimationCurve;
-    infinite: boolean;
-    pingPong: boolean;
+    duration?: number;
+    fill?: boolean;
+    animationCurve?: AnimationCurve;
+    infinite?: boolean;
+    pingPong?: boolean;
 };
 export type Animate = (time: number, ...args: any[]) => void;
 

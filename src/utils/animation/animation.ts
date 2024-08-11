@@ -366,7 +366,7 @@ export class Animator {
         }
     }
 
-    setOptions(options: Partial<AnimationOptions>) {
+    setOptions(options: AnimationOptions) {
         let key: keyof AnimationOptions;
         for (key in options) {
             const value = options[key];
@@ -398,7 +398,30 @@ export class Animator {
                 } else if (typeof arg === "function") {
                     animate = arg;
                 } else if (arg !== undefined) {
-                    options = arg;
+                    if (options === undefined) {
+                        options = {};
+                    }
+                    const argKeys = Object.keys(arg);
+                    const ogKeys = Object.keys(this.options);
+                    const keys = (
+                        argKeys.length > ogKeys.length
+                            ? argKeys
+                            : ogKeys.length > argKeys.length
+                            ? ogKeys
+                            : ogKeys
+                    ) as (keyof AnimationOptions)[];
+                    for (let i = 0; i < keys.length; i++) {
+                        const key = keys[i];
+                        const argValue = arg[key];
+                        const ogValue = this.options[key];
+                        if (argValue !== undefined) {
+                            options[key] = argValue as never;
+                        } else {
+                            if (ogValue !== undefined) {
+                                options[key] = ogValue as never;
+                            }
+                        }
+                    }
                 }
             }
             if (animate === undefined) {
@@ -427,6 +450,7 @@ export class Animator {
                 this.#sign = 1;
                 this.#pos = "start";
             }
+            console.log(this.#pos);
             this.#sign *= -1;
         } else {
             this.#timer = 0;
@@ -450,6 +474,8 @@ export class Animator {
         options: AnimationOptions,
         frameData: FrameData
     ) => {
+        let duration = options.duration ?? 0;
+        let animationCurve = options.animationCurve ?? AnimationCurves.linear;
         if (frameData.paused) {
             this.#emit("pause");
             // this.removeListeners("pause", data);
@@ -470,9 +496,9 @@ export class Animator {
         if (animate === undefined) {
             frameData.running = false;
         } else {
-            if (options.duration > 0) {
+            if (duration > 0) {
                 if (options.pingPong) {
-                    this.#timer += this.#sign * (this.#deltaTime / options.duration);
+                    this.#timer += this.#sign * (this.#deltaTime / duration);
                     if (this.#timer >= 1) {
                         this.#sign = -1;
                         if (this.#reverseTimer) {
@@ -490,7 +516,7 @@ export class Animator {
                         }
                     }
                 } else {
-                    this.#timer += this.#sign * (this.#deltaTime / options.duration);
+                    this.#timer += this.#sign * (this.#deltaTime / duration);
                     if (this.#sign === 1) {
                         if (this.#timer >= 1) {
                             frameData.running = false;
@@ -505,7 +531,7 @@ export class Animator {
                 this.#timer = 1;
                 frameData.running = false;
             }
-            const animationTime = options.animationCurve.fetchTime(this.#timer);
+            const animationTime = animationCurve.fetchTime(this.#timer);
             animate(animationTime, ...this.#args);
         }
         requestAnimationFrame((timestamp: number) => {

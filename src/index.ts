@@ -114,8 +114,11 @@ function createGroupButtons() {
                 unsetHTMLGroups(key);
                 htmlImg.src = htmlImages.hoverIcon ?? whiteBackground;
                 animator?.play("start")?.addEventListener("finish", () => {
-                    groupButtonClicked(key);
-                    changeLink("./op");
+                    animator?.play("end", { duration: 0.06 }).addEventListener("finish", () => {
+                        htmlImg.src = htmlImages.normalIcon ?? whiteBackground;
+                        groupButtonClicked(key);
+                        changeLink("./op.html");
+                    });
                 });
             }
         });
