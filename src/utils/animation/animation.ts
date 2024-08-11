@@ -450,7 +450,6 @@ export class Animator {
                 this.#sign = 1;
                 this.#pos = "start";
             }
-            console.log(this.#pos);
             this.#sign *= -1;
         } else {
             this.#timer = 0;
