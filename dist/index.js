@@ -105,7 +105,7 @@ function createGroupButtons() {
                     animator?.play("end", { duration: 0.06 }).addEventListener("finish", () => {
                         htmlImg.src = htmlImages.normalIcon ?? whiteBackground;
                         groupButtonClicked(key);
-                        changeLink("./op.html");
+                        changeLink("./op");
                     });
                 });
             }
