@@ -459,7 +459,7 @@ export const GROUPS = {
                     "assets/R6Images/OPIcons/Blitz_Icon.png",
                 ],
                 images: [
-                    "assets/R6Images/OPImages/Blitz.png",
+                    "assets/R6Images/OPImages/Blitz.webp",
                 ],
                 equipment: [
                     new EquipmentInfo({
@@ -543,7 +543,7 @@ export const GROUPS = {
                     "assets/R6Images/OPIcons/Buck_Icon.png",
                 ],
                 images: [
-                    "assets/R6Images/OPImages/Buck.png",
+                    "assets/R6Images/OPImages/Buck.webp",
                 ],
                 equipment: [
                     new EquipmentInfo({
