@@ -5,7 +5,7 @@ import { createOptions } from "./utils/Siege/options.js";
 import InputSystem from "./utils/input.js";
 import { AnimationCurves, Animator } from "./utils/animation/animation.js";
 import { createFooter } from "./utils/Siege/footer.js";
-import { changeLink, createElement, groupButtonClicked } from "./utils/html.js";
+import { changeLink, createElement, disableContextMenu, groupButtonClicked } from "./utils/html.js";
 import { HTMLGroup } from "./types/html.js";
 import { lerp } from "./utils/math.js";
 
@@ -16,8 +16,9 @@ const mainContentWrapper = document
     .item(0) as HTMLElement | null;
 
 function main() {
-    createGroupButtons();
     if (mainContentWrapper !== null) {
+        disableContextMenu(document.body, mainContentWrapper);
+        createGroupButtons();
         createOptions(mainContentWrapper, 4, false);
         createFooter(mainContentWrapper);
     }

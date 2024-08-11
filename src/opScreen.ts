@@ -22,12 +22,13 @@ import { whiteBackground } from "./utils/img.js";
 import { AnimationCurves, Animator, ElementAnimator } from "./utils/animation/animation.js";
 import InputSystem from "./utils/input.js";
 import { createFooter } from "./utils/Siege/footer.js";
-import { createElement, groupButtonClicked } from "./utils/html.js";
+import { createElement, disableContextMenu, groupButtonClicked } from "./utils/html.js";
 import Dice, { getRandomItemFromArray } from "./utils/randomize.js";
 import { HTMLGroup } from "./types/html.js";
 import { lerp } from "./utils/math.js";
 
 InputSystem.start();
+disableContextMenu(document.body);
 
 let opModal: HTMLElement | undefined = undefined;
 let rerollOptionsWrapper: HTMLDivElement | undefined = undefined;

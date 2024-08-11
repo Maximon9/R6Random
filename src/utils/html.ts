@@ -17,7 +17,10 @@ type ElementMap<T extends "html" | "svg" | "math" = "html"> = T extends "html"
     : HTMLElementTagNameMap;
 export function createElement<
     T extends "html" | "svg" | "math" = "html",
-    K extends keyof ElementMap<T> = keyof ElementMap<T>
+    K extends Exclude<keyof ElementMap<T>, symbol | number> = Exclude<
+        keyof ElementMap<T>,
+        symbol | number
+    >
 >(
     elementType: T,
     tagName: K,
@@ -25,7 +28,6 @@ export function createElement<
         contextMenu?: boolean;
         draggable?: boolean;
     } & ElementCreationOptions = {
-        contextMenu: false,
         draggable: false,
     }
 ): ElementMap<T>[K] {
@@ -45,16 +47,48 @@ export function createElement<
             is: options.is,
         }) as ElementMap<T>[K];
     }
-    if (options.contextMenu === false) {
-        if ((element as any).oncontextmenu !== undefined) {
-            (element as any).oncontextmenu = (event: MouseEvent) => {
-                event.preventDefault();
-                return false;
-            };
+    if (elementType === "html") {
+        if (
+            (element as HTMLElementTagNameMap[keyof HTMLElementTagNameMap]).oncontextmenu !==
+            undefined
+        ) {
+            if (options.contextMenu) {
+                enableContextMenu(element as HTMLElementTagNameMap[keyof HTMLElementTagNameMap]);
+            } else {
+                disableContextMenu(element as HTMLElementTagNameMap[keyof HTMLElementTagNameMap]);
+            }
+        }
+        if (
+            (element as HTMLElementTagNameMap[keyof HTMLElementTagNameMap]).draggable !== undefined
+        ) {
+            (element as HTMLElementTagNameMap[keyof HTMLElementTagNameMap]).draggable =
+                options.draggable ?? false;
         }
     }
-    if ((element as any).draggable !== undefined) {
-        (element as any).draggable = options.draggable ?? false;
-    }
     return element;
+}
+
+export function disableContextMenu<
+    T extends HTMLElementTagNameMap[keyof HTMLElementTagNameMap] = HTMLElementTagNameMap[keyof HTMLElementTagNameMap]
+>(...elements: T[]) {
+    for (let i = 0; i < elements.length; i++) {
+        const element = elements[i];
+        element.oncontextmenu = (event: MouseEvent) => {
+            event.stopImmediatePropagation();
+            event.stopPropagation();
+            return false;
+        };
+    }
+}
+export function enableContextMenu<
+    T extends HTMLElementTagNameMap[keyof HTMLElementTagNameMap] = HTMLElementTagNameMap[keyof HTMLElementTagNameMap]
+>(...elements: T[]) {
+    for (let i = 0; i < elements.length; i++) {
+        const element = elements[i];
+        element.oncontextmenu = (event: MouseEvent) => {
+            event.stopImmediatePropagation();
+            event.stopPropagation();
+            return true;
+        };
+    }
 }

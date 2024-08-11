@@ -14,6 +14,7 @@ import type {
 } from "../../ops.js";
 import { ElementAnimator } from "../animation/animation.js";
 import { GROUPS, GroupParseKeys, GroupParseKeysRev, OPParseKeys } from "../../ops.js";
+import { createElement } from "../html.js";
 // import { tryGiveHoverAnimation } from "../html.js";
 
 export const OptionCategories = {
@@ -488,14 +489,14 @@ export function createOptions(
     insert: number,
     makePopup: boolean = true
 ): OptionDisplayType[] {
-    const optionsModal = document.createElement("section");
+    const optionsModal = createElement("html", "section");
     const htmls: OptionDisplayType[] = [];
     if (makePopup) {
         /* <span aria-hidden="true">&times;</span> */
-        const exitContainer = document.createElement("div");
+        const exitContainer = createElement("html", "div");
         exitContainer.className = "exit-options-container";
 
-        const exitButton = document.createElement("div");
+        const exitButton = createElement("html", "div");
         exitButton.className = "exit-options";
         exitButton.innerHTML += "&times;";
 
@@ -542,21 +543,21 @@ export function createOptions(
     }
     optionsModal.className = "options-modal";
 
-    const optionsLabel = document.createElement("h1");
+    const optionsLabel = createElement("html", "h1");
     optionsLabel.innerHTML = "Options";
 
-    const optionsFooter = document.createElement("p");
+    const optionsFooter = createElement("html", "p");
     optionsFooter.innerHTML = "Options are saved in cookies";
 
-    const optionsModalContent = document.createElement("div");
+    const optionsModalContent = createElement("html", "div");
     optionsModalContent.className = "options-modal-content";
 
-    const optionsModalContentScrollWrapper = document.createElement("div");
+    const optionsModalContentScrollWrapper = createElement("html", "div");
     optionsModalContentScrollWrapper.className = "options-modal-content-scroll-wrapper";
 
-    const table = document.createElement("table");
+    const table = createElement("html", "table");
 
-    const tableBody = document.createElement("tbody");
+    const tableBody = createElement("html", "tbody");
     optionsLabel.appendChild(optionsFooter);
     optionsModal.appendChild(optionsLabel);
     optionInfos = {
@@ -645,12 +646,12 @@ export function changeOptionsDisplay(type: "show" | "hide") {
 export let optionInfos: OptionInfosType | undefined = undefined;
 export function createOptionsNavBar(optionsModal: HTMLElement, makePopup: boolean) {
     if (optionInfos !== undefined) {
-        const navBar = document.createElement("div");
+        const navBar = createElement("html", "div");
         navBar.className = "nav-bar";
         const navButtons: [keyof typeof optionInfos, AllElementAnimators, HTMLButtonElement][] = [];
         for (const n in optionInfos) {
             const name = n as keyof typeof optionInfos;
-            const navButton = document.createElement("button");
+            const navButton = createElement("html", "button");
             if (makePopup) {
                 navButton.style.backgroundColor = "rgba(34, 34, 34, 0.5)";
             }
@@ -759,7 +760,7 @@ export function createTryAvoidOptions(
     tableBody: HTMLTableSectionElement
 ): OptionDisplayType[] {
     const categoryName = "Try Avoid Dupes";
-    const selectAllButtonContainer = document.createElement("div");
+    const selectAllButtonContainer = createElement("html", "div");
     selectAllButtonContainer.className = "avoid-select-all-button-container";
     selectAllButtonContainer.style.display = "none";
     selectAllButtonContainer.style.alignItems = "flex-start";
@@ -767,7 +768,7 @@ export function createTryAvoidOptions(
     selectAllButtonContainer.style.borderColor = "transparent";
     selectAllButtonContainer.style.borderStyle = "none";
 
-    const selectAllButton = document.createElement("div");
+    const selectAllButton = createElement("html", "div");
     selectAllButton.className = "avoid-select-all-button";
     selectAllButton.style.scale = "90%";
     if (Options.categoryTrue(categoryName)) {
@@ -797,15 +798,15 @@ export function createTryAvoidOptions(
     selectAllButtonContainer.appendChild(selectAllButton);
     optionsModalContentScrollWrapper.appendChild(selectAllButtonContainer);
 
-    const avoidModal = document.createElement("section");
+    const avoidModal = createElement("html", "section");
     avoidModal.className = "avoid-modal";
 
-    const avoidContent = document.createElement("div");
+    const avoidContent = createElement("html", "div");
 
-    const tableRow = document.createElement("tr");
+    const tableRow = createElement("html", "tr");
     tableRow.style.display = "none";
 
-    const tableData = document.createElement("td");
+    const tableData = createElement("html", "td");
 
     tableData.appendChild(avoidModal);
     avoidModal.appendChild(avoidContent);
@@ -819,7 +820,7 @@ export function createTryAvoidOptions(
         { scaler: number }
     ][] = [];
     for (const parseKey in CategoryOptionsRev["0"]) {
-        const optionButton = document.createElement("div");
+        const optionButton = createElement("html", "div");
         const key = CategoryOptionsRev["0"][parseKey as keyof (typeof CategoryOptionsRev)["0"]];
         optionButton.innerHTML = key;
         const animator = new ElementAnimator(optionButton);
@@ -920,22 +921,22 @@ export function createFilter(
     optionsModalContentScrollWrapper: HTMLDivElement,
     tableBody: HTMLTableSectionElement
 ): OptionDisplayType[] {
-    const filterTableRow = document.createElement("tr");
+    const filterTableRow = createElement("html", "tr");
     filterTableRow.style.display = "none";
 
-    const filterTableData = document.createElement("td");
+    const filterTableData = createElement("html", "td");
 
-    const filterModal = document.createElement("section");
+    const filterModal = createElement("html", "section");
     filterModal.className = "filter-modal";
 
-    const filterModalContent = document.createElement("div");
+    const filterModalContent = createElement("html", "div");
     filterModalContent.className = "filter-modal-content";
 
-    const filterSelectAllContainer = document.createElement("div");
+    const filterSelectAllContainer = createElement("html", "div");
     filterSelectAllContainer.style.display = "none";
     filterSelectAllContainer.className = "select-all-button-container";
 
-    const selectAllButton = document.createElement("div");
+    const selectAllButton = createElement("html", "div");
     selectAllButton.className = "select-all-button";
     selectAllButton.style.scale = "90%";
     if (Options.Filter.AllTrue) {
@@ -969,16 +970,16 @@ export function createFilter(
     filterTableRow.appendChild(filterTableData);
     tableBody.appendChild(filterTableRow);
 
-    const filterTable = document.createElement("table");
+    const filterTable = createElement("html", "table");
     filterModalContent.appendChild(filterTable);
 
-    const filterTableBody = document.createElement("tbody");
+    const filterTableBody = createElement("html", "tbody");
     filterTable.appendChild(filterTableBody);
 
-    const filterSelectGroup = document.createElement("tr");
+    const filterSelectGroup = createElement("html", "tr");
     filterTableBody.appendChild(filterSelectGroup);
 
-    const filterSelectOPs = document.createElement("tr");
+    const filterSelectOPs = createElement("html", "tr");
     filterTableBody.appendChild(filterSelectOPs);
 
     const htmlSelectGroupButtons: [
@@ -999,10 +1000,10 @@ export function createFilter(
     for (const nKey in GROUPS) {
         const key = nKey as keyof typeof GROUPS;
         const group = GROUPS[key];
-        const groupSelectdata = document.createElement("td");
-        const groupSelectContainer = document.createElement("div");
+        const groupSelectdata = createElement("html", "td");
+        const groupSelectContainer = createElement("html", "div");
         groupSelectContainer.className = "group-select-container";
-        const groupSelectButton = document.createElement("div");
+        const groupSelectButton = createElement("html", "div");
         groupSelectButton.className = "group-select";
         groupSelectButton.style.scale = "90%";
 
@@ -1035,10 +1036,10 @@ export function createFilter(
         if (group.ops.length > 0) {
             htmlSelectFiliterButtons[key] = [];
             const item = htmlSelectFiliterButtons[key]!;
-            const column1 = document.createElement("td");
+            const column1 = createElement("html", "td");
             let column2 = null;
             if (group.ops.length > 1) {
-                column2 = document.createElement("td");
+                column2 = createElement("html", "td");
                 groupSelectdata.colSpan = 2;
             } else if (group.ops.length === 1) {
                 groupSelectdata.colSpan = 1;
@@ -1048,9 +1049,9 @@ export function createFilter(
             const halfLength = Math.ceil(group.ops.length / 2);
             for (let i = 0; i < group.ops.length; i++) {
                 const op = group.ops[i];
-                const filterButton = document.createElement("div");
+                const filterButton = createElement("html", "div");
                 filterButton.className = "filter-button";
-                const filterIcon = document.createElement("img");
+                const filterIcon = createElement("html", "img");
                 filterIcon.draggable = false;
                 filterIcon.src = op.icons[0];
                 filterIcon.alt = op.name;
