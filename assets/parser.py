@@ -7,7 +7,7 @@ from os.path import dirname, relpath as __relpath
 from pathlib import Path
 from typing import Callable, LiteralString, Optional, TypedDict, Union, TypeVar, Generic
 from math import ceil
-from shutil import copyfile
+from shutil import copyfile, rmtree
 
 
 class Import(TypedDict):
@@ -225,6 +225,7 @@ class __Parser:
         if not exists(this.ops_ts_path):
             Path(dirname(this.ops_ts_path)).mkdir(parents=True, exist_ok=True)
         with open(this.ops_ts_path, "w") as ts_file:
+            rmtree(this.images_path, True)
             parse_string = this.__parse_group(
                 parsed_data, this.__try_fetch_references(parsed_data)
             )
