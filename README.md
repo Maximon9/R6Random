@@ -1,6 +1,6 @@
 # R6Random
 
-## Here is the link to the website https://maximon9.github.io/R6Random/
+### Here is the link to the website https://maximon9.github.io/R6Random/
 
 #### Tom Clancy's Rainbow Six Siege operator randomizer displays a random operator (along with their picture and badge), random gun selection, and random equipment selection.
 
