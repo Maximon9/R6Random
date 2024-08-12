@@ -416,7 +416,7 @@ function addReRollButtons(rerollOptionsContainer) {
         }
     };
     for (let i = 0; i < htmlGroups.length; i++) {
-        const { animator, key, htmlGroup, htmlImg, htmlImages, dice } = htmlGroups[i];
+        const { animator, key, htmlGroup, htmlImg, htmlImages } = htmlGroups[i];
         htmlGroup.addEventListener("pointerup", (event) => {
             if (event.button === 0) {
                 event.stopImmediatePropagation();
@@ -429,7 +429,10 @@ function addReRollButtons(rerollOptionsContainer) {
                             htmlImg.src = htmlImages.normalIcon ?? whiteBackground;
                         });
                     }
-                    dice?.randomize();
+                    for (let i = 0; i < htmlGroups.length; i++) {
+                        const { dice } = htmlGroups[i];
+                        dice?.randomize();
+                    }
                     groupButtonClicked(key);
                     roll();
                 });
